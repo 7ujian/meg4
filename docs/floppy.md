@@ -171,7 +171,8 @@ Both sounds and music tracks encode notes on 4 bytes as
 |      3 |     1 | effect parameter                                       |
 
 Sounds chunk has one note per row, music tracks have 4 notes per row. Waveform index 0 and some effects are only valid for music
-tracks. The full list of effect type codes can be found in the memory map documentation, under section Digital Signal Processor.
+tracks. The full list of effect type codes can be found in the memory map documentation, under section
+[Note effects](https://bztsrc.gitlab.io/meg4/manual_en.html#note_effects).
 
 Overlays
 --------
