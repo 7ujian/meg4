@@ -89,6 +89,20 @@ static int format_tic80(uint8_t *buf, int len)
     memset(meg4.src, 0, 8 + 8 * 65536);
     memcpy(meg4.src, "#!lua\n\n", 7);
 
+    /* always load defaults */
+    memset(meg4.mmio.palette, 0, sizeof(meg4.mmio.palette));
+    for(i = 0; i < 16; i++)
+        meg4.mmio.palette[i] = (0xff << 24) | (Sweetie16[i * 3 + 2] << 16) | (Sweetie16[i * 3 + 1] << 8) | Sweetie16[i * 3 + 0];
+    memset(meg4.waveforms, 0, sizeof(meg4.waveforms));
+    for(j = 0; j < (int)(sizeof(Waveforms)/sizeof(Waveforms[0])/16); j++) {
+        meg4.waveforms[j][0] = 32;
+        meg4.waveforms[j][7] = 0xff;
+        for(i = 0; i < 16; i++) {
+            meg4.waveforms[j][i * 2 + 8] = Waveforms[j * 16 + i] & 0xf0;
+            meg4.waveforms[j][i * 2 + 9] = (Waveforms[j * 16 + i] & 0x0f) << 4;
+        }
+    }
+
     for(end = buf + len; buf + 4 < end; buf += size) {
         /* header */
         type = buf[0] & 0x1f; bank = buf[0] >> 5; size = (buf[2] << 8) | buf[1]; buf += 4;
@@ -98,18 +112,7 @@ static int format_tic80(uint8_t *buf, int len)
         /* data */
         switch(type) {
             case CHUNK_DEFAULT:
-                memset(meg4.mmio.palette, 0, sizeof(meg4.mmio.palette));
-                for(i = 0; i < 16; i++)
-                    meg4.mmio.palette[i] = (0xff << 24) | (Sweetie16[i * 3 + 2] << 16) | (Sweetie16[i * 3 + 1] << 8) | Sweetie16[i * 3 + 0];
-                memset(meg4.waveforms, 0, sizeof(meg4.waveforms));
-                for(j = 0; j < (int)(sizeof(Waveforms)/sizeof(Waveforms[0])/16); j++) {
-                    meg4.waveforms[j][0] = 32;
-                    meg4.waveforms[j][7] = 0xff;
-                    for(i = 0; i < 16; i++) {
-                        meg4.waveforms[j][i * 2 + 8] = Waveforms[j * 16 + i] & 0xf0;
-                        meg4.waveforms[j][i * 2 + 9] = (Waveforms[j * 16 + i] & 0x0f) << 4;
-                    }
-                }
+                /* we have already loaded the defaults */
             break;
             case CHUNK_PALETTE:
                 memset(meg4.mmio.palette, 0, sizeof(meg4.mmio.palette));

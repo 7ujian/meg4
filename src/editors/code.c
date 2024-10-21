@@ -39,6 +39,8 @@ static char ***rules, search[64], replace[64], func[64], line[6];
 /* these aren't static only for one reason, so that tests/runner (which has no interface) can print them */
 int errline = 0, errpos = 0;
 char errmsg[256] = { 0 };
+/* do not show the blinking cursor when the menu is active */
+extern int menu_active;
 
 /**
  * Case insensitive compare
@@ -187,7 +189,7 @@ void code_delete(uint32_t start, uint32_t end)
     memmove(meg4.src + start, meg4.src + end, meg4.src_len - end);
     meg4.src_len -= end - start;
     if(meg4.src_len < 1) {
-        memcpy(meg4.src, "#!c\n\n", 6);
+        memcpy(meg4.src, "#!c\n\n\0", 6);
         meg4.src_len = 5;
         start = 4;
     }
@@ -222,18 +224,32 @@ void code_insert(char *str, uint32_t len)
         allocsize += 65536;
         meg4.src = (char*)realloc(meg4.src, allocsize);
         if(!meg4.src) { meg4.mmio.ptrspr = MEG4_PTR_ERR; meg4.src_len = 0; return; }
+        memset(meg4.src + meg4.src_len - 1, 0, allocsize - meg4.src_len + 1);
     }
     memmove(meg4.src + cursor + len, meg4.src + cursor, meg4.src_len - cursor);
+    /* handle if all code is selected and the pasted string also starts with the same language shebang */
+    if((!cursor || !sels) && len >= meg4.src_len && !memcmp(meg4.src, str, meg4.src_len)) {
+        str += meg4.src_len; len -= meg4.src_len;
+    }
+    if(len < 1) return;
     memcpy(meg4.src + cursor, str, len);
     meg4.src_len += len;
     cursor += len;
     for(i = 0; i < len; i++) if(str[i] == '\n') numnl++;
     postok = cursor;
+    /* failsafes */
+    while(meg4.src_len > 0 && !meg4.src[meg4.src_len - 1]) meg4.src_len--;
+    if((meg4.src_len > 1 && meg4.src[meg4.src_len - 2] != '\n') || (meg4.src_len && meg4.src[meg4.src_len - 1])) {
+        meg4.src_len = strlen(meg4.src);
+        if(meg4.src_len && meg4.src[meg4.src_len - 1] != '\n') meg4.src[meg4.src_len++] = '\n';
+        meg4.src[meg4.src_len++] = 0;
+        for(numnl = i = 0; i < meg4.src_len; i++) if(meg4.src[i] == '\n') numnl++;
+    }
     /* if it was the first line that was edited, refresh rules too */
     if(row < 2) {
         if(tok) free(tok);
         rules = hl_find(meg4.src + 2); tok = NULL; alloctok = numtok = 0;
-        notc = memcmp(meg4.src, "#!c", 3) || (meg4.src[3] != '\r' && meg4.src[3] != '\n');
+        notc = memcmp(meg4.src, "#!c", 3) || meg4.src[3] != '\n';
     }
     tok = hl_tokenize(rules, meg4.src, meg4.src + meg4.src_len, tok, &numtok, &alloctok, &postok);
 }
@@ -298,7 +314,12 @@ void code_down(void)
             if(!(meg4.src[cursor] & 8)) cursor += 3;
         }
     }
-    if(cursor > meg4.src_len - 1) cursor = meg4.src_len - 1;
+    if(cursor >= meg4.src_len - 1) {
+        /* make sure there's a newline at the end */
+        cursor = strlen(meg4.src);
+        if(cursor && meg4.src[cursor - 1] != '\n') meg4.src[cursor++] = '\n';
+        meg4.src_len = cursor + 1;
+    }
 }
 
 /**
@@ -717,7 +738,7 @@ book:               if(meg4.src_bm[0]) { modal = 6; modalclk = -1; }
                 if(!memcmp(&key, "End", 4)) { if(i) { sels = cursor; } while(cursor < meg4.src_len - 1 && meg4.src[cursor] != '\n') cursor++; } else
                 if(!memcmp(&key, "PgUp", 4)) { if(i) { sels = cursor; } for(j = 0; j < 40; j++) code_up(); } else
                 if(!memcmp(&key, "PgDn", 4)) { if(i) { sels = cursor; } for(j = 0; j < 40; j++) code_down(); } else
-                if(!memcmp(&key, "Sel", 4)) { sels = 0; sele = cursor = lastc = meg4.src_len; } else
+                if(!memcmp(&key, "Sel", 4)) { sels = 0; sele = cursor = lastc = meg4.src_len - 1; } else
                 if(!memcmp(&key, "Cpy", 4) || !memcmp(&key, "Cut", 4)) {
 copy:               if(sels != -1U && sele != -1U) {
                         j = sels < sele ? sels : sele; k = sels < sele ? sele : sels;
@@ -838,7 +859,7 @@ void code_view(void)
         while(i + 1 < numtok && (tok[i + 1] >> 4) <= (int)(str - meg4.src)) i++;
         if(str == meg4.src + cursor) {
             col = cl; cx = dx; j = 1;
-            inv = (le32toh(meg4.mmio.tick) & 512) && !modal;
+            inv = (!menu_active && (le32toh(meg4.mmio.tick) & 512)) && !modal;
         } else
             inv = j = 0;
         if(sels != -1U && sele != -1U && sels != sele) {
@@ -908,7 +929,8 @@ void code_view(void)
     }
     /* in case the last line does not end in a newline */
     if((str == meg4.src + cursor) && !modal) {
-        if((le16toh(meg4.mmio.tick) & 512)) meg4_box(meg4.valt, 632, 378, 2560, dx + 18, dy, 5, 8, cr, cr, cr, 0, 0, 0, 0, 0);
+        if(!menu_active && (le16toh(meg4.mmio.tick) & 512))
+            meg4_box(meg4.valt, 632, 378, 2560, dx + 18, dy, 5, 8, cr, cr, cr, 0, 0, 0, 0, 0);
         col = cl; row = n; cx = dx;
     }
     if(lastc != cursor) {

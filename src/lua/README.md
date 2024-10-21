@@ -1,10 +1,10 @@
 This is a stripped down and security hardened Lua. **DO NOT** use the stock Lua repo. I repeat **DO NOT** use the stock Lua repo,
 that's full of security holes.
 
-The original source was downloaded from [lua-5.4.6.tar.gz](https://www.lua.org/ftp/lua-5.4.6.tar.gz).
+The original source was downloaded from [lua-5.4.7.tar.gz](https://www.lua.org/ftp/lua-5.4.7.tar.gz).
 
 If you have to update Lua, then keep THIS luaconf.h (otherwise make sure it is using snprintf and NOT sprintf, and that the stack
-is reasonably limited), delete lua.c, lcorolib.c, ldblib.c, liolib.c, loadlib.c, loslib.c; remove *all* file operations (like
+is reasonably limited), delete lua.c, luac.c lcorolib.c, ldblib.c, liolib.c, loadlib.c, loslib.c; remove *all* file operations (like
 Lua_doFile and friends) and *all* pipe and exec functionality: edit lauxlib.c and remove luaL_fileresult, luaL_execresult, LoadF,
 getF, errfile, skipBOM, skipcomment, luaL_loadfilex functions; edit lbaselib.c and remove luaB_loadfile, luaB_doFile, edit linit.c
 and from the table remove luaopen_package, luaopen_coroutine, luaopen_io, luaopen_os, luaopen_debug. Remove the missing .o files

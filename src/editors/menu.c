@@ -29,10 +29,10 @@
 #endif
 
 extern const char *copyright[3];
-static int menu_width = 0, menu_subwidth = 0, menu_active = 0, menu_sel = - 1, menu_pro = 0, menu_last = 0, subw = 0;
+static int menu_width = 0, menu_subwidth = 0, menu_sel = - 1, menu_pro = 0, menu_last = 0, subw = 0;
 static char *keys[10] = { "Ctrl\0R", "Ctrl\0S", "Ctrl\0L", "Ctrl\0⏎", "F1\0", "GUI\0", "AltGr\0", "Alt\0I", "Alt\0K", "Alt\0J" };
 static int keyw[20], titlew[HELP_TOC - MENU_HELP], zipt, zipb, zipo, zipw, zipbin = 0;
-int menu_scroll, menu_scrmax, menu_scrhgt, menu_scrbtn, menu_scrpos, menu_scrsiz, menu_scrofs, menu_stat = 0, last = 0;
+int menu_active = 0, menu_scroll, menu_scrmax, menu_scrhgt, menu_scrbtn, menu_scrpos, menu_scrsiz, menu_scrofs, menu_stat = 0, last = 0;
 
 /**
  * Display a keyboard shortcut

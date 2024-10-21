@@ -321,7 +321,7 @@ void sound_menu(uint32_t *dst, int dw, int dh, int dp)
 void sound_view(void)
 {
     int8_t *ptr = NULL;
-    uint32_t fg;
+    uint32_t fg, bg;
     int i, j, k, y0, y1, s, e, l;
     int clk = le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_L, px = le16toh(meg4.mmio.ptrx), py = le16toh(meg4.mmio.ptry);
     char tmp[32];
@@ -421,17 +421,20 @@ void sound_view(void)
         for(i = 0; i < 31; i++) {
             sprintf(tmp, "%X", i + 1); j = (11 - meg4_width(meg4_font, 1, tmp, NULL)) / 2;
             if(meg4.waveforms[i][0] || meg4.waveforms[i][1]) {
-                if((clk && py >= 276 + 12 && py < 276 + 25 &&
-                  px >= 180 + i * 11 && px < 191 + i * 11)) {
-                    meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_BTN_D], theme[THEME_BTN_BG], theme[THEME_BTN_L], 0, 0, 0, 0, 0);
+                bg = (i + 1 == meg4.mmio.sounds[(idx << 2) + 1]) ? theme[THEME_SEL_BG] + 0x0f0f0f : theme[THEME_BTN_BG];
+                if((clk && py >= 276 + 12 && py < 276 + 25 && px >= 180 + i * 11 && px < 191 + i * 11)) {
+                    meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_BTN_D], bg, theme[THEME_BTN_L], 0, 0, 0, 0, 0);
                     meg4_text(meg4.valt, 180 + j + i * 11, 276 + 3, 2560, theme[THEME_BTN_FG], 0, 1, meg4_font, tmp);
                 } else {
-                    meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_BTN_L], theme[THEME_BTN_BG], theme[THEME_BTN_D], 0, 0, 0, 0, 0);
+                    meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_BTN_L], bg, theme[THEME_BTN_D], 0, 0, 0, 0, 0);
                     meg4_text(meg4.valt, 180 + j + i * 11, 276 + 2, 2560, theme[THEME_BTN_FG], 0, 1, meg4_font, tmp);
                 }
             } else {
-                meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_L], theme[THEME_L], theme[THEME_L], 0, 0, 0, 0, 0);
-                meg4_text(meg4.valt, 180 + j + i * 11, 276 + 2, 2560, theme[THEME_D], 0, 1, meg4_font, tmp);
+                bg = theme[(i + 1 == meg4.mmio.sounds[(idx << 2) + 1]) ? THEME_SEL_BG : THEME_L];
+                meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, bg, bg, bg, 0, 0, 0, 0, 0);
+                meg4_text(meg4.valt, 180 + j + i * 11, 276 +
+                    ((clk && py >= 276 + 12 && py < 276 + 25 && px >= 180 + i * 11 && px < 191 + i * 11) ? 3 : 2),
+                    2560, theme[THEME_D], 0, 1, meg4_font, tmp);
             }
         }
     } else {
