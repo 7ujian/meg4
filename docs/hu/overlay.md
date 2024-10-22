@@ -16,13 +16,13 @@ számítógépéről fognak érkezni. Ezzel könnyedén egy permanens tároló a
 Átfedőválasztó
 --------------
 
-Az oldal tetején látható a memóriaátfedő kiválasztó, minden egyes átfedő méretével. A sötétebb bejegyzések azt jelzik, hogy az
-adott átfedő nincs megadva. Összesen 256 átfedő áll rendelkezésedre, 00-tól FF-ig.
+Az oldal tetején látható a memóriaátfedő kiválasztó, minden egyes átfedő méretével (<ui2>1</ui2>). A sötétebb bejegyzések azt
+jelzik, hogy az adott átfedő nincs megadva. Összesen 256 átfedő áll rendelkezésedre, 00-tól FF-ig.
 
 Átfedő tartalma
 ---------------
 
-A tábla alatt láthatod az átfedő adatait hexdump formájában (csak akkor, ha nem üres átfedő van épp kiválasztva).
+A tábla alatt láthatod az átfedő adatait hexdump formájában (csak akkor, ha nem üres átfedő van épp kiválasztva, <ui2>2</ui2>).
 
 A hexdump egy pofonegyszerű formátum, az első oszlop tartalmazza a címet, ami mindig 16-al osztható. Ezt követi az adott
 címen található 16 bájt hexa formában, majd ugyanaz a 16 bájt karakterként. Ennyi.
@@ -30,9 +30,9 @@ címen található 16 bájt hexa formában, majd ugyanaz a 16 bájt karakterkén
 Átfedő menü
 -----------
 
-A menüsorban fent, megadhatsz egy memóriacímet és egy méretet, majd az <ui1>Elment</ui1> gombra kattintva le fogja tárolni a
-memória adatait a kijelölt átfedőbe. A <ui1>Betölt</ui1> gomb használatával visszatölthető a memória tartalma a megadott címre,
-de ekkor a méret azt jelenti, maximum ennyi bájtot szabad betölteni.
+A menüsorban fent (<ui2>3</ui2>), megadhatsz egy memóriacímet és egy méretet, majd az <ui1>Elment</ui1> gombra kattintva le fogja
+tárolni a memória adatait a kijelölt átfedőbe. A <ui1>Betölt</ui1> gomb használatával visszatölthető a memória tartalma a megadott
+címre, de ekkor a méret azt jelenti, maximum ennyi bájtot szabad betölteni.
 
 Az <ui1>Export</ui1> gombra kattintva megjelenik a fájlmentés ablak, ahol lementheted és módosíthatod a bináris tartalmat egy
 külsős programmal. Az átfedő visszatöltéséhez a fájlt úgy kell elnevezni, hogy `memXX.bin`, ahol az `XX` a használni kívánt átfedő

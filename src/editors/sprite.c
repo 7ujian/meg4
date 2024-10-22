@@ -151,6 +151,7 @@ int sprite_ctrl(void)
         if(px >= 11 && px < 11+256 && py >= 23 && py < 23+256) {
             sprex = ((px - 11) * npix) >> 8;
             sprey = ((py - 23) * npix) >> 8;
+            toolbox_selline(((wins & 31) << 3) + sprex, ((wins >> 5) << 3) + sprey);
         } else
             sprex = sprey = -1;
         if(last && !clk) {
@@ -159,6 +160,7 @@ int sprite_ctrl(void)
             if(wine < wins) wine = wins;
             if(wins > 1023) wins = 1023;
             if(wine > 1023) wine = 1023;
+            toolbox_selline(-1, -1);
             /* sprite editor area release */
             if(px >= 11 && px < 11+256 && py >= 23 && py < 23+256) {
                 if(tool == 3)

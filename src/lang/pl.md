@@ -63,7 +63,7 @@ Klucze wyskakujące z kolejki są reprezentowane w UTF-8. Niektóre nieprawidło
 
 | Kod klucza | Opis                                         |
 |---------|-------------------------------------------------|
-| `\x8`   | Znak 8, klawisz <kbd>Backspace</kbd>            |
+| `\x8`   | Znak 8, klawisz <kbd>←Backspace</kbd>           |
 | `\x9`   | Znak 9, klawisz <kbd>Tab</kbd>                  |
 | `\n`    | Znak 10, klawisz <kbd>⏎Enter</kbd>              |
 | `\x1b`  | Znak 27, klawisz <kbd>Esc</kbd>                 |
@@ -439,6 +439,31 @@ modele prawdopodobnie mają współrzędne lokalne, narysowałoby to wszystkie m
 chcesz wyświetlić wiele modeli w świecie, najpierw powinieneś je przetłumaczyć (umieścić) na współrzędne świata za pomocą [trns],
 a następnie użyć przetłumaczonej chmury wierzchołków za pomocą [mesh] (przesuwanie i obracanie modelu nie zmieni trójkątów, tylko
 ich współrzędne wierzchołków).
+
+## Skróty Edytora Kodu
+
+Dodatkowe skróty [klawiatura], których możesz również użyć podczas edycji źródła:
+
+| Klawisz | Opis |
+|------------------------------|--------------------------------------------------------------------------------------|
+| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Znajdź ciąg |
+| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Znajdź ponownie |
+| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Wyszukaj i zamień (w zaznaczonym tekście lub w jego braku, w całym źródle) |
+| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Przejdź do linii |
+| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Przejdź do definicji funkcji |
+| <kbd>Ctrl</kbd>+<kbd>N</kbd> | Wyświetl listę zakładek |
+| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Przełącz zakładkę w bieżącym wierszu |
+| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Przejdź do poprzedniej zakładki |
+| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Przejdź do następnej zakładki |
+| <kbd>Ctrl</kbd>+<kbd>,</kbd> | Zmniejsz wcięcie zaznaczenia |
+| <kbd>Ctrl</kbd>+<kbd>.</kbd> | Zwiększ wcięcie zaznaczenia |
+| <kbd>Home</kbd> | Przesuń kursor na początek wiersza |
+| <kbd>End</kbd> | Przesuń kursor na koniec wiersza |
+| <kbd>PgUp</kbd> | Przesuń kursor o 42 wiersze (jedną stronę) w górę |
+| <kbd>PgDown</kbd> | Przesuń kursor o 42 wiersze (jedną stronę) w dół |
+| <kbd>F1</kbd> | Jeśli kursor znajduje się na liście argumentów API, przejdź do wbudowanej strony pomocy funkcji |
+
+Zobacz także menu, aby poznać alternatywne metody wprowadzania danych i ich skróty klawiaturowe.
 
 # Konsola
 

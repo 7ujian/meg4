@@ -11,7 +11,7 @@ You'll see five coloumns and below a piano.
 
 ## Tracks
 
-On the left the first coloumn selects which music track to edit.
+On the left the first coloumn selects which music track to edit (<ui2>1</ui2>).
 
 | Key Combination              | Description                                                                                  |
 |------------------------------|----------------------------------------------------------------------------------------------|
@@ -19,12 +19,13 @@ On the left the first coloumn selects which music track to edit.
 | <kbd>Page Down</kbd>         | Switch to next track.                                                                        |
 | <kbd>Space</kbd>             | Start / stop playing the track.                                                              |
 
-Below the track selector you can see the DSP status registers, but this block only comes alive when music playback is on.
+Below the track selector you can see the DSP status registers (<ui2>2</ui2>), but this block only comes alive when music playback
+is on.
 
 ## Channels
 
-Next to it, you'll see four similar coloumns, each with notes. These are the 4 channels that the music can simultaniously play.
-This is similar to standard music sheets, for more info read the [General MIDI] section below.
+Next to it, you'll see four similar coloumns, each with notes (<ui2>3</ui2>). These are the 4 channels that the music can
+simultaniously play. This is similar to standard music sheets, for more info read the [General MIDI] section below.
 
 | Key Combination              | Description                                                                                  |
 |------------------------------|----------------------------------------------------------------------------------------------|
@@ -40,7 +41,11 @@ This is similar to standard music sheets, for more info read the [General MIDI] 
 
 ## Note Editor
 
-Under the channels you can see the note editor, with some buttons on the left and a big piano on the right.
+Under the channels you can see the note editor (<ui2>4</ui2>), with some buttons on the left and a big piano on the right.
+
+INFO: When you select a note, it's current configuration is saved to history. You can revert to this by pressing undo until you
+select another note. If you have pressed undo, then you will be able to do a redo until you don't modify. (The modifications won't
+be saved in history one-by-one, only the state when you've selected that note.)
 
 Notes have three parts, the first one (on the top in the editor), the pitch consist of further three sub-parts: the note itself,
 like `C` or `D`. Then the `-` character if it's a flat note, or `#` for sharp notes. The third part is simply the octave, from
@@ -51,9 +56,9 @@ After the pitch comes the aforementioned instrument (the middle part of the note
 `01` to `1F`. The value 0 is printed as `..` and means keep using the same waveform as before.
 
 Finally, you can also add special effects to the notes (the last part of the note), like arpeggio (make it sound like a chord),
-portamento, vibrato, tremolo etc. See the [memory map](#digital_signal_processor) for a full list. This has a numeric parameter,
-usually interpreted as "how much". It is printed as three hex numbers, where the first represents the effect type and the last two
-are the parameter, or `...` if it's not set. For example `C00` means set the volume to zero, so silence the channel.
+portamento, vibrato, tremolo etc. See the [note effects] for a full list. This has a numeric parameter, usually interpreted as
+"how much". It is printed as three hex numbers, where the first represents the effect type and the last two are the parameter,
+or `...` if it's not set. For example `C00` means set the volume to zero, so silence the channel.
 
 <h3 mus_kbd>Keyboard</h3>
 

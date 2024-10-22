@@ -63,7 +63,7 @@ spéciales (non imprimables), par exemple:
 
 | CodeClé | Description                                     |
 |---------|-------------------------------------------------|
-| `\x8`   | Le caractère 8, touche <kbd>Backspace</kbd>     |
+| `\x8`   | Le caractère 8, touche <kbd>←Backspace</kbd>    |
 | `\x9`   | Le caractère 9, touche <kbd>Tab</kbd>           |
 | `\n`    | Le caractère 10, touche <kbd>⏎Enter</kbd>       |
 | `\x1b`  | Le caractère 27, touche<kbd>Esc</kbd>           |
@@ -443,6 +443,31 @@ les modèles ont probablement des coordonnées locales, cela dessinerait tous le
 Donc, si vous souhaitez afficher plusieurs modèles dans le monde, vous devez d'abord les traduire (les placer) en coordonnées
 mondiales à l'aide de [trns], puis utiliser le nuage de sommets traduit avec [mesh] (déplacer et faire pivoter le modèle ne changera
 pas les triangles, juste leurs coordonnées de sommet).
+
+## Raccourcis de l'éditeur de code
+
+Raccourcis [clavier] supplémentaires que vous pouvez également utiliser lors de l'édition de la source:
+
+| Touche | Description |
+|------------------------------|--------------------------------------------------------------------------------------|
+| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Rechercher une chaîne |
+| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Rechercher à nouveau |
+| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Rechercher et remplacer (dans le texte sélectionné, ou à défaut, dans la source entière) |
+| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Aller à la ligne |
+| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Aller à la définition de la fonction |
+| <kbd>Ctrl</kbd>+<kbd>N</kbd> | Lister les signets |
+| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Activer/désactiver le signet sur la ligne actuelle |
+| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Aller au signet précédent |
+| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Aller au signet suivant |
+| <kbd>Ctrl</kbd>+<kbd>,</kbd> | Diminuer l'indentation de la sélection |
+| <kbd>Ctrl</kbd>+<kbd>.</kbd> | Augmenter l'indentation de la sélection |
+| <kbd>Accueil</kbd> | Déplacer le curseur au début de la ligne |
+| <kbd>Fin</kbd> | Déplacer le curseur à la fin de la ligne |
+| <kbd>PgUp</kbd> | Déplacer le curseur de 42 lignes (une page) vers le haut |
+| <kbd>PgDown</kbd> | Déplacer le curseur de 42 lignes (une page) vers le bas |
+| <kbd>F1</kbd> | Si le curseur se trouve dans la liste d'arguments d'une API, accédez à la page d'aide intégrée de la fonction |
+
+Voir également le menu pour les méthodes de saisie alternatives et leurs raccourcis clavier.
 
 # Console
 

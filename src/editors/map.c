@@ -98,6 +98,7 @@ int map_ctrl(void)
     if(px >= 4 && px < 4+624 && py >= 16 && py < 16+294) {
         tileex = (px - 4 + (zoom == 4 ? -152 : mx)) / npix;
         tileey = (py - 16 + (zoom == 4 ? -47 : menu_scroll)) / npix;
+        toolbox_selline(tileex, tileey);
     } else
         tileex = tileey = -1;
     if(last && !clk) {
@@ -106,6 +107,7 @@ int map_ctrl(void)
         if(spre < sprs) spre = sprs;
         if(sprs > 255) sprs = 255;
         if(spre > 255) spre = 255;
+        toolbox_selline(-1, -1);
         if(px >= 4 && px < 4+624 && py >= 16 && py < 16+294) {
             if(tool == 3)
                 toolbox_selrect(0, 0, 320, 200, tilesx, tilesy, tileex - tilesx + 1, tileey - tilesy + 1);

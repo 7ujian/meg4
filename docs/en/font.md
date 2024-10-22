@@ -5,15 +5,18 @@ Font Editor
 
 This font will be used by [width] when you measure a string, and also by [text] when you display text from your program.
 
-This page has a similar arrangement as the [sprite editor]. On the left you can find the glyph editor area, and on the right
-the glyph selector. (Glyph is the displayed typeface of a UNICODE character.)
-
 <imgc ../img/fontscr.png><fig>Font Editor</fig>
+
+This page has a similar arrangement as the [sprite editor], it's just the palette is missing. On the left you can find the glyph
+editor area (<ui2>1</ui2>), and on the right the glyph selector (<ui2>2</ui2>). (Glyph is the displayed typeface of a UNICODE
+character.)
 
 Glyph Editor
 ------------
 
 It is as simple as <mbl> left clicking sets typeface (foreground), and <mbr> clears to empty (background).
+
+When the <kbd>Shift</kbd> is hold down, then a line can be drawn from last modified point.
 
 Glyph Selector
 --------------

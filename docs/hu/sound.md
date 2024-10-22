@@ -5,25 +5,32 @@ Hangeffektek
 
 A hangeffekteket a programodból az [sfx] paranccsal tudod megszólaltatni.
 
-Balra található a hanghullám szerkesztő és az eszköztára, jobbra a hangeffekt választó, alattuk pedig a hangeffekt szerkesztő.
-
 <imgc ../img/soundscr.png><fig>Hangeffektek</fig>
+
+Balra található a hanghullám szerkesztő és az eszköztára (<ui2>1</ui2>), jobbra a hangeffekt választó (<ui2>2</ui2>), alattuk
+pedig a hangeffekt szerkesztő (<ui2>3</ui2>).
 
 ## Effektválasztó
 
-Jobbra látható a hangeffektek listája, mind hangjegyként ábrázolva (technikailag minden hangeffekt egy hangjegy, konfigurálható
-hanghullámmal és speciális effekt opciókkal). A kívánt hangeffektre kattintva a listában az szerkeszthetővé válik.
+Jobbra látható a hangeffektek listája (<ui2>2</ui2>), mind hangjegyként ábrázolva (technikailag minden hangeffekt egy hangjegy,
+konfigurálható hanghullámmal és speciális effekt opciókkal). A kívánt hangeffektre kattintva a listában az szerkeszthetővé válik
+(vagy <kbd>▴</kbd> / <kbd>▾</kbd> gombokkal is választható).
 
 ## Effektszerkesztő
 
-Alul a zongora, pontosan úgy néz ki, és úgy is műküdik, mint a zenei sávok [hangjegyszerkesztő]je, csak pár opcióval kevesebb.
-Bővebb infót és a billentyűzetkosztást ott találod.
+Alul a zongora (<ui2>3</ui2>), pontosan úgy néz ki, és úgy is műküdik, mint a zenei sávok [hangjegyszerkesztő]je, csak pár opcióval
+kevesebb. Bővebb infót és a billentyűzetkosztást ott találod.
+
+INFO: Amikor egy hangeffekt kiválasztódik, az akkori állapota elmentődik az előzményekbe. Erre bármikor vissza lehet állítani a
+visszavonás kombináció lenyomásával, amíg az a hangeffekt marad a kiválasztott. Ha volt visszavonás, akkor az újrabeillesztés
+is használható mindaddig, amíg nem módosítjuk. (A módosítások nem mentődnek az előzményekbe egyesével, csak az az állapot, amikor
+a hangeffekt ki lett választva.)
 
 <h2 sfx_tools>Hanghullám eszköztár</h2>
 
-Alapból a hanghullám nem módosítható, csak azt mutatja, hogy melyik hullámot használja az aktuális hangeffekt. Rá kell kattintani
-a lakat ikonos gombra, hogy szerkeszthetővé váljon (de persze előbb győzödj meg róla, hogy a hangeffektednek választottál ki
-hullámmintát).
+Alapból a hanghullám (<ui2>1</ui2>) nem módosítható, csak azt mutatja, hogy melyik hullámot használja az aktuális hangeffekt.
+Rá kell kattintani a lakat ikonos gombra, hogy szerkeszthetővé váljon (de persze előbb győzödj meg róla, hogy a hangeffektednek
+választottál ki hullámmintát).
 
 <imgc ../img/wavescr.png><fig>Hanghullám eszköztára</fig>
 
@@ -31,6 +38,10 @@ Amikor a lakat nyitva, akkor a hangmintára kattintva módosítani lehet azt.
 
 WARN: Ha módosítasz egy hanghullámot, akkor az azonnali hatállyal megváltoztat minden egyes olyan hangeffektet és hangsávot,
 ami azt a hanghullámot használja.
+
+INFO: Amikor kilakatolunk egy hanghullámot, az akkori állapota elmentődik az előzményekbe. Erre bármikor vissza lehet állítani az
+visszavonás kombináció lenyomásával. (A módsítások nem mentődnek az előzményekbe egyesével, csak a hanghullám abban a pillanatban,
+amikor kilakatolásra került.)
 
 Az eszköztárat használva állítható a finomhangolás (-8-tól 7-ig), a hangerő (0-tól 64-ig) és az ismétlés. Az ismétlés gombra
 kattintva az lenyomva marad, ilyenkor kijelölhetsz egy "loop" részt a hullámból. Ezután amikor a hanghullám egyszer végig

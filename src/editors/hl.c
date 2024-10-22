@@ -275,7 +275,8 @@ nextchar:   if(str[k]) k++;
                         *d = 0;
                         if(in_array(s, r[6], NULL)) t[i] = (t[i] & ~0xf) | 6; else
                         if(in_array(s, r[7], NULL)) t[i] = (t[i] & ~0xf) | 7; else
-                        if(str[l] == '(' || (i + 2 < nt && (t[i + 2] & 0xf) == 5 && str[t[i + 2] >> 4] == '('))
+                        if(str[l] == '(' || (i + 2 < nt && (t[i + 1] & 0xf) == 5 && (t[i + 2] & 0xf) == 5 &&
+                          str[t[i + 1] >> 4] == ' ' && str[t[i + 2] >> 4] == '('))
                             t[i] = (t[i] & ~0xf) | 8;
                     } else l = j;
                 }

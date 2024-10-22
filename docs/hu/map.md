@@ -14,25 +14,27 @@ A térkép különleges abból a szempontból, hogy egyszerre csak 256 különb�
 
 <h2 map_box>Térkép Szerkesztő Mező</h2>
 
-Felül a nagy részen láthatod és szerkesztheted a térképet. Egy nagy térképként látszik, 320 oszloppal és 200 sorral. Használhatod
-a nagyítás és kicsinyítés gombokat az eszköztáron, vagy az <mbw> egérgörgőket is a nagyításhoz. A <mbr> jobb egérgombot lenyomva
-tartva és az egeret mozgatva tologathatod a térképet, vagy használhatod a görgetőket is jobbra illetve alul.
+Felül a nagy részen láthatod és szerkesztheted a térképet (<ui2>1</ui2>). Egy nagy térképként látszik, 320 oszloppal és 200 sorral.
+Használhatod a nagyítás és kicsinyítés gombokat az eszköztáron, vagy az <mbw> egérgörgőket is a nagyításhoz. A <mbr> jobb egérgombot
+lenyomva tartva és az egeret mozgatva tologathatod a térképet, vagy használhatod a görgetősávokat is jobbra illetve alul.
 
 A <mbl> balklikkel szprájtokat helyezhetsz el a térképen. A legelső szprájt kiválasztásával lehet törölni a térképen (a <mbr>
 jobb egérgomb itt nem töröl, hanem mozgatja a térképet).
 
+Ha lenyomjuk a <kbd>Shift</kbd>-et, akkor vonalat húzhatunk a legutóbb módosított pontból.
+
 <h2 map_tools>Eszköztár</h2>
 
-A térképszerkesztő mező alatt található az eszköztár, ugyanaz, mint a [szprájt szerkesztő] képernyőn, ugyanazokkal a funkciókkal
-és ugyanazokkal a gyorsgombokkal (csak itt használhatók szprájtminták is, lásd alább). Az eszközgombok mellett vannak a nagyítás
-és kicsinyítés gombok, ezek után pedig a térképválasztó. Ez utóbbi a térkép szprájtbankját választja (de csak a szerkesztőben.
+A térképszerkesztő mező alatt található az eszköztár (<ui2>2</ui2>), ugyanaz, mint a [szprájt szerkesztő] képernyőn, ugyanazokkal
+a funkciókkal és ugyanazokkal a gyorsgombokkal (csak itt használhatók szprájtminták is, lásd alább). Az eszközgombok mellett vannak
+a nagyítás és kicsinyítés gombok, ezek után pedig a szprájtbankválasztó a szprájtpaletta választáshoz (de csak a szerkesztőben.
 Amikor a programod fut, akkor a 0007F címen lévő bájtot kell állítani a bankok váltásához, lásd [Grafikus Feldolgozó Egység]).
 
 <h2 map_sprs>Szprájtpaletta</h2>
 
-A gomboktól jobbra helyezkedik el a szprájtválasztó paletta, ahol kiválaszthatod, melyik szprájttal akarsz rajzolni. Amint korábban
-már megjegyeztük, a paletta legelső eleme minden 256-os szprájtbankból nem használható, az a "nincs térképelem" számára van
-fenntartva. Ha törölni szerenél a térképen, akkor válaszd ezt az első elemet, és "rajzolj" azzal.
+A gomboktól jobbra helyezkedik el a szprájtválasztó paletta (<ui2>3</ui2>), ahol kiválaszthatod, melyik szprájttal akarsz rajzolni.
+Amint korábban már megjegyeztük, a paletta legelső eleme minden 256-os szprájtbankból nem használható, az a "nincs térképelem"
+számára van fenntartva. Ha törölni szerenél a térképen, akkor válaszd ezt az első elemet, és "rajzolj" azzal.
 
 A szprájtszerkesztővel ellentétben (ahol csak egyetlen színt választhatsz a palettáról), itt, a térképen több, egymásmelleti
 szprájt is kiválasztható a palettáról egyszerre. Festéskor mindet rá fogja tenni a térképre, (pont úgy, mintha a beillesztést

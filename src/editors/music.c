@@ -27,7 +27,42 @@
 #define MAXROW ((int)(sizeof(meg4.tracks[0])>>4))
 
 static int track = 0, idx = 0, playing = 0, enabled = 15;
-static uint8_t clipboard[4];
+static uint8_t clipboard[4], hist[8], histundo = 0;
+
+/* the issue we're facing with note history is, that notes are modified by stepping. If we were creating a history record
+ * after each and every modification, the history queue would eat up all the free memory pretty quickly. So we only save
+ * the state when the pattern slot is selected, and users can revert to that state until they select another pattern slot. */
+
+/**
+ * Add to history
+ */
+void music_histadd(void)
+{
+    histundo = 0;
+    memcpy(&hist[0], &meg4.tracks[track][idx << 2], 4);
+    memcpy(&hist[4], &meg4.tracks[track][idx << 2], 4);
+}
+
+/**
+ * Undo change
+ */
+void music_histundo(void)
+{
+    if(histundo) return;
+    histundo = 1;
+    memcpy(&hist[4], &meg4.tracks[track][idx << 2], 4);
+    memcpy(&meg4.mmio.sounds[idx << 2], &hist[0], 4);
+}
+
+/**
+ * Redo change
+ */
+void music_histredo(void)
+{
+    if(!histundo) return;
+    histundo = 0;
+    memcpy(&meg4.tracks[track][idx << 2], &hist[4], 4);
+}
 
 /**
  * Initialize tracks editor
@@ -38,6 +73,7 @@ void music_init(void)
     menu_scroll = idx * 10;
     memset(clipboard, 0, 4);
     playing = 0;
+    music_histadd();
 }
 
 /**
@@ -67,9 +103,10 @@ void music_chkscroll(int bottom)
 int music_ctrl(void)
 {
     uint32_t key;
-    uint8_t *mus = &meg4.tracks[track][idx << 2];
+    uint8_t *mus = &meg4.tracks[track][idx << 2], saved[4];
     int j, ret, clk = le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_L, px = le16toh(meg4.mmio.ptrx), py = le16toh(meg4.mmio.ptry);
 
+    memcpy(saved, mus, 4);
     ret = toolbox_notectrl(mus, 0);
     if(ret) {
         if(ret == -1) { idx += 4; music_chkscroll(0); }
@@ -87,6 +124,7 @@ int music_ctrl(void)
         /* track selector clicked */
         if(px >= 11 && px < 27 && py >= 23 && py < 103) {
             track = (py - 23) / 10; idx = 0;
+            music_histadd();
         } else
         /* channel enable / disable */
         if(px >= 16 && px < 80 && py >= 254 && py < 299) {
@@ -98,6 +136,7 @@ int music_ctrl(void)
             for(j = 0; j < 4; j++)
                 if(px >= (j + 1) * 128 && px < (j + 1) * 128 + 72) {
                     idx = (((menu_scroll / 10) + ((py - 23 + (menu_scroll % 10)) / 10)) << 2) + j;
+                    music_histadd();
                     break;
                 }
         }
@@ -114,14 +153,16 @@ play:           playing ^= 1;
                     for(j = 0; j < 4; j++) if(!(enabled & (1 << j))) meg4.dalt.ch[j].master = 0;
                 }
             } else
-            if(!memcmp(&key, "PgUp", 4)) { track = (track - 1) & 7; idx = 0; music_chkscroll(0); } else
-            if(!memcmp(&key, "PgDn", 4)) { track = (track + 1) & 7; idx = 0; music_chkscroll(0); } else
-            if(!memcmp(&key, "Up", 3))   { if(idx >> 2) { idx -= 4; } else { idx = ((MAXROW - 1) << 2) | (idx & 3); } music_chkscroll(0); } else
-            if(!memcmp(&key, "Down", 4)) { if((idx >> 2) < MAXROW) { idx += 4; } else { idx &= 3; }  music_chkscroll(0); } else
-            if(!memcmp(&key, "Left", 4)) { if(idx & 3) { idx--; } else { idx = (idx & ~3) | 3; } music_chkscroll(0); } else
-            if(!memcmp(&key, "Rght", 4)) { if((idx & 3) < 3) { idx++; } else { idx = (idx & ~3); } music_chkscroll(0); } else
-            if(!memcmp(&key, "Home", 4)) { idx &= 3; music_chkscroll(0); } else
-            if(!memcmp(&key, "End", 4))  { idx = ((MAXROW - 1) << 2) | (idx & 3); music_chkscroll(0); } else
+            if(!memcmp(&key, "PgUp", 4)) { track = (track - 1) & 7; idx = 0; music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "PgDn", 4)) { track = (track + 1) & 7; idx = 0; music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "Up", 3))   { if(idx >> 2) { idx -= 4; } else { idx = ((MAXROW - 1) << 2) | (idx & 3); } music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "Down", 4)) { if((idx >> 2) < MAXROW) { idx += 4; } else { idx &= 3; }  music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "Left", 4)) { if(idx & 3) { idx--; } else { idx = (idx & ~3) | 3; } music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "Rght", 4)) { if((idx & 3) < 3) { idx++; } else { idx = (idx & ~3); } music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "Home", 4)) { idx &= 3; music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "End", 4))  { idx = ((MAXROW - 1) << 2) | (idx & 3); music_chkscroll(0); music_histadd(); } else
+            if(!memcmp(&key, "Undo", 4)) { music_histundo(); memcpy(saved, mus, 4); } else
+            if(!memcmp(&key, "Redo", 4)) { music_histredo(); } else
             if(!memcmp(&key, "Cut", 4)) {
 cut:            memcpy(clipboard, mus, 4);
                 memset(mus, 0, 4);
@@ -144,6 +185,7 @@ del:            j = (idx & ~3) << 2;
             }
         }
     }
+    if(memcmp(saved, mus, 4)) histundo = 0;
 
     last = clk;
     return 1;
@@ -241,6 +283,7 @@ void music_view(void)
     if(playing) {
         idx = (meg4.dalt.row << 2) | (idx & 3);
         music_chkscroll(14);
+        music_histadd();
     }
 
     /* patterns table */

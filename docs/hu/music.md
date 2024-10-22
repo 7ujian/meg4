@@ -11,7 +11,7 @@ Látni fogsz öt oszlopot, és alul egy zongorát.
 
 ## Sávok
 
-Balra az első oszlopban lehet kiválasztani, melyik zenei sávot szeretnénk szerkeszteni.
+Balra az első oszlopban lehet kiválasztani, melyik zenei sávot szeretnénk szerkeszteni (<ui2>1</ui2>).
 
 | Billentyűkombináció          | Leírás                                                                                       |
 |------------------------------|----------------------------------------------------------------------------------------------|
@@ -19,12 +19,13 @@ Balra az első oszlopban lehet kiválasztani, melyik zenei sávot szeretnénk sz
 | <kbd>Page Down</kbd>         | Következő sávra vált.                                                                        |
 | <kbd>Szóköz</kbd>            | Elindítja / leállítja a sáv lejátszását.                                                     |
 
-A sávválasztó alatt látszanak a DSP státusz regiszterek, de ez a blokk csak akkor kel életre, ha folyamatban van a lejátszás.
+A sávválasztó alatt látszanak a DSP státusz regiszterek (<ui2>2</ui2>), de ez a blokk csak akkor kel életre, ha folyamatban van
+a lejátszás.
 
 ## Csatornák
 
-Mellette négy hasonló oszlop található, mindegyikben hangjegyek. Ez az a négy csatorna, amit a zenelejátszó egyidejűleg képes
-megszólaltatni. Ez hasonló a kottához, bővebb infóért lásd a [General MIDI] fejezetet alább.
+Mellette négy hasonló oszlop található, mindegyikben hangjegyek (<ui2>3</ui2>). Ez az a négy csatorna, amit a zenelejátszó
+egyidejűleg képes megszólaltatni. Ez hasonló a kottához, bővebb infóért lásd a [General MIDI] fejezetet alább.
 
 | Billentyűkombináció          | Leírás                                                                                       |
 |------------------------------|----------------------------------------------------------------------------------------------|
@@ -40,7 +41,12 @@ megszólaltatni. Ez hasonló a kottához, bővebb infóért lásd a [General MID
 
 ## Hangjegyszerkesztő
 
-A csatornák alatt látható a hangjegyszerkesztő, néhány gombbal balra és egy nagy zongorával jobbra.
+A csatornák alatt látható a hangjegyszerkesztő (<ui2>4</ui2>), néhány gombbal balra és egy nagy zongorával jobbra.
+
+INFO: Amikor egy hangjegy kiválasztódik, az akkori állapota elmentődik az előzményekbe. Erre bármikor vissza lehet állítani a
+visszavonás kombináció lenyomásával, amíg az a hangeffekt marad a kiválasztott. Ha volt visszavonás, akkor az újrabeillesztés
+is használható mindaddig, amíg nem módosítjuk. (A módosítások nem mentődnek az előzményekbe egyesével, csak az az állapot, amikor
+a hangjegy ki lett választva.)
 
 A hangjegyeknek három részük van, az első a hangmagasság (a szerkesztőben felül), ami újabb három alrészből áll. Az első a hang
 maga, mint pl. `C` vagy `D`. Aztán a `-` karakter ha egészhang, illetve `#` félhangok esetében. A harmadik rész pedig simán az
@@ -51,10 +57,10 @@ A hangmagasság után következik a korábban említett hangszer (a hangjegy kö
 `01`-től `1F`-ig. A 0-ás érték `..`-ként jelenik meg, és azt jelenti, használd a korábban beállított hangmintát tovább.
 
 Végezetül adhatsz speciális effekteket a hangjegyhez (a hangjegy utolsó része), mint például arpeggio (akkordként szólal meg),
-portamento, vibrato, tremolo stb. A teljes listát megtalálod a [memóriatérkép](#digitalis_szignalfeldolgozo_processzor)nél. Ennek
-van egy numerikus paramétere, ami általában azt jelenti, hogy "mennyire". Három hexa számként jelenik meg, ahol az első az effekt
-típusa, a maradék kettő pedig a paraméter, vagy pedig `...` ha nincs beállítva. Például a `C00` azt jelenti, állítsd a hangerőt
-nullára, azaz némítsd el a csatornát.
+portamento, vibrato, tremolo stb. A teljes listát megtalálod a [hangjegyeffektek]nél. Ennek van egy numerikus paramétere, ami
+általában azt jelenti, hogy "mennyire". Három hexa számként jelenik meg, ahol az első az effekt típusa, a maradék kettő pedig
+a paraméter, vagy pedig `...` ha nincs beállítva. Például a `C00` azt jelenti, állítsd a hangerőt nullára, azaz némítsd el a
+csatornát.
 
 <h3 mus_kbd>Billentyűzet</h3>
 

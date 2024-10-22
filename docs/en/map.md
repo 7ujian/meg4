@@ -13,24 +13,26 @@ the first sprite is always reserved for the empty tile, so sprites 0, 256, 512, 
 
 <h2 map_box>Map Editor Box</h2>
 
-On top the big area is where you can see and edit the maps. It is shown as one big map, 320 columns wide and 200 rows high.
-You can use the zoom in and zoom out buttons on the toolbar, or the <mbw> mouse wheel to zoom. By pressing <mbr> right click
-and holding it down, you can drag the map, but you can also use the scrollbars on the right and on the bottom.
+On top the big area is where you can see and edit the maps (<ui2>1</ui2>). It is shown as one big map, 320 columns wide and 200
+rows high. You can use the zoom in and zoom out buttons on the toolbar, or the <mbw> mouse wheel to zoom. By pressing <mbr> right
+click and holding it down, you can drag the map, but you can also use the scrollbars on the right and on the bottom.
 
 Clicking with <mbl> left button will set the selected sprite on the map. Select the first sprite to clear the map (<mbr> right
 click does not clear here, instead it moves the map).
 
+When the <kbd>Shift</kbd> is hold down, then a line can be drawn from last modified point.
+
 <h2 map_tools>Toolbar</h2>
 
-Below the map editor area is the toolbar, same as on the [sprite editor] page, with exactly the same functionality and same
-keyboard shortcuts (but it can use sprite patterns too, see below). Next to the tool buttons you can find the zoom buttons and
-the map selector. This latter selects which sprite bank is used on the map (just for the editor. When your game runs, you'll
-have to set the byte at offset 0007F to change the map's sprite bank, see [Graphics Processing Unit]).
+Below the map editor area is the toolbar (<ui2>2</ui2>), same as on the [sprite editor] page, with exactly the same functionality
+and same keyboard shortcuts (but it can use sprite patterns too, see below). Next to the tool buttons you can find the zoom
+buttons and the map selector. This latter selects which sprite bank is used on the map (just for the editor. When your game runs,
+you'll have to set the byte at offset 0007F to change the map's sprite bank, see [Graphics Processing Unit]).
 
 <h2 map_sprs>Sprite Palette</h2>
 
-On the right to the buttons is the sprite selector, where you can select the sprite you want to draw with. As said earlier, the
-first sprite in every 256 sprites bank is unusable, reserved to the empty map tile.
+On the right to the buttons is the sprite selector (<ui2>3</ui2>), where you can select the sprite you want to draw with. As said
+earlier, the first sprite in every 256 sprites bank is unusable, reserved to the empty map tile.
 
 The difference to the sprite editor is (where you can choose just one color from the palette), here on the map you can select
 multiple adjacent sprites at once. With paint, all of them will be painted at once (exactly the same way as if they were pasted

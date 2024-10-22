@@ -88,7 +88,7 @@ In icon mode you can add special icon characters, representing the emulator's in
 `Ⓐ` button) as well as emoji icons (like <kbd>Alt</kbd>+<kbd>I</kbd>, <kbd>;</kbd>, <kbd>)</kbd> will add the character `😉`,
 or <kbd>Alt</kbd>+<kbd>I</kbd>, <kbd><</kbd>, <kbd>3</kbd> will produce `❤`).
 
-This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
+This mode automatically quits after the characterer is entered.
 
 ### Katakana and Hiragana Modes
 

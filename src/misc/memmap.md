@@ -63,7 +63,7 @@ keys, for example:
 
 | Keycode | Description                                     |
 |---------|-------------------------------------------------|
-| `\x8`   | The character 8, <kbd>Backspace</kbd> key       |
+| `\x8`   | The character 8, <kbd>←Backspace</kbd> key      |
 | `\x9`   | The character 9, <kbd>Tab</kbd> key             |
 | `\n`    | The character 10, <kbd>⏎Enter</kbd> key         |
 | `\x1b`  | The character 27, <kbd>Esc</kbd> key            |
@@ -302,3 +302,28 @@ You can display a set of triangles (a complete 3D model) using the [mesh] functi
 coordinates, that would draw all models one on top of another around the origo. So if you want to dispay multiple models in the
 world, first you should translate them (place them) into world coordinates using [trns], and then use the translated vertex cloud
 with [mesh] (moving and rotating the model around won't change the triangles, just their vertex coordinates).
+
+## Code Editor Shortcuts
+
+Additional [keyboard] shortcuts you can use when editing the source:
+
+| Key                          | Description                                                                          |
+|------------------------------|--------------------------------------------------------------------------------------|
+| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Find string                                                                          |
+| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Find again                                                                           |
+| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Search and replace (in the selected text, or in lack of that, in the entire source)  |
+| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Go to line                                                                           |
+| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Go to function definition                                                            |
+| <kbd>Ctrl</kbd>+<kbd>N</kbd> | List bookmarks                                                                       |
+| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Toggle bookmark on current line                                                      |
+| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Go to previous bookmark                                                              |
+| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Go to next bookmark                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>,</kbd> | Decrease indentation of selection                                                    |
+| <kbd>Ctrl</kbd>+<kbd>.</kbd> | Increase indentation of selection                                                    |
+| <kbd>Home</kbd>              | Move cursor to the beginning of the line                                             |
+| <kbd>End</kbd>               | Move cursor to the end of the line                                                   |
+| <kbd>PgUp</kbd>              | Move cursor 42 lines (one page) up                                                   |
+| <kbd>PgDown</kbd>            | Move cursor 42 lines (one page) down                                                 |
+| <kbd>F1</kbd>                | If the cursor is in an API's argument list, then go to function's built-in help page |
+
+See also the menu for alternative input methods and their keyboard shortcuts.

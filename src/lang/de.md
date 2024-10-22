@@ -63,7 +63,7 @@ Die aus der Warteschlange entnommenen Schlüssel werden in UTF-8 dargestellt. Ei
 
 | Keycode | Beschreibung                                    |
 |---------|-------------------------------------------------|
-| `\x8`   | Das Zeichen 8, die <kbd>Backspace</kbd>-Taste   |
+| `\x8`   | Das Zeichen 8, die <kbd>←Backspace</kbd>-Taste  |
 | `\x9`   | Das Zeichen 9, die <kbd>Tab</kbd>-Taste         |
 | `\n`    | Das Zeichen 10, die <kbd>⏎Enter</kbd>-Taste     |
 | `\x1b`  | Das Zeichen 27, <kbd>Esc</kbd>-Taste            |
@@ -72,9 +72,9 @@ Die aus der Warteschlange entnommenen Schlüssel werden in UTF-8 dargestellt. Ei
 | `Down`  | Die Cursor-Pfeiltaste <kbd>▾</kbd>-Taste        |
 | `Left`  | Die Cursor-Pfeiltaste <kbd>◂</kbd>-Taste        |
 | `Rght`  | Die Cursor-Pfeiltaste <kbd>▸</kbd>-Taste        |
-| `Cut`   | Die Cut-Taste (oder <kbd>Ctrl</kbd>+<kbd>X</kbd>) |
-| `Cpy`   | Die Copy-Taste (oder <kbd>Ctrl</kbd>+<kbd>C</kbd>) |
-| `Pst`   | Die Paste-Taste (oder <kbd>Ctrl</kbd>+<kbd>V</kbd>) |
+| `Cut`   | Die Cut-Taste (oder <kbd>Strg</kbd>+<kbd>X</kbd>) |
+| `Cpy`   | Die Copy-Taste (oder <kbd>Strg</kbd>+<kbd>C</kbd>) |
+| `Pst`   | Die Paste-Taste (oder <kbd>Strg</kbd>+<kbd>V</kbd>) |
 
 Die Scancodes lauten wie folgt:
 
@@ -442,6 +442,31 @@ lokale Koordinaten haben, würden dadurch alle Modelle übereinander um den Ursp
 auf der Welt anzeigen möchten, sollten Sie sie zuerst mit [trns] in Weltkoordinaten übersetzen (platzieren) und dann die übersetzte
 Scheitelpunktwolke mit [mesh] verwenden (das Verschieben und Drehen des Modells ist nicht möglich). Ändern Sie die Dreiecke, nur
 ihre Scheitelpunktkoordinaten).
+
+## Tastenkombinationen im Code-Editor
+
+Weitere [Tastatur]-Tastenkombinationen, die Sie auch beim Bearbeiten der Quelle verwenden können:
+
+| Taste                        | Beschreibung                                                                         |
+|------------------------------|--------------------------------------------------------------------------------------|
+| <kbd>Strg</kbd>+<kbd>F</kbd> | Zeichenfolge suchen                                                                  |
+| <kbd>Strg</kbd>+<kbd>G</kbd> | Erneut suchen                                                                        |
+| <kbd>Strg</kbd>+<kbd>H</kbd> | Suchen und Ersetzen (im ausgewählten Text oder, falls in der gesamten Quelle)        |
+| <kbd>Strg</kbd>+<kbd>J</kbd> | Gehe zu Zeile                                                                        |
+| <kbd>Strg</kbd>+<kbd>D</kbd> | Gehe zu Funktionsdefinition                                                          |
+| <kbd>Strg</kbd>+<kbd>N</kbd> | Lesezeichen auflisten                                                                |
+| <kbd>Strg</kbd>+<kbd>B</kbd> | Lesezeichen in aktueller Zeile umschalten                                            |
+| <kbd>Strg</kbd>+<kbd>▴</kbd> | Zum vorherigen Lesezeichen gehen                                                     |
+| <kbd>Strg</kbd>+<kbd>▾</kbd> | Zum nächsten Lesezeichen gehen                                                       |
+| <kbd>Strg</kbd>+<kbd>,</kbd> | Einzug der Auswahl verkleinern                                                       |
+| <kbd>Strg</kbd>+<kbd>.</kbd> | Einzug der Auswahl vergrößern                                                        |
+| <kbd>Pos1</kbd>              | Cursor an den Zeilenanfang bewegen                                                   |
+| <kbd>Ende</kbd>              | Cursor an das Zeilenende bewegen                                                     |
+| <kbd>Bild auf</kbd>          | Cursor 42 Zeilen (eine Seite) nach oben bewegen                                      |
+| <kbd>Bild ab</kbd>           | Cursor 42 Zeilen (eine Seite) nach unten bewegen                                     |
+| <kbd>F1</kbd>                | Wenn sich der Cursor in der Argumentliste einer API befindet, gehe zur Hilfeseite der Funktion |
+
+Siehe auch das Menü für alternative Eingabemethoden und deren Tastaturkürzel.
 
 # Konsole
 

@@ -6,25 +6,27 @@ Szprájt Szerkesztő
 Az itt szerkesztett szprájtokat az [spr] paranccsal jelenítheted meg, illetve ezeket használva a [dlg] egy dialógusablakot
 generál, az [stext] pedig szöveget ír ki.
 
-A szerkesztőnek három fő mezője van, kettő felül, egy pedig alul.
-
 <imgc ../img/spritescr.png><fig>Szprájt Szerkesztő</fig>
+
+A szerkesztőnek három fő mezője van, kettő felül, egy pedig alul.
 
 <h2 spr_edit>Szprájt Szerkesztő Mező</h2>
 
-Balra fent van a szerkesztő mező. Itt tudod módosítani a szprájtot. A <mbl> elhelyezi a kijelölt pixelt a szprájton, míg
-a <mbr> törli őket.
+Balra fent van a szerkesztő mező (<ui2>1</ui2>). Itt tudod módosítani a szprájtot. A <mbl> elhelyezi a kijelölt pixelt a
+szprájton, míg a <mbr> törli őket.
+
+Ha lenyomjuk a <kbd>Shift</kbd>-et, akkor vonalat húzhatunk a legutóbb módosított pontból.
 
 <h2 spr_sprs>Szprájtválasztó</h2>
 
-Jobbra mellette látható a szprájtválasztó. Az a szprájt, amit itt kiválasztasz lesz szerkeszthető balra. Egyszerre több
-egymásmelletti szprájt is kiválasztható, és ilyenkor egyszerre, együtt szerkesztheted őket.
+Jobbra mellette látható a szprájtválasztó (<ui2>2</ui2>). Az a szprájt, amit itt kiválasztasz lesz szerkeszthető balra.
+Egyszerre több egymásmelletti szprájt is kiválasztható, és ilyenkor egyszerre, együtt szerkesztheted őket.
 
 <h2 spr_pal>Paletta</h2>
 
-Alul helyezkedik el a pixel paletta. Az első elem nem módosítható, mert az a törlésre van fenntartva. Ha azonban bármelyik másik
-pixelt választod, akkor a <imgt ../img/hsv.png> gomb a színpaletta ikonnal aktívvá válik. Erre kattintva felugrik a HSV
-színválasztó ablak, ahol megadhatod a kiválasztott palettaelem színét.
+Alul helyezkedik el a pixel paletta (<ui2>3</ui2>). Az első elem nem módosítható, mert az a törlésre van fenntartva. Ha
+azonban bármelyik másik pixelt választod, akkor a <imgt ../img/hsv.png> gomb a színpaletta ikonnal aktívvá válik.
+Erre kattintva felugrik a HSV színválasztó ablak (<ui2>5</ui2>), ahol megadhatod a kiválasztott palettaelem színét.
 
 Az alapértelmezett MEG-4 paletta 32 színt használ a DawnBringer32 palettáról, 8 szürkeárnyalatot, valamint 6 x 6 x 6 piros,
 zöld, kék átmenetkombinációt.
@@ -33,7 +35,7 @@ zöld, kék átmenetkombinációt.
 
 <imgc ../img/toolbox.png><fig>Szprájt eszköztár</fig>
 
-A szerkesztőmező alatt található az eszköztár a gombokkal. Ezekkel könnyedén módosíthatod a szprájtot, eltolhatod különböző
+A szerkesztőmező alatt található az eszköztár a gombokkal (<ui2>4</ui2>). Ezekkel könnyedén módosíthatod a szprájtot, eltolhatod különböző
 irányokba, elforgathatod órajárással megegyező irányban, tükrözheted, stb. Ha van aktív kijelölés, akkor ezek az eszközök csak
 a kijelölt pixelekre hatnak, egyébként az egész szprájtra. A forgatáshoz úgy kell kijelölni, hogy a kijelölés ugyanolyan magas
 legyen, mint széles különben a forgatás nem fog működni.

@@ -24,10 +24,12 @@
 #include <stdio.h>
 #include "editors.h"
 
-int tcw = 0, tch = 0;
+int tcw = 0, tch = 0, lsx = -1, lsy = -1, lex = -1, ley = -1, llx = -1, lly = -1;
 static int tx = 0, ty = 0, tn = 0, tp = 0, th = 0, ts = 0, tsx = 0, tsy = 0, tsw = 0, tsh = 0, ta = 0, numhist = 0, curhist = 0;
 static int px = 0, py = 0, ps = -1, po = 4, pz = 0, pp = 0;
 static uint8_t *tb = NULL, *tc = NULL, *hist = NULL;
+/* for font recalculation */
+extern int idx, modified;
 
 /* notes, must match MEG4_NOTE_x enums */
 static char *tbnotes[] = { "...",
@@ -106,20 +108,52 @@ void toolbox_bounds(void)
  */
 void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe)
 {
-    int i, j, w, h;
-    if(!tb || tp < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh) return;
-    if(tc && ts > 0 && !tc[(y + sy + th) * tp + sx + x]) return;
-    if(idxs == idxe) {
-        tb[(y + sy) * tp + sx + x] = meg4.mode == MEG4_MODE_SPRITE && ((le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_R)) ? 0 : idxs;
+    static int paintline = 0;
+    int i, j, w, h, dx, dy, err, e2;
+
+    if(tp < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh) return;
+    if(!paintline && (meg4_api_getkey(MEG4_KEY_LSHIFT) || meg4_api_getkey(MEG4_KEY_RSHIFT))) {
+        if(tc) memset(tc, 0, tp * th * 2);
+        if(lsx == -1 || lsy == -1 || lex == -1 || ley == -1 || (lsx == lex && lsy == ley)) return;
+        dx =  abs(lex-lsx); i = lsx<lex ? 1 : -1;
+        dy = -abs(ley-lsy), j = lsy<ley ? 1 : -1;
+        err = dx+dy;
+        x = lsx; y = lsy; ts = 0;
+        paintline = 1;
+        for(;;){
+            toolbox_paint(sx, sy, sw, sh, x, y, idxs, idxe);
+            e2 = 2*err;
+            if (e2 >= dy) { if (x == lex) { break; } err += dy; x += i; }
+            if (e2 <= dx) { if (y == ley) { break; } err += dx; y += j; }
+        }
+        paintline = 0;
+        lex = ley = llx = lly = -1;
+        return;
+    }
+    if(meg4.mode == MEG4_MODE_FONT) {
+        if(idx > 0xffff) return;
+        i = 8 * idx + y; j = meg4.font[i];
+        if(le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_R)
+            meg4.font[i] &= ~(1 << x);
+        else
+            meg4.font[i] |= 1 << x;
+        if(meg4.font[i] != j) modified = 1;
+        lsx = x; lsy = y;
     } else {
-        if(idxe < idxs) idxe = idxs;
-        i = idxs & 31; j = idxe & 31; w = j - i + 1; i = idxs >> 5; j = idxe >> 5; h = j - i + 1;
-        x -= w / 2; y -= h / 2;
-        for(j = 0; j < h; j++)
-            if(y + j >= sy && y + j < sy + sh)
-                for(i = 0; i < w; i++)
-                    if(x + i >= sx && x + i < sx + sw && (!tc || !ts || tc[(y + j + th) * tp + x + i]))
-                        tb[(y + j) * tp + x + i] = (idxs + (j << 5) + i);
+        if(!tb || (tc && ts > 0 && !tc[(y + sy + th) * tp + sx + x])) return;
+        if(idxs == idxe) {
+            tb[(y + sy) * tp + sx + x] = meg4.mode == MEG4_MODE_SPRITE && ((le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_R)) ? 0 : idxs;
+            lsx = sx + x; lsy = sy + y;
+        } else {
+            if(idxe < idxs) idxe = idxs;
+            i = idxs & 31; j = idxe & 31; w = j - i + 1; i = idxs >> 5; j = idxe >> 5; h = j - i + 1;
+            x -= w / 2; y -= h / 2;
+            for(j = 0; j < h; j++)
+                if(y + j >= sy && y + j < sy + sh)
+                    for(i = 0; i < w; i++)
+                        if(x + i >= sx && x + i < sx + sw && (!tc || !ts || tc[(y + j + th) * tp + x + i]))
+                            tb[(y + j) * tp + x + i] = (idxs + (j << 5) + i);
+        }
     }
 }
 
@@ -241,6 +275,37 @@ void toolbox_selfuzzy(int sx, int sy, int sw, int sh, int x, int y)
     }
     _toolbox_fuzzy(sx, sy, sw, sh, x, y, tb[(y + sy) * tp + sx + x]);
     toolbox_bounds();
+}
+
+/**
+ * Select in a line
+ */
+void toolbox_selline(int x, int y)
+{
+    int shift = meg4_api_getkey(MEG4_KEY_LSHIFT) || meg4_api_getkey(MEG4_KEY_RSHIFT);
+    int dx, dy, sx, sy, err, e2;
+
+    if(x == -1 || !shift) {
+        if(lex != -1 && tc) { memset(tc, 0, tp * th * 2); ts = 0; }
+        lex = ley = llx = lly = -1;
+    }
+    if(lsx == -1 || lsy == -1 || x == -1 || !shift) return;
+    lex = x; ley = y;
+    if(lex != llx || ley != lly || (shift && llx == -1)) {
+        llx = lex; lly = ley;
+        if(tc) { memset(tc, 0, tp * th * 2); ts = 0; }
+        if(lsx == lex && lsy == ley) return;
+        dx =  abs(lex-lsx); sx = lsx<lex ? 1 : -1;
+        dy = -abs(ley-lsy), sy = lsy<ley ? 1 : -1;
+        err = dx+dy;
+        for(x = lsx, y = lsy;;){
+            tc[(y + th) * tp + x] = 1;
+            e2 = 2*err;
+            if (e2 >= dy) { if (x == lex) { break; } err += dy; x += sx; }
+            if (e2 <= dx) { if (y == ley) { break; } err += dx; y += sy; }
+        }
+        ts = 1;
+    }
 }
 
 /**
@@ -529,10 +594,14 @@ void toolbox_btn(int x, int y, int c, int t)
 void toolbox_histadd(void)
 {
     if(!tb || tp < 1 || th < 1) return;
-    curhist = numhist++;
+    if(numhist && curhist + 1 != numhist) numhist = ++curhist + 1;
+    else curhist = numhist++;
     hist = (uint8_t*)realloc(hist, numhist * tp * th);
     if(!hist) { numhist = curhist = 0; return; }
-    memcpy(hist + curhist * tp * th, tb, tp * th);
+    if(curhist && !memcmp(hist + (curhist - 1) * tp * th, tb, tp * th)) {
+        curhist--; numhist--;
+    } else
+        memcpy(hist + curhist * tp * th, tb, tp * th);
 }
 
 /**
@@ -560,7 +629,8 @@ void toolbox_histredo(void)
  */
 void toolbox_init(uint8_t *buf, int w, int h)
 {
-    tp = w; th = h; ts = 0; tb = buf;
+    llx = lly = lsx = lsy = lex = ley = -1;
+    tp = w; th = h; curhist = numhist = ts = 0; tb = buf;
     tc = (uint8_t*)realloc(tc, tp * th * 2);
     if(tc) memset(tc, 0, tp * th * 2);
     if(tb) toolbox_histadd();
@@ -913,6 +983,30 @@ void toolbox_map(int x, int y, int dp, int w, int h, int mx, int my, int zoom, i
                 }
             }
     meg4.mmio.cropx0 = x0; meg4.mmio.cropx1 = x1; meg4.mmio.cropy0 = y0; meg4.mmio.cropy1 = y1;
+}
+
+/**
+ * Display a glyph cell
+ */
+void toolbox_font(int x, int y, int dp, int w, int h, int idx)
+{
+    uint8_t *fnt = meg4.font + 8 * idx;
+    int i, j, k, l, sR, sG, sB, sA = 256 - ta;
+    uint32_t fg, lg;
+    uint8_t *d = (uint8_t*)&fg, *cS = (uint8_t*)&theme[THEME_SEL_BG], *bg = (uint8_t*)&lg;
+
+    if(w < 1 || h < 1 || idx < 0 || idx > 0xffff) return;
+    sR = cS[0] * ta; sG = cS[1] * ta; sB = cS[2] * ta;
+    memcpy(bg, &theme[THEME_INP_BG], 4); bg[0] = (bg[0] + 4) & 0x7f; bg[1] = (bg[1] + 4) & 0x7f; bg[2] = (bg[2] + 4) & 0x7f;
+    for(j = 0, k = y; j < 8; j++, fnt++, k += h) {
+        for(i = 0, l = 1; i < 8; i++, l <<= 1) {
+            fg = *fnt & l ? theme[THEME_FG] : ((i & 1) ^ (j & 1) ? lg : theme[THEME_INP_BG]);
+            if(tc && tc[(th + j) * tp + i]) {
+                d[2] = (sB + sA*d[2]) >> 8; d[1] = (sG + sA*d[1]) >> 8; d[0] = (sR + sA*d[0]) >> 8;
+            }
+            meg4_box(meg4.valt, 640, 388, dp, x + i * w, k, w, h, fg, fg, fg, 0, 0, 0, 0, 0);
+        }
+    }
 }
 
 /**

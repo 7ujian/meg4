@@ -123,12 +123,6 @@ the other hand contributions for Lua workarounds are always welcome.
 To Do
 -----
 
-- Undo / Redo works everywhere except I had to remove history in the Sounds and Music Editors (I'll have to come up with some clever
-  history compression algorithm because it eats up the entire memory pretty quickly otherwise). Undo in the Wave Editor works though.
-
-- Sprite, Map and Font Editors have plenty of sophisticated tools already, but they currently lack "draw line". I'll probably add
-  this soon with <kbd>Shift</kbd> + Paint, just like in GIMP.
-
 - Visual Editor is unfinished (see [TirNanoG Editor](https://tirnanog.codeberg.page/images/tnge5.png)'s event handlers to get a
   glimpse of what I'm planning here).
 

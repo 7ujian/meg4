@@ -6,11 +6,11 @@ Code Editor
 Code has three sub-pages, one where you can write the source code (this one), the [Visual Editor], where you can do the same
 using structograms, and your program's machine code can be seen in the [debugger].
 
-Here the entire area is one big input field for the source code. At the bottom, you can see the status bar, with the
-current's row and coloumn, the UNICODE codepoint of the character under the cursor, and if you're standing in an API's
-argument list, a quick help on that API function's parameters (suitable for all programming languages).
-
 <imgc ../img/codescr.png><fig>Code Editor</fig>
+
+Here the entire area (<ui2>1</ui2>) is one big input field for the source code. At the bottom (<ui2>2</ui2>), you can see the
+status bar, with the current's row and coloumn, the UNICODE codepoint of the character under the cursor, and if you're standing
+in an API's argument list, a quick help on that API function's parameters (suitable for all programming languages).
 
 Programming Language
 --------------------
@@ -34,23 +34,7 @@ they return no value.
 Additional Shortcuts
 --------------------
 
-In addition to standard keyboard shortcuts and input methods (see [keyboard](#ui_kbd)), these work too in the code editor:
-
-| Key Combination              | Description                                                                                  |
-|------------------------------|----------------------------------------------------------------------------------------------|
-| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Find string.                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Find again.                                                                                  |
-| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Search and replace (in the selected text, or in lack of that, in the entire source).         |
-| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Go to line.                                                                                  |
-| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Go to function definition.                                                                   |
-| <kbd>Ctrl</kbd>+<kbd>N</kbd> | List bookmarks.                                                                              |
-| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Toggle bookmark on current line.                                                             |
-| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Go to previous bookmark.                                                                     |
-| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Go to next bookmark.                                                                         |
-| <kbd>Home</kbd>              | Move cursor to the beginning of the line.                                                    |
-| <kbd>End</kbd>               | Move cursor to the end of the line.                                                          |
-| <kbd>Page Up</kbd>           | Move cursor 42 lines (one page) up.                                                          |
-| <kbd>Page Down</kbd>         | Move cursor 42 lines (one page) down.                                                        |
-| <kbd>F1</kbd>                | If the cursor is in an API's argument list, then takes to that function's built-in help page.|
+In addition to [standard keyboard shortcuts](#ui_kbd) and input methods, the code editor has lot more text editing related
+[shortcuts](#code_editor_shortcuts).
 
 From the menu, you can also access Find, Replace, Go to, Undo, Redo as well as the list of bookmarks and the defined functions.

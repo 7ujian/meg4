@@ -6,11 +6,11 @@ Kód Szerkesztő
 A kód három alrészből áll, az egyiken szövegesen tudod a forráskódot szerkeszteni (ez), a [Vizuális Szerkesztő]ben ugyanezt
 struktrogrammokkal teheted meg, a programod gépi kódú megfelelőjét pedig a [debuggoló]ban láthatod.
 
-Itt az egész felület egy nagy forráskód szerkesztő felület. Alul látható a státuszsor, az aktuális sor és oszlop értékekkel,
-valamint a kurzor alatti karakter UNICODE kódpontjával, továbbá ha épp egy API funkció paraméterei között áll a kurzor, akkor
-egy gyorssúgóval a paraméterek listájáról (ami érvényes minden programozási nyelv esetén).
-
 <imgc ../img/codescr.png><fig>Kód Szerkesztő</fig>
+
+Itt az egész felület egy nagy forráskód szerkesztő (<ui2>1</ui2>). Alul látható a státuszsor (<ui2>2</ui2>), az aktuális sor és
+oszlop értékekkel, valamint a kurzor alatti karakter UNICODE kódpontjával, továbbá ha épp egy API funkció paraméterei között áll
+a kurzor, akkor egy gyorssúgóval a paraméterek listájáról (ami érvényes minden programozási nyelv esetén).
 
 Programozási nyelv
 ------------------
@@ -34,24 +34,8 @@ A választott nyelvtől függetlenül van két funkció, amit neked kell impleme
 Plusz billentyűkombók
 ---------------------
 
-A normál billentyűkön és beviteli módokon túl (lásd [billentyűzet](#ui_kbd)), a kódszerkesztéskor még ezek is elérhetők:
-
-| Billentyűkombináció          | Leírás                                                                                       |
-|------------------------------|----------------------------------------------------------------------------------------------|
-| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Sztring keresése.                                                                            |
-| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Következő keresése.                                                                          |
-| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Keresés és csere (a kijelöltben, vagy ha az nincs, akkor az egész forrásban).                |
-| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Megadott sorra ugrás.                                                                        |
-| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Funkció definíciójához ugrás.                                                                |
-| <kbd>Ctrl</kbd>+<kbd>N</kbd> | Könyvjelzők listája.                                                                         |
-| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Könyvjelző ki/bekapcsolása az aktuális soron.                                                |
-| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Előző könyvjelzőhöz ugrás.                                                                   |
-| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Következő könyvjelzőhöz ugrás.                                                               |
-| <kbd>Home</kbd>              | Kurzor mozgatása a sor elejére.                                                              |
-| <kbd>End</kbd>               | Kurzor mozgatása a sor végége.                                                               |
-| <kbd>Page Up</kbd>           | Kurzor mozgatása 42 sorral (egy oldallal) feljebb.                                           |
-| <kbd>Page Down</kbd>         | Kurzor mozgatása 42 sorral (egy oldallal) lejjebb.                                           |
-| <kbd>F1</kbd>                | Ha a kurzor egy API paraméterlistáján áll, akkor az API funkció súgójára visz.               |
+A normál [billentyűkön és beviteli módokon](#ui_kbd) túl, kódszerkesztéskor még számos más, szövegszerkesztés orientált
+[gyorsbillentyű](#kod_szerkeszto_gyorsbillentyuk) is elérhető.
 
 A menüből ugyancsak eléhető a keresés, következő, sorraugrás, visszavonás, újrabeillesztés, valamint a könyvjelzők és funkciók
 definíciójának listája is.

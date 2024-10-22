@@ -6,25 +6,27 @@ Sprite Editor
 The sprites you create here can be displayed using [spr], and also used by [dlg] to generate a dialog window and by [stext] when
 it displays text on screen.
 
-The editor has three main boxes, two on the top, and one below.
-
 <imgc ../img/spritescr.png><fig>Sprite Editor</fig>
+
+The editor has three main boxes, two on the top, and one below.
 
 <h2 spr_edit>Sprite Editor Box</h2>
 
-The one on the left is the sprite editor box. This is where you can draw to modify the sprite. <mbl> places the selected
+The one on the left is the sprite editor box (<ui2>1</ui2>). This is where you can draw the sprite. <mbl> places the selected
 pixel on the sprite, <mbr> clears it to empty.
+
+When the <kbd>Shift</kbd> is hold down, then a line can be drawn from last modified point.
 
 <h2 spr_sprs>Sprite Selector</h2>
 
-On the right you can see the sprite selector. The sprite you select here will be editable on the left. You can select
-multiple adjacent sprites and edit them together.
+On the right you can see the sprite selector (<ui2>2</ui2>). The sprite you select here will be editable on the left. You can
+select multiple adjacent sprites and edit them together.
 
 <h2 spr_pal>Palette</h2>
 
-Below you can see the palette. The first item cannot be set, because that's for erase. If you select any other color, then
-the <imgt ../img/hsv.png> palette button will become active. Clicking on it will bring up the HSV color picker, and with that
-you can modify the color for that palette entry.
+Below you can see the palette (<ui2>3</ui2>). The first item cannot be set, because that's for erase. If you select any other
+color, then the <imgt ../img/hsv.png> palette button will become active. Clicking on it will bring up the HSV color picker
+(<ui2>5</ui2>), and with that you can modify the color for that palette entry.
 
 The default MEG-4 palette uses 32 colors of the DawnBringer32 palette, 8 grayscale gradients, and 6 x 6 x 6 RGB combinations.
 
@@ -32,10 +34,10 @@ The default MEG-4 palette uses 32 colors of the DawnBringer32 palette, 8 graysca
 
 <imgc ../img/toolbox.png><fig>Sprite Toolbar</fig>
 
-Under the sprite editor, you see the tool buttons. With these you can easily modify the sprite. Shifting in different
-directions, rotating clock-wise, flipping etc. If there's an active selection, then they operate on the selection only,
-otherwise on the entire sprite. For the rotation, you must select an area which has the same width as height, otherwise
-rotation would be impossible.
+Under the sprite editor, you see the tool buttons (<ui2>4</ui2>). With these you can easily modify the sprite. Shifting
+in different directions, rotating clock-wise, flipping etc. If there's an active selection, then they operate on the
+selection only, otherwise on the entire sprite. For the rotation, you must select an area which has the same width as
+height, otherwise rotation would be impossible.
 
 The flood fill tool only fills adjacent same pixels, unless there's a selection. With a selection the entire selected area
 is filled, no matter what pixels the selection contains.

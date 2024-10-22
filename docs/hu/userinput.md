@@ -89,7 +89,7 @@ Ikon módban olyan speciális ikon karakterek vihetők be, amik az emulátor bev
 `Ⓐ` gombjának ikonját) valamint emoji ikonokat ábrázolnak (például <kbd>Alt</kbd>+<kbd>I</kbd>, <kbd>;</kbd>, <kbd>)</kbd> egy
 `😉` karaktert fog bevinni, míg az <kbd>Alt</kbd>+<kbd>I</kbd>, <kbd><</kbd>, <kbd>3</kbd> egy `❤` karaktert eredményez).
 
-Ez a beviteli mód aktív marad bevitel után is, üss <kbd>Esc</kbd> gombot a normál beviteli módhoz való visszatéréshez.
+Ez a beviteli mód automatikusan kilép bevitel után.
 
 ### Katakana és Hiragana mód
 

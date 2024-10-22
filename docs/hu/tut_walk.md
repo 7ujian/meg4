@@ -57,6 +57,12 @@ játékpad állapotát. Mivel az elsődleges játékpad a billentyűzetre is le 
 Hogy letároljuk az épp aktuális irányt, ehhez szükségünk lesz egy változóra, ami kiválasztja, hogy melyik szprájtot is kell
 megjelenítenünk.
 
+<imgc ../img/tut_walk2.png><fig>A szprájt sorszám kiderítése</fig>
+
+Leütheted az <kbd>F3</kbd>-at és a szprájtválasztóban a karakter bal felső szprájtjára kattintva kiírja az adott irányhoz
+tartozó szprájt sorszámát. Ezt a sorszámot az `irány` változóban fogjuk tárolni, és ezt a változót használjuk a `sprite` paraméter
+helyén.
+
 ```c
 #!c
 
@@ -88,28 +94,18 @@ void loop()
 }
 ```
 
-Leütheted az <kbd>F3</kbd>-at és a szprájtválasztóban a karakter bal felső szprájtjára kattintva kiírja az adott irányhoz
-tartozó szprájt sorszámát. Ezt a sorszámot az `irány` változóban fogjuk tárolni, és ezt a változót használjuk a `sprite` paraméter
-helyén.
-
 Próbáljuk ki! Látni fogjuk, hogy a kurzornyilak lenyomására irányt vált a karakterünk.
 
 Animálás hozzáadása
 -------------------
 
 A karakterünk még nem sétál. Javítsuk ki! Azt szeretnénk, hogy a gomb (vagy kurzornyíl) lenyomásakor a karakter sétáljon, és
-megálljon, amikor felengedjük azt. Ehhez szükségünk lesz egy változóra, ami tárolja, hogy épp van-e lenyomva gomb. Kelleni fog
-mégegy változó, ami pedig azt mondja meg, melyik képkockát kell épp kirajzolni. Használhatnánk valami vicces képletet is, de
-egyszerűbb egy tömbben letárolni, hogy melyik képkockához melyik szprájt tartozik. Mivel a karakterünk 4 x 4 szprájtból áll, ezért
-eleve fel is szorozhatjuk ezeket a szprájt azonosító eltolásokat a tömbben. Még egy valami, csak három szprájtunk van, viszont
-négy képkockára van szükségünk, így a középső szprájtot kétszer is meg kell jelenítenünk, hogy rendes oda-vissza lábmozgás
-animációt kapjunk.
+megálljon, amikor felengedjük azt. Ehhez szükségünk lesz egy változóra, ami tárolja, hogy épp van-e lenyomva gomb.
 
 ```c
 #!c
 
-int irány<hl>, lenyomva, képkocka;</hl>
-<hl>int anim[4] = { 4, 8, 4, 0 };</hl>
+int irány<hl>, lenyomva</hl>;
 
 void setup()
 {
@@ -133,16 +129,57 @@ void loop()
     irány = 384; <hl>lenyomva = 1;</hl>
   }
   /* Karakter megjelenítése */
-  <hl>képkocka = lenyomva ? (képkocka + 1) & 3 : 0;</hl>
   cls(0);
-  spr(144, 84, irány <hl>+ anim[képkocka]</hl>, 4, 4, 0, 0);
+  spr(144, 84, irány, 4, 4, 0, 0);
 }
 ```
 
 Először is, töröljük a `lenyomva` változót. Aztán minden if blokkban beállítjuk 1-re. Ennek hatására ha lenyomjuk valamelyik
 gombot, akkor a változó értéke 1 lesz, de amint felengedjük azt a gombot, akkor egyből visszaáll 0-ra.
 
-Ezután, kiszámoljuk, melyik képkockára van szükségünk, de csak akkor, ha van gomb lenyomva. Ha nincs, akkor konstans 0-át használunk,
+Kelleni fog mégegy változó, ami pedig azt mondja meg, melyik képkockát kell épp kirajzolni. Használhatnánk valami vicces képletet
+is, de egyszerűbb egy tömbben letárolni, hogy melyik képkockához melyik szprájt tartozik az adott sorban. Szóval a sor adja meg
+az irányt, az oszlop pedig az animációs fázist. E kettőt összeadva kapjuk meg a végleges képkockát.
+
+Még egy valami, csak három szprájtunk van, viszont négy képkockára van szükségünk, mivel a középső szprájtot kétszer is meg kell
+jelenítenünk, hogy rendes oda-vissza lábmozgás animációt kapjunk. Tehát az adott sorban vesszük a középső képkockát, az utolsót,
+megint a középsőt, majd az elsőt.
+
+```c
+#!c
+
+int irány, lenyomva<hl>, képkocka</hl>;
+<hl>int anim[4] = { 4, 8, 4, 0 };</hl>
+
+void setup()
+{
+  /* Induláskor lefuttatandó dolgok */
+}
+
+void loop()
+{
+  /* Felhasználói bemenet */
+  lenyomva = 0;
+  if(getpad(0, BTN_D)) {
+    irány = 0; lenyomva = 1;
+  } else
+  if(getpad(0, BTN_L)) {
+    irány = 128; lenyomva = 1;
+  } else
+  if(getpad(0, BTN_R)) {
+    irány = 256; lenyomva = 1;
+  } else
+  if(getpad(0, BTN_U)) {
+    irány = 384; lenyomva = 1;
+  }
+  /* Karakter megjelenítése */
+  <hl>képkocka = lenyomva ? (képkocka + 1) & 3 : 0;</hl>
+  cls(0);
+  spr(144, 84, irány <hl>+ anim[képkocka]</hl>, 4, 4, 0, 0);
+}
+```
+
+Ezután kiszámoljuk, melyik képkockára van szükségünk, de csak akkor, ha van gomb lenyomva. Ha nincs, akkor konstans 0-át használunk,
 ami az első képkockát jelenti. Egyébként megnöveljük a `képkocka` változó értékét, hogy következő képkockát vegyük, és logikai ÉS-t
 használunk a túlcsordulás elkerülésére. Amikor a `képkocka` értéke 4 lesz (ami 0b100) és ezt ÉS-eljük 3-al (0b011), akkor az eredmény
 0 lesz, azaz a képkocka számláló körbefordul. Használhattunk volna "modulo képkockák száma" kifejezést is, de ez gyorsabb. Végül

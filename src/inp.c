@@ -359,6 +359,8 @@ void meg4_setkey(int sc)
             switch(sc) {
                 /* for some reason under Win, AltGr is sent not alone, but together with left control... */
                 case MEG4_KEY_RALT: meg4_emptyaltgr = 1; break;
+                case MEG4_KEY_COMMA: meg4_pushkey("Ind-"); break;
+                case MEG4_KEY_PERIOD: meg4_pushkey("Ind+"); break;
                 case MEG4_KEY_A: meg4_pushkey("Sel"); break;
                 case MEG4_KEY_I: meg4_pushkey("Inv"); break;
                 case MEG4_KEY_X: meg4_pushkey("Cut"); break;
@@ -542,8 +544,8 @@ pushkey:            if(((meg4.mmio.kbdhead + 1) & 15) != meg4.mmio.kbdtail) {
                         if(p == 1 && found) {
                             memset(meg4_kbdtmpbuf, 0, sizeof(meg4_kbdtmpbuf));
                             meg4_kbdtmpsht = meg4_kbdtmpidx = 0;
-                            /* compose only: turn off compose mode after an exact match */
-                            if(meg4.kbdmode == 2) meg4.kbdmode = 0;
+                            /* compose and emoji only: turn off mode after an exact match */
+                            if(meg4.kbdmode < 4) meg4.kbdmode = 0;
                             s = meg4_kbdtmpsht && found[2] ? found[2] : found[1];
                             goto pushkey;
                         }

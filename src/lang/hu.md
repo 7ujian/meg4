@@ -63,7 +63,7 @@ gombnak felel meg, például:
 
 | Gombkód | Leírás                                          |
 |---------|-------------------------------------------------|
-| `\x8`   | A 8-as karakter, <kbd>Backspace</kbd> gomb      |
+| `\x8`   | A 8-as karakter, <kbd>←Backspace</kbd> gomb      |
 | `\x9`   | A 9-es karakter, <kbd>Tab</kbd> gomb            |
 | `\n`    | A 10-es karakter, <kbd>⏎Enter</kbd> gomb        |
 | `\x1b`  | A 27-es karakter, <kbd>Esc</kbd> gomb           |
@@ -438,6 +438,31 @@ Több háromszög együtt (teljes 3D-s modell) hatékonyan jeleníthető meg a [
 koordinátákban vannak megadva, ezért ez minden modellt egymásra rajzol az origó körül. Ha több modellt is szeretnél megjeleníteni a
 világban, ezért azokat először transzformálni kell (el kell helyezni) a világ koordinátáira a [trns] hívásával, és a transzformált
 vertex halmazt kell a [mesh]-nek megadni (a forgatás és az áthelyezés nem változtatja meg a háromszögeket, csak a koordinátáikat).
+
+## Kód Szerkesztő gyorsbillentyűk
+
+A szokásos [billentyűzet] kombinációkon túl a forráskód szerkesztéskor elérhető még:
+
+| Billentyű                    | Leírás                                                                        |
+|------------------------------|-------------------------------------------------------------------------------|
+| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Sztring keresése                                                              |
+| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Következő keresése                                                            |
+| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Keresés és csere (a kijelöltben, vagy ha az nincs, akkor az egész forrásban)  |
+| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Megadott sorra ugrás                                                          |
+| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Funkció definíciójához ugrás                                                  |
+| <kbd>Ctrl</kbd>+<kbd>N</kbd> | Könyvjelzők listája                                                           |
+| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Könyvjelző ki/bekapcsolása az aktuális soron                                  |
+| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Előző könyvjelzőhöz ugrás                                                     |
+| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Következő könyvjelzőhöz ugrás                                                 |
+| <kbd>Ctrl</kbd>+<kbd>,</kbd> | Behúzás csökkentése a kijelölt területen                                      |
+| <kbd>Ctrl</kbd>+<kbd>.</kbd> | Behúzás növelése a kijelölt területen                                         |
+| <kbd>Home</kbd>              | Kurzor mozgatása a sor elejére                                                |
+| <kbd>End</kbd>               | Kurzor mozgatása a sor végége                                                 |
+| <kbd>PgUp</kbd>              | Kurzor mozgatása 42 sorral (egy oldallal) feljebb                             |
+| <kbd>PgDown</kbd>            | Kurzor mozgatása 42 sorral (egy oldallal) lejjebb                             |
+| <kbd>F1</kbd>                | Ha a kurzor egy API paraméterlistáján áll, akkor az a funkció súgójára visz   |
+
+Lásd még a menüben a további alternatív beviteli módokat és azok gyorsbillentyűit.
 
 # Konzol
 

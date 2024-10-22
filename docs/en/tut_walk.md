@@ -56,6 +56,11 @@ Next, let's allow changing the direction in which the character is pointing to. 
 gamepad's state. The primary gamepad controller is mapped to the keyboard, so pressing the cursor arrow keys will work too. To
 handle the direction, we'll need a variable to store the current direction, and this should select the sprite we draw.
 
+<imgc ../img/tut_walk2.png><fig>Get the sprite id</fig>
+
+You can press <kbd>F3</kbd> and click on the top left sprite of the character frame to get the sprite id for that
+direction. We set these ids in the `dir` variable, and then we'll use this variable in place of the `sprite` parameter.
+
 ```c
 #!c
 
@@ -87,26 +92,18 @@ void loop()
 }
 ```
 
-You can press <kbd>F3</kbd> and click on the top left sprite of the character frame to get the sprite id for that
-direction. We set these ids in the `dir` variable, and then we'll use this variable in place of the `sprite` parameter.
-
 Try it out! You'll see that by pressing the arrows our character will change directions.
 
 Adding Animation
 ----------------
 
 Our character doesn't walk yet. Let's fix it! We want our character to walk when a button (or arrow key) is pressed, and stop
-when that's released. For that, we'll need a variable to keep track if the button is currently pressed. We'll also need a variable
-to tell which animation frame to display. We could have used some funky expression to get the sprite id for the frame, but it
-is a lot easier to use an array instead. Because our character sprite is 4 x 4 sprites big, we can also precalculate these sprite
-id offsets in this array. One more thing, we have three animation sprites, but we'll have to display four frames, the sprite in the
-middle needs to be displayed twice to get a proper back and forth animation for moving the legs.
+when that's released. For that, we'll need a variable to keep track if the button is currently pressed.
 
 ```c
 #!c
 
-int dir<hl>, pressed, frame;</hl>
-<hl>int anim[4] = { 4, 8, 4, 0 };</hl>
+int dir<hl>, pressed</hl>;
 
 void setup()
 {
@@ -130,14 +127,55 @@ void loop()
     dir = 384; <hl>pressed = 1;</hl>
   }
   /* Display the character */
-  <hl>frame = pressed ? (frame + 1) & 3 : 0;</hl>
   cls(0);
-  spr(144, 84, dir <hl>+ anim[frame]</hl>, 4, 4, 0, 0);
+  spr(144, 84, dir, 4, 4, 0, 0);
 }
 ```
 
 First, we clear the `pressed` variable. Then in the if blocks we set it to 1. This way when we press a button, the variable
 becomes 1, but as soon as we release the button, it will be cleared to 0.
+
+We'll also need a variable to tell which animation frame to display. We could have used some funky expression to get the sprite id,
+but it is a lot easier to use an array instead storing which sprite to pick in the row. So row tells the direction, and columns
+tells the animation frame. Adding this two together gives us the final frame.
+
+One more thing, we have three animation sprites, but we'll have to display four frames, the sprite in the middle needs to be
+displayed twice to get a proper back and forth animation for moving the legs. So in a given row we take the frame from the middle,
+the last, the middle again and then the first.
+
+```c
+#!c
+
+int dir, pressed<hl>, frame</hl>;
+<hl>int anim[4] = { 4, 8, 4, 0 };</hl>
+
+void setup()
+{
+  /* Things to do on startup */
+}
+
+void loop()
+{
+  /* Get user input */
+  pressed = 0;
+  if(getpad(0, BTN_D)) {
+    dir = 0; pressed = 1;
+  } else
+  if(getpad(0, BTN_L)) {
+    dir = 128; pressed = 1;
+  } else
+  if(getpad(0, BTN_R)) {
+    dir = 256; pressed = 1;
+  } else
+  if(getpad(0, BTN_U)) {
+    dir = 384; pressed = 1;
+  }
+  /* Display the character */
+  <hl>frame = pressed ? (frame + 1) & 3 : 0;</hl>
+  cls(0);
+  spr(144, 84, dir <hl>+ anim[frame]</hl>, 4, 4, 0, 0);
+}
+```
 
 Next, we calculate which animation frame to display, but only if a button is pressed. If not, then we use a constant 0, meaning
 the first frame. Otherwise we increase `frame` to get the next frame, and we use bitwise AND to avoid overflow. When `frame`

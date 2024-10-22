@@ -63,7 +63,7 @@ Las claves extraídas de la cola se representan en UTF-8. Algunas secuencias UTF
 
 | Keycode | Descripción                                     |
 |---------|-------------------------------------------------|
-| `\x8`   | El carácter 8, tecla <kbd>Backspace</kbd>       |
+| `\x8`   | El carácter 8, tecla <kbd>←Backspace</kbd>      |
 | `\x9`   | El carácter 9, tecla <kbd>Tab</kbd>             |
 | `\n`    | El carácter 10, tecla <kbd>⏎Enter</kbd>         |
 | `\x1b`  | El carácter 27, tecla <kbd>Esc</kbd>            |
@@ -440,6 +440,31 @@ modelos probablemente tengan coordenadas locales, eso dibujaría todos los model
 Entonces, si desea mostrar varios modelos en el mundo, primero debe traducirlos (colocarlos) en coordenadas mundiales usando
 [trns], y luego usar la nube de vértices traducida con [mesh] (mover y rotar el modelo no cambiar los triángulos, sólo sus
 coordenadas de vértice).
+
+## Atajos del editor de código
+
+Atajos de [teclado] adicionales que también puede utilizar al editar el código fuente:
+
+| Tecla | Descripción |
+|------------------------------|---------------------------------------------------------------------------------------|
+| <kbd>Ctrl</kbd>+<kbd>F</kbd> | Buscar cadena |
+| <kbd>Ctrl</kbd>+<kbd>G</kbd> | Buscar de nuevo |
+| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Buscar y reemplazar (en el texto seleccionado o, en su defecto, en todo el código fuente) |
+| <kbd>Ctrl</kbd>+<kbd>J</kbd> | Ir a la línea |
+| <kbd>Ctrl</kbd>+<kbd>D</kbd> | Ir a la definición de función |
+| <kbd>Ctrl</kbd>+<kbd>N</kbd> | Lista de marcadores |
+| <kbd>Ctrl</kbd>+<kbd>B</kbd> | Activar o desactivar marcador en la línea actual |
+| <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Ir al marcador anterior |
+| <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Ir al siguiente marcador |
+| <kbd>Ctrl</kbd>+<kbd>,</kbd> | Disminuir la sangría de la selección |
+| <kbd>Ctrl</kbd>+<kbd>.</kbd> | Aumentar la sangría de la selección |
+| <kbd>Inicio</kbd> | Mover el cursor al principio de la línea |
+| <kbd>Fin</kbd> | Mueve el cursor al final de la línea |
+| <kbd>RePág</kbd> | Mueve el cursor 42 líneas (una página) hacia arriba |
+| <kbd>AvPág</kbd> | Mueve el cursor 42 líneas (una página) hacia abajo |
+| <kbd>F1</kbd> | Si el cursor está en la lista de argumentos de una API, entonces ve a la página de ayuda integrada de la función |
+
+Consulta también el menú para conocer los métodos de entrada alternativos y sus atajos de teclado.
 
 # Consola
 

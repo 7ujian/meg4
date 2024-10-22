@@ -729,6 +729,12 @@ arrayindex:         s += 2; q = 1;
                               !((q & 15) == T_PTR && (t[m] == T(T_SCALAR,T_VOID) || t[m] == T(T_SCALAR,T_I32) || t[m] == T(T_SCALAR,T_U32))))
                                 { code_error(tok[l].pos, lang[ERR_BADARG]); return 0; }
                             comp_push(comp, q);
+                            /* automatically cast function arguments if necessary */
+                            if(q == T(T_SCALAR,T_FLOAT) && t[m] != T(T_SCALAR,T_FLOAT))
+                                comp_gen(comp, BC_CNVI);
+                            else
+                            if(q != T(T_SCALAR,T_FLOAT) && t[m] == T(T_SCALAR,T_FLOAT))
+                                comp_gen(comp, BC_CNVF);
                             m--; if(m >= 0) l--;
                             k = l;
                         }

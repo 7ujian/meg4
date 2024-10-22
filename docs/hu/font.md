@@ -5,15 +5,18 @@ Betű Szerkesztő
 
 Az itt szerkesztett betűtípust fogja használni, amikor a [width] megméri a szöveg méretét, és amikor a [text] paranccsal kiírsz.
 
-Ennek az oldalnak az elrendezése hasonló, mint a [szprájt szerkesztő]. Balra található a glifszerkesztési terület, jobbra pedig
-a glifválasztó. (A glif egy adott betű, azaz UNICODE kódpont megjelenített alakja).
-
 <imgc ../img/fontscr.png><fig>Betű Szerkesztő</fig>
+
+Ennek az oldalnak az elrendezése hasonló, mint a [szprájt szerkesztő], csak nincs paletta. Balra található a glifszerkesztési
+terület (<ui2>1</ui2>), jobbra pedig a glifválasztó (<ui2>2</ui2>). (A glif egy adott betű, azaz UNICODE kódpont megjelenített
+alakja).
 
 Glifszerkesztő
 --------------
 
 Elég egyszerű, <mbl> balklikk beállítja a kinézetet (előtér), a <mbr> pedig törli (háttér).
+
+Ha lenyomjuk a <kbd>Shift</kbd>-et, akkor vonalat húzhatunk a legutóbb módosított pontból.
 
 Glifválasztó
 ------------

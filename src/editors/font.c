@@ -26,15 +26,54 @@
 
 uint32_t gethex(uint8_t *ptr, int len);
 static char search[5] = { 0 }, clipboard[8] = { 0 }, *hist = NULL;
-static int idx = 0, numhist = 0, curhist = 0, idxhist = 0, modified = 0;
+static int numhist = 0, curhist = 0, idxhist = 0;
+int idx = 0, modified = 0;
+
+/**
+ * Add to history
+ */
+void font_histadd(uint8_t *fnt)
+{
+    if(!fnt) return;
+    if(idxhist != idx) { curhist = numhist = 0; idxhist = idx; }
+    if(numhist && curhist + 1 != numhist) numhist = ++curhist + 1;
+    else curhist = numhist++;
+    hist = (char*)realloc(hist, 8 * numhist);
+    if(!hist) { curhist = numhist = 0; return; }
+    memcpy(hist + curhist * 8, fnt, 8);
+}
+
+/**
+ * Undo change
+ */
+void font_histundo(void)
+{
+    if(!hist || !numhist || idxhist != idx) return;
+    if(curhist > 0) curhist--;
+    memcpy(meg4.font + 8 * idx, hist + curhist * 8, 8);
+    meg4_recalcfont(idx, idx);
+}
+
+/**
+ * Redo change
+ */
+void font_histredo(void)
+{
+    if(!hist || !numhist || idxhist != idx) return;
+    if(curhist + 1 < numhist) curhist++;
+    memcpy(meg4.font + 8 * idx, hist + curhist * 8, 8);
+    meg4_recalcfont(idx, idx);
+}
 
 /**
  * Initialize font editor
  */
 void font_init(void)
 {
-    last = 0;
+    last = curhist = numhist = 0;
     menu_scroll = (idx >> 4) * 17;
+    toolbox_init(NULL, 8, 8);
+    font_histadd(meg4.font + 8 * idx);
 }
 
 /**
@@ -44,51 +83,7 @@ void font_free(void)
 {
     if(hist) { free(hist); hist = NULL; }
     numhist = curhist = idxhist = 0;
-}
-
-/**
- * Add to history
- */
-void font_histadd(uint8_t *fnt)
-{
-    if(!fnt) return;
-    if(idxhist != idx) { numhist = 0; idxhist = idx; }
-    curhist = numhist++;
-    hist = (char*)realloc(hist, 16 * numhist);
-    if(!hist) { curhist = numhist = 0; return; }
-    memcpy(hist + curhist * 16, fnt, 8);
-    memset(hist + curhist * 16 + 8, 0, 8);
-}
-
-/**
- * Finish add to history
- */
-void font_histfinish(uint8_t *fnt)
-{
-    if(!fnt || !hist || !numhist || idxhist != idx) return;
-    memcpy(hist + (numhist - 1) * 16 + 8, fnt, 8);
-}
-
-/**
- * Undo change
- */
-void font_histundo(void)
-{
-    if(!hist || !numhist || idxhist != idx) return;
-    memcpy(meg4.font + 8 * idx, hist + curhist * 16, 8);
-    if(curhist > 0) curhist--;
-    meg4_recalcfont(idx, idx);
-}
-
-/**
- * Redo change
- */
-void font_histredo(void)
-{
-    if(!hist || !numhist || curhist + 1 >= numhist || idxhist != idx) return;
-    curhist++;
-    memcpy(meg4.font + 8 * idx, hist + curhist * 16 + 8, 8);
-    meg4_recalcfont(idx, idx);
+    toolbox_free();
 }
 
 /**
@@ -116,6 +111,7 @@ int font_ctrl(void)
 
     if((last || clk) && textinp_buf) { textinp_free(); last = clk; return 1; }
     if(last && !clk) {
+        toolbox_selline(-1, -1);
         /* menubar click release */
         if(py < 12) {
             if(px >= 502 && px < 514) font_histundo(); else
@@ -129,75 +125,68 @@ int font_ctrl(void)
         } else
         if(px >= 11 && px < 11+40*8 && py >= 23 && py < 23+40*8) {
             /* glyph editor area release */
-            if(modified) font_histfinish(fnt);
+            if(modified) font_histadd(fnt);
             else if(numhist > 0) numhist--;
         } else
         /* toolbar */
         switch(toolbox_ctrl()) {
             /* move left */
             case 0:
-                font_histadd(fnt);
                 for(i = 0; i < 8; i++) {
                     tmp[0] = fnt[i]; fnt[i] >>= 1;
                     if(tmp[0] & 1) fnt[i] |= 0x80;
                 }
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
             /* move up */
             case 1:
-                font_histadd(fnt);
                 tmp[0] = fnt[0];
                 memmove(&fnt[0], &fnt[1], 7);
                 fnt[7] = tmp[0];
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
             /* move down */
             case 2:
-                font_histadd(fnt);
                 tmp[0] = fnt[7];
                 memmove(&fnt[1], &fnt[0], 7);
                 fnt[0] = tmp[0];
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
             /* move right */
             case 3:
-                font_histadd(fnt);
                 for(i = 0; i < 8; i++) {
                     tmp[0] = fnt[i]; fnt[i] <<= 1;
                     if(tmp[0] & 0x80) fnt[i] |= 1;
                 }
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
             /* rotate clockwise */
             case 4:
-                font_histadd(fnt);
                 memcpy(tmp, fnt, 8); memset(fnt, 0, 8);
                 for(j = 0; j < 8; j++)
                     for(i = 0; i < 8; i++)
                         if(tmp[i] & (1 << j)) fnt[j] |= (1 << (7 - i));
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
             /* flip vertically */
             case 5:
-                font_histadd(fnt);
                 memcpy(tmp, fnt, 8);
                 for(i = 0; i < 8; i++) fnt[i] = tmp[7 - i];
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
             /* flip horizontally */
             case 6:
-                font_histadd(fnt);
                 memcpy(tmp, fnt, 8); memset(fnt, 0, 8);
                 for(j = 0; j < 8; j++)
                     for(i = 0; i < 8; i++)
                         if(tmp[j] & (1 << i)) fnt[j] |= (1 << (7 - i));
-                font_histfinish(fnt);
+                font_histadd(fnt);
                 meg4_recalcfont(idx, idx);
             break;
         }
@@ -205,25 +194,20 @@ int font_ctrl(void)
     if(last && clk) {
         if(px >= 11 && px < 11+40*8 && py >= 23 && py < 23+40*8) {
             /* glyph editor area move with click */
-            i = 8 * idx + (py - 23) / 40; j = meg4.font[i];
-            if(clk & MEG4_BTN_L)
-                meg4.font[i] |= 1 << ((px - 11) / 40);
-            else
-                meg4.font[i] &= ~(1 << ((px - 11) / 40));
-            if(meg4.font[i] != j) { modified = 1; meg4_recalcfont(idx, idx); }
+            toolbox_paint(0, 0, 8, 8, ((px - 11) / 40), (py - 23) / 40, 0, 0);
+            if(modified) meg4_recalcfont(idx, idx);
         }
     }
     if(!last && clk) {
-        if(px >= 11 && px < 11+40*8 && py >= 23 && py < 23+40*8) {
-            /* glyph editor area clicked */
-            font_histadd(fnt);
-            modified = 0;
-        } else
         if(px >= 356 && px < 356+272 && py >= 23 && py < 23+372) {
             /* glyph table clicked */
             idx = (((menu_scroll / 17) + ((py - 23 + (menu_scroll % 17)) / 17)) << 4) + ((px - 356) / 17);
         }
     } else {
+        if(px >= 11 && px < 11+40*8 && py >= 23 && py < 23+40*8) {
+            /* glyph editor area mouseover */
+            toolbox_selline(((px - 11) / 40), (py - 23) / 40);
+        }
         key = meg4_api_popkey();
         if(key) {
             if(meg4_api_speckey(key)) {
@@ -235,24 +219,21 @@ int font_ctrl(void)
                 if(!memcmp(&key, "Redo", 4)) { font_histredo(); } else
                 if(!memcmp(&key, "Cut", 4)) {
 cut:                memcpy(clipboard, fnt, 8);
-                    font_histadd(fnt);
                     memset(fnt, 0, 8);
-                    font_histfinish(fnt);
+                    font_histadd(fnt);
                     meg4_recalcfont(idx, idx);
                 } else
                 if(!memcmp(&key, "Cpy", 4)) {
 copy:               memcpy(clipboard, fnt, 8);
                 } else
                 if(!memcmp(&key, "Pst", 4)) {
-paste:              font_histadd(fnt);
-                    memcpy(fnt, clipboard, 8);
-                    font_histfinish(fnt);
+paste:              memcpy(fnt, clipboard, 8);
+                    font_histadd(fnt);
                     meg4_recalcfont(idx, idx);
                 } else
                 if(!memcmp(&key, "Del", 4)) {
-del:                font_histadd(fnt);
-                    memset(fnt, 0, 8);
-                    font_histfinish(fnt);
+del:                memset(fnt, 0, 8);
+                    font_histadd(fnt);
                     meg4_recalcfont(idx, idx);
                 }
                 idx &= 0xffff;
@@ -269,6 +250,7 @@ del:                font_histadd(fnt);
             font_chkscroll();
         }
     }
+    if(idx != idxhist) font_histadd(meg4.font + 8 * idx);
     last = clk;
     return 1;
 }
@@ -311,7 +293,6 @@ void font_menu(uint32_t *dst, int dw, int dh, int dp)
  */
 void font_view(void)
 {
-    uint8_t *fnt;
     uint32_t fg, *dst;
     int i, j, l, r, c, y0, y1;
     char tmp[32];
@@ -344,17 +325,21 @@ void font_view(void)
     /* editor box */
     meg4_box(meg4.valt, 640, 388, 2560, 10, 10, 40*8+2, 40*8+2, theme[THEME_D], theme[THEME_BG], theme[THEME_L],
         0, 0, 0, 40, 40);
+    toolbox_font(11, 11, 2560, 40, 40, idx);
     l = meg4.font[8 * 65536 + idx] & 0xf; r = (meg4.font[8 * 65536 + idx] >> 4) + 1;
     dst = meg4.valt + 11 * 640 + 11;
     for(i = 0; i < 40 * 8; i++, dst += 640)
         dst[l * 40 - 1] = dst[r * 40] = theme[THEME_SEL_BG];
+/*
     fnt = meg4.font + 8 * idx;
     for(j = 0, r = 11; j < 8; j++, fnt++, r += 40) {
-        for(i = 0, l = 1; i < 8; i++, l <<= 1)
+        for(i = 0, l = 1; i < 8; i++, l <<= 1) {
             if(*fnt & l)
                 meg4_box(meg4.valt, 640, 388, 2560, 11 + i * 40, r, 40, 40, theme[THEME_FG], theme[THEME_FG], theme[THEME_FG],
                     0, 0, 0, 0, 0);
+        }
     }
+*/
     for(i = 0; i < 8; i++) {
         sprintf(tmp, "%u", 1 << i);
         meg4_text(meg4.valt, 32 + i * 40 - meg4_width(meg4_font, 1, tmp, NULL)/2, 1, 2560, theme[THEME_D], theme[THEME_L], 1, meg4_font, tmp);

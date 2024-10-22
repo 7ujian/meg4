@@ -273,6 +273,30 @@ void code_instab(void)
 }
 
 /**
+ * Change indentation
+ */
+void code_indent(uint32_t s, uint32_t e, int dec)
+{
+    char *buf;
+    uint32_t i, n = 0;
+
+    for(i = s; i < e; i++)
+        if(i && meg4.src[i - 1] == '\n') n++;
+    if(!n || !(buf = (char*)malloc(e - s + n + 1))) return;
+
+    for(i = s, n = 0; i < e; i++) {
+        if(i && meg4.src[i - 1] == '\n') {
+            if(dec) { if(meg4.src[i] == ' ') continue; }
+            else buf[n++] = ' ';
+        }
+        buf[n++] = meg4.src[i];
+    }
+    code_insert(buf, n);
+    free(buf);
+    sels = s; sele = cursor;
+}
+
+/**
  * Move cursor up one line
  */
 void code_up(void)
@@ -696,6 +720,8 @@ int code_ctrl(void)
                 if(!memcmp(&key, "Del", 4)) code_del(0); else
                 if(!memcmp(&key, "Undo", 4)) code_histundo(); else
                 if(!memcmp(&key, "Redo", 4)) code_histredo(); else
+                if(!memcmp(&key, "Ind-", 4)) { if(sels != -1U && sele != -1U) code_indent(sels < sele ? sels : sele, sels < sele ? sele : sels, 1); lastc = cursor; } else
+                if(!memcmp(&key, "Ind+", 4)) { if(sels != -1U && sele != -1U) code_indent(sels < sele ? sels : sele, sels < sele ? sele : sels, 0); lastc = cursor; } else
                 if(!memcmp(&key, "Next", 4)) { code_find(cursor + 1); lastc = cursor; } else
                 if(!memcmp(&key, "F1", 3)) help_show(hlp); else
                 if(!memcmp(&key, "Find", 4)) {

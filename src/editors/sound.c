@@ -26,7 +26,70 @@
 
 static int idx = 0, wave = 0, loop = 0, playing = 0, widx = -1, unaw, expw;
 static uint8_t sndcb[4], wavecb[sizeof(meg4.waveforms[0])] = { 0 }, lastwave = 0, *defwaves[32];
+static uint8_t hist[8], wavehist[sizeof(meg4.waveforms[0]) * 2], histundo = 0;
 static int8_t minwave[512], maxwave[512];
+
+/* the issue we're facing with note history is, that notes are modified by stepping. If we were creating a history record
+ * after each and every modification, the history queue would eat up all the free memory pretty quickly. So we only save
+ * the state when the sound effect is selected, and users can revert to that state until they select another sound effect. */
+
+/**
+ * Add to history
+ */
+void sound_histadd(void)
+{
+    int8_t *ptr = meg4.mmio.sounds[(idx << 2) + 1] ? (int8_t*)&meg4.waveforms[(uint32_t)meg4.mmio.sounds[(idx << 2) + 1] - 1][0] : NULL;
+
+    histundo = 0;
+    if(wave) {
+        if(ptr) {
+            memcpy(&wavehist[sizeof(meg4.waveforms[0])], ptr, sizeof(meg4.waveforms[0]));
+            memcpy(wavehist, ptr, sizeof(meg4.waveforms[0]));
+        }
+    } else {
+        memcpy(&hist[0], &meg4.mmio.sounds[idx << 2], 4);
+        memcpy(&hist[4], &meg4.mmio.sounds[idx << 2], 4);
+    }
+}
+
+/**
+ * Undo change
+ */
+void sound_histundo(void)
+{
+    int8_t *ptr = meg4.mmio.sounds[(idx << 2) + 1] ? (int8_t*)&meg4.waveforms[(uint32_t)meg4.mmio.sounds[(idx << 2) + 1] - 1][0] : NULL;
+
+    if(histundo) return;
+    histundo = 1;
+    if(wave) {
+        if(ptr) {
+            memcpy(&wavehist[sizeof(meg4.waveforms[0])], ptr, sizeof(meg4.waveforms[0]));
+            memcpy(ptr, wavehist, sizeof(meg4.waveforms[0]));
+            lastwave = 0;
+        }
+    } else {
+        memcpy(&hist[4], &meg4.mmio.sounds[idx << 2], 4);
+        memcpy(&meg4.mmio.sounds[idx << 2], &hist[0], 4);
+    }
+}
+
+/**
+ * Redo change
+ */
+void sound_histredo(void)
+{
+    int8_t *ptr = meg4.mmio.sounds[(idx << 2) + 1] ? (int8_t*)&meg4.waveforms[(uint32_t)meg4.mmio.sounds[(idx << 2) + 1] - 1][0] : NULL;
+
+    if(!histundo) return;
+    histundo = 0;
+    if(wave) {
+        if(ptr) {
+            memcpy(ptr, &wavehist[sizeof(meg4.waveforms[0])], sizeof(meg4.waveforms[0]));
+            lastwave = 0;
+        }
+    } else
+        memcpy(&meg4.mmio.sounds[idx << 2], &hist[4], 4);
+}
 
 /**
  * Initialize sfx editor
@@ -45,6 +108,7 @@ void sound_init(void)
     wave = playing = loop = lastwave = 0;
     memset(defwaves, 0, sizeof(defwaves));
     for(ptr = meg4_defwaves, i = 0; ptr && (ptr[0] || ptr[1]) && i < 32; i++, ptr += 8 + ((ptr[1]<<8)|ptr[0])) defwaves[i] = ptr;
+    sound_histadd();
 }
 
 /**
@@ -82,6 +146,7 @@ void sound_addwave(int wave)
         for(i = 0; i < 64 && meg4.mmio.sounds[(i << 2)]; i++);
         if(i < 64) {
             idx = i; meg4.mmio.sounds[(i << 2)] = MEG4_NOTE_C_4; meg4.mmio.sounds[(i << 2) + 1] = wave;
+            sound_histadd();
         }
     } else idx = i;
     sound_chkscroll();
@@ -97,14 +162,16 @@ int sound_ctrl(void)
     uint8_t riffhdr[44] = { 'R', 'I', 'F', 'F', 0, 0, 0, 0, 'W', 'A', 'V', 'E', 'f', 'm', 't', ' ',
         16, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 8, 0, 'd', 'a', 't', 'a', 0, 0, 0, 0 }, *buf;
 #endif
-    uint8_t *snd = &meg4.mmio.sounds[(idx << 2)], note[4] = { MEG4_NOTE_C_4, 0, 0, 0 };
+    uint8_t *snd = &meg4.mmio.sounds[(idx << 2)], note[4] = { MEG4_NOTE_C_4, 0, 0, 0 }, saved[4];
     int8_t tmp, *ptr = meg4.mmio.sounds[(idx << 2) + 1] ? (int8_t*)&meg4.waveforms[(uint32_t)meg4.mmio.sounds[(idx << 2) + 1] - 1][0] : NULL;
     uint32_t key;
     float f;
     int i, j, l, clk = le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_L, px = le16toh(meg4.mmio.ptrx), py = le16toh(meg4.mmio.ptry);
 
-    if(!wave)
+    if(!wave) {
+        memcpy(saved, snd, 4);
         toolbox_notectrl(snd, 1);
+    }
 
     if(last && clk) {
         /* waveform editor area */
@@ -135,18 +202,26 @@ int sound_ctrl(void)
         /* sound effect table clicked */
         if(px >= 556 && px < 628 && py >= 23 && py < 299) {
             wave = playing = loop = 0; idx = (menu_scroll / 10) + (py - 23 + (menu_scroll % 10)) / 10;
+            sound_histadd();
         } else
         /* waveform editor area */
         if(loop) { loop = 0; if(ptr && !ptr[2] && !ptr[3] && ptr[4] == 1 && !ptr[5]) ptr[4] = 0; } else
         /* wave toolbar */
         if(px < 522 && py >= 288 && py < 302) {
-            if(px >= 10 && px < 22) { playing = loop = 0; if(ptr) wave ^= 1; } else
+            if(px >= 10 && px < 22) {
+                playing = loop = 0;
+                if(ptr) {
+                    wave ^= 1;
+                    if(wave) sound_histadd();
+                }
+            } else
             if(!wave && px >= 180 && px < 191 + 31 * 11) {
                 /* wave selector buttons */
                 snd[1] = 1 + (px - 180) / 11;
                 if(!snd[0]) snd[0] = MEG4_NOTE_C_4;
             } else
             if(wave && ptr) {
+                histundo = 0;
                 /* wave editor toolbar */
                 l = ((uint8_t)ptr[1]<<8)|(uint8_t)ptr[0]; lastwave = 0;
                 /* finetune */
@@ -230,8 +305,10 @@ int sound_ctrl(void)
     } else {
         key = meg4_api_popkey();
         if(key) {
-            if(!memcmp(&key, "Up", 3))   { idx--; sound_chkscroll(); } else
-            if(!memcmp(&key, "Down", 4)) { idx++; sound_chkscroll(); } else
+            if(!memcmp(&key, "Up", 3))   { idx--; sound_chkscroll(); sound_histadd(); } else
+            if(!memcmp(&key, "Down", 4)) { idx++; sound_chkscroll(); sound_histadd(); } else
+            if(!memcmp(&key, "Undo", 4)) { sound_histundo(); memcpy(saved, snd, 4); } else
+            if(!memcmp(&key, "Redo", 4)) { sound_histredo(); } else
             if(!memcmp(&key, "Cut", 4)) {
 cut:            if(wave && ptr) {
                     memcpy(wavecb, ptr, sizeof(wavecb));
@@ -266,6 +343,7 @@ del:            if(wave && ptr) {
     }
     if(wave && playing && meg4.dalt.ch[4].sample && meg4.dalt.ch[4].increment > 0.0f && meg4.dalt.ch[4].position < 0.0f)
         meg4.dalt.ch[4].position = 0.0f;
+    if(!wave && memcmp(saved, snd, 4)) histundo = 0;
     last = clk;
     return 1;
 }
@@ -421,13 +499,14 @@ void sound_view(void)
         for(i = 0; i < 31; i++) {
             sprintf(tmp, "%X", i + 1); j = (11 - meg4_width(meg4_font, 1, tmp, NULL)) / 2;
             if(meg4.waveforms[i][0] || meg4.waveforms[i][1]) {
-                bg = (i + 1 == meg4.mmio.sounds[(idx << 2) + 1]) ? theme[THEME_SEL_BG] + 0x0f0f0f : theme[THEME_BTN_BG];
+                bg = theme[THEME_BTN_BG]; fg = theme[THEME_BTN_FG];
+                if(i + 1 == meg4.mmio.sounds[(idx << 2) + 1]) { bg = theme[THEME_SEL_BG]; fg = theme[THEME_SEL_FG]; }
                 if((clk && py >= 276 + 12 && py < 276 + 25 && px >= 180 + i * 11 && px < 191 + i * 11)) {
                     meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_BTN_D], bg, theme[THEME_BTN_L], 0, 0, 0, 0, 0);
-                    meg4_text(meg4.valt, 180 + j + i * 11, 276 + 3, 2560, theme[THEME_BTN_FG], 0, 1, meg4_font, tmp);
+                    meg4_text(meg4.valt, 180 + j + i * 11, 276 + 3, 2560, fg, 0, 1, meg4_font, tmp);
                 } else {
                     meg4_box(meg4.valt, 640, 388, 2560, 180 + i * 11, 276, 10, 13, theme[THEME_BTN_L], bg, theme[THEME_BTN_D], 0, 0, 0, 0, 0);
-                    meg4_text(meg4.valt, 180 + j + i * 11, 276 + 2, 2560, theme[THEME_BTN_FG], 0, 1, meg4_font, tmp);
+                    meg4_text(meg4.valt, 180 + j + i * 11, 276 + 2, 2560, fg, 0, 1, meg4_font, tmp);
                 }
             } else {
                 bg = theme[(i + 1 == meg4.mmio.sounds[(idx << 2) + 1]) ? THEME_SEL_BG : THEME_L];
