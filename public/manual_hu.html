@@ -1672,7 +1672,7 @@ opcionális paraméterrel.</p>
 adatfolyamba az utasítások elé rakhatsz címkéket, amik az adott adat címét fogják jelenteni. A betöltéshez a kód szekcióban,
 előbb be kell tölteni az akkumulátor regiszterbe egy ilyen címkét a <samp>ci</samp> utasítással, majd pedig kiadni a <samp>ldb</samp>
 (load, bájt betöltése), <samp>ldw</samp> (szó betöltése), <samp>ldi</samp> (egészszám betöltése) vagy <samp>ldf</samp> (lebegőpontos szám betöltése) utasítás
-valamelyikét. Ha az <samp>ldb</samp> vagy <samp>ldw</samp> betöltő utasításoknak num-nulla paramétert adunk, akkor előjelesen 32 bitre kiegészítik az
+valamelyikét. Ha az <samp>ldb</samp> vagy <samp>ldw</samp> betöltő utasításoknak nem-nulla paramétert adunk, akkor előjelesen 32 bitre kiegészítik az
 értéket.</p>
 <h2 id="asm_flow">Vezérlésirányítás<a href="#asm_flow"></a></h2>
 <p>Minden, ami a <samp>.code</samp> kulcsszó után kerül, kód lesz. Nincs vezérlésirányítás, minden utasítás sorjában, egymás után kerül

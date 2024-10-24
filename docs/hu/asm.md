@@ -60,7 +60,7 @@ Assemblyben nincs olyan, hogy változó. Helyette a `.data` kulcsszó indítja a
 adatfolyamba az utasítások elé rakhatsz címkéket, amik az adott adat címét fogják jelenteni. A betöltéshez a kód szekcióban,
 előbb be kell tölteni az akkumulátor regiszterbe egy ilyen címkét a `ci` utasítással, majd pedig kiadni a `ldb`
 (load, bájt betöltése), `ldw` (szó betöltése), `ldi` (egészszám betöltése) vagy `ldf` (lebegőpontos szám betöltése) utasítás
-valamelyikét. Ha az `ldb` vagy `ldw` betöltő utasításoknak num-nulla paramétert adunk, akkor előjelesen 32 bitre kiegészítik az
+valamelyikét. Ha az `ldb` vagy `ldw` betöltő utasításoknak nem-nulla paramétert adunk, akkor előjelesen 32 bitre kiegészítik az
 értéket.
 
 <h2 asm_flow>Vezérlésirányítás</h2>
