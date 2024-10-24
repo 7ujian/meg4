@@ -74,8 +74,9 @@ MEG-4 PRO
 ---------
 
 The proprietary MEG-4 PRO version offers extra functionality over the GPL'd version: it stores the author's name into the floppies,
-and it can also *export a standalone WebAssembly* binary with just your game in it, without the built-in editors. These look like
-genuine games, no-one can tell they were created with MEG-4 (assuming your game doesn't crash because the error screen will tell).
+and it can also *export standalone WebAssembly, Windows and Linux* executables with just your game in them, without the built-in
+editors. These look like genuine games, no-one can tell they were created with MEG-4 (assuming your game doesn't crash because the
+error screen would tell).
 
 Contributors
 ------------

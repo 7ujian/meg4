@@ -35,6 +35,7 @@ int verbose = 0, zenity = 0, nearest = 0, strace = 0;
 char *main_floppydir = NULL;
 void main_hdr(void);
 void meg4_export(char *name, int binary);
+extern uint8_t binary_game[];
 
 /**
  * Windows workaround
@@ -259,7 +260,7 @@ int main_writefile(char *file, uint8_t *buf, int size)
  */
 void main_openfile(void)
 {
-#ifndef EMBED
+#if !defined(EMBED) && !defined(NOEDITORS)
 #ifdef __EMSCRIPTEN__
     EM_ASM({ document.getElementById('meg4_upload').click(); });
 #else
@@ -295,6 +296,7 @@ void main_openfile(void)
  */
 int main_savefile(const char *name, uint8_t *buf, int len)
 {
+#if !defined(EMBED) && !defined(NOEDITORS)
 #ifdef __EMSCRIPTEN__
     if(name && buf && len > 0) {
         EM_ASM({ meg4_savefile($0, $1, $2, $3); }, name, strlen(name), buf, len);
@@ -318,7 +320,6 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         strcat(fn, name);
         return main_writefile(fn, buf, len);
     }
-#ifndef EMBED
     else {
         memset(&szExt,0,sizeof(szExt));
         memcpy(szExt, L"All\0*.*\0", 18);
@@ -342,6 +343,9 @@ int main_savefile(const char *name, uint8_t *buf, int len)
     }
 #endif
     return ret;
+#else
+    (void)name; (void)buf; (void)len;
+    return 0;
 #endif
 }
 
@@ -350,7 +354,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
  */
 char **main_getfloppies(void)
 {
-#ifndef __EMSCRIPTEN__
+#if !defined(__EMSCRIPTEN__) && !defined(NOEDITORS)
     wchar_t szFile[PATH_MAX + FILENAME_MAX + 1];
     WIN32_FIND_DATAW ffd;
     HANDLE h;
@@ -536,7 +540,7 @@ int main_writefile(char *file, uint8_t *buf, int size)
  */
 void main_openfile(void)
 {
-#ifndef EMBED
+#if !defined(EMBED) && !defined(NOEDITORS)
 #ifdef __EMSCRIPTEN__
     EM_ASM({ document.getElementById('meg4_upload').click(); });
 #else
@@ -649,6 +653,7 @@ void main_openfile(void)
  */
 int main_savefile(const char *name, uint8_t *buf, int len)
 {
+#if !defined(EMBED) && !defined(NOEDITORS)
 #ifdef __EMSCRIPTEN__
     if(name && buf && len > 0) {
         EM_ASM({ meg4_savefile($0, $1, $2, $3); }, name, strlen(name), buf, len);
@@ -658,7 +663,6 @@ int main_savefile(const char *name, uint8_t *buf, int len)
 #else
     char path[PATH_MAX + FILENAME_MAX + 2];
     int ret = 0;
-#ifndef EMBED
     char *fn = NULL;
     int i;
 #ifdef __ANDROID__
@@ -677,7 +681,6 @@ int main_savefile(const char *name, uint8_t *buf, int len)
     char *tmp1, *tmp2;
 #endif
 #endif
-#endif
     if(!name || !*name || !buf || len < 1) return 0;
     if(main_floppydir && *main_floppydir) {
         strcpy(path, main_floppydir);
@@ -687,7 +690,6 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         strcat(path, name);
         return main_writefile(path, buf, len);
     }
-#ifndef EMBED
     else {
 #ifdef __ANDROID__
     /* TODO */
@@ -776,12 +778,19 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         }
         munmap(tmp1, PATH_MAX);
 #endif
-#endif
         main_focus();
-        if(fn) { ret = main_writefile(fn, buf, len); free(fn); }
+        if(fn) {
+            ret = main_writefile(fn, buf, len);
+            if(!memcmp(buf, "\177ELF", 4)) chmod(fn, 0755);
+            free(fn);
+        }
     }
 #endif
     return ret;
+#endif
+#else
+    (void)name; (void)buf; (void)len;
+    return 0;
 #endif
 }
 
@@ -790,7 +799,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
  */
 char **main_getfloppies(void)
 {
-#ifndef __EMSCRIPTEN__
+#if !defined(EMBED) && !defined(NOEDITORS) && !defined(__EMSCRIPTEN__)
     DIR *dir;
     struct dirent *ent;
     char fn[PATH_MAX + FILENAME_MAX + 1], *ext, **ret = NULL;

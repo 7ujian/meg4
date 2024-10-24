@@ -1,7 +1,7 @@
 MEG-4 Licensz
 =============
 
-<imgr ../img/gplv3.png>A MEG-4 Fantasy Konzol Szabad és Nyílt Forráskódú szoftver, ami [GPLv3+](https://gitlab.com/bztsrc/meg4/blob/main/LICENSE)
+<imgr ../img/gplv3.png>A **MEG-4** Fantasy Konzol Szabad és Nyílt Forráskódú szoftver, ami [GPLv3+](https://gitlab.com/bztsrc/meg4/blob/main/LICENSE)
 (vagy tetszés szerint ennek bármelyik újabb verziója) alatt kerül terjesztésre.
 
 ```
@@ -18,3 +18,6 @@ MEG-4 Licensz
  License egy példányát; ha mégsem kapta meg, akkor írjon erre a címre:
  Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ```
+
+A **MEG-4 PRO** Fantasy Konzol zárt kereskedelmi licenszű. A GPL-es változat funkcionalitásán túl képes a programodat önálló Web,
+Windows és Linux alkalmazásként exportálni.

@@ -62,7 +62,7 @@ tok_t *hl_tok(char ***r, char *str, int *len);
 
 /* pro.c */
 void pro_init(void);
-void pro_export(void);
+void pro_export(int type);
 int  pro_license(uint8_t *buf, int len);
 
 /* formats.c */

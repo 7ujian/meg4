@@ -772,6 +772,7 @@ void meg4_redraw(uint32_t *dst, int dw, int dh, int dp)
 #endif
 }
 
+#ifndef NOEDITORS
 /**
  * Get a screenshot
  */
@@ -827,6 +828,7 @@ void meg4_screenshot(uint32_t *dst, int dx, int dy, int dp)
             }
     }
 }
+#endif
 
 /**
  * Recalculate font widths

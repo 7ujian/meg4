@@ -23,7 +23,7 @@
 
 /* serialization chunks */
 enum { MEG4_CHUNK_META, MEG4_CHUNK_DATA, MEG4_CHUNK_CODE, MEG4_CHUNK_PAL, MEG4_CHUNK_SPRITES, MEG4_CHUNK_MAP, MEG4_CHUNK_FONT,
-    MEG4_CHUNK_WAVE, MEG4_CHUNK_SFX, MEG4_CHUNK_TRACK, MEG4_CHUNK_OVL };
+    MEG4_CHUNK_WAVE, MEG4_CHUNK_SFX, MEG4_CHUNK_TRACK, MEG4_CHUNK_OVL, MEG4_CHUNK_WANGCFG };
 
 /**
  * Check if a buffer contains only a specific byte
@@ -61,15 +61,16 @@ static int meg4_rle_dec(uint8_t *inbuff, int inlen, uint8_t *outbuff, int outlen
  */
 static int meg4_deserialize(uint8_t *buf, int len)
 {
-    /* ret is checked in load_insert() in editors/load.c */
+    /* ret is checked in load_insert() in editors/load.c, it is a bitmask which chunks were loaded */
     int ret = 1;
     uint32_t s, e, i, j, *d, fwver = 0;
     uint8_t *end, *ptr;
     int8_t pack;
 
     if(!buf || len < 4) return 0;
-    for(end = buf + len; buf < end; buf += s) {
-        s = ((buf[3] << 16) | (buf[2] << 8) | buf[1]) - 4; buf += 4; if(buf + s > end) s = end - buf;
+    for(end = buf + len; buf + 4 < end; buf += s) {
+        s = ((buf[3] << 16) | (buf[2] << 8) | buf[1]) - 4; if(!s || (s >> 24)) break;
+        buf += 4; if(buf + s > end) s = end - buf;
         switch(buf[-4]) {
 
             case MEG4_CHUNK_META:
@@ -79,8 +80,6 @@ static int meg4_deserialize(uint8_t *buf, int len)
                 (void)fwver;
                 if(s >= 4 + (uint32_t)sizeof(meg4_title))
                     memcpy(meg4_title, buf + 4, sizeof(meg4_title));
-                if(meg4_pro && s >= 4 + (uint32_t)sizeof(meg4_title) + (uint32_t)sizeof(meg4_author))
-                    memcpy(meg4_author, buf + 4 + sizeof(meg4_title), sizeof(meg4_author));
             break;
 
             case MEG4_CHUNK_DATA:
@@ -144,7 +143,7 @@ static int meg4_deserialize(uint8_t *buf, int len)
                 /* for waves, the index is one bigger as wave 00 means "use previous waveform" */
                 if(s > 14 && buf[0]) {
                     i = buf[0] - 1;
-                    if(i < (uint32_t)(sizeof(meg4.waveforms)/sizeof(meg4.waveforms[0])) && buf[1] == 0) {
+                    if(i < (uint32_t)(sizeof(meg4.waveforms)/sizeof(meg4.waveforms[0]))) {
                         memset(meg4.waveforms[i], 0, sizeof(meg4.waveforms[0]));
                         /* buf[1] is the format, only 8-bit mono supported for now, so convert other formats to native format */
                         e = (s - 2) < sizeof(meg4.waveforms[0]) ? (s - 2) : sizeof(meg4.waveforms[0]);
@@ -181,8 +180,10 @@ static int meg4_deserialize(uint8_t *buf, int len)
                 if(s > 1) {
                     ret |= 32;
                     i = buf[0];
-                    if(i < (uint32_t)(sizeof(meg4.tracks)/sizeof(meg4.tracks[0])))
+                    if(i < (uint32_t)(sizeof(meg4.tracks)/sizeof(meg4.tracks[0]))) {
+                        memset(meg4.tracks[i], 0, sizeof(meg4.tracks[0]));
                         memcpy(meg4.tracks[i], buf + 1, (s - 1) < sizeof(meg4.tracks[0]) ? (s - 1) : sizeof(meg4.tracks[0]));
+                    }
                 }
             break;
 
@@ -196,6 +197,19 @@ static int meg4_deserialize(uint8_t *buf, int len)
                     if(meg4.ovls[i].data) memcpy(meg4.ovls[i].data, buf + 1, s - 1);
                     else meg4.ovls[i].size = 0;
                 }
+            break;
+
+            case MEG4_CHUNK_WANGCFG:
+#ifndef NOEDITORS
+                if(s > 1) {
+                    ret |= 4;
+                    i = buf[0];
+                    if(i < (uint32_t)(sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0]))) {
+                        memset(meg4.wangcfg[i], 0, sizeof(meg4.wangcfg[0]));
+                        memcpy(meg4.wangcfg[i], buf + 1, (s - 1) < sizeof(meg4.wangcfg[0]) ? (s - 1) : sizeof(meg4.wangcfg[0]));
+                    }
+                }
+#endif
             break;
         }
     }
@@ -239,7 +253,8 @@ uint8_t *meg4_serialize(int *len, int type)
 {
     int i, j, sprsiz = 0, mapsiz = 0, fontsiz = 0, sndsiz = 0, siz = 4 + 4 + sizeof(meg4_title) + sizeof(meg4_author) +
         (type ? (meg4.code && meg4.code_len > 0 ? 5 + meg4.code_len * 4 : 0) + (meg4_init_len > 0 ? 4 + meg4_init_len : 0) :
-        (meg4.src && meg4.src_len > 0 && meg4.src[0] == '#' && meg4.src[1] == '!' ? 4 + meg4.src_len : 0));
+        (meg4.src && meg4.src_len > 0 && meg4.src[0] == '#' && meg4.src[1] == '!' ? 4 + meg4.src_len : 0)) +
+        sizeof(meg4.wangcfg) + 5 * (int)(sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0]));
     int trksiz[sizeof(meg4.tracks)/sizeof(meg4.tracks[0])] = { 0 };
     uint8_t *ret, *ptr, *spr = NULL, *map = NULL;
     uint32_t hdr, *d;
@@ -383,7 +398,16 @@ uint8_t *meg4_serialize(int *len, int type)
             memcpy(ptr, meg4.ovls[i].data, meg4.ovls[i].size); ptr += meg4.ovls[i].size;
         }
 
-    if(len) *len = siz;
+    /* wang config */
+    if(!type)
+        for(i = 0; i < (int)(sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0])); i++)
+            if(!meg4_isbyte(&meg4.wangcfg, 0, sizeof(meg4.wangcfg[0]))) {
+                hdr = htole32(((5 + sizeof(meg4.wangcfg[0])) << 8) | MEG4_CHUNK_WANGCFG);
+                memcpy(ptr, &hdr, 4); ptr += 4; *ptr++ = i;
+                memcpy(ptr, meg4.wangcfg[i], sizeof(meg4.wangcfg[0])); ptr += sizeof(meg4.wangcfg[0]);
+            }
+
+    if(len) *len = (int)((uintptr_t)ptr - (uintptr_t)ret);
     return ret;
 }
 

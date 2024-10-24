@@ -258,6 +258,7 @@ typedef struct {
     meg4_dsp_t dram;                        /* the default dsp ram */
 #ifndef NOEDITORS
     meg4_dsp_t dalt;                        /* alternative dsp ram, only used by the editors */
+    uint8_t wangcfg[256][32];               /* wang configuration, only used by the editors */
 #endif
     uint8_t waveforms[31][16384];           /* waveforms */
     uint8_t tracks[8][16384];               /* music tracks */

@@ -31,6 +31,8 @@
 "Icons (emoji)",
 "Katakana",
 "Hiragana",
+"Cyrillic",
+"Greek",
 
 "Registered to:",
 "noname",
@@ -45,6 +47,8 @@
 "Import",
 "Export ZIP",
 "Export WASM",
+"Export EXE",
+"Export ELF",
 "Fullscreen",
 "Input methods",
 "Help",

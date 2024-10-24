@@ -272,7 +272,7 @@ void font_menu(uint32_t *dst, int dw, int dh, int dp)
     /* paste */     menu_icon(dst, dw, dh, dp, 550, 152, 40, 1, MEG4_KEY_V, STAT_PASTE);
     /* delete */    menu_icon(dst, dw, dh, dp, 568, 136, 48, 0, MEG4_KEY_DEL, STAT_ERASE);
     /* search */
-    meg4_blit(dst, 590, 2, dp, 8, 8, meg4_edicons.buf, 120, 40, meg4_edicons.w * 4, 1);
+    meg4_blit(dst, 590, 2, dp, 8, 8, meg4_edicons.buf, 120, 56, meg4_edicons.w * 4, 1);
     meg4_text(dst, 600, 2, dp, theme[THEME_MENU_FG], 0, 1, meg4_font, "U+");
     meg4_box(dst, dw, dh, dp, 610, 0, 30, 12,
         theme[THEME_MENU_D], theme[THEME_INP_BG], theme[THEME_MENU_L], 0, 0, 0, 0, 0);

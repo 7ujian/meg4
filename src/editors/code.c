@@ -806,7 +806,7 @@ paste:              if((clipboard = main_getclipboard())) { code_insert(clipboar
 void code_menu(uint32_t *dst, int dw, int dh, int dp)
 {
     /* run */       menu_icon(dst, dw, dh, dp, 472,  56, 40, 1, MEG4_KEY_R, MENU_RUN);
-    /* find */      menu_icon(dst, dw, dh, dp, 492, 120, 40, 1, MEG4_KEY_F, STAT_FIND);
+    /* find */      menu_icon(dst, dw, dh, dp, 492, 120, 56, 1, MEG4_KEY_F, STAT_FIND);
     /* replace */   menu_icon(dst, dw, dh, dp, 504,   0, 56, 1, MEG4_KEY_H, STAT_REPLACE);
     /* goto */      menu_icon(dst, dw, dh, dp, 516,  24, 56, 1, MEG4_KEY_L, STAT_GOTO);
     /* functions */ menu_icon(dst, dw, dh, dp, 528,  32, 56, 1, MEG4_KEY_D, STAT_FUNC);
@@ -987,7 +987,7 @@ void code_view(void)
         switch(modal) {
             case 1:
                 /* find */
-                meg4_blit(meg4.valt, 118, 379, 2560, 8, 8, meg4_edicons.buf, 120, 40, meg4_edicons.w * 4, 1);
+                meg4_blit(meg4.valt, 118, 379, 2560, 8, 8, meg4_edicons.buf, 120, 56, meg4_edicons.w * 4, 1);
                 meg4_box(meg4.valt, 632, 388, 2560, 128, 378, 502, 10, theme[THEME_MENU_D], theme[THEME_INP_BG], theme[THEME_MENU_L], 0, 0, 0, 0, 0);
             break;
             case 2:
@@ -1012,7 +1012,7 @@ void code_view(void)
             case 5:
                 /* function list */
                 meg4_box(meg4.valt, 632, 388, 2560, 504, 0, 128, 376, theme[THEME_MENU_L], theme[THEME_MENU_BG], theme[THEME_MENU_D], 0, 0, 0, 0, 0);
-                meg4_blit(meg4.valt, 506, 3, 2560, 8, 8, meg4_edicons.buf, 120, 40, meg4_edicons.w * 4, 1);
+                meg4_blit(meg4.valt, 506, 3, 2560, 8, 8, meg4_edicons.buf, 120, 56, meg4_edicons.w * 4, 1);
                 meg4_box(meg4.valt, 632, 388, 2560, 516, 2, 114, 10, theme[THEME_MENU_D], theme[THEME_INP_BG], theme[THEME_MENU_L], 0, 0, 0, 0, 0);
                 meg4.mmio.ptrspr = MEG4_PTR_NORM;
                 l = strlen(func); meg4.mmio.cropx1 = htole16(628); meg4.mmio.cropy1 = htole16(374);
@@ -1066,7 +1066,7 @@ void code_view(void)
             default:
                 if(hlp != -1 && help_pages[hlp].code) {
                     /* quick system call help */
-                    meg4_blit(meg4.valt, 118, 379, 2560, 8, 8, meg4_edicons.buf, 112, 40, meg4_edicons.w * 4, 1);
+                    meg4_blit(meg4.valt, 118, 379, 2560, 8, 8, meg4_edicons.buf, 128, 56, meg4_edicons.w * 4, 1);
                     meg4_text(meg4.valt, 128, 379, 2560, theme[THEME_MENU_FG], 0, 1, meg4_font, help_pages[hlp].code);
                 } else
                 if(lhlp != -1) {

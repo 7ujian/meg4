@@ -17,7 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
- * @brief MEG-4's license tool (the generated license.txt enables wasm export in the editor)
+ * @brief MEG-4's license tool (the generated license.txt enables
+ *   wasm/exe/elf export in the editor)
  * Don't get your hopes up, it would also need my RSA keys...
  *
  */

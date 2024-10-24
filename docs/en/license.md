@@ -1,7 +1,7 @@
 MEG-4 License
 =============
 
-<imgr ../img/gplv3.png>The MEG-4 fantasy console is Free and Open Source software available under [GPLv3+](https://gitlab.com/bztsrc/meg4/blob/main/LICENSE) or any later version of that license.
+<imgr ../img/gplv3.png>The **MEG-4** Fantasy Console is Free and Open Source software available under [GPLv3+](https://gitlab.com/bztsrc/meg4/blob/main/LICENSE) or any later version of that license.
 
 ```
  This program is free software; you can redistribute it and/or modify
@@ -18,3 +18,6 @@ MEG-4 License
  along with this program; if not, write to the Free Software
  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 ```
+
+The **MEG-4 PRO** Fantasy Console's license is commercial and proprietary. It offers plus functionality over the GPL'd version, it
+can export your program into a standalone Web, Windows or Linux application.

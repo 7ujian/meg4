@@ -48,8 +48,7 @@ ifeq ($(NOEDITORS),)
 else
 ifneq ($(wildcard ../../src/editors/pro.c),)
 	@cc ../../src/bin2h.c -o bin2h
-	./bin2h meg4.js meg4.wasm
-	mv data.c ../../src/editors/pro.h
-	@rm bin2h bin2h.exe data.h 2>/dev/null || true
+	./bin2h -o ../../src/editors/pro.wasm meg4.js meg4.wasm
+	@rm bin2h bin2h.exe 2>/dev/null || true
 endif
 endif

@@ -153,7 +153,54 @@ char *meg4_kbdhira[] = {
     "ne",       "ね",        "ね",                    "no",       "の",        "の",
     NULL
 };
-char **meg4_kbdcomplex[] = { meg4_kbdcompose, meg4_kbdemoji, meg4_kbdkata, meg4_kbdhira, NULL, NULL, NULL };
+char *meg4_kbdkoi8[] = {
+ /* key         character   shift+                  key         character   shift+ */
+    "`",        "ю",        "Ю",                    "~",        "Ю",        "Ю",
+    "a",        "а",        "А",                    "b",        "б",        "Б",
+    "c",        "ц",        "Ц",                    "d",        "д",        "Д",
+    "e",        "е",        "Е",                    "f",        "ф",        "Ф",
+    "g",        "г",        "Г",                    "h",        "х",        "Х",
+    "i",        "и",        "И",                    "j",        "й",        "Й",
+    "k",        "к",        "К",                    "l",        "л",        "Л",
+    "m",        "м",        "М",                    "n",        "н",        "Н",
+    "o",        "о",        "О",                    "p",        "п",        "П",
+    "q",        "я",        "Я",                    "r",        "р",        "Р",
+    "s",        "с",        "С",                    "t",        "т",        "Т",
+    "u",        "у",        "У",                    "v",        "ж",        "Ж",
+    "w",        "в",        "В",                    "x",        "ь",        "Ь",
+    "y",        "ы",        "Ы",                    "z",        "з",        "З",
+    "[",        "ш",        "Ш",                    "{",        "Ш",        "Ш",
+    "\\",       "э",        "Э",                    "|",        "Э",        "Э",
+    "]",        "щ",        "Щ",                    "}",        "Щ",        "Щ",
+    ";",        "ч",        "Ч",                    ":",        "Ч",        "Ч",
+    "'",        "ъ",        "Ъ",                    "\"",       "Ъ",        "Ъ",
+    ",",        "ё",        "Ё",                    "<",        "Ё",        "Ё",
+    ".",        "є",        "Є",                    ">",        "Є",        "Є",
+    "/",        "ґ",        "Ґ",                    "?",        "Ґ",        "Ґ",
+    "1",        "і",        "І",                    "!",        "І",        "І",
+    "2",        "ї",        "Ї",                    "@",        "Ї",        "Ї",
+    "3",        "ў",        "Ў",                    "#",        "Ў",        "Ў",
+    "4",        "«",        "»",                    "$",        "»",        "»",
+    NULL
+};
+char *meg4_kbdgrk[] = {
+ /* key         character   shift+                  key         character   shift+ */
+    "a",        "α",        "Α",                    "b",        "β",        "ϐ",
+    "c",        "χ",        "Χ",                    "d",        "δ",        "Δ",
+    "e",        "ε",        "Ε",                    "f",        "φ",        "Φ",
+    "g",        "γ",        "Γ",                    "h",        "η",        "Η",
+    "i",        "ι",        "Ι",                    "j",        "θ",        "Θ",
+    "k",        "κ",        "Κ",                    "l",        "λ",        "Λ",
+    "m",        "μ",        "Μ",                    "n",        "ν",        "Ν",
+    "o",        "ω",        "Ω",                    "p",        "π",        "Π",
+    "q",        "ψ",        "Ψ",                    "r",        "ρ",        "Ρ",
+    "s",        "σ",        "Σ",                    "t",        "τ",        "Τ",
+    "u",        "υ",        "Υ",                    "v",        "ο",        "Ο",
+    "w",        "ϛ",        "Ϛ",                    "x",        "ξ",        "Ξ",
+    "y",        "ͷ",        "Ͷ",                    "z",        "ζ",        "Ζ",
+    NULL
+};
+char **meg4_kbdcomplex[] = { meg4_kbdcompose, meg4_kbdemoji, meg4_kbdkata, meg4_kbdhira, meg4_kbdkoi8, meg4_kbdgrk };
 
 /**
  * Clear gamepad button
@@ -346,6 +393,8 @@ void meg4_setkey(int sc)
                 case MEG4_KEY_I: meg4_pushkey("\003"); break;       /* icon input (emoji) */
                 case MEG4_KEY_K: meg4_pushkey("\004"); break;       /* katakana input */
                 case MEG4_KEY_J: meg4_pushkey("\005"); break;       /* hiragana input */
+                case MEG4_KEY_C: meg4_pushkey("\006"); break;       /* cyrillic input */
+                case MEG4_KEY_G: meg4_pushkey("\007"); break;       /* greek input */
 #ifndef NOEDITORS
                 /* fallback function keys, Alt + 1..0 */
                 case MEG4_KEY_1: case MEG4_KEY_2: case MEG4_KEY_3: case MEG4_KEY_4: case MEG4_KEY_5:
@@ -468,10 +517,7 @@ void meg4_pushkey(char *key)
     strncpy(tmp, key, 4);
     switch(s[0]) {
         case 0:
-        case 6: case 7: /* reserved for future use, should new complex input maps needed */
-            meg4.kbdmode = 0;
-        break;
-        case 1: case 2: case 3: case 4: case 5:
+        case 1: case 2: case 3: case 4: case 5: case 6: case 7:
             meg4.kbdmode = meg4.kbdmode == s[0] ? 0 : s[0];
             memset(meg4_kbdtmpbuf, 0, sizeof(meg4_kbdtmpbuf));
             meg4_kbdtmpsht = meg4_kbdtmpidx = 0;
@@ -542,11 +588,11 @@ pushkey:            if(((meg4.mmio.kbdhead + 1) & 15) != meg4.mmio.kbdtail) {
                             meg4_kbdtmpsht = meg4_kbdtmpidx = 0;
                         } else
                         if(p == 1 && found) {
+                            s = meg4_kbdtmpsht && found[2] ? found[2] : found[1];
                             memset(meg4_kbdtmpbuf, 0, sizeof(meg4_kbdtmpbuf));
                             meg4_kbdtmpsht = meg4_kbdtmpidx = 0;
                             /* compose and emoji only: turn off mode after an exact match */
                             if(meg4.kbdmode < 4) meg4.kbdmode = 0;
-                            s = meg4_kbdtmpsht && found[2] ? found[2] : found[1];
                             goto pushkey;
                         }
                     }

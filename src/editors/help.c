@@ -443,7 +443,7 @@ void help_menu(uint32_t *dst, int dw, int dh, int dp)
 {
     int x0, x1;
     /* search input */
-    meg4_blit(dst, 504, 2, dp, 8, 8, meg4_edicons.buf, 120, 40, meg4_edicons.w * 4, 1);
+    meg4_blit(dst, 504, 2, dp, 8, 8, meg4_edicons.buf, 120, 56, meg4_edicons.w * 4, 1);
     meg4_box(dst, dw, dh, dp, 512, 0, 128, 12,
         theme[THEME_MENU_D], theme[THEME_INP_BG], theme[THEME_MENU_L], 0, 0, 0, 0, 0);
     if(!textinp_buf && search[0]) {

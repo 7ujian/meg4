@@ -111,6 +111,12 @@ void main_win(int w, int h, int f)
 {
     int p;
     void *data;
+    char *title =
+#ifndef NOEDITORS
+        "MEG-4";
+#else
+        (char*)binary_game;
+#endif
     SDL_Surface *srf;
 
     if(screen) { SDL_DestroyTexture(screen); screen = NULL; }
@@ -120,9 +126,9 @@ void main_win(int w, int h, int f)
     if(!f) { win_w = w; win_h = h; }
     win_f = f;
 #if SDL_VERSION_ATLEAST(3,0,0)
-    window = SDL_CreateWindow("MEG-4", f ? main_w : w, f ? main_h : h, f);
+    window = SDL_CreateWindow(title, f ? main_w : w, f ? main_h : h, f);
 #else
-    window = SDL_CreateWindow("MEG-4",
+    window = SDL_CreateWindow(title,
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         f ? main_w : w, f ? main_h : h,
         f ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE);
@@ -321,7 +327,13 @@ void main_loop(void) {
                         meg4_pushkey("\n\0\0");
                     break;
                     case SDLK_q: if(main_alt) { exit_loop(); } break;
-                    case SDLK_ESCAPE: if(main_alt) { exit_loop(); } else meg4_pushkey("\x1b\0\0"); break;
+                    case SDLK_ESCAPE:
+#ifndef NOEDITORS
+                        if(main_alt) { exit_loop(); } else meg4_pushkey("\x1b\0\0");
+#else
+                        exit_loop();
+#endif
+                    break;
                     /* only for special keys that aren't handled by SDL_TEXTINPUT events */
                     case SDLK_F1: meg4_pushkey("F1\0"); break;
                     case SDLK_F2: meg4_pushkey("F2\0"); break;
@@ -556,7 +568,9 @@ int main(int argc, char **argv)
     });
     detlng[0] = i & 0xff; detlng[1] = (i >> 8) & 0xff; detlng[2] = 0;
 #else
+#if !defined(NOEDITORS) && !defined(__EMSCRIPTEN__)
     char *fn;
+#endif
     int32_t tickdiff;
     uint32_t ticks;
 #if SDL_VERSION_ATLEAST(3,0,0)
@@ -572,9 +586,13 @@ int main(int argc, char **argv)
 #endif
     main_parsecommandline(argc, argv, &lng, &infile);
 #endif
+#ifndef NOEDITORS
     main_hdr();
     for(i = 0; i < 3; i++) printf("  %s\r\n", copyright[i]);
     printf("\r\n");
+#else
+    for(i = 0; i < 128; i++) binary_game[i] ^= i + 7;
+#endif
     fflush(stdout);
 
     SDL_GetVersion(&ver);

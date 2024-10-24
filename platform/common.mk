@@ -44,7 +44,7 @@ ifneq ($(USE_C99),)
 endif
 CFLAGS += -Wall -Wextra -Wno-pragmas -ffunction-sections -I../../src -DBUILD="$(shell date +"%Y%j")"
 ifneq ($(NOEDITORS),)
- CFLAGS += -DNOEDITORS=1
+ CFLAGS += -Os -DNOEDITORS=1
  DEBUG =
 endif
 ifeq ($(DEBUG),)
@@ -82,6 +82,17 @@ ifeq ("$(PACKAGE)","Win")
 	@strip $(TARGET).exe
 else
 	@strip $(TARGET)
+endif
+ifneq ($(NOEDITORS),)
+ifneq ($(wildcard ../../src/editors/pro.c),)
+	@cc ../../src/bin2h.c -o bin2h
+ifeq ("$(PACKAGE)","Win")
+	./bin2h -o ../../src/editors/pro.exe $(TARGET).exe
+else
+	./bin2h -o ../../src/editors/pro.elf $(TARGET)
+endif
+	@rm bin2h bin2h.exe 2>/dev/null || true
+endif
 endif
 endif
 endif

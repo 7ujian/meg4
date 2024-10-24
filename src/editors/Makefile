@@ -25,9 +25,6 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(OBJS)
 
-pro.h:
-	@make -C ../../platform/emscripten distclean all NOEDITORS=1
-
 %: %.c
 	$(CC) $(CFLAGS) $< -c $@
 

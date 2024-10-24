@@ -31,6 +31,8 @@
 "Ikonok (emoji)",
 "Katakana",
 "Hiragana",
+"Cirill",
+"Görög",
 
 "Regisztrálva:",
 "nincsneve",
@@ -45,6 +47,8 @@
 "Import",
 "ZIP Export",
 "WASM Export",
+"EXE Export",
+"ELF Export",
 "Teljesképernyő",
 "Beviteli módok",
 "Súgó",

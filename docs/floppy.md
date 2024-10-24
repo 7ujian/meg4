@@ -59,9 +59,9 @@ This is an optional single chunk.
 |      1 |     3 | at least 5                                             |
 |      4 |     x | program's source code                                  |
 
-The MEG-4 PRO version saves a language type byte and compiled bytecode in this chunk when it exports standalone WebAssembly games.
+The MEG-4 PRO version saves a language type byte and compiled bytecode in this chunk when it exports a standalone game.
 
-Otherwise it's plain text source code, which always starts with a shebang `#!(language)` line.
+Otherwise this chunk always contains plain text source code, which always starts with a shebang `#!(language)` line.
 
 Palette
 -------
@@ -188,3 +188,17 @@ This is an optional multiple chunk.
 
 Overlays are very similar to `MEG4_CHUNK_DATA`, but programs can load them to arbitrary positions dynamically in run-time using
 the `memload` function.
+
+Wang Tilesets
+-------------
+
+This is an optional multiple chunk.
+
+| Offset | Size  | Description                                            |
+|-------:|------:|--------------------------------------------------------|
+|      0 |     1 | Magic 12, `MEG4_CHUNK_WANGCFG`                         |
+|      1 |     3 | at least 5                                             |
+|      4 |     1 | wang index (valid values 0 - 255)                      |
+|      5 |     x | wang data                                              |
+
+This chunk stores the wang tileset configuration for the Map Editor. It is just technical, not used by the game in any way.

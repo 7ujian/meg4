@@ -29,9 +29,9 @@
 #endif
 
 extern const char *copyright[3];
-static int menu_width = 0, menu_subwidth = 0, menu_sel = - 1, menu_pro = 0, menu_last = 0, subw = 0;
-static char *keys[10] = { "Ctrl\0R", "Ctrl\0S", "Ctrl\0L", "Ctrl\0⏎", "F1\0", "GUI\0", "AltGr\0", "Alt\0I", "Alt\0K", "Alt\0J" };
-static int keyw[20], titlew[HELP_TOC - MENU_HELP], zipt, zipb, zipo, zipw, zipbin = 0;
+static int menu_width = 0, menu_subwidth = 0, menu_sel = -1, menu_zip = 0, menu_pro = 0, menu_last = 0, subw = 0;
+static char *keys[12] = { "Ctrl\0R", "Ctrl\0S", "Ctrl\0L", "Ctrl\0⏎", "F1\0", "GUI\0", "AltGr\0", "Alt\0I", "Alt\0K", "Alt\0J", "Alt\0C", "Alt\0G" };
+static int keyw[28], titlew[HELP_TOC - MENU_HELP], zipt, zipa, zipe, zipl, zipb, zipo, zipw, zipbin = 0;
 int menu_active = 0, menu_scroll, menu_scrmax, menu_scrhgt, menu_scrbtn, menu_scrpos, menu_scrsiz, menu_scrofs, menu_stat = 0, last = 0;
 
 /**
@@ -67,7 +67,7 @@ void menu_init(void)
 
     menu_active = menu_width = menu_scrmax = menu_scrhgt = 0;
     menu_pro = meg4_width(meg4_font, 1, lang[MENU_EXPWASM], NULL);
-    for(i = 0; i < 10; i++) {
+    for(i = 0; i < 12; i++) {
         keyw[i * 2 + 0] = meg4_width(meg4_font, 1, keys[i], NULL);
         keyw[i * 2 + 1] = meg4_width(meg4_font, 1, keys[i] + strlen(keys[i]) + 1, NULL);
         w = 4 + keyw[i * 2 + 0] + (keyw[i * 2 + 1] ? 5 + keyw[i * 2 + 1] : 0);
@@ -75,21 +75,28 @@ void menu_init(void)
     }
     subw = meg4_width(meg4_font, 1, ">", NULL);
     for(i = MENU_ABOUT; i <= MENU_HELP; i++) {
-        j = meg4_width(meg4_font, 1, lang[i], NULL) + (i == MENU_EXPWASM ? menu_pro : 0) + 8 + k;
+        j = meg4_width(meg4_font, 1, lang[i], NULL) + (i >= MENU_EXPWASM && i <= MENU_EXPELF ? menu_pro : 0) + 8 + k;
         if(j > menu_width) menu_width = j;
     }
     menu_pro += 20;
     menu_subwidth = 0;
-    for(i = MENU_CODEPOINT; i <= MENU_HIRAGANA; i++) {
+    for(i = MENU_CODEPOINT; i < MENU_REGTO; i++) {
         j = meg4_width(meg4_font, 1, lang[i], NULL) + 12 + k;
         if(j > menu_subwidth) menu_subwidth = j;
     }
     for(i = MENU_HELP; i < HELP_TOC; i++)
         titlew[i - MENU_HELP] = meg4_width(meg4_font, 1, lang[i], NULL) / 2;
     zipt = meg4_width(meg4_font, 2, lang[MENU_EXPZIP], NULL);
+    zipa = meg4_width(meg4_font, 2, lang[MENU_EXPWASM], NULL);
+    zipe = meg4_width(meg4_font, 2, lang[MENU_EXPEXE], NULL);
+    zipl = meg4_width(meg4_font, 2, lang[MENU_EXPELF], NULL);
     zipb = meg4_width(meg4_font, 1, lang[MENU_BINARY], NULL);
-    zipo = meg4_width(meg4_font, 1, lang[MENU_OK], NULL);
-    zipw = zipt < 128 ? 128 : zipt;
+    zipo = meg4_width(meg4_font, 1, lang[MENU_OK], NULL) + 10;
+    zipw = zipt;
+    if(zipw < zipa) zipw = zipa;
+    if(zipw < zipe) zipw = zipe;
+    if(zipw < zipl) zipw = zipl;
+    if(zipw < 128) zipw = 128;
     if(zipw < zipb + zipo + 32) zipw = zipb + zipo + 32;
 }
 
@@ -151,7 +158,7 @@ int menu_ctrl(void)
     /* export zip window controller */
     if(menu_active == -2) {
         textinp_ctrl();
-        if(textinp_key == htole32('\n') && meg4_title[0]) { meg4_export(NULL, zipbin); menu_active = 0; textinp_free(); } else
+        if(textinp_key == htole32('\n') && meg4_title[0]) goto doexport; else
         if(textinp_key == htole32('\x1b')) { menu_active = last = 0; } else
         if(l && !clk) {
             if(px < (632 - zipw) / 2 || px > (632 - zipw) / 2 + zipw + 8 ||
@@ -163,7 +170,13 @@ int menu_ctrl(void)
                 textinp_init(260, 198, 120, theme[THEME_INP_FG], 0, 1, meg4_font, 1, TEXTINP_NAME, meg4_title, sizeof(meg4_title));
             } else
             if(px >= 364 - zipo && px < 380 &&
-              py >= 209 && py < 221) { meg4_export(NULL, zipbin); menu_active = last = 0; textinp_free(); }
+              py >= 209 && py < 221) {
+doexport:       if(menu_zip == MENU_EXPZIP) meg4_export(NULL, zipbin);
+#ifdef MEG4_PRO
+                else pro_export(menu_zip);
+#endif
+                menu_active = last = 0; textinp_free();
+            }
         }
         return 1;
     } else
@@ -177,13 +190,15 @@ int menu_ctrl(void)
 #ifndef EMBED
                 case MENU_IMPORT: main_openfile(); break;
                 case MENU_EXPZIP:
-                    if(!meg4_title[0]) strcpy(meg4_title, lang[MENU_NONAME]);
-                    textinp_init(260, 198, 120, theme[THEME_INP_FG], 0, 1, meg4_font, 1, TEXTINP_NAME, meg4_title, sizeof(meg4_title));
-                    menu_active = -2;
+                case MENU_EXPWASM:
+                case MENU_EXPEXE:
+                case MENU_EXPELF:
+                    if(menu_sel == MENU_EXPZIP || meg4_pro) {
+                        if(!meg4_title[0]) strcpy(meg4_title, lang[MENU_NONAME]);
+                        textinp_init(260, 198, 120, theme[THEME_INP_FG], 0, 1, meg4_font, 1, TEXTINP_NAME, meg4_title, sizeof(meg4_title));
+                        menu_zip = menu_sel; menu_active = -2;
+                    }
                     return 1;
-#endif
-#ifdef MEG4_PRO
-                case MENU_EXPWASM: pro_export(); break;
 #endif
                 case MENU_FULLSCR: main_fullscreen(); break;
                 case MENU_HELP: meg4_switchmode(MEG4_MODE_HELP); break;
@@ -192,6 +207,8 @@ int menu_ctrl(void)
                 case MENU_ICONEMOJI: meg4_pushkey("\003"); break;
                 case MENU_KATAKANA: meg4_pushkey("\004"); break;
                 case MENU_HIRAGANA: meg4_pushkey("\005"); break;
+                case MENU_CYRILLIC: meg4_pushkey("\006"); break;
+                case MENU_GREEK: meg4_pushkey("\007"); break;
             }
             menu_active = last = 0;
         }
@@ -239,13 +256,18 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
     meg4_text(dst, 320 - titlew[i], 1, dp, theme[THEME_MENU_FG], htole32(0x3f000000), 1, meg4_font, lang[i + MENU_HELP]);
     /* popup menu */
     menu_sel = -1;
+    if(!meg4_author[0]) meg4_pro = 0;
     if(menu_active > 0) {
         if(menu_active == 2 && (px < menu_width + 4 || px > menu_width + menu_subwidth + 8 ||
-          py < y2 || py > y2 + (MENU_HIRAGANA - MENU_CODEPOINT + 1) * 10 + 2)) menu_active = 1;
+          py < y2 || py > y2 + (MENU_REGTO - MENU_CODEPOINT) * 10 + 2)) menu_active = 1;
         meg4_box(dst, dw, dh, dp, 1, 10, menu_width + 6, (MENU_HELP - MENU_ABOUT + 1) * 10 + 4,
             theme[THEME_MENU_L], theme[THEME_MENU_BG], theme[THEME_MENU_D], htole32(0x3f000000), 0, 0, 0, 0);
         for(y = 13, i = MENU_ABOUT; i <= MENU_HELP; i++, y += 10) {
-            a = (!meg4_pro && i == MENU_EXPWASM)
+            a = (
+#ifndef EMBED
+                !meg4_pro &&
+#endif
+                i >= MENU_EXPWASM && i <= MENU_EXPELF)
 #ifdef EMBED
                 || i == MENU_IMPORT || i == MENU_EXPZIP
 #endif
@@ -270,16 +292,18 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
                 case MENU_RUN:     shortcut_view(dst, menu_width + 4, y, dp, 0); break;
                 case MENU_SAVE:    shortcut_view(dst, menu_width + 4, y, dp, 1); break;
                 case MENU_IMPORT:  shortcut_view(dst, menu_width + 4, y, dp, 2); break;
-                case MENU_EXPWASM: if(!meg4_pro) meg4_text(dst, menu_pro, y, dp, c, s, 1, meg4_font, "(PRO)"); break;
+                case MENU_EXPWASM:
+                case MENU_EXPEXE:
+                case MENU_EXPELF: if(!meg4_pro) meg4_text(dst, menu_pro, y, dp, c, s, 1, meg4_font, "(PRO)"); break;
                 case MENU_FULLSCR: shortcut_view(dst, menu_width + 4, y, dp, 3); break;
                 case MENU_INPUTS:  meg4_text(dst, menu_width + 4 - subw, y, dp, c, s, 1, meg4_font, ">"); break;
                 case MENU_HELP:    shortcut_view(dst, menu_width + 4, y, dp, 4); break;
             }
         }
         if(menu_active == 2) {
-            meg4_box(dst, dw, dh, dp, menu_width + 4, y2 - 3, menu_subwidth + 4, (MENU_HIRAGANA - MENU_CODEPOINT + 1) * 10 + 4,
+            meg4_box(dst, dw, dh, dp, menu_width + 4, y2 - 3, menu_subwidth + 4, (MENU_REGTO - MENU_CODEPOINT) * 10 + 4,
                 theme[THEME_MENU_L], theme[THEME_MENU_BG], theme[THEME_MENU_D], htole32(0x3f000000), 0, 0, 0, 0);
-            for(y = y2, i = MENU_CODEPOINT; i <= MENU_HIRAGANA; i++, y += 10) {
+            for(y = y2, i = MENU_CODEPOINT; i < MENU_REGTO; i++, y += 10) {
                 if(px >= menu_width + 4 && px < menu_width + menu_subwidth + 8 &&
                   py >= y && py < y + 10) {
                     menu_sel = i;
@@ -293,6 +317,8 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
                     case MENU_ICONEMOJI: shortcut_view(dst, menu_width + menu_subwidth + 5, y, dp, 7); break;
                     case MENU_KATAKANA:  shortcut_view(dst, menu_width + menu_subwidth + 5, y, dp, 8); break;
                     case MENU_HIRAGANA:  shortcut_view(dst, menu_width + menu_subwidth + 5, y, dp, 9); break;
+                    case MENU_CYRILLIC:  shortcut_view(dst, menu_width + menu_subwidth + 5, y, dp,10); break;
+                    case MENU_GREEK:     shortcut_view(dst, menu_width + menu_subwidth + 5, y, dp,11); break;
                 }
             }
         }
@@ -329,26 +355,44 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
                 meg4_text(dst, 164, y, dp, theme[THEME_ACTIVE_BG], 0, 1, meg4_font, (char*)copyright[i]);
         }
     } else
-    /* export zip window */
+    /* export zip/wasm/exe/elf window */
     if(menu_active == -2) {
         meg4_box(dst, dw, dh, dp, (632 - zipw) / 2, 176, zipw + 8, 48,
             theme[THEME_MENU_L], theme[THEME_MENU_BG], theme[THEME_MENU_D], htole32(0x3f000000), 0, 0, 0, 0);
-        meg4_text(dst, (640 - zipt) / 2, 177, dp, theme[THEME_SEL_FG], htole32(0x3f000000),
-            2, meg4_font, lang[MENU_EXPZIP]);
+        switch(menu_zip) {
+            case MENU_EXPZIP:
+                meg4_text(dst, (640 - zipt) / 2, 177, dp, theme[THEME_SEL_FG], htole32(0x3f000000), 2, meg4_font, lang[MENU_EXPZIP]);
+                meg4_chk(dst, dw, dh, dp, 258, 212, theme[THEME_MENU_D], theme[THEME_MENU_L], zipbin);
+                meg4_text(dst, 266, 211, dp, theme[THEME_MENU_FG], 0, 1, meg4_font, lang[MENU_BINARY]);
+            break;
+#ifdef MEG4_PRO
+            case MENU_EXPWASM:
+                meg4_text(dst, (640 - zipa) / 2, 177, dp, theme[THEME_SEL_FG], htole32(0x3f000000), 2, meg4_font, lang[MENU_EXPWASM]);
+            break;
+            case MENU_EXPEXE:
+                meg4_text(dst, (640 - zipe) / 2, 177, dp, theme[THEME_SEL_FG], htole32(0x3f000000), 2, meg4_font, lang[MENU_EXPEXE]);
+            break;
+            case MENU_EXPELF:
+                meg4_text(dst, (640 - zipl) / 2, 177, dp, theme[THEME_SEL_FG], htole32(0x3f000000), 2, meg4_font, lang[MENU_EXPELF]);
+            break;
+#endif
+            default:
+                menu_active = last = 0; textinp_free();
+                return;
+        }
         meg4_box(dst, dw, dh, dp, 258, 196, 124, 12,
             theme[THEME_MENU_D], theme[THEME_INP_BG], theme[THEME_MENU_L], 0, 0, 0, 0, 0);
         if(!textinp_buf)
             meg4_text(dst, 260, 198, dp, theme[THEME_INP_FG], 0, 1, meg4_font, meg4_title);
-        meg4_chk(dst, dw, dh, dp, 258, 212, theme[THEME_MENU_D], theme[THEME_MENU_L], zipbin);
-        meg4_text(dst, 266, 211, dp, theme[THEME_MENU_FG], 0, 1, meg4_font, lang[MENU_BINARY]);
         if(px >= 364 - zipo && px < 380 &&
           py >= 209 && py < 221 && clk) {
             meg4_box(dst, dw, dh, dp, 364 - zipo, 209, zipo + 16, 12, theme[THEME_BTN_D], theme[THEME_BTN_BG], theme[THEME_BTN_L], 0, 0, 0, 0, 0);
-            meg4_text(dst, 372 - zipo, 211, dp, theme[THEME_BTN_FG], 0, 1, meg4_font, lang[MENU_OK]);
+            meg4_text(dst, 382 - zipo, 211, dp, theme[THEME_BTN_FG], 0, 1, meg4_font, lang[MENU_OK]);
         } else {
             meg4_box(dst, dw, dh, dp, 364 - zipo, 209, zipo + 16, 12, theme[THEME_BTN_L], theme[THEME_BTN_BG], theme[THEME_BTN_D], 0, 0, 0, 0, 0);
-            meg4_text(dst, 372 - zipo, 211, dp, theme[THEME_BTN_FG], htole32(0x3f000000), 1, meg4_font, lang[MENU_OK]);
+            meg4_text(dst, 382 - zipo, 211, dp, theme[THEME_BTN_FG], htole32(0x3f000000), 1, meg4_font, lang[MENU_OK]);
         }
+        meg4_blit(dst, 372 - zipo, 211, dp, 8, 8, meg4_edicons.buf, 48 + ((menu_zip - MENU_ABOUT) << 3), 40, meg4_edicons.w * 4, 1);
     }
     /* scrollbar */
     if(!menu_scrmax || menu_scrmax <= menu_scrhgt) {

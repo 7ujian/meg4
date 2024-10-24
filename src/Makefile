@@ -30,9 +30,6 @@ ifeq ($(NOEDITORS),)
  ESRCS = $(wildcard editors/*.c)
  EDITORS = $(ESRCS:.c=.o)
  ASSETS += misc/floppy.png misc/editors.png misc/sounds.mod misc/theme.gpl misc/hl.json misc/memmap.md $(wildcard lang/*.md)
-else
- CFLAGS += -DNOEDITORS=1
-endif
 ifeq ($(DEBUG),)
  CFLAGS += -O3
 else
@@ -40,6 +37,9 @@ else
 endif
 ifneq ($(EMBED),)
  CFLAGS += -DEMBED=1
+endif
+else
+ CFLAGS += -Os -DNOEDITORS=1
 endif
 ifeq ($(NOLUA),)
 ifneq ($(wildcard lua/lvm.c),)

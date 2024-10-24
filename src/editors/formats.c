@@ -32,7 +32,7 @@
 
 #ifndef MEG4_PRO
 /* have some dummy implementation, because importer needs them */
-void pro_init(void) {}
+void pro_init(void) { meg4_pro = meg4_author[0] = 0; }
 int  pro_license(uint8_t *buf, int len) { (void)buf; (void)len; return 0; }
 #endif
 

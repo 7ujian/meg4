@@ -133,14 +133,13 @@ int comp_lua(char *str, int len);
  */
 void meg4_poweron(char *region)
 {
-    uint8_t *buf;
+    uint8_t *buf = NULL;
     int len = 0;
-#ifndef NOEDITORS
     int i;
-#endif
+
     if(!region || !*region) region = "en";
     meg4_locale[0] = region[0]; meg4_locale[1] = region[1];
-    memset(&meg4, 0 , sizeof(meg4));
+    memset(&meg4, 0 , sizeof(meg4)); meg4_pro = 0;
     memset(&meg4_title, 0 , sizeof(meg4_title));
     memset(&meg4_author, 0 , sizeof(meg4_author));
     memset(&meg4_icons, 0 , sizeof(meg4_icons));
@@ -148,8 +147,8 @@ void meg4_poweron(char *region)
     meg4_reset();
 #ifdef NOEDITORS
     /* run the boundled game */
-    buf = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_game + 4,
-        (int)(binary_game[0] | (binary_game[1] << 8) | (binary_game[2] << 16) | (binary_game[3] << 24)), 65536, &len, 1);
+    i = (int)(binary_game[64] | (binary_game[65] << 8) | (binary_game[66] << 16));
+    buf = i < 1024*1024 ? (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_game + 68, i, 65536, &len, 1) : NULL;
     if(buf) { meg4_deserialize(buf, len); free(buf); }
     if(!meg4.code || !meg4.code_len) meg4.mode = MEG4_MODE_GURU;
 #if LUA

@@ -28,6 +28,8 @@ A kényelmed érdekében számos gyorsbillentyűvel és beviteli metódussal szo
 | <kbd>Alt</kbd>+<kbd>I</kbd>  | Ikon (emoji) beviteli mód.                                                                   |
 | <kbd>Alt</kbd>+<kbd>K</kbd>  | Katakana beviteli mód.                                                                       |
 | <kbd>Alt</kbd>+<kbd>J</kbd>  | Hiragana beviteli mód.                                                                       |
+| <kbd>Alt</kbd>+<kbd>C</kbd>  | Cirill beviteli mód.                                                                         |
+| <kbd>Alt</kbd>+<kbd>G</kbd>  | Görög beviteli mód.                                                                          |
 | <kbd>Alt</kbd>+<kbd>A</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `&` (ampersand).                                   |
 | <kbd>Alt</kbd>+<kbd>H</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `#` (hashmark).                                    |
 | <kbd>Alt</kbd>+<kbd>S</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `$` (dollar).                                      |
@@ -103,5 +105,21 @@ Használható a <kbd>Shift</kbd> az első betűvel együtt, hogy a végeredmény
 
 Ez a beviteli mód aktív marad bevitel után is, üss <kbd>Esc</kbd> gombot a normál beviteli módhoz való visszatéréshez.
 
-NOTE: Ez a funkció adattáblákkal került implementálásra, újabb kombinációk vagy akár újabb írásrendszerek könnyedén, bármikor
-hozzáadhatók a `src/inp.c` fájlhoz programozói ismeretek nélkül is.
+### Cirill mód
+
+A KOI8-RU kódlapon alapul, de néhány betű már szám- és szimbólum gombokra lett leképezve. Például a következő sorozat
+<kbd>Alt</kbd>+<kbd>C</kbd>, <kbd>Shift</kbd>+<kbd>l</kbd>, <kbd>e</kbd>, <kbd>n</kbd>, <kbd>i</kbd>, <kbd>n</kbd>
+eredménye `Ленин`.
+
+Ez a beviteli mód aktív marad bevitel után is, üss <kbd>Esc</kbd> gombot a normál beviteli módhoz való visszatéréshez.
+
+### Görög mód
+
+Próbál fonetikusan helyes lenni, de a latin ábécé nem feleltethető meg egy-az-egyben. Például a következő sorozat
+<kbd>Alt</kbd>+<kbd>G</kbd>, <kbd>Shift</kbd>+<kbd>p</kbd>, <kbd>l</kbd>, <kbd>a</kbd>, <kbd>t</kbd>, <kbd>o</kbd> <kbd>n</kbd>,
+eredménye `Πλατων`.
+
+Ez a beviteli mód aktív marad bevitel után is, üss <kbd>Esc</kbd> gombot a normál beviteli módhoz való visszatéréshez.
+
+NOTE: Ez a funkció adattáblákkal került implementálásra, újabb kombinációk könnyedén, bármikor hozzáadhatók a `src/inp.c` fájlhoz
+programozói ismeretek nélkül is.

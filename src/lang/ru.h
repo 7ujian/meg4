@@ -1,8 +1,7 @@
 /*
  * meg4/lang/ru.h
  *
- * Copyright (C) 2023 bzt
- * Copyright (C) 2024 Openovchik
+ * Copyright (C) 2023 bzt, Copyright (C) 2024 Openovchik
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +31,8 @@
 "Иконки (эмодзи)",
 "Катакана",
 "Хирагана",
+"Кириллица",
+"Греческий",
 
 "Зарегистрировано:",
 "безымянный",
@@ -40,12 +41,14 @@
 "Загрузить",
 "Не доступно",
 "Экспорт",
-"О",
+"Информация",
 "Запустить",
 "Сохранить",
 "Импортировать",
-"Экспортировать ZIP файл",
+"Экспортировать ZIP",
 "Экспортировать WASM",
+"Экспортировать EXE",
+"Экспортировать ELF",
 "Полноэкранный",
 "Методы ввода",
 "Помощь",

@@ -40,7 +40,7 @@
 #define STBI_NO_STDIO
 #define STBI_ASSERT(x)
 #include "stb_image.h"
-#define sizeof_binary_game 262144
+#define sizeof_binary_game 589824
 
 int filesort(const void *a, const void *b) { return strcmp(*((char**)a), *(char**)b); }
 
@@ -74,8 +74,10 @@ int main(int argc, char **argv)
         size = 0;
         if(!strcmp(argv[file], "game")) {
             if(h) fprintf(h, "extern unsigned char binary_game[%u];\n", sizeof_binary_game);
-            fprintf(c, "unsigned char binary_game[%u] = { 'M', 'E', 'G', '4', 'G', 'A', 'M', 'E' };\n",
-                sizeof_binary_game);
+            fprintf(c, "unsigned char binary_game[%u] = { 'M','E','G','4','G','A','M','E'", sizeof_binary_game);
+            /* we must fill it with garbage because of stupid emscripten; we will clean up after compilation */
+            for(i = 0; i < sizeof_binary_game - 8; i++) fprintf(c, ",%u", i & 7);
+            fprintf(c, " };\n");
             continue;
         }
         f = fopen(argv[file],"rb");
@@ -430,11 +432,16 @@ int main(int argc, char **argv)
                 if(!buff2) { fprintf(stderr, "bin2h: memory allocation error\r\n"); exit(2); }
                 free(buff); buff = buff2; size = i;
             } else
-            if(!memcmp(p, "meg4_", 5)) {
-                if(p[5] == 'w') {
+            if(!memcmp(p, "meg4_", 5) || !strcmp(p, "meg4")) {
+                if(!p[4] || p[5] == 'w' || p[5] == 'e') {
                     for(i = 0; i < size - 8 && memcmp(buff + i, "MEG4GAME", 8); i++);
-                    fprintf(c, "#define offsetof_game %u\n#define sizeof_game %u\n", i, sizeof_binary_game);
-                    memset(buff + i, 0, 8);
+                    fprintf(c, "#define offsetof_%s %u\n", p, i);
+                    if(!p[4]) fprintf(c, "#define sizeof_game %u\n", sizeof_binary_game);
+                    memset(buff + i, 0, sizeof_binary_game);
+                } else
+                if(p[4] == '_' && p[5] == 'j') {
+                    for(i = 0; i < size - 9 && memcmp(buff + i, "meg4.wasm", 9); i++);
+                    memcpy(buff + i, "game", 4);
                 }
                 buff2 = stbi_zlib_compress(buff, size, &i, 9);
                 if(!buff2) { fprintf(stderr, "bin2h: memory allocation error\r\n"); exit(2); }

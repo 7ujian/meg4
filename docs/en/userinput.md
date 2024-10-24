@@ -28,6 +28,8 @@ For convenience, it has several shortcuts and multiple input methods.
 | <kbd>Alt</kbd>+<kbd>I</kbd>  | Enter icon (emoticons) input mode.                                                           |
 | <kbd>Alt</kbd>+<kbd>K</kbd>  | Enter Katakana input mode.                                                                   |
 | <kbd>Alt</kbd>+<kbd>J</kbd>  | Enter Hiragana input mode.                                                                   |
+| <kbd>Alt</kbd>+<kbd>C</kbd>  | Enter Cyrillic input mode.                                                                   |
+| <kbd>Alt</kbd>+<kbd>G</kbd>  | Enter Greek input mode.                                                                      |
 | <kbd>Alt</kbd>+<kbd>A</kbd>  | For keyboards without such key, works as a `&` key (ampersand).                              |
 | <kbd>Alt</kbd>+<kbd>H</kbd>  | For keyboards without such key, works as a `#` key (hashmark).                               |
 | <kbd>Alt</kbd>+<kbd>S</kbd>  | For keyboards without such key, works as a `$` key (dollar).                                 |
@@ -102,5 +104,19 @@ You can use <kbd>Shift</kbd> in combination with the first letter to get the upp
 
 This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
 
-NOTE: This feature is implemented using data tables, new combinations and even new writing systems can be added to `src/inp.c`
-any time without coding skills.
+### Cyrillic Mode
+
+It is based on KOI8-RU, but some letters are mapped to number and symbol keys. For example <kbd>Alt</kbd>+<kbd>C</kbd>,
+<kbd>Shift</kbd>+<kbd>l</kbd>, <kbd>e</kbd>, <kbd>n</kbd>, <kbd>i</kbd>, <kbd>n</kbd> will produce the characters `Ленин`.
+
+This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
+
+### Greek Mode
+
+Tries to be phonetically correct, but there's no one-to-one mapping with the Latin alphabet. For example
+<kbd>Alt</kbd>+<kbd>G</kbd>, <kbd>Shift</kbd>+<kbd>p</kbd>, <kbd>l</kbd>, <kbd>a</kbd>, <kbd>t</kbd>, <kbd>o</kbd> <kbd>n</kbd>,
+will produce the characters `Πλατων`.
+
+This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
+
+NOTE: This feature is implemented using data tables, new combinations can be added to `src/inp.c` any time without coding skills.

@@ -21,6 +21,7 @@ To compile statically, just add a `SDL3` or `SDL2` directory with the SDL's repo
 | `DEBUG=1 make`        | Compile with debug information                             |
 | `EMBED=1 make`        | Compile without OS modal support, no import / export       |
 | `FINGEREVENTS=1 make` | Assume SDL does not simulate finger events as mouse events |
+| `NOEDITORS=1 make`    | Compile a bare emulator without the built-in editors       |
 | `USE_EMCC=1 make`     | Compile with emscripten (used by the WebAssembly port)     |
 
 In embedded mode there are no open file or save file modals, everything is handled in-window. So you must run `meg4` with
