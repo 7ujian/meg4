@@ -187,19 +187,26 @@ doexport:       if(menu_zip == MENU_EXPZIP) meg4_export(NULL, zipbin);
                 case MENU_ABOUT: menu_active = -1; return 1;
                 case MENU_RUN: meg4_switchmode(!cpu_compile() ? MEG4_MODE_CODE : MEG4_MODE_GAME); break;
                 case MENU_SAVE: meg4_switchmode(MEG4_MODE_SAVE); break;
+                case MENU_IMPORT:
 #ifndef EMBED
-                case MENU_IMPORT: main_openfile(); break;
+                    main_openfile();
+#else
+                    load_list = -1;
+                    meg4_switchmode(MEG4_MODE_LOAD);
+#endif
+                break;
                 case MENU_EXPZIP:
                 case MENU_EXPWASM:
                 case MENU_EXPEXE:
                 case MENU_EXPELF:
+#ifndef EMBED
                     if(menu_sel == MENU_EXPZIP || meg4_pro) {
                         if(!meg4_title[0]) strcpy(meg4_title, lang[MENU_NONAME]);
                         textinp_init(260, 198, 120, theme[THEME_INP_FG], 0, 1, meg4_font, 1, TEXTINP_NAME, meg4_title, sizeof(meg4_title));
                         menu_zip = menu_sel; menu_active = -2;
                     }
-                    return 1;
 #endif
+                    return 1;
                 case MENU_FULLSCR: main_fullscreen(); break;
                 case MENU_HELP: meg4_switchmode(MEG4_MODE_HELP); break;
                 case MENU_CODEPOINT: meg4_pushkey("\001"); break;
@@ -269,7 +276,7 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
 #endif
                 i >= MENU_EXPWASM && i <= MENU_EXPELF)
 #ifdef EMBED
-                || i == MENU_IMPORT || i == MENU_EXPZIP
+                || i == MENU_EXPZIP
 #endif
             ;
             if((menu_active == 2 && i == MENU_INPUTS) ||

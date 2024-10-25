@@ -27,6 +27,7 @@ EMBED=1
 LIBS += -lm -lpthread
 
 ifneq ($(USE_INIT),)
+ EMBED=1
  CFLAGS+=-DUSE_INIT=1
  LDFLAGS=-static
 ifneq ($(LANG),)

@@ -76,6 +76,8 @@ endif
 	sed -i "s|.*CONFIG_DEFAULT_HOSTNAME=*|CONFIG_DEFAULT_HOSTNAME=\"MEG4\"|" linux-$(KERNEL)/.config
 
 boot/vmlinuz: linux-$(KERNEL)/.config
+	@# patch the Linux kernel so that it will assign device files deterministically on every boot
+	sed -i "s|PROBE_PREFER_ASYNCHRONOUS|PROBE_FORCE_SYNCHRONOUS|" linux-$(KERNEL)/drivers/scsi/sd.c
 	@rm -rf rootfs/lib/modules 2>/dev/null || true
 	@mkdir -p boot rootfs/lib/modules 2>/dev/null || true
 	make -C linux-$(KERNEL) -j4 bzImage modules

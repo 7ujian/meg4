@@ -63,6 +63,7 @@ void sync(void);
 int main_w = 0, main_h = 0, main_exit = 0, main_alt = 0, main_sh = 0, main_meta = 0, main_caps = 0, main_keymap[512], main_kbd = 0;
 int win_f = 0, win_w, win_h, win_fw, win_fh, win_dp, win_dp2, win_dp3, win_dp4, win_dp5, win_dp6, win_dp7, win_dp8;
 void main_delay(int msec);
+
 /* keyboard layout mapping */
 const char *main_kbdlayout[2][128*4] = { {
 /* KEY_RESERVED     0 */ "", "", "", "",    /* first layout is user configurable */
@@ -597,25 +598,43 @@ int main(int argc, char **argv)
     int32_t tickdiff;
     uint64_t ticks;
 #ifdef USE_INIT
-    char *lng = LANG, *fstype[] = { "vfat", "fat", "ext4", "ext3", "ext2", "auto" };
+#define MNTFLAGS (MS_SYNCHRONOUS | MS_NODEV | MS_NOEXEC)
+    struct stat st;
+    char *lng = LANG, *devs[] = { FLOPPYDEV, "/dev/sda1", "/dev/sdb1", "/dev/sdc1", "/dev/sdd1" };
+
     (void)argc; (void)argv;
     /* we must do some housekeeping when we run as the init process. Assume read-only root fs */
     mount("none", "/dev", "devtmpfs", 0, NULL);
     mount("none", "/proc", "procfs", 0, NULL);
     mount("none", "/sys", "sysfs", 0, NULL);
     mount("none", "/tmp", "tmpfs", 0, NULL);
-    for(i = 0; i < (int)(sizeof(fstype)/sizeof(fstype[0])) &&
-      mount(FLOPPYDEV, "/mnt", fstype[i], MS_SYNCHRONOUS | MS_NODEV | MS_NOEXEC, NULL); i++);
-    main_floppydir = "/mnt/MEG-4"; mkdir(main_floppydir, 0777);
+    /* let's try to mount an external USB stick with the floppy images */
+    main_floppydir = "/mnt/MEG-4";
+    for(i = 0; i < (int)(sizeof(devs)/sizeof(devs[0])); i++)
+        if(!mount(devs[i], "/mnt", "vfat", MNTFLAGS, NULL) || !mount(devs[i], "/mnt", "fat", MNTFLAGS, NULL)) {
+                /* does this partition already have a MEG-4 directory? If so, look no further */
+            if(!stat(main_floppydir, &st) ||
+                /* is this not our internal disk and can we create the floppy data directory on it? */
+                (stat("/mnt/initrd", &st) && !mkdir(main_floppydir, 0777))) break;
+            /* no luck, umount and continue */
+            umount("/mnt");
+        }
     verbose = 1;
+    main_hdr();
+    if(i < (int)(sizeof(devs)/sizeof(devs[0])))
+        main_log(0, "floppy directory on '%s'", devs[i]);
+    else {
+        main_log(0, "unable to mount floppy directory");
+        main_floppydir = NULL;
+    }
 #else
     char *lng = getenv("LANG");
     main_parsecommandline(argc, argv, &lng, &infile);
     main_hdr();
     for(i = 0; i < 3; i++) printf("  %s\r\n", copyright[i]);
     printf("\r\n");
-    fflush(stdout);
 #endif
+    fflush(stdout);
     strcpy(meg4plat, "fbdev_alsa");
 
     /* set up keymap */

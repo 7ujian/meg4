@@ -101,7 +101,7 @@ int save_ctrl(void)
             meg4.mmio.ptrspr = MEG4_PTR_ERR;
         }
     }
-    if(textinp_key == htole32(27) || textinp_key == htole32('\n')) {
+    if(!textinp_buf || textinp_key == htole32(27) || textinp_key == htole32('\n')) {
         save_addlabel(); dir = 1;
     }
     return 1;

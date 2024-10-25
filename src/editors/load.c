@@ -97,7 +97,8 @@ int load_insert(uint8_t *buf, int len)
  */
 void load_init(void)
 {
-    last = load_list = 0;
+    last = numfloppy = 0;
+    if(load_list != -1) load_list = 0;
     memset(search, 0, sizeof(search));
     memset(lastsearch, 0, sizeof(lastsearch));
 }
@@ -138,14 +139,15 @@ int load_ctrl(void)
         if(lkey && !i) j = 1;
         lkey = i;
     }
-    if(!load_list) {
+    if(load_list != 1) {
         /* set mouse cursor */
         x = px >= 80 && px < 240 && py >= 80 && py < 120; y = px >= 2 && py >= 2 && px < 21 && py < 12;
         meg4.mmio.ptrspr = x || y ? MEG4_PTR_HAND : MEG4_PTR_NORM;
         /* look for mouse button release. GTK open file modal doesn't work with SDL if button press was used... */
         if(last && !clk && y) meg4_switchmode(MEG4_MODE_HELP); else
-        if(j || (last && !clk && x) || meg4_api_popkey() == htole32('\n')) {
+        if(load_list < 0 || j || (last && !clk && x) || meg4_api_popkey() == htole32('\n')) {
             /* let's see if we have a floppy list. If not, then open the open file modal */
+            load_list = 0;
             files = main_getfloppies();
             if(!files) main_openfile();
             else {
@@ -339,7 +341,7 @@ void load_view(void)
                     meg4_box(meg4.valt, 640, 400, 2560, x, y, 210, 224, 0, theme[THEME_SEL_BG], 0, 0, 0, 0, 0, 0);
                     meg4_blit(meg4.valt, x, y + 2, 640 * 4, 210, 220, floppy[i].img, 0, 0, 840, 1);
                 } else
-                    meg4_blitd(meg4.valt, x + 5, y + 7, 640 * 4, 200, 200, 210, floppy[i].img, 0, 0, 210, 220, 840, 1);
+                    meg4_blitd(meg4.valt, x, y + 6, 640 * 4, 200, 210, 215, floppy[i].img, 0, 0, 210, 220, 840, 1);
                 x += 210; if(x >= 630) { x = 0; y += 224; }
             }
         }

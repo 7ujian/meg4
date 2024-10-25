@@ -296,7 +296,7 @@ void main_openfile(void)
  */
 int main_savefile(const char *name, uint8_t *buf, int len)
 {
-#if !defined(EMBED) && !defined(NOEDITORS)
+#ifndef NOEDITORS
 #ifdef __EMSCRIPTEN__
     if(name && buf && len > 0) {
         EM_ASM({ meg4_savefile($0, $1, $2, $3); }, name, strlen(name), buf, len);
@@ -304,10 +304,14 @@ int main_savefile(const char *name, uint8_t *buf, int len)
     }
     return 0;
 #else
+#ifndef EMBED
     OPENFILENAMEW ofn;
-    wchar_t szFile[PATH_MAX + FILENAME_MAX + 1], szExt[FILENAME_MAX];
+    wchar_t szExt[FILENAME_MAX];
+    int l = 0;
+#endif
+    wchar_t szFile[PATH_MAX + FILENAME_MAX + 1];
     char fn[PATH_MAX + FILENAME_MAX + 1];
-    int l = 0, ret = 0;
+    int ret = 0;
 
     if(!name || !*name || !buf || len < 1) return 0;
     memset(&szFile,0,sizeof(szFile));
@@ -320,6 +324,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         strcat(fn, name);
         return main_writefile(fn, buf, len);
     }
+#ifndef EMBED
     else {
         memset(&szExt,0,sizeof(szExt));
         memcpy(szExt, L"All\0*.*\0", 18);
@@ -341,6 +346,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         }
         main_focus();
     }
+#endif
 #endif
     return ret;
 #else
@@ -653,7 +659,7 @@ void main_openfile(void)
  */
 int main_savefile(const char *name, uint8_t *buf, int len)
 {
-#if !defined(EMBED) && !defined(NOEDITORS)
+#ifndef NOEDITORS
 #ifdef __EMSCRIPTEN__
     if(name && buf && len > 0) {
         EM_ASM({ meg4_savefile($0, $1, $2, $3); }, name, strlen(name), buf, len);
@@ -663,8 +669,10 @@ int main_savefile(const char *name, uint8_t *buf, int len)
 #else
     char path[PATH_MAX + FILENAME_MAX + 2];
     int ret = 0;
+#ifndef EMBED
     char *fn = NULL;
     int i;
+#endif
 #ifdef __ANDROID__
     /* TODO */
 #else
@@ -674,11 +682,13 @@ int main_savefile(const char *name, uint8_t *buf, int len)
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     NSWindow *keyWindow = [[NSApplication sharedApplication] keyWindow];
 #else
+#ifndef EMBED
     FILE *p = NULL;
     pid_t pid;
     void *chooser;
     void *handle;
     char *tmp1, *tmp2;
+#endif
 #endif
 #endif
     if(!name || !*name || !buf || len < 1) return 0;
@@ -690,6 +700,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         strcat(path, name);
         return main_writefile(path, buf, len);
     }
+#ifndef EMBED
     else {
 #ifdef __ANDROID__
     /* TODO */
@@ -786,6 +797,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         }
     }
 #endif
+#endif
     return ret;
 #endif
 #else
@@ -799,7 +811,7 @@ int main_savefile(const char *name, uint8_t *buf, int len)
  */
 char **main_getfloppies(void)
 {
-#if !defined(EMBED) && !defined(NOEDITORS) && !defined(__EMSCRIPTEN__)
+#if !defined(__EMSCRIPTEN__) && !defined(NOEDITORS)
     DIR *dir;
     struct dirent *ent;
     char fn[PATH_MAX + FILENAME_MAX + 1], *ext, **ret = NULL;
