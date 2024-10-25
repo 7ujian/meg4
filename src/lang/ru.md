@@ -484,6 +484,7 @@
 ```c
 void putc(uint32_t chr)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Выводит символ на консоль.
 </dd>
@@ -491,12 +492,14 @@ void putc(uint32_t chr)
 | Аргум. | Описание |
 | chr | Символ UTF-8 |
 </dd>
+</dl>
 <hr>
 ## printf
 
 ```c
 void printf(str_t fmt, ...)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Выводит текст на консоль.
 </dd>
@@ -505,12 +508,14 @@ void printf(str_t fmt, ...)
 | fmt | строка для отображения, [Строка формата] |
 | ... | необязательные аргументы |
 </dd>
+</dl>
 <hr>
 ## getc
 
 ```c
 uint32_t getc(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Считывает символ из консоли, блокирует программу при отсутствии ввода.
 </dd>
@@ -520,24 +525,28 @@ uint32_t getc(void)
 <dt>Смотрите также</dt><dd>
 [popkey]
 </dd>
+</dl>
 <hr>
 ## gets
 
 ```c
 str_t gets(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Считывает строку, заканчивающуюся новой строкой, от пользователя (не возвращает новую строку).
 </dd>
 <dt>Возвращаемое значение</dt><dd>
 Байты читаются в строке.
 </dd>
+</dl>
 <hr>
 ## trace
 
 ```c
 void trace(str_t fmt, ...)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отслеживайте выполнение, выводя на стандартный вывод. Работает только в том случае, если `meg4`
 был запущен с многословным флагом `-v`.
@@ -547,12 +556,14 @@ void trace(str_t fmt, ...)
 | fmt | [Строка формата] |
 | ... | необязательные аргументы |
 </dd>
+</dl>
 <hr>
 ## delay
 
 ```c
 void delay(uint16_t msec)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Задерживает выполнение программы.
 </dd>
@@ -560,15 +571,18 @@ void delay(uint16_t msec)
 | Аргум. | Описание |
 | msec | задержка в миллисекундах |
 </dd>
+</dl>
 <hr>
 ## exit
 
 ```c
 void exit(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Выход из программы.
 </dd>
+</dl>
 
 # Аудио
 
@@ -577,6 +591,7 @@ void exit(void)
 ```c
 void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Воспроизводит звуковой эффект.
 </dd>
@@ -586,12 +601,14 @@ void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 | channel | используемый канал, от 0 до 11 |
 | volume | громкость, которая будет использоваться, от 0 до 255, 0 отключает канал |
 </dd>
+</dl>
 <hr>
 ## music
 
 ```c
 void music(uint8_t track, uint16_t row, uint8_t volume)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Воспроизводит музыкальную дорожку.
 </dd>
@@ -601,6 +618,7 @@ void music(uint8_t track, uint16_t row, uint8_t volume)
 | row | строка начала воспроизведения, от 0 до 1023 (максимальная длина песни) |
 | volume | используемая громкость, от 0 до 255, 0 отключает музыку |
 </dd>
+</dl>
 
 # GPIO
 
@@ -609,18 +627,21 @@ void music(uint8_t track, uint16_t row, uint8_t volume)
 ```c
 uint32_t gpio_rev(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Запросите номер версии платы GPIO. Возвращает 0, если платформа не поддерживает GPIO.
 </dd>
 <dt>Возвращаемое значение</dt><dd>
 Номер версии платы или 0, если не поддерживается.
 </dd>
+</dl>
 <hr>
 ## gpio_get
 
 ```c
 int gpio_get(uint8_t pin)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Прочтите значение контакта GPIO.
 </dd>
@@ -635,12 +656,14 @@ GPIO не поддерживается).
 <dt>Смотрите также</dt><dd>
 [gpio_set]
 </dd>
+</dl>
 <hr>
 ## gpio_set
 
 ```c
 int gpio_set(uint8_t pin, int value)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Запишите значение на вывод GPIO.
 </dd>
@@ -655,6 +678,7 @@ int gpio_set(uint8_t pin, int value)
 <dt>Смотрите также</dt><dd>
 [gpio_get]
 </dd>
+</dl>
 
 # Графика
 
@@ -663,6 +687,7 @@ int gpio_set(uint8_t pin, int value)
 ```c
 void cls(uint8_t palidx)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Очищает весь экран и сбрасывает смещения дисплея, а также устанавливает цвет фона консоли.
 </dd>
@@ -673,12 +698,14 @@ void cls(uint8_t palidx)
 <dt>Смотрите также</dt><dd>
 [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## cget
 
 ```c
 uint32_t cget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получите пиксель по координате и верните цвет RGBA.
 </dd>
@@ -693,12 +720,14 @@ uint32_t cget(uint16_t x, uint16_t y)
 <dt>Смотрите также</dt><dd>
 [cls], [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## pget
 
 ```c
 uint8_t pget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получите пиксель по координате и верните индекс его палитры.
 </dd>
@@ -713,12 +742,14 @@ uint8_t pget(uint16_t x, uint16_t y)
 <dt>Смотрите также</dt><dd>
 [cls], [pset], [cget]
 </dd>
+</dl>
 <hr>
 ## pset
 
 ```c
 void pset(uint8_t palidx, uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отображает пиксель по координате.
 </dd>
@@ -731,12 +762,14 @@ void pset(uint8_t palidx, uint16_t x, uint16_t y)
 <dt>Смотрите также</dt><dd>
 [cls], [pget]
 </dd>
+</dl>
 <hr>
 ## width
 
 ```c
 uint16_t width(int8_t type, str_t str)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает ширину отображаемого текста в пикселях.
 </dd>
@@ -751,12 +784,14 @@ uint16_t width(int8_t type, str_t str)
 <dt>Смотрите также</dt><dd>
 [text]
 </dd>
+</dl>
 <hr>
 ## text
 
 ```c
 void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint8_t sha, str_t str)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Выводит текст на экран.
 </dd>
@@ -773,12 +808,14 @@ void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint
 <dt>Смотрите также</dt><dd>
 [width]
 </dd>
+</dl>
 <hr>
 ## line
 
 ```c
 void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует сглаженную линию.
 </dd>
@@ -793,6 +830,7 @@ void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>Смотрите также</dt><dd>
 [qbez], [cbez]
 </dd>
+</dl>
 <hr>
 ## qbez
 
@@ -800,6 +838,7 @@ void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx, int16_t cy)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует квадратичную кривую Безье.
 </dd>
@@ -816,6 +855,7 @@ void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 <dt>Смотрите также</dt><dd>
 [line], [cbez]
 </dd>
+</dl>
 <hr>
 ## cbez
 
@@ -823,6 +863,7 @@ void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx0, int16_t cy0, int16_t cx1, int16_t cy1)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует кубическую кривую Безье.
 </dd>
@@ -841,12 +882,14 @@ void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 <dt>Смотрите также</dt><dd>
 [line], [qbez]
 </dd>
+</dl>
 <hr>
 ## tri
 
 ```c
 void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует треугольник.
 </dd>
@@ -863,12 +906,14 @@ void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t
 <dt>Смотрите также</dt><dd>
 [ftri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## ftri
 
 ```c
 void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует заполненный треугольник.
 </dd>
@@ -885,6 +930,7 @@ void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_
 <dt>Смотрите также</dt><dd>
 [tri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri2d
 
@@ -893,6 +939,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi1, int16_t x1, int16_t y1,
     uint8_t pi2, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует заполненный треугольник с цветовыми градиентами.
 </dd>
@@ -911,6 +958,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
 <dt>Смотрите также</dt><dd>
 [tri], [ftri], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri3d
 
@@ -919,6 +967,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t pi1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t pi2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует заполненный треугольник с цветовыми градиентами в [3D-пространстве].
 </dd>
@@ -940,6 +989,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
 <dt>Смотрите также</dt><dd>
 [tri], [ftri], [tri2d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tritx
 
@@ -948,6 +998,7 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t u1, uint8_t v1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t u2, uint8_t v2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует текстурированный треугольник в [3D-пространстве].
 </dd>
@@ -972,12 +1023,14 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
 <dt>Смотрите также</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## mesh
 
 ```c
 void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует сетку из треугольников в [3D-пространстве], используя индексы вершин и координаты текстуры (или палитру).
 </dd>
@@ -991,12 +1044,14 @@ void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 <dt>Смотрите также</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [tritx], [trns]
 </dd>
+</dl>
 <hr>
 ## rect
 
 ```c
 void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует прямоугольник.
 </dd>
@@ -1011,12 +1066,14 @@ void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>Смотрите также</dt><dd>
 [frect]
 </dd>
+</dl>
 <hr>
 ## frect
 
 ```c
 void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует заполненный прямоугольник.
 </dd>
@@ -1031,12 +1088,14 @@ void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>Смотрите также</dt><dd>
 [rect]
 </dd>
+</dl>
 <hr>
 ## circ
 
 ```c
 void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует круг.
 </dd>
@@ -1050,12 +1109,14 @@ void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 <dt>Смотрите также</dt><dd>
 [fcirc], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## fcirc
 
 ```c
 void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует заполненный круг.
 </dd>
@@ -1069,12 +1130,14 @@ void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 <dt>Смотрите также</dt><dd>
 [circ], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## ellip
 
 ```c
 void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует эллипс.
 </dd>
@@ -1089,12 +1152,14 @@ void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>Смотрите также</dt><dd>
 [circ], [fcirc], [fellip]
 </dd>
+</dl>
 <hr>
 ## fellip
 
 ```c
 void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует заполненный эллипс.
 </dd>
@@ -1109,12 +1174,14 @@ void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>Смотрите также</dt><dd>
 [circ], [fcirc], [ellip]
 </dd>
+</dl>
 <hr>
 ## move
 
 ```c
 void move(int16_t x, int16_t y, uint16_t deg)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Перемещает черепаху в заданную позицию на экране или в лабиринте.
 </dd>
@@ -1127,12 +1194,14 @@ void move(int16_t x, int16_t y, uint16_t deg)
 <dt>Смотрите также</dt><dd>
 [left], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## left
 
 ```c
 void left(uint16_t deg)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Поворачивает черепаху налево.
 </dd>
@@ -1143,12 +1212,14 @@ void left(uint16_t deg)
 <dt>Смотрите также</dt><dd>
 [move], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## right
 
 ```c
 void right(uint16_t deg)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Поворачивает черепаху вправо.
 </dd>
@@ -1159,36 +1230,42 @@ void right(uint16_t deg)
 <dt>Смотрите также</dt><dd>
 [move], [left], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## up
 
 ```c
 void up(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Поднимает черепахе хвост. Черепаха будет двигаться, не рисуя линии.
 </dd>
 <dt>Смотрите также</dt><dd>
 [move], [left], [right], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## down
 
 ```c
 void down(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Опускает хвост черепахи. Черепаха будет двигаться, рисуя линию (см. [color]).
 </dd>
 <dt>Смотрите также</dt><dd>
 [move], [left], [right], [up], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## color
 
 ```c
 void color(uint8_t palidx)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Устанавливает цвет краски черепахи.
 </dd>
@@ -1199,12 +1276,14 @@ void color(uint8_t palidx)
 <dt>Смотрите также</dt><dd>
 [move], [left], [right], [up], [down], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## forw
 
 ```c
 void forw(uint16_t cnt)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Перемещает черепаху вперед.
 </dd>
@@ -1215,12 +1294,14 @@ void forw(uint16_t cnt)
 <dt>Смотрите также</dt><dd>
 [move], [left], [right], [up], [down], [color], [back]
 </dd>
+</dl>
 <hr>
 ## back
 
 ```c
 void back(uint16_t cnt)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Перемещает черепаху назад.
 </dd>
@@ -1231,12 +1312,14 @@ void back(uint16_t cnt)
 <dt>Смотрите также</dt><dd>
 [move], [left], [right], [up], [down], [color], [forw]
 </dd>
+</dl>
 <hr>
 ## spr
 
 ```c
 void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t scale, uint8_t type)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отображает спрайт или несколько соседних спрайтов.
 </dd>
@@ -1253,6 +1336,7 @@ void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t s
 <dt>Смотрите также</dt><dd>
 [dlg], [stext]
 </dd>
+</dl>
 <hr>
 ## dlg
 
@@ -1262,6 +1346,7 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     uint16_t ml, uint16_t bg, uint16_t mr,
     uint16_t bl, uint16_t bm, uint16_t br)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отображает диалоговое окно с использованием спрайтов.
 </dd>
@@ -1285,12 +1370,14 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
 <dt>Смотрите также</dt><dd>
 [spr], [stext]
 </dd>
+</dl>
 <hr>
 ## stext
 
 ```c
 void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t sh, int8_t scale, str_t str)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отображает текст на экране с помощью спрайтов.
 </dd>
@@ -1308,12 +1395,14 @@ void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t s
 <dt>Смотрите также</dt><dd>
 [spr], [dlg]
 </dd>
+</dl>
 <hr>
 ## remap
 
 ```c
 void remap(addr_t replace)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Заменяет плитки на карте. Может использоваться для анимации плиток на карте.
 </dd>
@@ -1324,12 +1413,14 @@ void remap(addr_t replace)
 <dt>Смотрите также</dt><dd>
 [mget], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mget
 
 ```c
 uint16_t mget(uint16_t mx, uint16_t my)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает один тайл на карте.
 </dd>
@@ -1344,12 +1435,14 @@ uint16_t mget(uint16_t mx, uint16_t my)
 <dt>Смотрите также</dt><dd>
 [remap], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mset
 
 ```c
 void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Устанавливает одну плитку на карту.
 </dd>
@@ -1362,12 +1455,14 @@ void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 <dt>Смотрите также</dt><dd>
 [remap], [mget], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## map
 
 ```c
 void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, int8_t scale)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Рисует (частично) карту.
 </dd>
@@ -1384,6 +1479,7 @@ void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t m
 <dt>Смотрите также</dt><dd>
 [remap], [mget], [mset], [maze]
 </dd>
+</dl>
 <hr>
 ## maze
 
@@ -1391,6 +1487,7 @@ void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t m
 void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отображает карту в виде трехмерного лабиринта с использованием положения черепахи.
 </dd>
@@ -1412,6 +1509,7 @@ void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
 <dt>Смотрите также</dt><dd>
 [remap], [mget], [mset], [map]
 </dd>
+</dl>
 
 # Вход
 
@@ -1420,6 +1518,7 @@ void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
 ```c
 int getpad(int pad, int btn)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получает текущее состояние кнопки геймпада.
 </dd>
@@ -1434,12 +1533,14 @@ int getpad(int pad, int btn)
 <dt>Смотрите также</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## prspad
 
 ```c
 int prspad(int pad, int btn)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает true, если кнопка геймпада была нажата с момента последнего вызова.
 </dd>
@@ -1454,12 +1555,14 @@ int prspad(int pad, int btn)
 <dt>Смотрите также</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## relpad
 
 ```c
 int relpad(int pad, int btn)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает true, если кнопка геймпада была отпущена с момента последнего вызова.
 </dd>
@@ -1474,12 +1577,14 @@ int relpad(int pad, int btn)
 <dt>Смотрите также</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getbtn
 
 ```c
 int getbtn(int btn)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получает состояние кнопок мыши.
 </dd>
@@ -1493,12 +1598,14 @@ int getbtn(int btn)
 <dt>Смотрите также</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getclk
 
 ```c
 int getclk(int btn)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получает щелчок кнопкой мыши.
 </dd>
@@ -1512,12 +1619,14 @@ int getclk(int btn)
 <dt>Смотрите также</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
 </dd>
+</dl>
 <hr>
 ## getkey
 
 ```c
 int getkey(int sc)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получает текущее состояние ключа.
 </dd>
@@ -1531,12 +1640,14 @@ int getkey(int sc)
 <dt>Смотрите также</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
 </dd>
+</dl>
 <hr>
 ## popkey
 
 ```c
 uint32_t popkey(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Извлеките ключ UTF-8 из очереди клавиатуры. См. [Клавиатура] и версию блокировки [getc].
 </dd>
@@ -1546,12 +1657,14 @@ uint32_t popkey(void)
 <dt>Смотрите также</dt><dd>
 [pendkey], [lenkey], [speckey], [getc]
 </dd>
+</dl>
 <hr>
 ## pendkey
 
 ```c
 int pendkey(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает true, если в очереди находится ключ (но оставляет ключ в очереди, а не удаляет его).
 </dd>
@@ -1561,12 +1674,14 @@ int pendkey(void)
 <dt>Смотрите также</dt><dd>
 [popkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## lenkey
 
 ```c
 int lenkey(uint32_t key)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает длину ключа UTF-8 в байтах.
 </dd>
@@ -1580,12 +1695,14 @@ int lenkey(uint32_t key)
 <dt>Смотрите также</dt><dd>
 [popkey], [pendkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## speckey
 
 ```c
 int speckey(uint32_t key)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает true, если ключ является специальным ключом.
 </dd>
@@ -1599,6 +1716,7 @@ int speckey(uint32_t key)
 <dt>Смотрите также</dt><dd>
 [popkey], [pendkey], [lenkey]
 </dd>
+</dl>
 
 # Математика
 
@@ -1607,6 +1725,7 @@ int speckey(uint32_t key)
 ```c
 uint32_t rand(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получить случайный. Используйте `%` по модулю, чтобы уменьшить его, например, `1 + rand() % 6` возвращает
 случайное число от 1 до 6, как игральная кость.
@@ -1617,12 +1736,14 @@ uint32_t rand(void)
 <dt>Смотрите также</dt><dd>
 [rnd]
 </dd>
+</dl>
 <hr>
 ## rnd
 
 ```c
 float rnd(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Получить случайный. То же, что и [rand], но возвращает число с плавающей запятой.
 </dd>
@@ -1632,12 +1753,14 @@ float rnd(void)
 <dt>Смотрите также</dt><dd>
 [rand]
 </dd>
+</dl>
 <hr>
 ## float
 
 ```c
 float float(int val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает эквивалент целого числа с плавающей запятой.
 </dd>
@@ -1651,12 +1774,14 @@ float float(int val)
 <dt>Смотрите также</dt><dd>
 [int]
 </dd>
+</dl>
 <hr>
 ## int
 
 ```c
 int int(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает целочисленный эквивалент числа с плавающей запятой.
 </dd>
@@ -1670,12 +1795,14 @@ The integer of value.
 <dt>Смотрите также</dt><dd>
 [float]
 </dd>
+</dl>
 <hr>
 ## floor
 
 ```c
 float floor(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает наибольшее целое число, не превышающее значение.
 </dd>
@@ -1689,12 +1816,14 @@ float floor(float val)
 <dt>Смотрите также</dt><dd>
 [ceil]
 </dd>
+</dl>
 <hr>
 ## ceil
 
 ```c
 float ceil(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает наименьшее целое число, не меньшее value.
 </dd>
@@ -1708,12 +1837,14 @@ float ceil(float val)
 <dt>Смотрите также</dt><dd>
 [floor]
 </dd>
+</dl>
 <hr>
 ## sgn
 
 ```c
 float sgn(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает знак значения.
 </dd>
@@ -1727,12 +1858,14 @@ float sgn(float val)
 <dt>Смотрите также</dt><dd>
 [abs]
 </dd>
+</dl>
 <hr>
 ## abs
 
 ```c
 float abs(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает абсолютное значение.
 </dd>
@@ -1746,12 +1879,14 @@ float abs(float val)
 <dt>Смотрите также</dt><dd>
 [sgn]
 </dd>
+</dl>
 <hr>
 ## exp
 
 ```c
 float exp(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает экспоненту значения, т. е. основание натуральных логарифмов, возведенное в степень значения.
 </dd>
@@ -1765,12 +1900,14 @@ float exp(float val)
 <dt>Смотрите также</dt><dd>
 [log], [pow]
 </dd>
+</dl>
 <hr>
 ## log
 
 ```c
 float log(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает натуральный логарифм значения.
 </dd>
@@ -1784,12 +1921,14 @@ float log(float val)
 <dt>Смотрите также</dt><dd>
 [exp]
 </dd>
+</dl>
 <hr>
 ## pow
 
 ```c
 float pow(float val, float exp)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает значение, возведенное в степень экспоненты. Это медленная операция, старайтесь ее избегать.
 </dd>
@@ -1804,12 +1943,14 @@ float pow(float val, float exp)
 <dt>Смотрите также</dt><dd>
 [exp], [sqrt], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## sqrt
 
 ```c
 float sqrt(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает квадратный корень значения. Это медленная операция, старайтесь ее избегать.
 </dd>
@@ -1823,12 +1964,14 @@ float sqrt(float val)
 <dt>Смотрите также</dt><dd>
 [pow], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## rsqrt
 
 ```c
 float rsqrt(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает обратную величину квадратного корня значения (`1 / sqrt(val)`). Использует быстрый метод
 John Carmackа.
@@ -1843,12 +1986,14 @@ John Carmackа.
 <dt>Смотрите также</dt><dd>
 [pow], [sqrt]
 </dd>
+</dl>
 <hr>
 ## clamp
 
 ```c
 float clamp(float val, float minv, float maxv)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Фиксирует значение между пределами.
 </dd>
@@ -1864,12 +2009,14 @@ float clamp(float val, float minv, float maxv)
 <dt>Смотрите также</dt><dd>
 [clampv2], [clampv3], [clampv4]
 </dd>
+</dl>
 <hr>
 ## lerp
 
 ```c
 float lerp(float a, float b, float t)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Линейный интерполирует два числа.
 </dd>
@@ -1882,24 +2029,28 @@ float lerp(float a, float b, float t)
 <dt>Смотрите также</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## pi
 
 ```c
 float pi(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает π как число с плавающей запятой.
 </dd>
 <dt>Возвращаемое значение</dt><dd>
 Значение 3.14159265358979323846.
 </dd>
+</dl>
 <hr>
 ## cos
 
 ```c
 float cos(uint16_t deg)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает косинус.
 </dd>
@@ -1913,12 +2064,14 @@ float cos(uint16_t deg)
 <dt>Смотрите также</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## sin
 
 ```c
 float sin(uint16_t deg)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает синус.
 </dd>
@@ -1932,12 +2085,14 @@ float sin(uint16_t deg)
 <dt>Смотрите также</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## tan
 
 ```c
 float tan(uint16_t deg)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает танганс.
 </dd>
@@ -1951,12 +2106,14 @@ float tan(uint16_t deg)
 <dt>Смотрите также</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## acos
 
 ```c
 uint16_t acos(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает арккосинус.
 </dd>
@@ -1970,12 +2127,14 @@ uint16_t acos(float val)
 <dt>Смотрите также</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## asin
 
 ```c
 uint16_t asin(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Returns arcus sine.
 </dd>
@@ -1989,12 +2148,14 @@ Returns arcus sine.
 <dt>Смотрите также</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan
 
 ```c
 uint16_t atan(float val)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Returns arcus tangent.
 </dd>
@@ -2008,12 +2169,14 @@ Returns arcus tangent.
 <dt>Смотрите также</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan2
 
 ```c
 uint16_t atan2(float y, float x)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает тангенс дуги для y/x, используя знаки y и x для определения квадранта.
 </dd>
@@ -2028,12 +2191,14 @@ uint16_t atan2(float y, float x)
 <dt>Смотрите также</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
 </dd>
+</dl>
 <hr>
 ## dotv2
 
 ```c
 float dotv2(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет скалярное произведение двух векторов с двумя элементами.
 </dd>
@@ -2048,12 +2213,14 @@ float dotv2(addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lenv2
 
 ```c
 float lenv2(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет длину вектора из двух элементов. Это медленно, старайтесь избегать (см. [normv2]).
 </dd>
@@ -2067,12 +2234,14 @@ float lenv2(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## scalev2
 
 ```c
 void scalev2(addr_t a, float s)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Масштабирует вектор с двумя элементами.
 </dd>
@@ -2084,12 +2253,14 @@ void scalev2(addr_t a, float s)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## negv2
 
 ```c
 void negv2(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отменяет вектор с двумя элементами.
 </dd>
@@ -2100,12 +2271,14 @@ void negv2(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## addv2
 
 ```c
 void addv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Складывает векторы с двумя элементами.
 </dd>
@@ -2118,12 +2291,14 @@ void addv2(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## subv2
 
 ```c
 void subv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычитает векторы с двумя элементами.
 </dd>
@@ -2136,12 +2311,14 @@ void subv2(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## mulv2
 
 ```c
 void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает векторы на два элемента.
 </dd>
@@ -2154,12 +2331,14 @@ void mulv2(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## divv2
 
 ```c
 void divv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Делит векторы на два элемента.
 </dd>
@@ -2172,12 +2351,14 @@ void divv2(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## clampv2
 
 ```c
 void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Зажимает векторы с двумя элементами.
 </dd>
@@ -2191,12 +2372,14 @@ void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lerpv2
 
 ```c
 void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Линейный интерполирует векторы с двумя элементами.
 </dd>
@@ -2210,12 +2393,14 @@ void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## normv2
 
 ```c
 void normv2(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Нормализует вектор с двумя элементами.
 </dd>
@@ -2226,12 +2411,14 @@ void normv2(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
 </dd>
+</dl>
 <hr>
 ## dotv3
 
 ```c
 float dotv3(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет скалярное произведение двух векторов с тремя элементами.
 </dd>
@@ -2246,12 +2433,14 @@ float dotv3(addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lenv3
 
 ```c
 float lenv3(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет длину вектора из трех элементов. Это медленно, старайтесь избегать (см. [normv3]).
 </dd>
@@ -2265,12 +2454,14 @@ float lenv3(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## scalev3
 
 ```c
 void scalev3(addr_t a, float s)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Масштабирует вектор с тремя элементами.
 </dd>
@@ -2282,12 +2473,14 @@ void scalev3(addr_t a, float s)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## negv3
 
 ```c
 void negv3(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отменяет вектор с тремя элементами.
 </dd>
@@ -2298,12 +2491,14 @@ void negv3(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## addv3
 
 ```c
 void addv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Складывает векторы с тремя элементами.
 </dd>
@@ -2316,12 +2511,14 @@ void addv3(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## subv3
 
 ```c
 void subv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычитает векторы с тремя элементами.
 </dd>
@@ -2334,12 +2531,14 @@ void subv3(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## mulv3
 
 ```c
 void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает векторы на три элемента.
 </dd>
@@ -2352,12 +2551,14 @@ void mulv3(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## divv3
 
 ```c
 void divv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Делит векторы на три элемента.
 </dd>
@@ -2370,12 +2571,14 @@ void divv3(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## crossv3
 
 ```c
 void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет векторное произведение векторов с тремя элементами.
 </dd>
@@ -2388,12 +2591,14 @@ void crossv3(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## clampv3
 
 ```c
 void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Зажимает векторы с тремя элементами.
 </dd>
@@ -2407,12 +2612,14 @@ void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lerpv3
 
 ```c
 void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Линейный интерполирует векторы с тремя элементами.
 </dd>
@@ -2426,12 +2633,14 @@ void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## normv3
 
 ```c
 void normv3(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Нормализует вектор с тремя элементами.
 </dd>
@@ -2442,12 +2651,14 @@ void normv3(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
 </dd>
+</dl>
 <hr>
 ## dotv4
 
 ```c
 float dotv4(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет скалярное произведение двух векторов с четырьмя элементами.
 </dd>
@@ -2462,12 +2673,14 @@ float dotv4(addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lenv4
 
 ```c
 float lenv4(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет длину вектора из четырех элементов. Это медленно, старайтесь избегать (см. [normv4]).
 </dd>
@@ -2481,12 +2694,14 @@ float lenv4(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## scalev4
 
 ```c
 void scalev4(addr_t a, float s)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Масштабирует вектор с четырьмя элементами.
 </dd>
@@ -2498,12 +2713,14 @@ void scalev4(addr_t a, float s)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## negv4
 
 ```c
 void negv4(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отменяет вектор с четырьмя элементами.
 </dd>
@@ -2514,12 +2731,14 @@ void negv4(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## addv4
 
 ```c
 void addv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Складывает векторы с четырьмя элементами.
 </dd>
@@ -2532,12 +2751,14 @@ void addv4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [negv4], [scalev4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## subv4
 
 ```c
 void subv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычитает векторы с четырьмя элементами.
 </dd>
@@ -2550,12 +2771,14 @@ void subv4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## mulv4
 
 ```c
 void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает векторы на четыре элемента.
 </dd>
@@ -2568,12 +2791,14 @@ void mulv4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## divv4
 
 ```c
 void divv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Делит векторы на четыре элемента.
 </dd>
@@ -2586,12 +2811,14 @@ void divv4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## clampv4
 
 ```c
 void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Зажимает векторы с четырьмя элементами.
 </dd>
@@ -2605,12 +2832,14 @@ void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lerpv4
 
 ```c
 void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Линейный интерполирует векторы с четырьмя элементами.
 </dd>
@@ -2624,12 +2853,14 @@ void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## normv4
 
 ```c
 void normv4(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Нормализует вектор с четырьмя элементами.
 </dd>
@@ -2640,12 +2871,14 @@ void normv4(addr_t a)
 <dt>Смотрите также</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
 </dd>
+</dl>
 <hr>
 ## idq
 
 ```c
 void idq(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Загружает идентификационный кватернион.
 </dd>
@@ -2656,12 +2889,14 @@ void idq(addr_t a)
 <dt>Смотрите также</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## eulerq
 
 ```c
 void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Загружает кватернион, используя углы Эйлера.
 </dd>
@@ -2675,12 +2910,14 @@ void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 <dt>Смотрите также</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## dotq
 
 ```c
 float dotq(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет скалярное произведение кватерниона.
 </dd>
@@ -2695,12 +2932,14 @@ float dotq(addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lenq
 
 ```c
 float lenq(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет длину кватерниона.
 </dd>
@@ -2714,12 +2953,14 @@ float lenq(addr_t a)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## scaleq
 
 ```c
 void scaleq(addr_t a, float s)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Масштабирует кватернион.
 </dd>
@@ -2731,12 +2972,14 @@ void scaleq(addr_t a, float s)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## negq
 
 ```c
 void negq(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Отрицает кватернион.
 </dd>
@@ -2747,12 +2990,14 @@ void negq(addr_t a)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## addq
 
 ```c
 void addq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Складывает кватернионы.
 </dd>
@@ -2765,12 +3010,14 @@ void addq(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## subq
 
 ```c
 void subq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычитает кватернионы.
 </dd>
@@ -2783,12 +3030,14 @@ void subq(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## mulq
 
 ```c
 void mulq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает кватернионы.
 </dd>
@@ -2801,12 +3050,14 @@ void mulq(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## rotq
 
 ```c
 void rotq(addr_t dst, addr_t q, addr_t v)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вращает вектор с тремя элементами на кватернион.
 </dd>
@@ -2819,12 +3070,14 @@ void rotq(addr_t dst, addr_t q, addr_t v)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lerpq
 
 ```c
 void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Линейный интерполирует два кватерниона.
 </dd>
@@ -2838,12 +3091,14 @@ void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## slerpq
 
 ```c
 void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Сферический интерполирует кватернион.
 </dd>
@@ -2857,12 +3112,14 @@ void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## normq
 
 ```c
 void normq(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Нормализует кватернион.
 </dd>
@@ -2873,12 +3130,14 @@ void normq(addr_t a)
 <dt>Смотрите также</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## idm4
 
 ```c
 void idm4(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Загружает единичную матрицу 4 x 4.
 </dd>
@@ -2889,12 +3148,14 @@ void idm4(addr_t a)
 <dt>Смотрите также</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trsm4
 
 ```c
 void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Создает матрицу 4 x 4 с перемещением, вращением и масштабированием.
 </dd>
@@ -2908,12 +3169,14 @@ void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 <dt>Смотрите также</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## detm4
 
 ```c
 float detm4(addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает определитель матрицы.
 </dd>
@@ -2927,12 +3190,14 @@ float detm4(addr_t a)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## addm4
 
 ```c
 void addm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Складывает матрицы вместе.
 </dd>
@@ -2945,12 +3210,14 @@ void addm4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## subm4
 
 ```c
 void subm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычитает матрицы.
 </dd>
@@ -2963,12 +3230,14 @@ void subm4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4
 
 ```c
 void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает матрицы.
 </dd>
@@ -2981,12 +3250,14 @@ void mulm4(addr_t dst, addr_t a, addr_t b)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v3
 
 ```c
 void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает вектор с тремя элементами на матрицу.
 </dd>
@@ -2999,12 +3270,14 @@ void mulm4v3(addr_t dst, addr_t m, addr_t v)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v4
 
 ```c
 void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Умножает вектор с четырьмя элементами на матрицу.
 </dd>
@@ -3017,12 +3290,14 @@ void mulm4v4(addr_t dst, addr_t m, addr_t v)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## invm4
 
 ```c
 void invm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Вычисляет обратную матрицу.
 </dd>
@@ -3034,12 +3309,14 @@ void invm4(addr_t dst, addr_t a)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trpm4
 
 ```c
 void trpm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Транспонировать матрицу.
 </dd>
@@ -3051,6 +3328,7 @@ void trpm4(addr_t dst, addr_t a)
 <dt>Смотрите также</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
 </dd>
+</dl>
 <hr>
 ## trns
 
@@ -3060,6 +3338,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
     uint16_t pitch, uint16_t yaw, uint16_t roll,
     float scale)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Перевести облако вершин, оно же. поместите 3D-модель в [3D-пространстве].
 </dd>
@@ -3079,6 +3358,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 <dt>Смотрите также</dt><dd>
 [mesh]
 </dd>
+</dl>
 
 # Память
 
@@ -3087,6 +3367,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 ```c
 uint8_t inb(addr_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Чтение одного байта (byte) из памяти.
 </dd>
@@ -3097,12 +3378,14 @@ uint8_t inb(addr_t src)
 <dt>Возвращаемое значение</dt><dd>
 Возвращает значение по этому адресу.
 </dd>
+</dl>
 <hr>
 ## inw
 
 ```c
 uint16_t inw(addr_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Чтение слова (word, два байта) по памяти.
 </dd>
@@ -3113,12 +3396,14 @@ uint16_t inw(addr_t src)
 <dt>Возвращаемое значение</dt><dd>
 Возвращает значение по этому адресу.
 </dd>
+</dl>
 <hr>
 ## ini
 
 ```c
 uint32_t ini(addr_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Считайте целое число (int, четыре байта) из памяти.
 </dd>
@@ -3129,12 +3414,14 @@ uint32_t ini(addr_t src)
 <dt>Возвращаемое значение</dt><dd>
 Возвращает значение по этому адресу.
 </dd>
+</dl>
 <hr>
 ## outb
 
 ```c
 void outb(addr_t dst, uint8_t value)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Запишите один байт (byte) в память.
 </dd>
@@ -3143,12 +3430,14 @@ void outb(addr_t dst, uint8_t value)
 | dst | адрес, от 0x00000 до 0xBFFFF |
 | value | значение для установки, от 0 до 255 |
 </dd>
+</dl>
 <hr>
 ## outw
 
 ```c
 void outw(addr_t dst, uint16_t value)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Запишите слово (word, два байта) в память.
 </dd>
@@ -3157,12 +3446,14 @@ void outw(addr_t dst, uint16_t value)
 | dst | адрес, от 0x00000 до 0xBFFFE |
 | value | значение для установки, от 0 до 65535 |
 </dd>
+</dl>
 <hr>
 ## outi
 
 ```c
 void outi(addr_t dst, uint32_t value)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Запишите целое число (int, четыре байта) в память.
 </dd>
@@ -3171,12 +3462,14 @@ void outi(addr_t dst, uint32_t value)
 | dst | адрес, от 0x00000 до 0xBFFFC |
 | value | значение для установки, от 0 до 4294967295 |
 </dd>
+</dl>
 <hr>
 ## memsave
 
 ```c
 int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Сохраняет область памяти для наложения.
 </dd>
@@ -3192,12 +3485,14 @@ int memsave(uint8_t overlay, addr_t src, uint32_t size)
 <dt>Смотрите также</dt><dd>
 [memload]
 </dd>
+</dl>
 <hr>
 ## memload
 
 ```c
 int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Загружает наложение в указанную область памяти.
 </dd>
@@ -3213,12 +3508,14 @@ int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 <dt>Смотрите также</dt><dd>
 [memsave]
 </dd>
+</dl>
 <hr>
 ## memcpy
 
 ```c
 void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Копирование областей памяти.
 </dd>
@@ -3228,12 +3525,14 @@ void memcpy(addr_t dst, addr_t src, uint32_t len)
 | src | исходный адрес, от 0x00000 до 0xBFFFF |
 | len | количество байтов для копирования |
 </dd>
+</dl>
 <hr>
 ## memset
 
 ```c
 void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Установить область памяти на заданное значение.
 </dd>
@@ -3243,12 +3542,14 @@ void memset(addr_t dst, uint8_t value, uint32_t len)
 | value | значение для установки, от 0 до 255 |
 | len | количество байтов для установки |
 </dd>
+</dl>
 <hr>
 ## memcmp
 
 ```c
 int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Сравните регионы памяти.
 </dd>
@@ -3261,12 +3562,14 @@ int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 <dt>Возвращаемое значение</dt><dd>
 Возвращает разницу, 0, если две области памяти совпадают.
 </dd>
+</dl>
 <hr>
 ## deflate
 
 ```c
 int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Сжать буфер с помощью RFC1950 deflate (zlib).
 </dd>
@@ -3282,12 +3585,14 @@ int deflate(addr_t dst, addr_t src, uint32_t len)
 <dt>Смотрите также</dt><dd>
 [inflate]
 </dd>
+</dl>
 <hr>
 ## inflate
 
 ```c
 int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Распакуйте буфер со сжатыми данными RFC1950 deflate (zlib).
 </dd>
@@ -3303,12 +3608,14 @@ int inflate(addr_t dst, addr_t src, uint32_t len)
 <dt>Смотрите также</dt><dd>
 [deflate]
 </dd>
+</dl>
 <hr>
 ## time
 
 ```c
 float time(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает количество тактов с момента включения питания.
 </dd>
@@ -3318,12 +3625,14 @@ float time(void)
 <dt>Смотрите также</dt><dd>
 [now]
 </dd>
+</dl>
 <hr>
 ## now
 
 ```c
 uint32_t now(void)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает метку времени UNIX. Проверьте байт по смещению 0000C, чтобы увидеть, не переполнен ли он.
 </dd>
@@ -3333,12 +3642,14 @@ uint32_t now(void)
 <dt>Смотрите также</dt><dd>
 [time]
 </dd>
+</dl>
 <hr>
 ## atoi
 
 ```c
 int atoi(str_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Преобразует десятичную строку ASCII в целое число.
 </dd>
@@ -3352,12 +3663,14 @@ int atoi(str_t src)
 <dt>Смотрите также</dt><dd>
 [itoa], [str], [val]
 </dd>
+</dl>
 <hr>
 ## itoa
 
 ```c
 str_t itoa(int value)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Преобразует целое число в десятичную строку ASCII.
 </dd>
@@ -3371,12 +3684,14 @@ str_t itoa(int value)
 <dt>Смотрите также</dt><dd>
 [atoi], [str], [val]
 </dd>
+</dl>
 <hr>
 ## val
 
 ```c
 float val(str_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Преобразует десятичную строку ASCII в число с плавающей запятой.
 </dd>
@@ -3390,12 +3705,14 @@ float val(str_t src)
 <dt>Смотрите также</dt><dd>
 [itoa], [atoi], [str]
 </dd>
+</dl>
 <hr>
 ## str
 
 ```c
 str_t str(float value)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Преобразует число с плавающей запятой в десятичную строку ASCII.
 </dd>
@@ -3409,12 +3726,14 @@ str_t str(float value)
 <dt>Смотрите также</dt><dd>
 [atoi], [itoa], [val]
 </dd>
+</dl>
 <hr>
 ## sprintf
 
 ```c
 str_t sprintf(str_t fmt, ...)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает строку UTF-8 с нулевым завершением, созданную с использованием формата и аргументов.
 </dd>
@@ -3426,12 +3745,14 @@ str_t sprintf(str_t fmt, ...)
 <dt>Возвращаемое значение</dt><dd>
 Созданная строка.
 </dd>
+</dl>
 <hr>
 ## strlen
 
 ```c
 int strlen(str_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает количество байтов в строке (без завершающего нуля).
 </dd>
@@ -3445,12 +3766,14 @@ int strlen(str_t src)
 <dt>Смотрите также</dt><dd>
 [mblen]
 </dd>
+</dl>
 <hr>
 ## mblen
 
 ```c
 int mblen(str_t src)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Возвращает количество многобайтовых символов UTF-8 в строке (без завершающего нуля).
 </dd>
@@ -3464,12 +3787,14 @@ int mblen(str_t src)
 <dt>Смотрите также</dt><dd>
 [strlen]
 </dd>
+</dl>
 <hr>
 ## malloc
 
 ```c
 addr_t malloc(uint32_t size)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Динамически распределяет пользовательскую память.
 </dd>
@@ -3483,12 +3808,14 @@ addr_t malloc(uint32_t size)
 <dt>Смотрите также</dt><dd>
 [realloc], [free]
 </dd>
+</dl>
 <hr>
 ## realloc
 
 ```c
 addr_t realloc(addr_t addr, uint32_t size)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Измените размер ранее выделенного буфера.
 </dd>
@@ -3503,12 +3830,14 @@ addr_t realloc(addr_t addr, uint32_t size)
 <dt>Смотрите также</dt><dd>
 [malloc], [free]
 </dd>
+</dl>
 <hr>
 ## free
 
 ```c
 int free(addr_t addr)
 ```
+<dl>
 <dt>Описание</dt><dd>
 Освобождает динамически выделяемую пользовательскую память.
 </dd>
@@ -3522,3 +3851,4 @@ int free(addr_t addr)
 <dt>Смотрите также</dt><dd>
 [malloc], [realloc]
 </dd>
+</dl>

@@ -93,7 +93,7 @@ void help_init(void)
             for(e = ps + 3; e < pe && *e && *e != '\n'; e++) *d++ = *e;
             help_pages[help_numpages].titw = meg4_width(meg4_font, 1, ps + 3, e);
             *d++ = 0; while(e < pe && *e == '\n') e++;
-            n = 2*LINEHEIGHT + 16; firstcode = 1; a = tr = td = 0;
+            n = LINEHEIGHT + LINEHEIGHT/2 + 20; firstcode = 1; a = tr = td = 0;
             while(e < pe && *e) {
                 s = e; y = n;
                 while(e < pe && *e && *e != '\n') e++;
@@ -108,8 +108,10 @@ void help_init(void)
                     }
                     firstcode = 0; n -= LINEHEIGHT; continue;
                 }
-                /* skip horizontal ruler */
+                /* skip horizontal ruler and data lists */
                 if(!memcmp(s, "<hr>", 4)) continue;
+                if(!memcmp(s, "<dl>", 4)) s += 4;
+                if(!memcmp(s, "</dl>", 5)) s += 5;
                 onlyspace = 1;
                 /* heading */
                 if(!memcmp(s, "### ", 4)) {
@@ -385,18 +387,35 @@ dosearch:   help_current = -1; memset(lastsearch, 0, sizeof(lastsearch));
         }
         if(help_current < 0 || help_current >= help_numpages)
             if(search[0]) {
-                /* search results */
-                for(i = 0; i < help_numpages; i++) {
-                    if(help_pages[i].y && py >= help_pages[i].y + 12 - menu_scroll &&
-                      py < help_pages[i].y + 12 - menu_scroll + LINEHEIGHT &&
-                      px >= 16 && px < 16 + help_pages[i].titw) {
+                /* back and table of contents link */
+                if(py >= 12 && py < 12 + LINEHEIGHT && px >= 2 && px < 24 + bckw + tocw) {
+                    textinp_key = 0;
+                    memset(search, 0, sizeof(search));
+                    memset(lastsearch, 0, sizeof(lastsearch));
+                    /* back link */
+                    if(px >= 2 && px < 8 + bckw) {
+                        i = hist[0]; memmove(&hist[0], &hist[1], sizeof(hist) - sizeof(int));
+                        hist[sizeof(hist)/sizeof(int) - 1] = -1;
+                        help_show(i);
+                    } else
+                    /* table of contents link */
+                    if(px >= 24 + bckw && px < 24 + bckw + tocw) {
                         memmove(&hist[1], &hist[0], sizeof(hist) - sizeof(int)); hist[0] = help_current;
-                        help_show(i); break;
+                        help_show(-1);
                     }
-                }
+                } else
+                    /* search results */
+                    for(i = 0; i < help_numpages; i++) {
+                        if(help_pages[i].y && py >= help_pages[i].y + 12 - menu_scroll &&
+                          py < help_pages[i].y + 12 - menu_scroll + LINEHEIGHT &&
+                          px >= 16 && px < 16 + help_pages[i].titw) {
+                            memmove(&hist[1], &hist[0], sizeof(hist) - sizeof(int)); hist[0] = help_current;
+                            help_show(i); break;
+                        }
+                    }
             } else
                 /* table of contents */
-                for(y = LINEHEIGHT + 16 + 12 - menu_scroll, i = 0; i < help_numpages; i++, y += LINEHEIGHT) {
+                for(y = LINEHEIGHT + 20 + 12 - menu_scroll, i = 0; i < help_numpages; i++, y += LINEHEIGHT) {
                     if(help_pages[i].chapter) y += LINEHEIGHT/2 + LINEHEIGHT;
                     if(py >= y && py < y + LINEHEIGHT &&
                       px >= 16 && px < 16 + help_pages[i].titw) {
@@ -471,8 +490,15 @@ void help_view(void)
     if(help_current < 0 || help_current >= help_numpages) {
         if(search[0]) {
             /* display search results */
-            meg4_text(meg4.valt, 2, LINEHEIGHT, 640 * 4, theme[THEME_HELP_TITLE], htole32(0x3f000000), 2, meg4_font, lang[HELP_RESULTS]);
-            y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = htole16(LINEHEIGHT + 16);
+            meg4_text(meg4.valt, 2, 3, 640 * 4, theme[THEME_HELP_LINK], htole32(0x3f000000), 1, meg4_font, "\x11");
+            meg4_text(meg4.valt, 10, 2, 640 * 4, theme[THEME_HELP_LINK], htole32(0x3f000000), 1, meg4_font, lang[HELP_BACK]);
+            meg4_text(meg4.valt, 24 + bckw, 2, 640 * 4, theme[THEME_HELP_LINK], htole32(0x3f000000), 1, meg4_font, lang[HELP_TOC]);
+            if(py >= 12 && py < 12 + LINEHEIGHT && (
+              (px >= 2 && px < 8 + bckw) ||
+              (px >= 24 + bckw && px < 24 + bckw + tocw)))
+                meg4.mmio.ptrspr = MEG4_PTR_HAND;
+            meg4_text(meg4.valt, 2, 2 + LINEHEIGHT, 640 * 4, theme[THEME_HELP_TITLE], htole32(0x3f000000), 2, meg4_font, lang[HELP_RESULTS]);
+            y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = htole16(LINEHEIGHT + 20);
             /* only do the actual search if the search string has changed */
             if(memcmp(search, lastsearch, sizeof(lastsearch))) {
                 memcpy(lastsearch, search, sizeof(lastsearch));
@@ -480,7 +506,7 @@ void help_view(void)
                     help_pages[i].y = !strcmp(help_pages[i].content, search) ||
                         strstr(help_pages[i].content + strlen(help_pages[i].content) + 1, search) ? -1 : 0;
             }
-            for(dy = le16toh(meg4.mmio.cropy0) - menu_scroll, i = 0; i < help_numpages; i++) {
+            for(dy = le16toh(meg4.mmio.cropy0) - menu_scroll + LINEHEIGHT/2, i = 0; i < help_numpages; i++) {
                 if(!help_pages[i].y) continue;
                 if(help_pages[i].y == -1) help_pages[i].y = dy + menu_scroll;
                 if(py >= dy + 12 && py < dy + 12 + LINEHEIGHT &&
@@ -491,8 +517,8 @@ void help_view(void)
             }
         } else {
             /* display table of contents */
-            meg4_text(meg4.valt, 2, LINEHEIGHT, 640 * 4, theme[THEME_HELP_TITLE], htole32(0x3f000000), 2, meg4_font, lang[HELP_TOC]);
-            y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = htole16(LINEHEIGHT + 16);
+            meg4_text(meg4.valt, 2, 2 + LINEHEIGHT, 640 * 4, theme[THEME_HELP_TITLE], htole32(0x3f000000), 2, meg4_font, lang[HELP_TOC]);
+            y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = htole16(LINEHEIGHT + 20);
             for(dy = le16toh(meg4.mmio.cropy0) - menu_scroll, i = 0; i < help_numpages; i++) {
                 help_pages[i].y = -1;
                 if(help_pages[i].chapter) {
@@ -521,11 +547,11 @@ void help_view(void)
           (px >= 24 + bckw && px < 24 + bckw + tocw)))
             meg4.mmio.ptrspr = MEG4_PTR_HAND;
         str = help_pages[help_current].content;
-        meg4_text(meg4.valt, 2, LINEHEIGHT, 640 * 4, theme[THEME_HELP_TITLE], htole32(0x3f000000), 2, meg4_font, str);
+        meg4_text(meg4.valt, 2, 2 + LINEHEIGHT, 640 * 4, theme[THEME_HELP_TITLE], htole32(0x3f000000), 2, meg4_font, str);
         str += strlen(str) + 1;
         kbg = meg4_edicons.buf + 40 * meg4_edicons.w + 131;
-        y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = htole16(LINEHEIGHT + 16);
-        dy = le16toh(meg4.mmio.cropy0) - menu_scroll + LINEHEIGHT; dx = 16; tr = 0;
+        y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = htole16(LINEHEIGHT + 20);
+        dy = le16toh(meg4.mmio.cropy0) - menu_scroll + LINEHEIGHT/2; dx = 16; tr = 0;
         if(help_pages[help_current].link)
             for(i = 0; i < help_pages[help_current].numlink; i++)
                 if(py >= help_pages[help_current].link[i].y - menu_scroll &&
@@ -612,7 +638,7 @@ void help_view(void)
             fnt = meg4_font + 8 * c;
             if(state == MONO) { l = 0; r = 7; } else { l = meg4_font[8 * 65536 + c] & 0xf; r = meg4_font[8 * 65536 + c] >> 4; }
             for(dst = meg4.valt + (dy + sy) * p + dx, y = 0; y < 8; y++, fnt++, dst += p)
-                if(((dy + sy + y) >= LINEHEIGHT + 16) && (dy + sy + y < 388)) {
+                if(((dy + sy + y) >= LINEHEIGHT + 20) && (dy + sy + y < 388)) {
                     for(d = dst, x = l, m = (1 << l); x <= r && dx + x < 630; x++, d++, m <<= 1) {
                         if(*fnt & m) { *d = fg; if(shadow) d[p + 1] = sh; } else
                         if(state == KEY) *d = kbg[y * meg4_edicons.w]; else

@@ -472,6 +472,7 @@ Zobacz także menu, aby poznać alternatywne metody wprowadzania danych i ich sk
 ```c
 void putc(uint32_t chr)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wypisuje znak na konsoli.
 </dd>
@@ -479,12 +480,14 @@ Wypisuje znak na konsoli.
 | Argument | Opis |
 | chr | Znak UTF-8 |
 </dd>
+</dl>
 <hr>
 ## printf
 
 ```c
 void printf(str_t fmt, ...)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wyświetla tekst na konsoli.
 </dd>
@@ -493,12 +496,14 @@ Wyświetla tekst na konsoli.
 | fmt | ciąg do wyświetlenia, [formatowanie ciągów] |
 | ... | opcjonalne argumenty |
 </dd>
+</dl>
 <hr>
 ## getc
 
 ```c
 uint32_t getc(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odczytuje znak z konsoli, blokuje program w przypadku braku danych wejściowych.
 </dd>
@@ -508,24 +513,28 @@ Znak UTF-8 wprowadzony przez użytkownika.
 <dt>Zobacz także</dt><dd>
 [popkey]
 </dd>
+</dl>
 <hr>
 ## gets
 
 ```c
 str_t gets(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odczytuje ciąg znaków od użytkownika zakończony nową linią (nie zwraca nowej linii).
 </dd>
 <dt>Wartość zwracana</dt><dd>
 Bajty odczytane w ciągu.
 </dd>
+</dl>
 <hr>
 ## trace
 
 ```c
 void trace(str_t fmt, ...)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Śledź wykonanie poprzez drukowanie do stdout. Działa tylko jeśli `meg4` został uruchomiony z flagą `-v` verbose.
 </dd>
@@ -534,12 +543,14 @@ void trace(str_t fmt, ...)
 | fmt | [formatowanie ciągów] |
 | ... | opcjonalne argumenty |
 </dd>
+</dl>
 <hr>
 ## delay
 
 ```c
 void delay(uint16_t msec)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Opóźnia wykonanie programu.
 </dd>
@@ -547,15 +558,18 @@ Opóźnia wykonanie programu.
 | Argument | Opis |
 | msec | opóźnienie w milisekundach |
 </dd>
+</dl>
 <hr>
 ## exit
 
 ```c
 void exit(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wychodzi z programu.
 </dd>
+</dl>
 
 # Audio
 
@@ -564,6 +578,7 @@ Wychodzi z programu.
 ```c
 void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odtwarza efekt dźwiękowy.
 </dd>
@@ -573,12 +588,14 @@ Odtwarza efekt dźwiękowy.
 | channel | używany kanał, od 0 do 11 |
 | volume | głośność, która ma być użyta, od 0 do 255, 0 wyłącza kanał |
 </dd>
+</dl>
 <hr>
 ## music
 
 ```c
 void music(uint8_t track, uint16_t row, uint8_t volume)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odtwarza utwór muzyczny.
 </dd>
@@ -588,6 +605,7 @@ Odtwarza utwór muzyczny.
 | row | wiersz, od którego należy rozpocząć odtwarzanie, od 0 do 1023 (maksymalna długość utworu) |
 | volume | głośność, której należy użyć, od 0 do 255, 0 wyłącza muzykę |
 </dd>
+</dl>
 
 # GPIO
 
@@ -596,18 +614,21 @@ Odtwarza utwór muzyczny.
 ```c
 uint32_t gpio_rev(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zapytaj o numer rewizji płyty GPIO. Zwraca 0, jeśli platforma nie obsługuje GPIO.
 </dd>
 <dt>Wartość zwracana</dt><dd>
 Numer rewizji płyty lub 0, jeśli nie jest obsługiwana.
 </dd>
+</dl>
 <hr>
 ## gpio_get
 
 ```c
 int gpio_get(uint8_t pin)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odczytaj wartość pinu GPIO.
 </dd>
@@ -621,12 +642,14 @@ Zwraca 1, jeśli pin jest w stanie wysokim, 0, jeśli jest w stanie niskim, -1 w
 <dt>Zobacz także</dt><dd>
 [gpio_set]
 </dd>
+</dl>
 <hr>
 ## gpio_set
 
 ```c
 int gpio_set(uint8_t pin, int value)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zapisz wartość na pinie GPIO.
 </dd>
@@ -641,6 +664,7 @@ Zwraca 0 w przypadku powodzenia, -1 w przypadku błędu (pin GPIO nie jest obsł
 <dt>Zobacz także</dt><dd>
 [gpio_get]
 </dd>
+</dl>
 
 # Grafika
 
@@ -649,6 +673,7 @@ Zwraca 0 w przypadku powodzenia, -1 w przypadku błędu (pin GPIO nie jest obsł
 ```c
 void cls(uint8_t palidx)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Czyści cały ekran, resetuje przesunięcia wyświetlania i ustawia kolor tła konsoli.
 </dd>
@@ -659,12 +684,14 @@ Czyści cały ekran, resetuje przesunięcia wyświetlania i ustawia kolor tła k
 <dt>Zobacz także</dt><dd>
 [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## cget
 
 ```c
 uint32_t cget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Pobiera piksel o określonej współrzędnej i zwraca kolor RGBA.
 </dd>
@@ -679,12 +706,14 @@ Kolor wypełniony, z kanałami RGBA (czerwony znajduje się w najmniej znaczący
 <dt>Zobacz także</dt><dd>
 [cls], [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## pget
 
 ```c
 uint8_t pget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Pobiera piksel o danej współrzędnej i zwraca jego indeks palety.
 </dd>
@@ -699,12 +728,14 @@ Kolor w indeksie palety od 0 do 255.
 <dt>Zobacz także</dt><dd>
 [cls], [pset], [cget]
 </dd>
+</dl>
 <hr>
 ## pset
 
 ```c
 void pset(uint8_t palidx, uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje piksel w określonym miejscu.
 </dd>
@@ -717,12 +748,14 @@ Rysuje piksel w określonym miejscu.
 <dt>Zobacz także</dt><dd>
 [cls], [pget]
 </dd>
+</dl>
 <hr>
 ## width
 
 ```c
 uint16_t width(int8_t type, str_t str)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca szerokość wyświetlanego tekstu w pikselach.
 </dd>
@@ -737,12 +770,14 @@ Liczba pikseli wymagana do wyświetlenia tekstu.
 <dt>Zobacz także</dt><dd>
 [text]
 </dd>
+</dl>
 <hr>
 ## text
 
 ```c
 void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint8_t sha, str_t str)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Drukuje tekst na ekranie.
 </dd>
@@ -759,12 +794,14 @@ Drukuje tekst na ekranie.
 <dt>Zobacz także</dt><dd>
 [width]
 </dd>
+</dl>
 <hr>
 ## line
 
 ```c
 void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wygładzoną linię.
 </dd>
@@ -779,6 +816,7 @@ Rysuje wygładzoną linię.
 <dt>Zobacz także</dt><dd>
 [qbez], [cbez]
 </dd>
+</dl>
 <hr>
 ## qbez
 
@@ -786,6 +824,7 @@ Rysuje wygładzoną linię.
 void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx, int16_t cy)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje kwadratową krzywą Béziera.
 </dd>
@@ -802,6 +841,7 @@ Rysuje kwadratową krzywą Béziera.
 <dt>Zobacz także</dt><dd>
 [line], [cbez]
 </dd>
+</dl>
 <hr>
 ## cbez
 
@@ -809,6 +849,7 @@ Rysuje kwadratową krzywą Béziera.
 void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx0, int16_t cy0, int16_t cx1, int16_t cy1)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje krzywą Béziera sześcienną.
 </dd>
@@ -827,12 +868,14 @@ Rysuje krzywą Béziera sześcienną.
 <dt>Zobacz także</dt><dd>
 [line], [qbez]
 </dd>
+</dl>
 <hr>
 ## tri
 
 ```c
 void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje trójkąt.
 </dd>
@@ -849,12 +892,14 @@ Rysuje trójkąt.
 <dt>Zobacz także</dt><dd>
 [ftri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## ftri
 
 ```c
 void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wypełniony trójkąt.
 </dd>
@@ -871,6 +916,7 @@ Rysuje wypełniony trójkąt.
 <dt>Zobacz także</dt><dd>
 [tri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri2d
 
@@ -879,6 +925,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi1, int16_t x1, int16_t y1,
     uint8_t pi2, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wypełniony trójkąt z gradientami kolorów.
 </dd>
@@ -897,6 +944,7 @@ Rysuje wypełniony trójkąt z gradientami kolorów.
 <dt>Zobacz także</dt><dd>
 [tri], [ftri], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri3d
 
@@ -905,6 +953,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t pi1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t pi2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wypełniony trójkąt z gradientami kolorów w [przestrzeni 3D].
 </dd>
@@ -926,6 +975,7 @@ Rysuje wypełniony trójkąt z gradientami kolorów w [przestrzeni 3D].
 <dt>Zobacz także</dt><dd>
 [tri], [ftri], [tri2d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tritx
 
@@ -934,6 +984,7 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t u1, uint8_t v1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t u2, uint8_t v2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje teksturowany trójkąt w [przestrzeni 3D].
 </dd>
@@ -958,12 +1009,14 @@ Rysuje teksturowany trójkąt w [przestrzeni 3D].
 <dt>Zobacz także</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## mesh
 
 ```c
 void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje siatkę zbudowaną z trójkątów w [przestrzeni 3D], używając indeksów wierzchołków i współrzędnych tekstury (lub palety).
 </dd>
@@ -977,12 +1030,14 @@ Rysuje siatkę zbudowaną z trójkątów w [przestrzeni 3D], używając indeksó
 <dt>Zobacz także</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [tritx], [trns]
 </dd>
+</dl>
 <hr>
 ## rect
 
 ```c
 void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje prostokąt.
 </dd>
@@ -997,12 +1052,14 @@ Rysuje prostokąt.
 <dt>Zobacz także</dt><dd>
 [frect]
 </dd>
+</dl>
 <hr>
 ## frect
 
 ```c
 void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wypełniony prostokąt.
 </dd>
@@ -1017,12 +1074,14 @@ Rysuje wypełniony prostokąt.
 <dt>Zobacz także</dt><dd>
 [rect]
 </dd>
+</dl>
 <hr>
 ## circ
 
 ```c
 void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje okrąg.
 </dd>
@@ -1036,12 +1095,14 @@ Rysuje okrąg.
 <dt>Zobacz także</dt><dd>
 [fcirc], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## fcirc
 
 ```c
 void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wypełnione koło.
 </dd>
@@ -1055,12 +1116,14 @@ Rysuje wypełnione koło.
 <dt>Zobacz także</dt><dd>
 [circ], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## ellip
 
 ```c
 void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje elipsę.
 </dd>
@@ -1075,12 +1138,14 @@ Rysuje elipsę.
 <dt>Zobacz także</dt><dd>
 [circ], [fcirc], [fellip]
 </dd>
+</dl>
 <hr>
 ## fellip
 
 ```c
 void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje wypełnioną elipsę.
 </dd>
@@ -1095,12 +1160,14 @@ Rysuje wypełnioną elipsę.
 <dt>Zobacz także</dt><dd>
 [circ], [fcirc], [ellip]
 </dd>
+</dl>
 <hr>
 ## move
 
 ```c
 void move(int16_t x, int16_t y, uint16_t deg)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Przesuwa żółwia do wskazanej pozycji na ekranie lub w labiryncie.
 </dd>
@@ -1113,12 +1180,14 @@ Przesuwa żółwia do wskazanej pozycji na ekranie lub w labiryncie.
 <dt>Zobacz także</dt><dd>
 [left], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## left
 
 ```c
 void left(uint16_t deg)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Skręca żółwia w lewo.
 </dd>
@@ -1129,12 +1198,14 @@ Skręca żółwia w lewo.
 <dt>Zobacz także</dt><dd>
 [move], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## right
 
 ```c
 void right(uint16_t deg)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Skręca żółwia w prawo.
 </dd>
@@ -1145,36 +1216,42 @@ Skręca żółwia w prawo.
 <dt>Zobacz także</dt><dd>
 [move], [left], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## up
 
 ```c
 void up(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Podnosi ogon żółwia. Żółw będzie się poruszał bez rysowania linii.
 </dd>
 <dt>Zobacz także</dt><dd>
 [move], [left], [right], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## down
 
 ```c
 void down(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Opuszcza ogon żółwia. Żółw będzie się poruszał, rysując linię (patrz [color]).
 </dd>
 <dt>Zobacz także</dt><dd>
 [move], [left], [right], [up], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## color
 
 ```c
 void color(uint8_t palidx)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ustawia kolor farby żółwia.
 </dd>
@@ -1185,12 +1262,14 @@ Ustawia kolor farby żółwia.
 <dt>Zobacz także</dt><dd>
 [move], [left], [right], [up], [down], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## forw
 
 ```c
 void forw(uint16_t cnt)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Przesuwa żółwia do przodu.
 </dd>
@@ -1201,12 +1280,14 @@ Przesuwa żółwia do przodu.
 <dt>Zobacz także</dt><dd>
 [move], [left], [right], [up], [down], [color], [back]
 </dd>
+</dl>
 <hr>
 ## back
 
 ```c
 void back(uint16_t cnt)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Przesuwa żółwia do tyłu.
 </dd>
@@ -1217,12 +1298,14 @@ Przesuwa żółwia do tyłu.
 <dt>Zobacz także</dt><dd>
 [move], [left], [right], [up], [down], [color], [forw]
 </dd>
+</dl>
 <hr>
 ## spr
 
 ```c
 void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t scale, uint8_t type)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wyświetla duszka lub wiele sąsiadujących duszków.
 </dd>
@@ -1239,6 +1322,7 @@ Wyświetla duszka lub wiele sąsiadujących duszków.
 <dt>Zobacz także</dt><dd>
 [dlg], [stext]
 </dd>
+</dl>
 <hr>
 ## dlg
 
@@ -1248,6 +1332,7 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     uint16_t ml, uint16_t bg, uint16_t mr,
     uint16_t bl, uint16_t bm, uint16_t br)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wyświetla okno dialogowe przy użyciu sprite'ów.
 </dd>
@@ -1271,12 +1356,14 @@ Wyświetla okno dialogowe przy użyciu sprite'ów.
 <dt>Zobacz także</dt><dd>
 [spr], [stext]
 </dd>
+</dl>
 <hr>
 ## stext
 
 ```c
 void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t sh, int8_t scale, str_t str)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wyświetla tekst na ekranie za pomocą sprite'ów.
 </dd>
@@ -1294,12 +1381,14 @@ Wyświetla tekst na ekranie za pomocą sprite'ów.
 <dt>Zobacz także</dt><dd>
 [spr], [dlg]
 </dd>
+</dl>
 <hr>
 ## remap
 
 ```c
 void remap(addr_t replace)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zastępuje kafelki na mapie. Można użyć do animowania kafelków na mapie.
 </dd>
@@ -1310,12 +1399,14 @@ Zastępuje kafelki na mapie. Można użyć do animowania kafelków na mapie.
 <dt>Zobacz także</dt><dd>
 [mget], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mget
 
 ```c
 uint16_t mget(uint16_t mx, uint16_t my)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca jeden kafelek na mapie.
 </dd>
@@ -1330,12 +1421,14 @@ Identyfikator duszka kafelka o podanych współrzędnych.
 <dt>Zobacz także</dt><dd>
 [remap], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mset
 
 ```c
 void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ustawia jeden kafelek na mapie.
 </dd>
@@ -1348,12 +1441,14 @@ Ustawia jeden kafelek na mapie.
 <dt>Zobacz także</dt><dd>
 [remap], [mget], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## map
 
 ```c
 void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, int8_t scale)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rysuje (część) mapy.
 </dd>
@@ -1370,6 +1465,7 @@ Rysuje (część) mapy.
 <dt>Zobacz także</dt><dd>
 [remap], [mget], [mset], [maze]
 </dd>
+</dl>
 <hr>
 ## maze
 
@@ -1377,6 +1473,7 @@ Rysuje (część) mapy.
 void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wyświetla mapę jako labirynt 3D, wykorzystując pozycję żółwia.
 </dd>
@@ -1398,6 +1495,7 @@ Wyświetla mapę jako labirynt 3D, wykorzystując pozycję żółwia.
 <dt>Zobacz także</dt><dd>
 [remap], [mget], [mset], [map]
 </dd>
+</dl>
 
 # Wejście
 
@@ -1406,6 +1504,7 @@ Wyświetla mapę jako labirynt 3D, wykorzystując pozycję żółwia.
 ```c
 int getpad(int pad, int btn)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Pobiera aktualny stan przycisku gamepada.
 </dd>
@@ -1420,12 +1519,14 @@ Zero, jeśli nie naciśnięto, wartość różna od zera, jeśli naciśnięto.
 <dt>Zobacz także</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## prspad
 
 ```c
 int prspad(int pad, int btn)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość true, jeżeli przycisk gamepada został naciśnięty od ostatniego wywołania.
 </dd>
@@ -1440,12 +1541,14 @@ Zero, jeśli nie naciśnięto, wartość różna od zera, jeśli naciśnięto.
 <dt>Zobacz także</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## relpad
 
 ```c
 int relpad(int pad, int btn)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość true, jeżeli przycisk gamepada został zwolniony od ostatniego wywołania.
 </dd>
@@ -1460,12 +1563,14 @@ Zero jeśli nie został wydany, wartość różna od zera jeśli został wydany.
 <dt>Zobacz także</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getbtn
 
 ```c
 int getbtn(int btn)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Pobiera stan przycisków myszy.
 </dd>
@@ -1479,12 +1584,14 @@ Zero, jeśli nie naciśnięto, wartość różna od zera, jeśli naciśnięto.
 <dt>Zobacz także</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getclk
 
 ```c
 int getclk(int btn)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Powoduje kliknięcie przycisku myszy.
 </dd>
@@ -1498,12 +1605,14 @@ Zero jeśli nie kliknięto, wartość różna od zera jeśli kliknięto.
 <dt>Zobacz także</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
 </dd>
+</dl>
 <hr>
 ## getkey
 
 ```c
 int getkey(int sc)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Pobiera aktualny stan klucza.
 </dd>
@@ -1517,12 +1626,14 @@ Zero, jeśli nie naciśnięto, wartość różna od zera, jeśli naciśnięto.
 <dt>Zobacz także</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
 </dd>
+</dl>
 <hr>
 ## popkey
 
 ```c
 uint32_t popkey(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Usuń klawisz UTF-8 z kolejki klawiatury. Zobacz [klawiatura] i dla wersji blokującej [getc].
 </dd>
@@ -1532,12 +1643,14 @@ Reprezentacja klucza w formacie UTF-8 lub 0, jeśli kolejka jest pusta (bez blok
 <dt>Zobacz także</dt><dd>
 [pendkey], [lenkey], [speckey], [getc]
 </dd>
+</dl>
 <hr>
 ## pendkey
 
 ```c
 int pendkey(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość true, jeśli w kolejce znajduje się klucz oczekujący (ale pozostawia klucz w kolejce, nie usuwa go).
 </dd>
@@ -1547,12 +1660,14 @@ Zwraca wartość 1, jeśli w kolejce znajdują się oczekujące klucze.
 <dt>Zobacz także</dt><dd>
 [popkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## lenkey
 
 ```c
 int lenkey(uint32_t key)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca długość klucza UTF-8 w bajtach.
 </dd>
@@ -1566,12 +1681,14 @@ Długość reprezentacji UTF-8 w bajtach.
 <dt>Zobacz także</dt><dd>
 [popkey], [pendkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## speckey
 
 ```c
 int speckey(uint32_t key)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość true, jeśli klucz jest kluczem specjalnym.
 </dd>
@@ -1585,6 +1702,7 @@ Zwraca wartość 1, jeśli jest to klucz specjalny lub 0, jeśli jest to klucz d
 <dt>Zobacz także</dt><dd>
 [popkey], [pendkey], [lenkey]
 </dd>
+</dl>
 
 # Matematyka
 
@@ -1593,6 +1711,7 @@ Zwraca wartość 1, jeśli jest to klucz specjalny lub 0, jeśli jest to klucz d
 ```c
 uint32_t rand(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Uzyskaj losowość. Użyj `%` modulo, aby zmniejszyć wartość, na przykład `1 + rand() % 6` zwraca losowość między 1 a 6, jak kostka
 do gry.
@@ -1603,12 +1722,14 @@ Liczba losowa pomiędzy 0 i 2^^32^^-1 (4294967295).
 <dt>Zobacz także</dt><dd>
 [rnd]
 </dd>
+</dl>
 <hr>
 ## rnd
 
 ```c
 float rnd(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Pobierz losowo. Tak samo jak [rand], ale zwraca liczbę zmiennoprzecinkową.
 </dd>
@@ -1618,12 +1739,14 @@ Liczba losowa z zakresu od 0.0 do 1.0.
 <dt>Zobacz także</dt><dd>
 [rand]
 </dd>
+</dl>
 <hr>
 ## float
 
 ```c
 float float(int val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość zmiennoprzecinkową odpowiadającą liczbie całkowitej.
 </dd>
@@ -1637,12 +1760,14 @@ Wartość zmiennoprzecinkowa.
 <dt>Zobacz także</dt><dd>
 [int]
 </dd>
+</dl>
 <hr>
 ## int
 
 ```c
 int int(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość całkowitą odpowiadającą liczbie zmiennoprzecinkowej.
 </dd>
@@ -1656,12 +1781,14 @@ Liczba całkowita wartości.
 <dt>Zobacz także</dt><dd>
 [float]
 </dd>
+</dl>
 <hr>
 ## floor
 
 ```c
 float floor(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca największą liczbę całkowitą nie większą niż wartość.
 </dd>
@@ -1675,12 +1802,14 @@ Piętro wartości.
 <dt>Zobacz także</dt><dd>
 [ceil]
 </dd>
+</dl>
 <hr>
 ## ceil
 
 ```c
 float ceil(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca najmniejszą liczbę całkowitą nie mniejszą niż wartość.
 </dd>
@@ -1694,12 +1823,14 @@ Pułap wartości.
 <dt>Zobacz także</dt><dd>
 [floor]
 </dd>
+</dl>
 <hr>
 ## sgn
 
 ```c
 float sgn(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca znak wartości.
 </dd>
@@ -1713,12 +1844,14 @@ Albo 1.0 albo -1.0.
 <dt>Zobacz także</dt><dd>
 [abs]
 </dd>
+</dl>
 <hr>
 ## abs
 
 ```c
 float abs(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość bezwzględną.
 </dd>
@@ -1732,12 +1865,14 @@ Albo wartość albo -wartość, zawsze dodatnia.
 <dt>Zobacz także</dt><dd>
 [sgn]
 </dd>
+</dl>
 <hr>
 ## exp
 
 ```c
 float exp(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wykładnik wartości, tj. podstawę logarytmu naturalnego podniesioną do potęgi równej wartości.
 </dd>
@@ -1751,12 +1886,14 @@ Zwraca e^^val^^.
 <dt>Zobacz także</dt><dd>
 [log], [pow]
 </dd>
+</dl>
 <hr>
 ## log
 
 ```c
 float log(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca logarytm naturalny wartości.
 </dd>
@@ -1770,12 +1907,14 @@ Zwraca logarytm naturalny wartości.
 <dt>Zobacz także</dt><dd>
 [exp]
 </dd>
+</dl>
 <hr>
 ## pow
 
 ```c
 float pow(float val, float exp)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wartość podniesioną do potęgi wykładnika. To jest powolna operacja, staraj się jej unikać.
 </dd>
@@ -1790,12 +1929,14 @@ Zwraca val^^exp^^.
 <dt>Zobacz także</dt><dd>
 [exp], [sqrt], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## sqrt
 
 ```c
 float sqrt(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca pierwiastek kwadratowy wartości. To jest powolna operacja, staraj się jej unikać.
 </dd>
@@ -1809,12 +1950,14 @@ Pierwiastek kwadratowy wartości.
 <dt>Zobacz także</dt><dd>
 [pow], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## rsqrt
 
 ```c
 float rsqrt(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca odwrotność pierwiastka kwadratowego wartości (`1 / sqrt(val)`). Używa szybkiej metody Johna Carmacka.
 </dd>
@@ -1828,12 +1971,14 @@ Odwrotność pierwiastka kwadratowego wartości.
 <dt>Zobacz także</dt><dd>
 [pow], [sqrt]
 </dd>
+</dl>
 <hr>
 ## clamp
 
 ```c
 float clamp(float val, float minv, float maxv)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zaciska wartość pomiędzy limitami.
 </dd>
@@ -1849,12 +1994,14 @@ Wartość zacięta.
 <dt>Zobacz także</dt><dd>
 [clampv2], [clampv3], [clampv4]
 </dd>
+</dl>
 <hr>
 ## lerp
 
 ```c
 float lerp(float a, float b, float t)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Interpolacja liniowa dwóch liczb.
 </dd>
@@ -1867,24 +2014,28 @@ Interpolacja liniowa dwóch liczb.
 <dt>Zobacz także</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## pi
 
 ```c
 float pi(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca π jako liczbę zmiennoprzecinkową.
 </dd>
 <dt>Wartość zwracana</dt><dd>
 Wartość 3.14159265358979323846.
 </dd>
+</dl>
 <hr>
 ## cos
 
 ```c
 float cos(uint16_t deg)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca cosinus.
 </dd>
@@ -1898,12 +2049,14 @@ Cosinus stopnia, od -1.0 do 1.0.
 <dt>Zobacz także</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## sin
 
 ```c
 float sin(uint16_t deg)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca sinus.
 </dd>
@@ -1917,12 +2070,14 @@ Sinus stopnia, od -1.0 do 1.0.
 <dt>Zobacz także</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## tan
 
 ```c
 float tan(uint16_t deg)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca tangens.
 </dd>
@@ -1936,12 +2091,14 @@ Tangens stopnia, pomiędzy -1.0 a 1.0.
 <dt>Zobacz także</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## acos
 
 ```c
 uint16_t acos(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca arcus cosinus.
 </dd>
@@ -1955,12 +2112,14 @@ Arcus cosinus w stopniach, od 0 do 359, gdzie 0 jest w górę, a 90 w prawo.
 <dt>Zobacz także</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## asin
 
 ```c
 uint16_t asin(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca łuk sinus.
 </dd>
@@ -1974,12 +2133,14 @@ Arcus sinus w stopniach, od 0 do 359, gdzie 0 jest w górę, a 90 w prawo.
 <dt>Zobacz także</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan
 
 ```c
 uint16_t atan(float val)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca tangens łuku.
 </dd>
@@ -1993,12 +2154,14 @@ Tangens łuku w stopniach, od 0 do 359, gdzie 0 jest w górę, a 90 w prawo.
 <dt>Zobacz także</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan2
 
 ```c
 uint16_t atan2(float y, float x)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca arcus tangens dla y/x, używając znaków y i x do określenia ćwiartki.
 </dd>
@@ -2013,12 +2176,14 @@ Tangens łuku w stopniach, od 0 do 359, gdzie 0 jest w górę, a 90 w prawo.
 <dt>Zobacz także</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
 </dd>
+</dl>
 <hr>
 ## dotv2
 
 ```c
 float dotv2(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza iloczyn skalarny dwóch wektorów o dwóch elementach.
 </dd>
@@ -2033,12 +2198,14 @@ Iloczyn skalarny wektorów.
 <dt>Zobacz także</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lenv2
 
 ```c
 float lenv2(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza długość wektora z dwoma elementami. Jest to powolne, staraj się tego unikać (zobacz [normv2]).
 </dd>
@@ -2052,12 +2219,14 @@ Długość wektora.
 <dt>Zobacz także</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## scalev2
 
 ```c
 void scalev2(addr_t a, float s)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Skaluje wektor składający się z dwóch elementów.
 </dd>
@@ -2069,12 +2238,14 @@ Skaluje wektor składający się z dwóch elementów.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## negv2
 
 ```c
 void negv2(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Neguje wektor składający się z dwóch elementów.
 </dd>
@@ -2085,12 +2256,14 @@ Neguje wektor składający się z dwóch elementów.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## addv2
 
 ```c
 void addv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dodaje wektory składające się z dwóch elementów.
 </dd>
@@ -2103,12 +2276,14 @@ Dodaje wektory składające się z dwóch elementów.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## subv2
 
 ```c
 void subv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odejmuje wektory dwuelementowe.
 </dd>
@@ -2121,12 +2296,14 @@ Odejmuje wektory dwuelementowe.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## mulv2
 
 ```c
 void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży wektory przez dwa elementy.
 </dd>
@@ -2139,12 +2316,14 @@ Mnoży wektory przez dwa elementy.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## divv2
 
 ```c
 void divv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dzieli wektory dwuelementowe.
 </dd>
@@ -2157,12 +2336,14 @@ Dzieli wektory dwuelementowe.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## clampv2
 
 ```c
 void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zaciska wektory dwuelementowe.
 </dd>
@@ -2176,12 +2357,14 @@ Zaciska wektory dwuelementowe.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lerpv2
 
 ```c
 void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Interpolacja liniowa wektorów dwuelementowych.
 </dd>
@@ -2195,12 +2378,14 @@ Interpolacja liniowa wektorów dwuelementowych.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## normv2
 
 ```c
 void normv2(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Normalizuje wektor składający się z dwóch elementów.
 </dd>
@@ -2211,12 +2396,14 @@ Normalizuje wektor składający się z dwóch elementów.
 <dt>Zobacz także</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
 </dd>
+</dl>
 <hr>
 ## dotv3
 
 ```c
 float dotv3(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza iloczyn skalarny dwóch wektorów trzyelementowych.
 </dd>
@@ -2231,12 +2418,14 @@ Iloczyn skalarny wektorów.
 <dt>Zobacz także</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lenv3
 
 ```c
 float lenv3(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza długość wektora z trzema elementami. Jest to powolne, staraj się tego unikać (zobacz [normv3]).
 </dd>
@@ -2250,12 +2439,14 @@ Długość wektora.
 <dt>Zobacz także</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## scalev3
 
 ```c
 void scalev3(addr_t a, float s)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Skaluje wektor składający się z trzech elementów.
 </dd>
@@ -2267,12 +2458,14 @@ Skaluje wektor składający się z trzech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## negv3
 
 ```c
 void negv3(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Neguje wektor składający się z trzech elementów.
 </dd>
@@ -2283,12 +2476,14 @@ Neguje wektor składający się z trzech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## addv3
 
 ```c
 void addv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dodaje wektory składające się z trzech elementów.
 </dd>
@@ -2301,12 +2496,14 @@ Dodaje wektory składające się z trzech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## subv3
 
 ```c
 void subv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odejmuje wektory składające się z trzech elementów.
 </dd>
@@ -2319,12 +2516,14 @@ Odejmuje wektory składające się z trzech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## mulv3
 
 ```c
 void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży wektory przez trzy elementy.
 </dd>
@@ -2337,12 +2536,14 @@ Mnoży wektory przez trzy elementy.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## divv3
 
 ```c
 void divv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dzieli wektory o trzech elementach.
 </dd>
@@ -2355,12 +2556,14 @@ Dzieli wektory o trzech elementach.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## crossv3
 
 ```c
 void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza iloczyn wektorowy wektorów trójelementowych.
 </dd>
@@ -2373,12 +2576,14 @@ Oblicza iloczyn wektorowy wektorów trójelementowych.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## clampv3
 
 ```c
 void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zaciska wektory o trzech elementach.
 </dd>
@@ -2392,12 +2597,14 @@ Zaciska wektory o trzech elementach.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lerpv3
 
 ```c
 void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Interpolacja liniowa wektorów o trzech elementach.
 </dd>
@@ -2411,12 +2618,14 @@ Interpolacja liniowa wektorów o trzech elementach.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## normv3
 
 ```c
 void normv3(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Normalizuje wektor składający się z trzech elementów.
 </dd>
@@ -2427,12 +2636,14 @@ Normalizuje wektor składający się z trzech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
 </dd>
+</dl>
 <hr>
 ## dotv4
 
 ```c
 float dotv4(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza iloczyn skalarny dwóch wektorów czteroelementowych.
 </dd>
@@ -2447,12 +2658,14 @@ Iloczyn skalarny wektorów.
 <dt>Zobacz także</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lenv4
 
 ```c
 float lenv4(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza długość wektora z czterema elementami. To jest wolne, staraj się tego unikać (zobacz [normv4]).
 </dd>
@@ -2466,12 +2679,14 @@ Długość wektora.
 <dt>Zobacz także</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## scalev4
 
 ```c
 void scalev4(addr_t a, float s)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Skaluje wektor o czterech elementach.
 </dd>
@@ -2483,12 +2698,14 @@ Skaluje wektor o czterech elementach.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## negv4
 
 ```c
 void negv4(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Neguje wektor składający się z czterech elementów.
 </dd>
@@ -2499,12 +2716,14 @@ Neguje wektor składający się z czterech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## addv4
 
 ```c
 void addv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dodaje wektory składające się z czterech elementów.
 </dd>
@@ -2517,12 +2736,14 @@ Dodaje wektory składające się z czterech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [negv4], [scalev4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## subv4
 
 ```c
 void subv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odejmuje wektory czteroelementowe.
 </dd>
@@ -2535,12 +2756,14 @@ Odejmuje wektory czteroelementowe.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## mulv4
 
 ```c
 void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży wektory przez cztery elementy.
 </dd>
@@ -2553,12 +2776,14 @@ Mnoży wektory przez cztery elementy.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## divv4
 
 ```c
 void divv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dzieli wektory czteroelementowe.
 </dd>
@@ -2571,12 +2796,14 @@ Dzieli wektory czteroelementowe.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## clampv4
 
 ```c
 void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zaciska wektory czteroelementowe.
 </dd>
@@ -2590,12 +2817,14 @@ Zaciska wektory czteroelementowe.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lerpv4
 
 ```c
 void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Interpolacja liniowa wektorów czteroelementowych.
 </dd>
@@ -2609,12 +2838,14 @@ Interpolacja liniowa wektorów czteroelementowych.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## normv4
 
 ```c
 void normv4(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Normalizuje wektor składający się z czterech elementów.
 </dd>
@@ -2625,12 +2856,14 @@ Normalizuje wektor składający się z czterech elementów.
 <dt>Zobacz także</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
 </dd>
+</dl>
 <hr>
 ## idq
 
 ```c
 void idq(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ładuje kwaternion tożsamościowy.
 </dd>
@@ -2641,12 +2874,14 @@ void idq(addr_t a)
 <dt>Zobacz także</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## eulerq
 
 ```c
 void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ładuje kwaternion za pomocą kątów Eulera.
 </dd>
@@ -2660,12 +2895,14 @@ void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 <dt>Zobacz także</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## dotq
 
 ```c
 float dotq(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza iloczyn skalarny kwaternionu.
 </dd>
@@ -2680,12 +2917,14 @@ Iloczyn skalarny kwaternionu.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lenq
 
 ```c
 float lenq(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza długość kwaternionu.
 </dd>
@@ -2699,12 +2938,14 @@ Długość kwaternionu.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## scaleq
 
 ```c
 void scaleq(addr_t a, float s)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Skala kwaternionu.
 </dd>
@@ -2716,12 +2957,14 @@ Skala kwaternionu.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## negq
 
 ```c
 void negq(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Neguje kwaternion.
 </dd>
@@ -2732,12 +2975,14 @@ Neguje kwaternion.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## addq
 
 ```c
 void addq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dodaje kwaterniony.
 </dd>
@@ -2750,12 +2995,14 @@ Dodaje kwaterniony.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## subq
 
 ```c
 void subq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odejmuje kwaterniony.
 </dd>
@@ -2768,12 +3015,14 @@ Odejmuje kwaterniony.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## mulq
 
 ```c
 void mulq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży kwaterniony.
 </dd>
@@ -2786,12 +3035,14 @@ Mnoży kwaterniony.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## rotq
 
 ```c
 void rotq(addr_t dst, addr_t q, addr_t v)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Obraca wektor składający się z trzech elementów o kwaternion.
 </dd>
@@ -2804,12 +3055,14 @@ Obraca wektor składający się z trzech elementów o kwaternion.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lerpq
 
 ```c
 void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Interpolacja liniowa dwóch kwaternionów.
 </dd>
@@ -2823,12 +3076,14 @@ Interpolacja liniowa dwóch kwaternionów.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## slerpq
 
 ```c
 void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Interpolacja sferyczna kwaternionu.
 </dd>
@@ -2842,12 +3097,14 @@ Interpolacja sferyczna kwaternionu.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## normq
 
 ```c
 void normq(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Normalizuje kwaternion.
 </dd>
@@ -2858,12 +3115,14 @@ Normalizuje kwaternion.
 <dt>Zobacz także</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## idm4
 
 ```c
 void idm4(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ładuje macierz jednostkową 4 x 4.
 </dd>
@@ -2874,12 +3133,14 @@ void idm4(addr_t a)
 <dt>Zobacz także</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trsm4
 
 ```c
 void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Tworzy macierz 4 x 4 z translacją, obrotem i skalowaniem.
 </dd>
@@ -2893,12 +3154,14 @@ Tworzy macierz 4 x 4 z translacją, obrotem i skalowaniem.
 <dt>Zobacz także</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## detm4
 
 ```c
 float detm4(addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca wyznacznik macierzy.
 </dd>
@@ -2912,12 +3175,14 @@ Wyznacznik macierzy.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## addm4
 
 ```c
 void addm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dodaje macierze.
 </dd>
@@ -2930,12 +3195,14 @@ Dodaje macierze.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## subm4
 
 ```c
 void subm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odejmuje macierze.
 </dd>
@@ -2948,12 +3215,14 @@ Odejmuje macierze.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4
 
 ```c
 void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży macierze.
 </dd>
@@ -2966,12 +3235,14 @@ Mnoży macierze.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v3
 
 ```c
 void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży wektor składający się z trzech elementów przez macierz.
 </dd>
@@ -2984,12 +3255,14 @@ Mnoży wektor składający się z trzech elementów przez macierz.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v4
 
 ```c
 void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Mnoży wektor składający się z czterech elementów przez macierz.
 </dd>
@@ -3002,12 +3275,14 @@ Mnoży wektor składający się z czterech elementów przez macierz.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## invm4
 
 ```c
 void invm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Oblicza macierz odwrotną.
 </dd>
@@ -3019,12 +3294,14 @@ Oblicza macierz odwrotną.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trpm4
 
 ```c
 void trpm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Transpozycja macierzy.
 </dd>
@@ -3036,6 +3313,7 @@ Transpozycja macierzy.
 <dt>Zobacz także</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
 </dd>
+</dl>
 <hr>
 ## trns
 
@@ -3045,6 +3323,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
     uint16_t pitch, uint16_t yaw, uint16_t roll,
     float scale)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Przetłumacz chmurę wierzchołków, czyli umieść model 3D w [przestrzeni 3D].
 </dd>
@@ -3064,6 +3343,7 @@ Przetłumacz chmurę wierzchołków, czyli umieść model 3D w [przestrzeni 3D].
 <dt>Zobacz także</dt><dd>
 [mesh]
 </dd>
+</dl>
 
 # Pamięć
 
@@ -3072,6 +3352,7 @@ Przetłumacz chmurę wierzchołków, czyli umieść model 3D w [przestrzeni 3D].
 ```c
 uint8_t inb(addr_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odczytano jeden bajt z pamięci.
 </dd>
@@ -3082,12 +3363,14 @@ Odczytano jeden bajt z pamięci.
 <dt>Wartość zwracana</dt><dd>
 Zwraca wartość pod danym adresem.
 </dd>
+</dl>
 <hr>
 ## inw
 
 ```c
 uint16_t inw(addr_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odczytać jedno słowo (word, dwa bajty) z pamięci.
 </dd>
@@ -3098,12 +3381,14 @@ Odczytać jedno słowo (word, dwa bajty) z pamięci.
 <dt>Wartość zwracana</dt><dd>
 Zwraca wartość pod danym adresem.
 </dd>
+</dl>
 <hr>
 ## ini
 
 ```c
 uint32_t ini(addr_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Odczyt liczby całkowitej (int, cztery bajty) z pamięci.
 </dd>
@@ -3114,12 +3399,14 @@ Odczyt liczby całkowitej (int, cztery bajty) z pamięci.
 <dt>Wartość zwracana</dt><dd>
 Zwraca wartość pod danym adresem.
 </dd>
+</dl>
 <hr>
 ## outb
 
 ```c
 void outb(addr_t dst, uint8_t value)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zapisz jeden bajt w pamięci.
 </dd>
@@ -3128,12 +3415,14 @@ Zapisz jeden bajt w pamięci.
 | dst | adres, 0x00000 do 0xBFFFF |
 | value | wartość do ustawienia, od 0 do 255 |
 </dd>
+</dl>
 <hr>
 ## outw
 
 ```c
 void outw(addr_t dst, uint16_t value)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zapisz słowo (word, dwa bajty) w pamięci.
 </dd>
@@ -3142,12 +3431,14 @@ Zapisz słowo (word, dwa bajty) w pamięci.
 | dst | adres, 0x00000 do 0xBFFFE |
 | value | wartość do ustawienia, od 0 do 65535 |
 </dd>
+</dl>
 <hr>
 ## outi
 
 ```c
 void outi(addr_t dst, uint32_t value)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Wypisz liczbę całkowitą (int, cztery bajty) do pamięci.
 </dd>
@@ -3156,12 +3447,14 @@ Wypisz liczbę całkowitą (int, cztery bajty) do pamięci.
 | dst | adres, 0x00000 do 0xBFFFC |
 | value | wartość do ustawienia, od 0 do 4294967295 |
 </dd>
+</dl>
 <hr>
 ## memsave
 
 ```c
 int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zapisuje obszar pamięci do nałożenia.
 </dd>
@@ -3177,12 +3470,14 @@ Zwraca 1 w przypadku powodzenia, 0 w przypadku błędu.
 <dt>Zobacz także</dt><dd>
 [memload]
 </dd>
+</dl>
 <hr>
 ## memload
 
 ```c
 int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ładuje nakładkę do określonego obszaru pamięci.
 </dd>
@@ -3198,12 +3493,14 @@ Zwraca liczbę faktycznie załadowanych bajtów.
 <dt>Zobacz także</dt><dd>
 [memsave]
 </dd>
+</dl>
 <hr>
 ## memcpy
 
 ```c
 void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Kopiuj obszary pamięci.
 </dd>
@@ -3213,12 +3510,14 @@ Kopiuj obszary pamięci.
 | src | adres źródłowy, 0x00000 do 0xBFFFF |
 | len | liczba bajtów do skopiowania |
 </dd>
+</dl>
 <hr>
 ## memset
 
 ```c
 void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Ustaw region pamięci na daną wartość.
 </dd>
@@ -3228,12 +3527,14 @@ Ustaw region pamięci na daną wartość.
 | value | wartość do ustawienia, od 0 do 255 |
 | len | liczba bajtów do ustawienia |
 </dd>
+</dl>
 <hr>
 ## memcmp
 
 ```c
 int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Porównaj obszary pamięci.
 </dd>
@@ -3246,12 +3547,14 @@ Porównaj obszary pamięci.
 <dt>Wartość zwracana</dt><dd>
 Zwraca różnicę, 0 jeśli dwa obszary pamięci są zgodne.
 </dd>
+</dl>
 <hr>
 ## deflate
 
 ```c
 int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Kompresja bufora przy użyciu RFC1950 deflate (zlib) opisanego.
 </dd>
@@ -3267,12 +3570,14 @@ Kompresja bufora przy użyciu RFC1950 deflate (zlib) opisanego.
 <dt>Zobacz także</dt><dd>
 [inflate]
 </dd>
+</dl>
 <hr>
 ## inflate
 
 ```c
 int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Rozpakuj bufor przy użyciu skompresowanych danych RFC1950 deflate (zlib).
 </dd>
@@ -3288,12 +3593,14 @@ Rozpakuj bufor przy użyciu skompresowanych danych RFC1950 deflate (zlib).
 <dt>Zobacz także</dt><dd>
 [deflate]
 </dd>
+</dl>
 <hr>
 ## time
 
 ```c
 float time(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca liczbę impulsów od włączenia zasilania.
 </dd>
@@ -3303,12 +3610,14 @@ Czas w milisekundach, który upłynął od włączenia zasilania.
 <dt>Zobacz także</dt><dd>
 [now]
 </dd>
+</dl>
 <hr>
 ## now
 
 ```c
 uint32_t now(void)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca znacznik czasu UNIX. Sprawdź bajt w przesunięciu 0000C, aby zobaczyć, czy nie jest przepełniony.
 </dd>
@@ -3318,12 +3627,14 @@ Czas w sekundach, który upłynął od północy 1 stycznia 1970 r. czasu Greenw
 <dt>Zobacz także</dt><dd>
 [time]
 </dd>
+</dl>
 <hr>
 ## atoi
 
 ```c
 int atoi(str_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Konwertuje ciąg dziesiętny ASCII na liczbę całkowitą.
 </dd>
@@ -3337,12 +3648,14 @@ Wartość liczbowa ciągu.
 <dt>Zobacz także</dt><dd>
 [itoa], [str], [val]
 </dd>
+</dl>
 <hr>
 ## itoa
 
 ```c
 str_t itoa(int value)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Konwertuje liczbę całkowitą na ciąg dziesiętny ASCII.
 </dd>
@@ -3356,12 +3669,14 @@ Przekonwertowany ciąg znaków.
 <dt>Zobacz także</dt><dd>
 [atoi], [str], [val]
 </dd>
+</dl>
 <hr>
 ## val
 
 ```c
 float val(str_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Konwertuje ciąg dziesiętny ASCII na liczbę zmiennoprzecinkową.
 </dd>
@@ -3375,12 +3690,14 @@ Wartość liczbowa ciągu.
 <dt>Zobacz także</dt><dd>
 [itoa], [atoi], [str]
 </dd>
+</dl>
 <hr>
 ## str
 
 ```c
 str_t str(float value)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Konwertuje liczbę zmiennoprzecinkową na ciąg dziesiętny ASCII.
 </dd>
@@ -3394,12 +3711,14 @@ Przekonwertowany ciąg znaków.
 <dt>Zobacz także</dt><dd>
 [atoi], [itoa], [val]
 </dd>
+</dl>
 <hr>
 ## sprintf
 
 ```c
 str_t sprintf(str_t fmt, ...)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca zakończony zerem ciąg UTF-8 utworzony przy użyciu formatu i argumentów.
 </dd>
@@ -3411,12 +3730,14 @@ Zwraca zakończony zerem ciąg UTF-8 utworzony przy użyciu formatu i argumentó
 <dt>Wartość zwracana</dt><dd>
 Skonstruowany ciąg.
 </dd>
+</dl>
 <hr>
 ## strlen
 
 ```c
 int strlen(str_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca liczbę bajtów w ciągu (bez końcowego zera).
 </dd>
@@ -3430,12 +3751,14 @@ Liczba bajtów w ciągu.
 <dt>Zobacz także</dt><dd>
 [mblen]
 </dd>
+</dl>
 <hr>
 ## mblen
 
 ```c
 int mblen(str_t src)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwraca liczbę wielobajtowych znaków UTF-8 w ciągu (bez końcowego zera).
 </dd>
@@ -3449,12 +3772,14 @@ Liczba znaków w ciągu.
 <dt>Zobacz także</dt><dd>
 [strlen]
 </dd>
+</dl>
 <hr>
 ## malloc
 
 ```c
 addr_t malloc(uint32_t size)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Dynamicznie przydziela pamięć użytkownikowi.
 </dd>
@@ -3468,12 +3793,14 @@ Adres nowego przydzielonego bufora lub NULL w przypadku błędu.
 <dt>Zobacz także</dt><dd>
 [realloc], [free]
 </dd>
+</dl>
 <hr>
 ## realloc
 
 ```c
 addr_t realloc(addr_t addr, uint32_t size)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zmień rozmiar wcześniej przydzielonego bufora.
 </dd>
@@ -3488,12 +3815,14 @@ Adres nowego przydzielonego bufora lub NULL w przypadku błędu.
 <dt>Zobacz także</dt><dd>
 [malloc], [free]
 </dd>
+</dl>
 <hr>
 ## free
 
 ```c
 int free(addr_t addr)
 ```
+<dl>
 <dt>Opis</dt><dd>
 Zwalnia dynamicznie przydzieloną pamięć użytkownika.
 </dd>
@@ -3507,3 +3836,4 @@ Zwalnia dynamicznie przydzieloną pamięć użytkownika.
 <dt>Zobacz także</dt><dd>
 [malloc], [realloc]
 </dd>
+</dl>

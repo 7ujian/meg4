@@ -451,6 +451,7 @@ DSP 状态寄存器都是只读的，对于每个通道，它们如下所示：
 ```c
 void putc(uint32_t chr)
 ```
+<dl>
 <dt>描述</dt><dd>
 打印一个字符到控制台。
 </dd>
@@ -458,12 +459,14 @@ void putc(uint32_t chr)
 | 争论t | 描述 |
 | chr | UTF-8 字符 |
 </dd>
+</dl>
 <hr>
 ## printf
 
 ```c
 void printf(str_t fmt, ...)
 ```
+<dl>
 <dt>描述</dt><dd>
 将文本打印到控制台。
 </dd>
@@ -472,12 +475,14 @@ void printf(str_t fmt, ...)
 | fmt | 要显示的字符串，[格式串] |
 | ... | 可选参数 |
 </dd>
+</dl>
 <hr>
 ## getc
 
 ```c
 uint32_t getc(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 从控制台读取一个字符，在没有输入时阻止程序。
 </dd>
@@ -487,24 +492,28 @@ uint32_t getc(void)
 <dt>另见</dt><dd>
 [popkey]
 </dd>
+</dl>
 <hr>
 ## gets
 
 ```c
 str_t gets(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 从用户读取换行符终止的字符串（不返回换行符）。
 </dd>
 <dt>返回值</dt><dd>
 在字符串中读取的字节。
 </dd>
+</dl>
 <hr>
 ## trace
 
 ```c
 void trace(str_t fmt, ...)
 ```
+<dl>
 <dt>描述</dt><dd>
 通过打印到标准输出来跟踪执行情况。 仅当`meg4`以`-v`详细标志启动时才有效。
 </dd>
@@ -513,12 +522,14 @@ void trace(str_t fmt, ...)
 | fmt | [格式串] |
 | ... | 可选参数 |
 </dd>
+</dl>
 <hr>
 ## delay
 
 ```c
 void delay(uint16_t msec)
 ```
+<dl>
 <dt>描述</dt><dd>
 延迟程序执行。
 </dd>
@@ -526,15 +537,18 @@ void delay(uint16_t msec)
 | 争论t | 描述 |
 | msec | 以毫秒为单位的延迟 |
 </dd>
+</dl>
 <hr>
 ## exit
 
 ```c
 void exit(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 退出程序。
 </dd>
+</dl>
 
 # 音频
 
@@ -543,6 +557,7 @@ void exit(void)
 ```c
 void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 ```
+<dl>
 <dt>描述</dt><dd>
 播放音效。
 </dd>
@@ -552,12 +567,14 @@ void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 | channel | 要使用的通道，0到11 |
 | volume | 要使用的音量，0到255（0关闭通道） |
 </dd>
+</dl>
 <hr>
 ## music
 
 ```c
 void music(uint8_t track, uint16_t row, uint8_t volume)
 ```
+<dl>
 <dt>描述</dt><dd>
 播放音乐曲目。
 </dd>
@@ -567,6 +584,7 @@ void music(uint8_t track, uint16_t row, uint8_t volume)
 | row | 开始播放的行，0到1023（最大歌曲长度） |
 | volume | 要使用的音量，0到255（0关闭音乐） |
 </dd>
+</dl>
 
 # GPIO
 
@@ -575,18 +593,21 @@ void music(uint8_t track, uint16_t row, uint8_t volume)
 ```c
 uint32_t gpio_rev(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 查询GPIO板的版本号。 如果平台不支持 GPIO，则返回 0。
 </dd>
 <dt>返回值</dt><dd>
 主板的修订号或 0（如果不支持）。
 </dd>
+</dl>
 <hr>
 ## gpio_get
 
 ```c
 int gpio_get(uint8_t pin)
 ```
+<dl>
 <dt>描述</dt><dd>
 读取 GPIO 引脚的值。
 </dd>
@@ -600,12 +621,14 @@ int gpio_get(uint8_t pin)
 <dt>另见</dt><dd>
 [gpio_set]
 </dd>
+</dl>
 <hr>
 ## gpio_set
 
 ```c
 int gpio_set(uint8_t pin, int value)
 ```
+<dl>
 <dt>描述</dt><dd>
 将值写入 GPIO 引脚。
 </dd>
@@ -620,6 +643,7 @@ int gpio_set(uint8_t pin, int value)
 <dt>另见</dt><dd>
 [gpio_get]
 </dd>
+</dl>
 
 # 图形
 
@@ -628,6 +652,7 @@ int gpio_set(uint8_t pin, int value)
 ```c
 void cls(uint8_t palidx)
 ```
+<dl>
 <dt>描述</dt><dd>
 清除整个屏幕并重置显示偏移，还设置控制台的背景颜色。
 </dd>
@@ -638,12 +663,14 @@ void cls(uint8_t palidx)
 <dt>另见</dt><dd>
 [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## cget
 
 ```c
 uint32_t cget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>描述</dt><dd>
 获取坐标处的像素并返回颜色 RGBA。
 </dd>
@@ -658,12 +685,14 @@ uint32_t cget(uint16_t x, uint16_t y)
 <dt>另见</dt><dd>
 [cls], [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## pget
 
 ```c
 uint8_t pget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>描述</dt><dd>
 获取坐标处的像素并返回其调色板索引。
 </dd>
@@ -678,12 +707,14 @@ uint8_t pget(uint16_t x, uint16_t y)
 <dt>另见</dt><dd>
 [cls], [pset], [cget]
 </dd>
+</dl>
 <hr>
 ## pset
 
 ```c
 void pset(uint8_t palidx, uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>描述</dt><dd>
 在坐标处绘制像素。
 </dd>
@@ -696,12 +727,14 @@ void pset(uint8_t palidx, uint16_t x, uint16_t y)
 <dt>另见</dt><dd>
 [cls], [pget]
 </dd>
+</dl>
 <hr>
 ## width
 
 ```c
 uint16_t width(int8_t type, str_t str)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回显示文本的宽度（以像素为单位）。
 </dd>
@@ -716,12 +749,14 @@ uint16_t width(int8_t type, str_t str)
 <dt>另见</dt><dd>
 [text]
 </dd>
+</dl>
 <hr>
 ## text
 
 ```c
 void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint8_t sha, str_t str)
 ```
+<dl>
 <dt>描述</dt><dd>
 在屏幕上打印文本。
 </dd>
@@ -738,12 +773,14 @@ void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint
 <dt>另见</dt><dd>
 [width]
 </dd>
+</dl>
 <hr>
 ## line
 
 ```c
 void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一条抗锯齿线。
 </dd>
@@ -758,6 +795,7 @@ void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>另见</dt><dd>
 [qbez], [cbez]
 </dd>
+</dl>
 <hr>
 ## qbez
 
@@ -765,6 +803,7 @@ void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx, int16_t cy)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制二次贝塞尔曲线。
 </dd>
@@ -781,6 +820,7 @@ void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 <dt>另见</dt><dd>
 [line], [cbez]
 </dd>
+</dl>
 <hr>
 ## cbez
 
@@ -788,6 +828,7 @@ void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx0, int16_t cy0, int16_t cx1, int16_t cy1)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制三次贝塞尔曲线。
 </dd>
@@ -806,12 +847,14 @@ void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 <dt>另见</dt><dd>
 [line], [qbez]
 </dd>
+</dl>
 <hr>
 ## tri
 
 ```c
 void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个三角形。
 </dd>
@@ -828,12 +871,14 @@ void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t
 <dt>另见</dt><dd>
 [ftri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## ftri
 
 ```c
 void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个实心三角形。
 </dd>
@@ -850,6 +895,7 @@ void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_
 <dt>另见</dt><dd>
 [tri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri2d
 
@@ -858,6 +904,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi1, int16_t x1, int16_t y1,
     uint8_t pi2, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个带有颜色渐变的实心三角形。
 </dd>
@@ -876,6 +923,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
 <dt>另见</dt><dd>
 [tri], [ftri], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri3d
 
@@ -884,6 +932,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t pi1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t pi2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>描述</dt><dd>
 在[3D空间]中绘制一个带有颜色渐变的实心三角形。
 </dd>
@@ -905,6 +954,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
 <dt>另见</dt><dd>
 [tri], [ftri], [tri2d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tritx
 
@@ -913,6 +963,7 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t u1, uint8_t v1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t u2, uint8_t v2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>描述</dt><dd>
 在[3D空间]中绘制纹理三角形。
 </dd>
@@ -937,12 +988,14 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
 <dt>另见</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## mesh
 
 ```c
 void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用顶点索引和纹理坐标（或调色板）在[3D空间]中绘制由三角形组成的网格。
 </dd>
@@ -956,12 +1009,14 @@ void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 <dt>另见</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [tritx], [trns]
 </dd>
+</dl>
 <hr>
 ## rect
 
 ```c
 void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个矩形。
 </dd>
@@ -976,12 +1031,14 @@ void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>另见</dt><dd>
 [frect]
 </dd>
+</dl>
 <hr>
 ## frect
 
 ```c
 void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个填充的矩形。
 </dd>
@@ -996,12 +1053,14 @@ void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>另见</dt><dd>
 [rect]
 </dd>
+</dl>
 <hr>
 ## circ
 
 ```c
 void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>描述</dt><dd>
 画一个圆圈。
 </dd>
@@ -1015,12 +1074,14 @@ void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 <dt>另见</dt><dd>
 [fcirc], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## fcirc
 
 ```c
 void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个实心圆。
 </dd>
@@ -1034,12 +1095,14 @@ void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 <dt>另见</dt><dd>
 [circ], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## ellip
 
 ```c
 void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个椭圆。
 </dd>
@@ -1054,12 +1117,14 @@ void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>另见</dt><dd>
 [circ], [fcirc], [fellip]
 </dd>
+</dl>
 <hr>
 ## fellip
 
 ```c
 void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制一个实心椭圆。
 </dd>
@@ -1074,12 +1139,14 @@ void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>另见</dt><dd>
 [circ], [fcirc], [ellip]
 </dd>
+</dl>
 <hr>
 ## move
 
 ```c
 void move(int16_t x, int16_t y, uint16_t deg)
 ```
+<dl>
 <dt>描述</dt><dd>
 将乌龟移动到屏幕上或迷宫中的给定位置。
 </dd>
@@ -1092,12 +1159,14 @@ void move(int16_t x, int16_t y, uint16_t deg)
 <dt>另见</dt><dd>
 [left], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## left
 
 ```c
 void left(uint16_t deg)
 ```
+<dl>
 <dt>描述</dt><dd>
 向左转乌龟。
 </dd>
@@ -1108,12 +1177,14 @@ void left(uint16_t deg)
 <dt>另见</dt><dd>
 [move], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## right
 
 ```c
 void right(uint16_t deg)
 ```
+<dl>
 <dt>描述</dt><dd>
 让乌龟向右转。
 </dd>
@@ -1124,36 +1195,42 @@ void right(uint16_t deg)
 <dt>另见</dt><dd>
 [move], [left], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## up
 
 ```c
 void up(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 抬起乌龟的尾巴。 海龟会在不画线的情况下移动。
 </dd>
 <dt>另见</dt><dd>
 [move], [left], [right], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## down
 
 ```c
 void down(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 把乌龟的尾巴放下来。 海龟将移动画一条线（参见[color]）。
 </dd>
 <dt>另见</dt><dd>
 [move], [left], [right], [up], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## color
 
 ```c
 void color(uint8_t palidx)
 ```
+<dl>
 <dt>描述</dt><dd>
 设置乌龟油漆颜色。
 </dd>
@@ -1164,12 +1241,14 @@ void color(uint8_t palidx)
 <dt>另见</dt><dd>
 [move], [left], [right], [up], [down], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## forw
 
 ```c
 void forw(uint16_t cnt)
 ```
+<dl>
 <dt>描述</dt><dd>
 使乌龟向前移动。
 </dd>
@@ -1180,12 +1259,14 @@ void forw(uint16_t cnt)
 <dt>另见</dt><dd>
 [move], [left], [right], [up], [down], [color], [back]
 </dd>
+</dl>
 <hr>
 ## back
 
 ```c
 void back(uint16_t cnt)
 ```
+<dl>
 <dt>描述</dt><dd>
 使乌龟向后移动。
 </dd>
@@ -1196,12 +1277,14 @@ void back(uint16_t cnt)
 <dt>另见</dt><dd>
 [move], [left], [right], [up], [down], [color], [forw]
 </dd>
+</dl>
 <hr>
 ## spr
 
 ```c
 void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t scale, uint8_t type)
 ```
+<dl>
 <dt>描述</dt><dd>
 显示一个精灵或多个相邻的精灵。
 </dd>
@@ -1218,6 +1301,7 @@ void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t s
 <dt>另见</dt><dd>
 [dlg], [stext]
 </dd>
+</dl>
 <hr>
 ## dlg
 
@@ -1227,6 +1311,7 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     uint16_t ml, uint16_t bg, uint16_t mr,
     uint16_t bl, uint16_t bm, uint16_t br)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用精灵显示对话窗口。
 </dd>
@@ -1250,12 +1335,14 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
 <dt>另见</dt><dd>
 [spr], [stext]
 </dd>
+</dl>
 <hr>
 ## stext
 
 ```c
 void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t sh, int8_t scale, str_t str)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用精灵在屏幕上显示文本。
 </dd>
@@ -1273,12 +1360,14 @@ void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t s
 <dt>另见</dt><dd>
 [spr], [dlg]
 </dd>
+</dl>
 <hr>
 ## remap
 
 ```c
 void remap(addr_t replace)
 ```
+<dl>
 <dt>描述</dt><dd>
 替换地图上的图块。 可用于为地图上的图块设置动画。
 </dd>
@@ -1289,12 +1378,14 @@ void remap(addr_t replace)
 <dt>另见</dt><dd>
 [mget], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mget
 
 ```c
 uint16_t mget(uint16_t mx, uint16_t my)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回地图上的一个图块。
 </dd>
@@ -1309,12 +1400,14 @@ The sprite id of the tile at the given coordinate.
 <dt>另见</dt><dd>
 [remap], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mset
 
 ```c
 void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 ```
+<dl>
 <dt>描述</dt><dd>
 Sets one tile on map.
 </dd>
@@ -1327,12 +1420,14 @@ Sets one tile on map.
 <dt>另见</dt><dd>
 [remap], [mget], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## map
 
 ```c
 void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, int8_t scale)
 ```
+<dl>
 <dt>描述</dt><dd>
 绘制地图（部分）。
 </dd>
@@ -1349,6 +1444,7 @@ void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t m
 <dt>另见</dt><dd>
 [remap], [mget], [mset], [maze]
 </dd>
+</dl>
 <hr>
 ## maze
 
@@ -1356,6 +1452,7 @@ void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t m
 void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用海龟的位置将地图显示为 3D 迷宫。
 </dd>
@@ -1377,6 +1474,7 @@ void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
 <dt>另见</dt><dd>
 [remap], [mget], [mset], [map]
 </dd>
+</dl>
 
 # 用户输入
 
@@ -1385,6 +1483,7 @@ void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
 ```c
 int getpad(int pad, int btn)
 ```
+<dl>
 <dt>描述</dt><dd>
 获取游戏手柄按钮的当前状态。
 </dd>
@@ -1399,12 +1498,14 @@ int getpad(int pad, int btn)
 <dt>另见</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## prspad
 
 ```c
 int prspad(int pad, int btn)
 ```
+<dl>
 <dt>描述</dt><dd>
 如果自上次调用后按下了游戏手柄按钮，则返回 真的。
 </dd>
@@ -1419,12 +1520,14 @@ int prspad(int pad, int btn)
 <dt>另见</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## relpad
 
 ```c
 int relpad(int pad, int btn)
 ```
+<dl>
 <dt>描述</dt><dd>
 如果自上次调用后释放了游戏手柄按钮，则返回 真的。
 </dd>
@@ -1439,12 +1542,14 @@ int relpad(int pad, int btn)
 <dt>另见</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getbtn
 
 ```c
 int getbtn(int btn)
 ```
+<dl>
 <dt>描述</dt><dd>
 获取鼠标按键状态。
 </dd>
@@ -1458,12 +1563,14 @@ int getbtn(int btn)
 <dt>另见</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getclk
 
 ```c
 int getclk(int btn)
 ```
+<dl>
 <dt>描述</dt><dd>
 获取鼠标按钮点击。
 </dd>
@@ -1477,12 +1584,14 @@ int getclk(int btn)
 <dt>另见</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
 </dd>
+</dl>
 <hr>
 ## getkey
 
 ```c
 int getkey(int sc)
 ```
+<dl>
 <dt>描述</dt><dd>
 获取按键的当前状态。
 </dd>
@@ -1496,12 +1605,14 @@ int getkey(int sc)
 <dt>另见</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
 </dd>
+</dl>
 <hr>
 ## popkey
 
 ```c
 uint32_t popkey(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 从键盘队列中弹出一个UTF-8键。 请参阅[键盘]，以及阻塞版本[getc]。
 </dd>
@@ -1511,12 +1622,14 @@ uint32_t popkey(void)
 <dt>另见</dt><dd>
 [pendkey], [lenkey], [speckey], [getc]
 </dd>
+</dl>
 <hr>
 ## pendkey
 
 ```c
 int pendkey(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 如果队列中有一个待处理的密钥，则返回 true（但将该密钥保留在队列中，不会将其删除）。
 </dd>
@@ -1526,12 +1639,14 @@ int pendkey(void)
 <dt>另见</dt><dd>
 [popkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## lenkey
 
 ```c
 int lenkey(uint32_t key)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回UTF-8密钥的长度（以字节为单位）。
 </dd>
@@ -1545,12 +1660,14 @@ UTF-8表示的长度（以字节为单位）。
 <dt>另见</dt><dd>
 [popkey], [pendkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## speckey
 
 ```c
 int speckey(uint32_t key)
 ```
+<dl>
 <dt>描述</dt><dd>
 如果钥匙是特殊键，则返回真的。
 </dd>
@@ -1564,6 +1681,7 @@ int speckey(uint32_t key)
 <dt>另见</dt><dd>
 [popkey], [pendkey], [lenkey]
 </dd>
+</dl>
 
 # 数学
 
@@ -1572,6 +1690,7 @@ int speckey(uint32_t key)
 ```c
 uint32_t rand(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 随机应变。 使用`%`取模使其变小，例如`1 + rand() % 6`返回 1 到 6 之间的随机值，就像骰子一样。
 </dd>
@@ -1581,12 +1700,14 @@ uint32_t rand(void)
 <dt>另见</dt><dd>
 [rnd]
 </dd>
+</dl>
 <hr>
 ## rnd
 
 ```c
 float rnd(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 随机应变。 与[rand]相同，但返回浮点数。
 </dd>
@@ -1596,12 +1717,14 @@ float rnd(void)
 <dt>另见</dt><dd>
 [rand]
 </dd>
+</dl>
 <hr>
 ## float
 
 ```c
 float float(int val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回与整数等价的浮点值。
 </dd>
@@ -1615,12 +1738,14 @@ float float(int val)
 <dt>另见</dt><dd>
 [int]
 </dd>
+</dl>
 <hr>
 ## int
 
 ```c
 int int(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回浮点数的等效整数。
 </dd>
@@ -1634,12 +1759,14 @@ int int(float val)
 <dt>另见</dt><dd>
 [float]
 </dd>
+</dl>
 <hr>
 ## floor
 
 ```c
 float floor(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回不大于该值的最大整数。
 </dd>
@@ -1653,12 +1780,14 @@ float floor(float val)
 <dt>另见</dt><dd>
 [ceil]
 </dd>
+</dl>
 <hr>
 ## ceil
 
 ```c
 float ceil(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回不小于该值的最小整数。
 </dd>
@@ -1672,12 +1801,14 @@ float ceil(float val)
 <dt>另见</dt><dd>
 [floor]
 </dd>
+</dl>
 <hr>
 ## sgn
 
 ```c
 float sgn(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回值的符号。
 </dd>
@@ -1691,12 +1822,14 @@ float sgn(float val)
 <dt>另见</dt><dd>
 [abs]
 </dd>
+</dl>
 <hr>
 ## abs
 
 ```c
 float abs(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回值的绝对值。
 </dd>
@@ -1710,12 +1843,14 @@ float abs(float val)
 <dt>另见</dt><dd>
 [sgn]
 </dd>
+</dl>
 <hr>
 ## exp
 
 ```c
 float exp(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回值的指数，即自然对数的底数的幂。
 </dd>
@@ -1729,12 +1864,14 @@ float exp(float val)
 <dt>另见</dt><dd>
 [log], [pow]
 </dd>
+</dl>
 <hr>
 ## log
 
 ```c
 float log(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回值的自然对数。
 </dd>
@@ -1748,12 +1885,14 @@ float log(float val)
 <dt>另见</dt><dd>
 [exp]
 </dd>
+</dl>
 <hr>
 ## pow
 
 ```c
 float pow(float val, float exp)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回指数次方的值。 这是一个缓慢的操作，尽量避免。
 </dd>
@@ -1768,12 +1907,14 @@ float pow(float val, float exp)
 <dt>另见</dt><dd>
 [exp], [sqrt], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## sqrt
 
 ```c
 float sqrt(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回值的平方根。 这是一个缓慢的操作，尽量避免。
 </dd>
@@ -1787,12 +1928,14 @@ float sqrt(float val)
 <dt>另见</dt><dd>
 [pow], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## rsqrt
 
 ```c
 float rsqrt(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回值的平方根的倒数(`1 / sqrt(val)`)。 使用John Carmack的快速方法。
 </dd>
@@ -1806,12 +1949,14 @@ float rsqrt(float val)
 <dt>另见</dt><dd>
 [pow], [sqrt]
 </dd>
+</dl>
 <hr>
 ## clamp
 
 ```c
 float clamp(float val, float minv, float maxv)
 ```
+<dl>
 <dt>描述</dt><dd>
 将值限制在限制之间。
 </dd>
@@ -1827,12 +1972,14 @@ float clamp(float val, float minv, float maxv)
 <dt>另见</dt><dd>
 [clampv2], [clampv3], [clampv4]
 </dd>
+</dl>
 <hr>
 ## lerp
 
 ```c
 float lerp(float a, float b, float t)
 ```
+<dl>
 <dt>描述</dt><dd>
 线性插值两个数字。
 </dd>
@@ -1845,24 +1992,28 @@ float lerp(float a, float b, float t)
 <dt>另见</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## pi
 
 ```c
 float pi(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 以浮点数形式返回 π。
 </dd>
 <dt>返回值</dt><dd>
 值 3.14159265358979323846。
 </dd>
+</dl>
 <hr>
 ## cos
 
 ```c
 float cos(uint16_t deg)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回余弦值。
 </dd>
@@ -1876,12 +2027,14 @@ float cos(uint16_t deg)
 <dt>另见</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## sin
 
 ```c
 float sin(uint16_t deg)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回正弦值。
 </dd>
@@ -1895,12 +2048,14 @@ float sin(uint16_t deg)
 <dt>另见</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## tan
 
 ```c
 float tan(uint16_t deg)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回正切值。
 </dd>
@@ -1914,12 +2069,14 @@ float tan(uint16_t deg)
 <dt>另见</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## acos
 
 ```c
 uint16_t acos(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回反余弦值。
 </dd>
@@ -1933,12 +2090,14 @@ uint16_t acos(float val)
 <dt>另见</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## asin
 
 ```c
 uint16_t asin(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回时不带弧线。
 </dd>
@@ -1952,12 +2111,14 @@ uint16_t asin(float val)
 <dt>另见</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan
 
 ```c
 uint16_t atan(float val)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回反正切值。
 </dd>
@@ -1971,12 +2132,14 @@ uint16_t atan(float val)
 <dt>另见</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan2
 
 ```c
 uint16_t atan2(float y, float x)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回y/x的反正切值，使用y和x的符号确定象限。
 </dd>
@@ -1991,12 +2154,14 @@ uint16_t atan2(float y, float x)
 <dt>另见</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
 </dd>
+</dl>
 <hr>
 ## dotv2
 
 ```c
 float dotv2(addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有两个元素的两个向量的点积。
 </dd>
@@ -2011,12 +2176,14 @@ float dotv2(addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lenv2
 
 ```c
 float lenv2(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有两个元素的向量的长度。 这很慢，请尽量避免（参见[normv2]）。
 </dd>
@@ -2030,12 +2197,14 @@ float lenv2(addr_t a)
 <dt>另见</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## scalev2
 
 ```c
 void scalev2(addr_t a, float s)
 ```
+<dl>
 <dt>描述</dt><dd>
 用两个元素缩放向量。
 </dd>
@@ -2047,12 +2216,14 @@ void scalev2(addr_t a, float s)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## negv2
 
 ```c
 void negv2(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 对具有两个元素的向量取反。
 </dd>
@@ -2063,12 +2234,14 @@ void negv2(addr_t a)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## addv2
 
 ```c
 void addv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将带有两个元素的向量相加。
 </dd>
@@ -2081,12 +2254,14 @@ void addv2(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## subv2
 
 ```c
 void subv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 用两个元素减去向量。
 </dd>
@@ -2099,12 +2274,14 @@ void subv2(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## mulv2
 
 ```c
 void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将向量与两个元素相乘。
 </dd>
@@ -2117,12 +2294,14 @@ void mulv2(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## divv2
 
 ```c
 void divv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将向量除以两个元素。
 </dd>
@@ -2135,12 +2314,14 @@ void divv2(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## clampv2
 
 ```c
 void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>描述</dt><dd>
 用两个元素钳位向量。
 </dd>
@@ -2154,12 +2335,14 @@ void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lerpv2
 
 ```c
 void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>描述</dt><dd>
 线性插值具有两个元素的向量。
 </dd>
@@ -2173,12 +2356,14 @@ void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## normv2
 
 ```c
 void normv2(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 用两个元素标准化向量。
 </dd>
@@ -2189,12 +2374,14 @@ void normv2(addr_t a)
 <dt>另见</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
 </dd>
+</dl>
 <hr>
 ## dotv3
 
 ```c
 float dotv3(addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有三个元素的两个向量的点积。
 </dd>
@@ -2209,12 +2396,14 @@ float dotv3(addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lenv3
 
 ```c
 float lenv3(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有三个元素的向量的长度。 这很慢，尽量避免（参见[normv3]）。
 </dd>
@@ -2228,12 +2417,14 @@ float lenv3(addr_t a)
 <dt>另见</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## scalev3
 
 ```c
 void scalev3(addr_t a, float s)
 ```
+<dl>
 <dt>描述</dt><dd>
 用三个元素缩放向量。
 </dd>
@@ -2245,12 +2436,14 @@ void scalev3(addr_t a, float s)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## negv3
 
 ```c
 void negv3(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 对具有三个元素的向量取反。
 </dd>
@@ -2261,12 +2454,14 @@ void negv3(addr_t a)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## addv3
 
 ```c
 void addv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将具有三个元素的向量相加。
 </dd>
@@ -2279,12 +2474,14 @@ void addv3(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## subv3
 
 ```c
 void subv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 用三个元素减去向量。
 </dd>
@@ -2297,12 +2494,14 @@ void subv3(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## mulv3
 
 ```c
 void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将向量与三个元素相乘。
 </dd>
@@ -2315,12 +2514,14 @@ void mulv3(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## divv3
 
 ```c
 void divv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将向量除以三个元素。
 </dd>
@@ -2333,12 +2534,14 @@ void divv3(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## crossv3
 
 ```c
 void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有三个元素的向量的叉积。
 </dd>
@@ -2351,12 +2554,14 @@ void crossv3(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## clampv3
 
 ```c
 void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>描述</dt><dd>
 钳位具有三个元素的向量。
 </dd>
@@ -2370,12 +2575,14 @@ void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lerpv3
 
 ```c
 void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>描述</dt><dd>
 线性插值具有三个元素的向量。
 </dd>
@@ -2389,12 +2596,14 @@ void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## normv3
 
 ```c
 void normv3(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 用三个元素标准化向量。
 </dd>
@@ -2405,12 +2614,14 @@ void normv3(addr_t a)
 <dt>另见</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
 </dd>
+</dl>
 <hr>
 ## dotv4
 
 ```c
 float dotv4(addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有四个元素的两个向量的点积。
 </dd>
@@ -2425,12 +2636,14 @@ float dotv4(addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lenv4
 
 ```c
 float lenv4(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算具有四个元素的向量的长度。 这很慢，尽量避免（参见[normv4]）。
 </dd>
@@ -2444,12 +2657,14 @@ float lenv4(addr_t a)
 <dt>另见</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## scalev4
 
 ```c
 void scalev4(addr_t a, float s)
 ```
+<dl>
 <dt>描述</dt><dd>
 用四个元素缩放向量。
 </dd>
@@ -2461,12 +2676,14 @@ void scalev4(addr_t a, float s)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## negv4
 
 ```c
 void negv4(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 对具有四个元素的向量取反。
 </dd>
@@ -2477,12 +2694,14 @@ void negv4(addr_t a)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## addv4
 
 ```c
 void addv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将具有四个元素的向量相加。
 </dd>
@@ -2495,12 +2714,14 @@ void addv4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [negv4], [scalev4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## subv4
 
 ```c
 void subv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 用四个元素减去向量。
 </dd>
@@ -2513,12 +2734,14 @@ void subv4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## mulv4
 
 ```c
 void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将向量与四个元素相乘。
 </dd>
@@ -2531,12 +2754,14 @@ void mulv4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## divv4
 
 ```c
 void divv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将向量除以四个元素。
 </dd>
@@ -2549,12 +2774,14 @@ void divv4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## clampv4
 
 ```c
 void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>描述</dt><dd>
 钳位具有四个元素的向量。
 </dd>
@@ -2568,12 +2795,14 @@ void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lerpv4
 
 ```c
 void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>描述</dt><dd>
 线性插值具有四个元素的向量。
 </dd>
@@ -2587,12 +2816,14 @@ void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## normv4
 
 ```c
 void normv4(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 用四个元素标准化向量。
 </dd>
@@ -2603,12 +2834,14 @@ void normv4(addr_t a)
 <dt>另见</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
 </dd>
+</dl>
 <hr>
 ## idq
 
 ```c
 void idq(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 加载单位四元数。
 </dd>
@@ -2619,12 +2852,14 @@ void idq(addr_t a)
 <dt>另见</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## eulerq
 
 ```c
 void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用欧拉角加载四元数。
 </dd>
@@ -2638,12 +2873,14 @@ void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 <dt>另见</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## dotq
 
 ```c
 float dotq(addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算四元数的点积。
 </dd>
@@ -2658,12 +2895,14 @@ float dotq(addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lenq
 
 ```c
 float lenq(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算四元数的长度。
 </dd>
@@ -2677,12 +2916,14 @@ float lenq(addr_t a)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## scaleq
 
 ```c
 void scaleq(addr_t a, float s)
 ```
+<dl>
 <dt>描述</dt><dd>
 缩放四元数。
 </dd>
@@ -2694,12 +2935,14 @@ void scaleq(addr_t a, float s)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## negq
 
 ```c
 void negq(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 对四元数求反。
 </dd>
@@ -2710,12 +2953,14 @@ void negq(addr_t a)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## addq
 
 ```c
 void addq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将四元数相加。
 </dd>
@@ -2728,12 +2973,14 @@ void addq(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## subq
 
 ```c
 void subq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 减去四元数。
 </dd>
@@ -2746,12 +2993,14 @@ void subq(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## mulq
 
 ```c
 void mulq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 乘以四元数。
 </dd>
@@ -2764,12 +3013,14 @@ void mulq(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## rotq
 
 ```c
 void rotq(addr_t dst, addr_t q, addr_t v)
 ```
+<dl>
 <dt>描述</dt><dd>
 将具有三个元素的向量旋转四元数。
 </dd>
@@ -2782,12 +3033,14 @@ void rotq(addr_t dst, addr_t q, addr_t v)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lerpq
 
 ```c
 void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>描述</dt><dd>
 线性插值两个四元数。
 </dd>
@@ -2801,12 +3054,14 @@ void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## slerpq
 
 ```c
 void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>描述</dt><dd>
 球面内插四元数。
 </dd>
@@ -2820,12 +3075,14 @@ void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## normq
 
 ```c
 void normq(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 标准化四元数。
 </dd>
@@ -2836,12 +3093,14 @@ void normq(addr_t a)
 <dt>另见</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## idm4
 
 ```c
 void idm4(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 加载 4 x 4 单位矩阵。
 </dd>
@@ -2852,12 +3111,14 @@ void idm4(addr_t a)
 <dt>另见</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trsm4
 
 ```c
 void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
+<dl>
 <dt>描述</dt><dd>
 创建一个具有平移、旋转和缩放功能的 4 x 4 矩阵。
 </dd>
@@ -2871,12 +3132,14 @@ void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 <dt>另见</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## detm4
 
 ```c
 float detm4(addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回矩阵的行列式。
 </dd>
@@ -2890,12 +3153,14 @@ float detm4(addr_t a)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## addm4
 
 ```c
 void addm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 将矩阵相加。
 </dd>
@@ -2908,12 +3173,14 @@ void addm4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## subm4
 
 ```c
 void subm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 矩阵相减。
 </dd>
@@ -2926,12 +3193,14 @@ void subm4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4
 
 ```c
 void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>描述</dt><dd>
 矩阵相乘。
 </dd>
@@ -2944,12 +3213,14 @@ void mulm4(addr_t dst, addr_t a, addr_t b)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v3
 
 ```c
 void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>描述</dt><dd>
 将具有三个元素的向量乘以矩阵。
 </dd>
@@ -2962,12 +3233,14 @@ void mulm4v3(addr_t dst, addr_t m, addr_t v)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v4
 
 ```c
 void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>描述</dt><dd>
 将具有四个元素的向量乘以矩阵。
 </dd>
@@ -2980,12 +3253,14 @@ void mulm4v4(addr_t dst, addr_t m, addr_t v)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## invm4
 
 ```c
 void invm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 计算逆矩阵。
 </dd>
@@ -2997,12 +3272,14 @@ void invm4(addr_t dst, addr_t a)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trpm4
 
 ```c
 void trpm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>描述</dt><dd>
 转置矩阵。
 </dd>
@@ -3014,6 +3291,7 @@ void trpm4(addr_t dst, addr_t a)
 <dt>另见</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
 </dd>
+</dl>
 <hr>
 ## trns
 
@@ -3023,6 +3301,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
     uint16_t pitch, uint16_t yaw, uint16_t roll,
     float scale)
 ```
+<dl>
 <dt>描述</dt><dd>
 又名平移顶点云。 将3D模型放置在[3D空间]中。
 </dd>
@@ -3042,6 +3321,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 <dt>另见</dt><dd>
 [mesh]
 </dd>
+</dl>
 
 # 记忆
 
@@ -3050,6 +3330,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 ```c
 uint8_t inb(addr_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 从内存中读入一个字节（byte）。
 </dd>
@@ -3060,12 +3341,14 @@ uint8_t inb(addr_t src)
 <dt>返回值</dt><dd>
 返回该地址处的值。
 </dd>
+</dl>
 <hr>
 ## inw
 
 ```c
 uint16_t inw(addr_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 从内存中读入一个字（word，两个字节）。
 </dd>
@@ -3076,12 +3359,14 @@ uint16_t inw(addr_t src)
 <dt>返回值</dt><dd>
 返回该地址处的值。
 </dd>
+</dl>
 <hr>
 ## ini
 
 ```c
 uint32_t ini(addr_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 从内存中读入一个整数（int，四个字节）。
 </dd>
@@ -3092,12 +3377,14 @@ uint32_t ini(addr_t src)
 <dt>返回值</dt><dd>
 返回该地址处的值。
 </dd>
+</dl>
 <hr>
 ## outb
 
 ```c
 void outb(addr_t dst, uint8_t value)
 ```
+<dl>
 <dt>描述</dt><dd>
 将一个字节（byte）写入内存。
 </dd>
@@ -3106,12 +3393,14 @@ void outb(addr_t dst, uint8_t value)
 | dst | 地址，0x00000到0xBFFFF |
 | value | 要设置的值，0到255 |
 </dd>
+</dl>
 <hr>
 ## outw
 
 ```c
 void outw(addr_t dst, uint16_t value)
 ```
+<dl>
 <dt>描述</dt><dd>
 将一个字（word，两个字节）写入内存。
 </dd>
@@ -3120,12 +3409,14 @@ void outw(addr_t dst, uint16_t value)
 | dst | 地址，0x00000到0xBFFFE |
 | value | 要设置的值，0到65535 |
 </dd>
+</dl>
 <hr>
 ## outi
 
 ```c
 void outi(addr_t dst, uint32_t value)
 ```
+<dl>
 <dt>描述</dt><dd>
 将一个整数（int，四个字节）写入内存。
 </dd>
@@ -3134,12 +3425,14 @@ void outi(addr_t dst, uint32_t value)
 | dst | 地址，0x00000到0xBFFFC |
 | value | 要设置的值，0到4294967295 |
 </dd>
+</dl>
 <hr>
 ## memsave
 
 ```c
 int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
+<dl>
 <dt>描述</dt><dd>
 节省覆盖内存区域。
 </dd>
@@ -3155,12 +3448,14 @@ int memsave(uint8_t overlay, addr_t src, uint32_t size)
 <dt>另见</dt><dd>
 [memload]
 </dd>
+</dl>
 <hr>
 ## memload
 
 ```c
 int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
+<dl>
 <dt>描述</dt><dd>
 将覆盖加载到指定的内存区域。
 </dd>
@@ -3176,12 +3471,14 @@ int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 <dt>另见</dt><dd>
 [memsave]
 </dd>
+</dl>
 <hr>
 ## memcpy
 
 ```c
 void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>描述</dt><dd>
 复制内存区域。
 </dd>
@@ -3191,12 +3488,14 @@ void memcpy(addr_t dst, addr_t src, uint32_t len)
 | src | 源地址，0x00000到0xBFFFF |
 | len | 要复制的字节数 |
 </dd>
+</dl>
 <hr>
 ## memset
 
 ```c
 void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
+<dl>
 <dt>描述</dt><dd>
 将内存区域设置为给定值。
 </dd>
@@ -3206,12 +3505,14 @@ void memset(addr_t dst, uint8_t value, uint32_t len)
 | value | 要设置的值，0到255 |
 | len | 要设置的字节数 |
 </dd>
+</dl>
 <hr>
 ## memcmp
 
 ```c
 int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
+<dl>
 <dt>描述</dt><dd>
 比较内存区域。
 </dd>
@@ -3224,12 +3525,14 @@ int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 <dt>返回值</dt><dd>
 返回差值，如果两个内存区域匹配则返回 0。
 </dd>
+</dl>
 <hr>
 ## deflate
 
 ```c
 int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用 RFC1950 deflate (zlib) 压缩缓冲区。
 </dd>
@@ -3245,12 +3548,14 @@ int deflate(addr_t dst, addr_t src, uint32_t len)
 <dt>另见</dt><dd>
 [inflate]
 </dd>
+</dl>
 <hr>
 ## inflate
 
 ```c
 int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>描述</dt><dd>
 使用 RFC1950 deflate (zlib) 压缩数据解压缩缓冲区。
 </dd>
@@ -3266,12 +3571,14 @@ int inflate(addr_t dst, addr_t src, uint32_t len)
 <dt>另见</dt><dd>
 [deflate]
 </dd>
+</dl>
 <hr>
 ## time
 
 ```c
 float time(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回自开机以来的滴答数。
 </dd>
@@ -3281,12 +3588,14 @@ float time(void)
 <dt>另见</dt><dd>
 [now]
 </dd>
+</dl>
 <hr>
 ## now
 
 ```c
 uint32_t now(void)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回UNIX时间戳。 检查偏移0000C处的字节是否溢出。
 </dd>
@@ -3296,12 +3605,14 @@ uint32_t now(void)
 <dt>另见</dt><dd>
 [time]
 </dd>
+</dl>
 <hr>
 ## atoi
 
 ```c
 int atoi(str_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 将ASCII十进制字符串转换为整数。
 </dd>
@@ -3315,12 +3626,14 @@ int atoi(str_t src)
 <dt>另见</dt><dd>
 [itoa], [str], [val]
 </dd>
+</dl>
 <hr>
 ## itoa
 
 ```c
 str_t itoa(int value)
 ```
+<dl>
 <dt>描述</dt><dd>
 将整数转换为ASCII十进制字符串。
 </dd>
@@ -3334,12 +3647,14 @@ str_t itoa(int value)
 <dt>另见</dt><dd>
 [atoi], [str], [val]
 </dd>
+</dl>
 <hr>
 ## val
 
 ```c
 float val(str_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 将ASCII十进制字符串转换为浮点数。
 </dd>
@@ -3353,12 +3668,14 @@ float val(str_t src)
 <dt>另见</dt><dd>
 [itoa], [atoi], [str]
 </dd>
+</dl>
 <hr>
 ## str
 
 ```c
 str_t str(float value)
 ```
+<dl>
 <dt>描述</dt><dd>
 将浮点数转换为ASCII十进制字符串。
 </dd>
@@ -3372,12 +3689,14 @@ str_t str(float value)
 <dt>另见</dt><dd>
 [atoi], [itoa], [val]
 </dd>
+</dl>
 <hr>
 ## sprintf
 
 ```c
 str_t sprintf(str_t fmt, ...)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回使用格式和参数创建的以零结尾的UTF-8字符串。
 </dd>
@@ -3389,12 +3708,14 @@ str_t sprintf(str_t fmt, ...)
 <dt>返回值</dt><dd>
 构造好的字符串。
 </dd>
+</dl>
 <hr>
 ## strlen
 
 ```c
 int strlen(str_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回字符串中的字节数（不带终止零）。
 </dd>
@@ -3408,12 +3729,14 @@ int strlen(str_t src)
 <dt>另见</dt><dd>
 [mblen]
 </dd>
+</dl>
 <hr>
 ## mblen
 
 ```c
 int mblen(str_t src)
 ```
+<dl>
 <dt>描述</dt><dd>
 返回字符串中UTF-8多字节字符的数量（不带终止零）。
 </dd>
@@ -3427,12 +3750,14 @@ int mblen(str_t src)
 <dt>另见</dt><dd>
 [strlen]
 </dd>
+</dl>
 <hr>
 ## malloc
 
 ```c
 addr_t malloc(uint32_t size)
 ```
+<dl>
 <dt>描述</dt><dd>
 动态分配用户内存。
 </dd>
@@ -3446,12 +3771,14 @@ addr_t malloc(uint32_t size)
 <dt>另见</dt><dd>
 [realloc], [free]
 </dd>
+</dl>
 <hr>
 ## realloc
 
 ```c
 addr_t realloc(addr_t addr, uint32_t size)
 ```
+<dl>
 <dt>描述</dt><dd>
 调整先前分配的缓冲区的大小。
 </dd>
@@ -3466,12 +3793,14 @@ addr_t realloc(addr_t addr, uint32_t size)
 <dt>另见</dt><dd>
 [malloc], [free]
 </dd>
+</dl>
 <hr>
 ## free
 
 ```c
 int free(addr_t addr)
 ```
+<dl>
 <dt>描述</dt><dd>
 释放动态分配的用户内存。
 </dd>
@@ -3485,3 +3814,4 @@ int free(addr_t addr)
 <dt>另见</dt><dd>
 [malloc], [realloc]
 </dd>
+</dl>

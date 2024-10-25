@@ -473,6 +473,7 @@ See also the menu for alternative input methods and their keyboard shortcuts.
 ```c
 void putc(uint32_t chr)
 ```
+<dl>
 <dt>Description</dt><dd>
 Prints a character to console.
 </dd>
@@ -480,12 +481,14 @@ Prints a character to console.
 | Argument | Description |
 | chr | UTF-8 character |
 </dd>
+</dl>
 <hr>
 ## printf
 
 ```c
 void printf(str_t fmt, ...)
 ```
+<dl>
 <dt>Description</dt><dd>
 Prints text to console.
 </dd>
@@ -494,12 +497,14 @@ Prints text to console.
 | fmt | string to display, a [format string] |
 | ... | optional arguments |
 </dd>
+</dl>
 <hr>
 ## getc
 
 ```c
 uint32_t getc(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Reads a character from console, blocks program when there's no input.
 </dd>
@@ -509,24 +514,28 @@ An UTF-8 character the user entered.
 <dt>See Also</dt><dd>
 [popkey]
 </dd>
+</dl>
 <hr>
 ## gets
 
 ```c
 str_t gets(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Reads in a newline terminated string from user (does not return the newline).
 </dd>
 <dt>Return Value</dt><dd>
 The bytes read in a string.
 </dd>
+</dl>
 <hr>
 ## trace
 
 ```c
 void trace(str_t fmt, ...)
 ```
+<dl>
 <dt>Description</dt><dd>
 Trace execution by printing to stdout. Only works if `meg4` was started with the `-v` verbose flag.
 </dd>
@@ -535,12 +544,14 @@ Trace execution by printing to stdout. Only works if `meg4` was started with the
 | fmt | [format string] |
 | ... | optional arguments |
 </dd>
+</dl>
 <hr>
 ## delay
 
 ```c
 void delay(uint16_t msec)
 ```
+<dl>
 <dt>Description</dt><dd>
 Delays program execution.
 </dd>
@@ -548,15 +559,18 @@ Delays program execution.
 | Argument | Description |
 | msec | delay in milliseconds |
 </dd>
+</dl>
 <hr>
 ## exit
 
 ```c
 void exit(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Exits program.
 </dd>
+</dl>
 
 # Audio
 
@@ -565,6 +579,7 @@ Exits program.
 ```c
 void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 ```
+<dl>
 <dt>Description</dt><dd>
 Plays a sound effect.
 </dd>
@@ -574,12 +589,14 @@ Plays a sound effect.
 | channel | channel to be used, 0 to 11 |
 | volume | volume to be used, 0 to 255, 0 turns off channel |
 </dd>
+</dl>
 <hr>
 ## music
 
 ```c
 void music(uint8_t track, uint16_t row, uint8_t volume)
 ```
+<dl>
 <dt>Description</dt><dd>
 Plays a music track.
 </dd>
@@ -589,6 +606,7 @@ Plays a music track.
 | row | row to start playing from, 0 to 1023 (max song length) |
 | volume | volume to be used, 0 to 255, 0 turns off music |
 </dd>
+</dl>
 
 # GPIO
 
@@ -597,18 +615,21 @@ Plays a music track.
 ```c
 uint32_t gpio_rev(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Query the GPIO board's revision number. Returns 0 if the platform isn't GPIO capable.
 </dd>
 <dt>Return Value</dt><dd>
 Board's revision number or 0 if not supported.
 </dd>
+</dl>
 <hr>
 ## gpio_get
 
 ```c
 int gpio_get(uint8_t pin)
 ```
+<dl>
 <dt>Description</dt><dd>
 Read the value of a GPIO pin.
 </dd>
@@ -622,12 +643,14 @@ Returns 1 if the pin is high, 0 if it's low, -1 on error (GPIO pin not supported
 <dt>See Also</dt><dd>
 [gpio_set]
 </dd>
+</dl>
 <hr>
 ## gpio_set
 
 ```c
 int gpio_set(uint8_t pin, int value)
 ```
+<dl>
 <dt>Description</dt><dd>
 Write the value to a GPIO pin.
 </dd>
@@ -642,6 +665,7 @@ Returns 0 on success, -1 on error (GPIO pin not supported).
 <dt>See Also</dt><dd>
 [gpio_get]
 </dd>
+</dl>
 
 # Graphics
 
@@ -650,6 +674,7 @@ Returns 0 on success, -1 on error (GPIO pin not supported).
 ```c
 void cls(uint8_t palidx)
 ```
+<dl>
 <dt>Description</dt><dd>
 Clears the entire screen and resets display offsets, also sets the console's background color.
 </dd>
@@ -660,12 +685,14 @@ Clears the entire screen and resets display offsets, also sets the console's bac
 <dt>See Also</dt><dd>
 [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## cget
 
 ```c
 uint32_t cget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Description</dt><dd>
 Get pixel at a coordinate and return color RGBA.
 </dd>
@@ -680,12 +707,14 @@ A packed color, with RGBA channels (red is in the least significant byte).
 <dt>See Also</dt><dd>
 [cls], [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## pget
 
 ```c
 uint8_t pget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Description</dt><dd>
 Get pixel at a coordinate and return its palette index.
 </dd>
@@ -700,12 +729,14 @@ Color in palette index, 0 to 255.
 <dt>See Also</dt><dd>
 [cls], [pset], [cget]
 </dd>
+</dl>
 <hr>
 ## pset
 
 ```c
 void pset(uint8_t palidx, uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Description</dt><dd>
 Plots a pixel at a coordinate.
 </dd>
@@ -718,12 +749,14 @@ Plots a pixel at a coordinate.
 <dt>See Also</dt><dd>
 [cls], [pget]
 </dd>
+</dl>
 <hr>
 ## width
 
 ```c
 uint16_t width(int8_t type, str_t str)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns displayed text's width in pixels.
 </dd>
@@ -738,12 +771,14 @@ Number of pixels required to display text.
 <dt>See Also</dt><dd>
 [text]
 </dd>
+</dl>
 <hr>
 ## text
 
 ```c
 void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint8_t sha, str_t str)
 ```
+<dl>
 <dt>Description</dt><dd>
 Prints text on screen.
 </dd>
@@ -760,12 +795,14 @@ Prints text on screen.
 <dt>See Also</dt><dd>
 [width]
 </dd>
+</dl>
 <hr>
 ## line
 
 ```c
 void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws an anti-aliased line.
 </dd>
@@ -780,6 +817,7 @@ Draws an anti-aliased line.
 <dt>See Also</dt><dd>
 [qbez], [cbez]
 </dd>
+</dl>
 <hr>
 ## qbez
 
@@ -787,6 +825,7 @@ Draws an anti-aliased line.
 void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx, int16_t cy)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a quadratic Bezier curve.
 </dd>
@@ -803,6 +842,7 @@ Draws a quadratic Bezier curve.
 <dt>See Also</dt><dd>
 [line], [cbez]
 </dd>
+</dl>
 <hr>
 ## cbez
 
@@ -810,6 +850,7 @@ Draws a quadratic Bezier curve.
 void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx0, int16_t cy0, int16_t cx1, int16_t cy1)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a cubic Bezier curve.
 </dd>
@@ -828,12 +869,14 @@ Draws a cubic Bezier curve.
 <dt>See Also</dt><dd>
 [line], [qbez]
 </dd>
+</dl>
 <hr>
 ## tri
 
 ```c
 void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a triangle.
 </dd>
@@ -850,12 +893,14 @@ Draws a triangle.
 <dt>See Also</dt><dd>
 [ftri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## ftri
 
 ```c
 void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a filled triangle.
 </dd>
@@ -872,6 +917,7 @@ Draws a filled triangle.
 <dt>See Also</dt><dd>
 [tri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri2d
 
@@ -880,6 +926,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi1, int16_t x1, int16_t y1,
     uint8_t pi2, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a filled triangle with color gradients.
 </dd>
@@ -898,6 +945,7 @@ Draws a filled triangle with color gradients.
 <dt>See Also</dt><dd>
 [tri], [ftri], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri3d
 
@@ -906,6 +954,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t pi1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t pi2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a filled triangle with color gradients in [3D space].
 </dd>
@@ -927,6 +976,7 @@ Draws a filled triangle with color gradients in [3D space].
 <dt>See Also</dt><dd>
 [tri], [ftri], [tri2d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tritx
 
@@ -935,6 +985,7 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t u1, uint8_t v1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t u2, uint8_t v2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a textured triangle in [3D space].
 </dd>
@@ -959,12 +1010,14 @@ Draws a textured triangle in [3D space].
 <dt>See Also</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## mesh
 
 ```c
 void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a mesh made of triangles in [3D space], using indices to vertices and texture coordinates (or palette).
 </dd>
@@ -978,12 +1031,14 @@ Draws a mesh made of triangles in [3D space], using indices to vertices and text
 <dt>See Also</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [tritx], [trns]
 </dd>
+</dl>
 <hr>
 ## rect
 
 ```c
 void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a rectangle.
 </dd>
@@ -998,12 +1053,14 @@ Draws a rectangle.
 <dt>See Also</dt><dd>
 [frect]
 </dd>
+</dl>
 <hr>
 ## frect
 
 ```c
 void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a filled rectangle.
 </dd>
@@ -1018,12 +1075,14 @@ Draws a filled rectangle.
 <dt>See Also</dt><dd>
 [rect]
 </dd>
+</dl>
 <hr>
 ## circ
 
 ```c
 void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a circle.
 </dd>
@@ -1037,12 +1096,14 @@ Draws a circle.
 <dt>See Also</dt><dd>
 [fcirc], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## fcirc
 
 ```c
 void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a filled circle.
 </dd>
@@ -1056,12 +1117,14 @@ Draws a filled circle.
 <dt>See Also</dt><dd>
 [circ], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## ellip
 
 ```c
 void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws an ellipse.
 </dd>
@@ -1076,12 +1139,14 @@ Draws an ellipse.
 <dt>See Also</dt><dd>
 [circ], [fcirc], [fellip]
 </dd>
+</dl>
 <hr>
 ## fellip
 
 ```c
 void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws a filled ellipse.
 </dd>
@@ -1096,12 +1161,14 @@ Draws a filled ellipse.
 <dt>See Also</dt><dd>
 [circ], [fcirc], [ellip]
 </dd>
+</dl>
 <hr>
 ## move
 
 ```c
 void move(int16_t x, int16_t y, uint16_t deg)
 ```
+<dl>
 <dt>Description</dt><dd>
 Moves turtle to the given position on screen or in the maze.
 </dd>
@@ -1114,12 +1181,14 @@ Moves turtle to the given position on screen or in the maze.
 <dt>See Also</dt><dd>
 [left], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## left
 
 ```c
 void left(uint16_t deg)
 ```
+<dl>
 <dt>Description</dt><dd>
 Turns turtle left.
 </dd>
@@ -1130,12 +1199,14 @@ Turns turtle left.
 <dt>See Also</dt><dd>
 [move], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## right
 
 ```c
 void right(uint16_t deg)
 ```
+<dl>
 <dt>Description</dt><dd>
 Turns turtle right.
 </dd>
@@ -1146,36 +1217,42 @@ Turns turtle right.
 <dt>See Also</dt><dd>
 [move], [left], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## up
 
 ```c
 void up(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Lifts turtle's tail up. The turtle will move without drawing a line.
 </dd>
 <dt>See Also</dt><dd>
 [move], [left], [right], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## down
 
 ```c
 void down(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Puts turtle's tail down. The turtle will move drawing a line (see [color]).
 </dd>
 <dt>See Also</dt><dd>
 [move], [left], [right], [up], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## color
 
 ```c
 void color(uint8_t palidx)
 ```
+<dl>
 <dt>Description</dt><dd>
 Sets turtle paint color.
 </dd>
@@ -1186,12 +1263,14 @@ Sets turtle paint color.
 <dt>See Also</dt><dd>
 [move], [left], [right], [up], [down], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## forw
 
 ```c
 void forw(uint16_t cnt)
 ```
+<dl>
 <dt>Description</dt><dd>
 Moves turtle forward.
 </dd>
@@ -1202,12 +1281,14 @@ Moves turtle forward.
 <dt>See Also</dt><dd>
 [move], [left], [right], [up], [down], [color], [back]
 </dd>
+</dl>
 <hr>
 ## back
 
 ```c
 void back(uint16_t cnt)
 ```
+<dl>
 <dt>Description</dt><dd>
 Moves turtle backward.
 </dd>
@@ -1218,12 +1299,14 @@ Moves turtle backward.
 <dt>See Also</dt><dd>
 [move], [left], [right], [up], [down], [color], [forw]
 </dd>
+</dl>
 <hr>
 ## spr
 
 ```c
 void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t scale, uint8_t type)
 ```
+<dl>
 <dt>Description</dt><dd>
 Displays a sprite, or multiple adjacent sprites.
 </dd>
@@ -1240,6 +1323,7 @@ Displays a sprite, or multiple adjacent sprites.
 <dt>See Also</dt><dd>
 [dlg], [stext]
 </dd>
+</dl>
 <hr>
 ## dlg
 
@@ -1249,6 +1333,7 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     uint16_t ml, uint16_t bg, uint16_t mr,
     uint16_t bl, uint16_t bm, uint16_t br)
 ```
+<dl>
 <dt>Description</dt><dd>
 Displays a dialog window using sprites.
 </dd>
@@ -1272,12 +1357,14 @@ Displays a dialog window using sprites.
 <dt>See Also</dt><dd>
 [spr], [stext]
 </dd>
+</dl>
 <hr>
 ## stext
 
 ```c
 void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t sh, int8_t scale, str_t str)
 ```
+<dl>
 <dt>Description</dt><dd>
 Displays text on screen using sprites.
 </dd>
@@ -1295,12 +1382,14 @@ Displays text on screen using sprites.
 <dt>See Also</dt><dd>
 [spr], [dlg]
 </dd>
+</dl>
 <hr>
 ## remap
 
 ```c
 void remap(addr_t replace)
 ```
+<dl>
 <dt>Description</dt><dd>
 Replaces tiles on map. Can be used to animate tiles on the map.
 </dd>
@@ -1311,12 +1400,14 @@ Replaces tiles on map. Can be used to animate tiles on the map.
 <dt>See Also</dt><dd>
 [mget], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mget
 
 ```c
 uint16_t mget(uint16_t mx, uint16_t my)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns one tile on map.
 </dd>
@@ -1331,12 +1422,14 @@ The sprite id of the tile at the given coordinate.
 <dt>See Also</dt><dd>
 [remap], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mset
 
 ```c
 void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 ```
+<dl>
 <dt>Description</dt><dd>
 Sets one tile on map.
 </dd>
@@ -1349,12 +1442,14 @@ Sets one tile on map.
 <dt>See Also</dt><dd>
 [remap], [mget], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## map
 
 ```c
 void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, int8_t scale)
 ```
+<dl>
 <dt>Description</dt><dd>
 Draws (part of) the map.
 </dd>
@@ -1371,6 +1466,7 @@ Draws (part of) the map.
 <dt>See Also</dt><dd>
 [remap], [mget], [mset], [maze]
 </dd>
+</dl>
 <hr>
 ## maze
 
@@ -1378,6 +1474,7 @@ Draws (part of) the map.
 void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc)
 ```
+<dl>
 <dt>Description</dt><dd>
 Displays map as a 3D maze, using turtle's position.
 </dd>
@@ -1399,6 +1496,7 @@ Displays map as a 3D maze, using turtle's position.
 <dt>See Also</dt><dd>
 [remap], [mget], [mset], [map]
 </dd>
+</dl>
 
 # Input
 
@@ -1407,6 +1505,7 @@ Displays map as a 3D maze, using turtle's position.
 ```c
 int getpad(int pad, int btn)
 ```
+<dl>
 <dt>Description</dt><dd>
 Gets the current state of a gamepad button.
 </dd>
@@ -1421,12 +1520,14 @@ Zero if not pressed, non-zero if pressed.
 <dt>See Also</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## prspad
 
 ```c
 int prspad(int pad, int btn)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns true if gamepad button was pressed since last call.
 </dd>
@@ -1441,12 +1542,14 @@ Zero if not pressed, non-zero if pressed.
 <dt>See Also</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## relpad
 
 ```c
 int relpad(int pad, int btn)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns true if gamepad button was released since last call.
 </dd>
@@ -1461,12 +1564,14 @@ Zero if wasn't released, non-zero if released.
 <dt>See Also</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getbtn
 
 ```c
 int getbtn(int btn)
 ```
+<dl>
 <dt>Description</dt><dd>
 Gets the mouse buttons state.
 </dd>
@@ -1480,12 +1585,14 @@ Zero if not pressed, non-zero if pressed.
 <dt>See Also</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getclk
 
 ```c
 int getclk(int btn)
 ```
+<dl>
 <dt>Description</dt><dd>
 Gets mouse button clicking.
 </dd>
@@ -1499,12 +1606,14 @@ Zero if not clicked, non-zero if clicked.
 <dt>See Also</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
 </dd>
+</dl>
 <hr>
 ## getkey
 
 ```c
 int getkey(int sc)
 ```
+<dl>
 <dt>Description</dt><dd>
 Gets the current state of a key.
 </dd>
@@ -1518,12 +1627,14 @@ Zero if not pressed, non-zero if pressed.
 <dt>See Also</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
 </dd>
+</dl>
 <hr>
 ## popkey
 
 ```c
 uint32_t popkey(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Pop an UTF-8 key from the keyboard queue. See [keyboard], and for the blocking version [getc].
 </dd>
@@ -1533,12 +1644,14 @@ The UTF-8 representation of the key, or 0 if the queue was empty (no blocking).
 <dt>See Also</dt><dd>
 [pendkey], [lenkey], [speckey], [getc]
 </dd>
+</dl>
 <hr>
 ## pendkey
 
 ```c
 int pendkey(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns true if there's a key pending in the queue (but leaves the key in the queue, does not pop it).
 </dd>
@@ -1548,12 +1661,14 @@ Returns 1 if there are keys in the queue pending.
 <dt>See Also</dt><dd>
 [popkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## lenkey
 
 ```c
 int lenkey(uint32_t key)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the length of a UTF-8 key in bytes.
 </dd>
@@ -1567,12 +1682,14 @@ UTF-8 representation's length in bytes.
 <dt>See Also</dt><dd>
 [popkey], [pendkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## speckey
 
 ```c
 int speckey(uint32_t key)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns true if key is a special key.
 </dd>
@@ -1586,6 +1703,7 @@ Returns 1 if it's a special key, and 0 if it's a printable one.
 <dt>See Also</dt><dd>
 [popkey], [pendkey], [lenkey]
 </dd>
+</dl>
 
 # Mathematics
 
@@ -1594,6 +1712,7 @@ Returns 1 if it's a special key, and 0 if it's a printable one.
 ```c
 uint32_t rand(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Get random. Use `%` modulo to make it smaller, for example `1 + rand() % 6` returns random between 1 and 6, like a dice.
 </dd>
@@ -1603,12 +1722,14 @@ A random number between 0 and 2^^32^^-1 (4294967295).
 <dt>See Also</dt><dd>
 [rnd]
 </dd>
+</dl>
 <hr>
 ## rnd
 
 ```c
 float rnd(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Get random. Same as [rand], but returns a floating point number.
 </dd>
@@ -1618,12 +1739,14 @@ A random number between 0.0 and 1.0.
 <dt>See Also</dt><dd>
 [rand]
 </dd>
+</dl>
 <hr>
 ## float
 
 ```c
 float float(int val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the floating point equivalent of an integer number.
 </dd>
@@ -1637,12 +1760,14 @@ The floating point of value.
 <dt>See Also</dt><dd>
 [int]
 </dd>
+</dl>
 <hr>
 ## int
 
 ```c
 int int(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the integer equivalent of a floating point number.
 </dd>
@@ -1656,12 +1781,14 @@ The integer of value.
 <dt>See Also</dt><dd>
 [float]
 </dd>
+</dl>
 <hr>
 ## floor
 
 ```c
 float floor(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the largest integral number that's not greater than value.
 </dd>
@@ -1675,12 +1802,14 @@ The floor of value.
 <dt>See Also</dt><dd>
 [ceil]
 </dd>
+</dl>
 <hr>
 ## ceil
 
 ```c
 float ceil(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the smallest integral number that's not less than value.
 </dd>
@@ -1694,12 +1823,14 @@ The ceiling of value.
 <dt>See Also</dt><dd>
 [floor]
 </dd>
+</dl>
 <hr>
 ## sgn
 
 ```c
 float sgn(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the sign of the value.
 </dd>
@@ -1713,12 +1844,14 @@ Either 1.0 or -1.0.
 <dt>See Also</dt><dd>
 [abs]
 </dd>
+</dl>
 <hr>
 ## abs
 
 ```c
 float abs(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the absolute of the value.
 </dd>
@@ -1732,12 +1865,14 @@ Either value or -value, always positive.
 <dt>See Also</dt><dd>
 [sgn]
 </dd>
+</dl>
 <hr>
 ## exp
 
 ```c
 float exp(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the exponential of the value, i.e. base of natural logarithms raised to power of the value.
 </dd>
@@ -1751,12 +1886,14 @@ Returns e^^val^^.
 <dt>See Also</dt><dd>
 [log], [pow]
 </dd>
+</dl>
 <hr>
 ## log
 
 ```c
 float log(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the natural logarithm of the value.
 </dd>
@@ -1770,12 +1907,14 @@ Returns natural logarithm of value.
 <dt>See Also</dt><dd>
 [exp]
 </dd>
+</dl>
 <hr>
 ## pow
 
 ```c
 float pow(float val, float exp)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the value raised to the power of exponent. This is a slow operation, try to avoid.
 </dd>
@@ -1790,12 +1929,14 @@ Returns val^^exp^^.
 <dt>See Also</dt><dd>
 [exp], [sqrt], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## sqrt
 
 ```c
 float sqrt(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the square root of the value. This is a slow operation, try to avoid.
 </dd>
@@ -1809,12 +1950,14 @@ Square root of the value.
 <dt>See Also</dt><dd>
 [pow], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## rsqrt
 
 ```c
 float rsqrt(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the reciprocal of the square root of the value (`1 / sqrt(val)`). Uses John Carmack's fast method.
 </dd>
@@ -1828,12 +1971,14 @@ Reciprocal of the square root of the value.
 <dt>See Also</dt><dd>
 [pow], [sqrt]
 </dd>
+</dl>
 <hr>
 ## clamp
 
 ```c
 float clamp(float val, float minv, float maxv)
 ```
+<dl>
 <dt>Description</dt><dd>
 Clamps a value between the limits.
 </dd>
@@ -1849,12 +1994,14 @@ Clamped value.
 <dt>See Also</dt><dd>
 [clampv2], [clampv3], [clampv4]
 </dd>
+</dl>
 <hr>
 ## lerp
 
 ```c
 float lerp(float a, float b, float t)
 ```
+<dl>
 <dt>Description</dt><dd>
 Linear interpolates two numbers.
 </dd>
@@ -1867,24 +2014,28 @@ Linear interpolates two numbers.
 <dt>See Also</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## pi
 
 ```c
 float pi(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns π as a floating point number.
 </dd>
 <dt>Return Value</dt><dd>
 The value 3.14159265358979323846.
 </dd>
+</dl>
 <hr>
 ## cos
 
 ```c
 float cos(uint16_t deg)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns cosine.
 </dd>
@@ -1898,12 +2049,14 @@ Cosine of the degree, between -1.0 to 1.0.
 <dt>See Also</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## sin
 
 ```c
 float sin(uint16_t deg)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns sine.
 </dd>
@@ -1917,12 +2070,14 @@ Sine of the degree, between -1.0 to 1.0.
 <dt>See Also</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## tan
 
 ```c
 float tan(uint16_t deg)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns tangent.
 </dd>
@@ -1936,12 +2091,14 @@ Tangent of the degree, between -1.0 to 1.0.
 <dt>See Also</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## acos
 
 ```c
 uint16_t acos(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns arcus cosine.
 </dd>
@@ -1955,12 +2112,14 @@ Arcus cosine in degree, 0 to 359, 0 is up, 90 to the right.
 <dt>See Also</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## asin
 
 ```c
 uint16_t asin(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns arcus sine.
 </dd>
@@ -1974,12 +2133,14 @@ Arcus sine in degree, 0 to 359, 0 is up, 90 to the right.
 <dt>See Also</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan
 
 ```c
 uint16_t atan(float val)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns arcus tangent.
 </dd>
@@ -1993,12 +2154,14 @@ Arcus tangent in degree, 0 to 359, 0 is up, 90 to the right.
 <dt>See Also</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan2
 
 ```c
 uint16_t atan2(float y, float x)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns arcus tangent for y/x, using the signs of y and x to determine the quadrant.
 </dd>
@@ -2013,12 +2176,14 @@ Arcus tangent in degree, 0 to 359, 0 is up, 90 to the right.
 <dt>See Also</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
 </dd>
+</dl>
 <hr>
 ## dotv2
 
 ```c
 float dotv2(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates dot product of two vectors with two elements.
 </dd>
@@ -2033,12 +2198,14 @@ Dot product of the vectors.
 <dt>See Also</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lenv2
 
 ```c
 float lenv2(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates the length of a vector with two elements. This is slow, try to avoid (see [normv2]).
 </dd>
@@ -2052,12 +2219,14 @@ Length of the vector.
 <dt>See Also</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## scalev2
 
 ```c
 void scalev2(addr_t a, float s)
 ```
+<dl>
 <dt>Description</dt><dd>
 Scales a vector with two elements.
 </dd>
@@ -2069,12 +2238,14 @@ Scales a vector with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## negv2
 
 ```c
 void negv2(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Negates a vector with two elements.
 </dd>
@@ -2085,12 +2256,14 @@ Negates a vector with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## addv2
 
 ```c
 void addv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Adds together vectors with two elements.
 </dd>
@@ -2103,12 +2276,14 @@ Adds together vectors with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## subv2
 
 ```c
 void subv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Subtracts vectors with two elements.
 </dd>
@@ -2121,12 +2296,14 @@ Subtracts vectors with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## mulv2
 
 ```c
 void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies vectors with two elements.
 </dd>
@@ -2139,12 +2316,14 @@ Multiplies vectors with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## divv2
 
 ```c
 void divv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Divides vectors with two elements.
 </dd>
@@ -2157,12 +2336,14 @@ Divides vectors with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## clampv2
 
 ```c
 void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Description</dt><dd>
 Clamps vectors with two elements.
 </dd>
@@ -2176,12 +2357,14 @@ Clamps vectors with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lerpv2
 
 ```c
 void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Description</dt><dd>
 Linear interpolates vectors with two elements.
 </dd>
@@ -2195,12 +2378,14 @@ Linear interpolates vectors with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## normv2
 
 ```c
 void normv2(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Normalizes a vector with two elements.
 </dd>
@@ -2211,12 +2396,14 @@ Normalizes a vector with two elements.
 <dt>See Also</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
 </dd>
+</dl>
 <hr>
 ## dotv3
 
 ```c
 float dotv3(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates dot product of two vectors with three elements.
 </dd>
@@ -2231,12 +2418,14 @@ Dot product of the vectors.
 <dt>See Also</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lenv3
 
 ```c
 float lenv3(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates the length of a vector with three elements. This is slow, try to avoid (see [normv3]).
 </dd>
@@ -2250,12 +2439,14 @@ Length of the vector.
 <dt>See Also</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## scalev3
 
 ```c
 void scalev3(addr_t a, float s)
 ```
+<dl>
 <dt>Description</dt><dd>
 Scales a vector with three elements.
 </dd>
@@ -2267,12 +2458,14 @@ Scales a vector with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## negv3
 
 ```c
 void negv3(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Negates a vector with three elements.
 </dd>
@@ -2283,12 +2476,14 @@ Negates a vector with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## addv3
 
 ```c
 void addv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Adds together vectors with three elements.
 </dd>
@@ -2301,12 +2496,14 @@ Adds together vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## subv3
 
 ```c
 void subv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Subtracts vectors with three elements.
 </dd>
@@ -2319,12 +2516,14 @@ Subtracts vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## mulv3
 
 ```c
 void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies vectors with three elements.
 </dd>
@@ -2337,12 +2536,14 @@ Multiplies vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## divv3
 
 ```c
 void divv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Divides vectors with three elements.
 </dd>
@@ -2355,12 +2556,14 @@ Divides vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## crossv3
 
 ```c
 void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates cross product of vectors with three elements.
 </dd>
@@ -2373,12 +2576,14 @@ Calculates cross product of vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## clampv3
 
 ```c
 void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Description</dt><dd>
 Clamps vectors with three elements.
 </dd>
@@ -2392,12 +2597,14 @@ Clamps vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lerpv3
 
 ```c
 void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Description</dt><dd>
 Linear interpolates vectors with three elements.
 </dd>
@@ -2411,12 +2618,14 @@ Linear interpolates vectors with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## normv3
 
 ```c
 void normv3(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Normalizes a vector with three elements.
 </dd>
@@ -2427,12 +2636,14 @@ Normalizes a vector with three elements.
 <dt>See Also</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
 </dd>
+</dl>
 <hr>
 ## dotv4
 
 ```c
 float dotv4(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates dot product of two vectors with four elements.
 </dd>
@@ -2447,12 +2658,14 @@ Dot product of the vectors.
 <dt>See Also</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lenv4
 
 ```c
 float lenv4(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates the length of a vector with four elements. This is slow, try to avoid (see [normv4]).
 </dd>
@@ -2466,12 +2679,14 @@ Length of the vector.
 <dt>See Also</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## scalev4
 
 ```c
 void scalev4(addr_t a, float s)
 ```
+<dl>
 <dt>Description</dt><dd>
 Scales a vector with four elements.
 </dd>
@@ -2483,12 +2698,14 @@ Scales a vector with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## negv4
 
 ```c
 void negv4(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Negates a vector with four elements.
 </dd>
@@ -2499,12 +2716,14 @@ Negates a vector with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## addv4
 
 ```c
 void addv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Adds together vectors with four elements.
 </dd>
@@ -2517,12 +2736,14 @@ Adds together vectors with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [negv4], [scalev4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## subv4
 
 ```c
 void subv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Subtracts vectors with four elements.
 </dd>
@@ -2535,12 +2756,14 @@ Subtracts vectors with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## mulv4
 
 ```c
 void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies vectors with four elements.
 </dd>
@@ -2553,12 +2776,14 @@ Multiplies vectors with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## divv4
 
 ```c
 void divv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Divides vectors with four elements.
 </dd>
@@ -2571,12 +2796,14 @@ Divides vectors with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## clampv4
 
 ```c
 void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Description</dt><dd>
 Clamps vectors with four elements.
 </dd>
@@ -2590,12 +2817,14 @@ Clamps vectors with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lerpv4
 
 ```c
 void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Description</dt><dd>
 Linear interpolates vectors with four elements.
 </dd>
@@ -2609,12 +2838,14 @@ Linear interpolates vectors with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## normv4
 
 ```c
 void normv4(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Normalizes a vector with four elements.
 </dd>
@@ -2625,12 +2856,14 @@ Normalizes a vector with four elements.
 <dt>See Also</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
 </dd>
+</dl>
 <hr>
 ## idq
 
 ```c
 void idq(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Loads the identity quaternion.
 </dd>
@@ -2641,12 +2874,14 @@ Loads the identity quaternion.
 <dt>See Also</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## eulerq
 
 ```c
 void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
+<dl>
 <dt>Description</dt><dd>
 Loads a quaternion using Euler angles.
 </dd>
@@ -2660,12 +2895,14 @@ Loads a quaternion using Euler angles.
 <dt>See Also</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## dotq
 
 ```c
 float dotq(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates dot product of a quaternion.
 </dd>
@@ -2680,12 +2917,14 @@ Dot product of the quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lenq
 
 ```c
 float lenq(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates the length of a quaternion.
 </dd>
@@ -2699,12 +2938,14 @@ Length of the quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## scaleq
 
 ```c
 void scaleq(addr_t a, float s)
 ```
+<dl>
 <dt>Description</dt><dd>
 Scales a quaternion.
 </dd>
@@ -2716,12 +2957,14 @@ Scales a quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## negq
 
 ```c
 void negq(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Negates a quaternion.
 </dd>
@@ -2732,12 +2975,14 @@ Negates a quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## addq
 
 ```c
 void addq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Adds together quaternions.
 </dd>
@@ -2750,12 +2995,14 @@ Adds together quaternions.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## subq
 
 ```c
 void subq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Subtracts quaternions.
 </dd>
@@ -2768,12 +3015,14 @@ Subtracts quaternions.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## mulq
 
 ```c
 void mulq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies quaternions.
 </dd>
@@ -2786,12 +3035,14 @@ Multiplies quaternions.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## rotq
 
 ```c
 void rotq(addr_t dst, addr_t q, addr_t v)
 ```
+<dl>
 <dt>Description</dt><dd>
 Rotates a vector with three elements by a quaternion.
 </dd>
@@ -2804,12 +3055,14 @@ Rotates a vector with three elements by a quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lerpq
 
 ```c
 void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Description</dt><dd>
 Linear interpolates two quaternions.
 </dd>
@@ -2823,12 +3076,14 @@ Linear interpolates two quaternions.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## slerpq
 
 ```c
 void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Description</dt><dd>
 Spherical interpolates a quaternion.
 </dd>
@@ -2842,12 +3097,14 @@ Spherical interpolates a quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## normq
 
 ```c
 void normq(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Normalizes a quaternion.
 </dd>
@@ -2858,12 +3115,14 @@ Normalizes a quaternion.
 <dt>See Also</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## idm4
 
 ```c
 void idm4(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Loads a 4 x 4 identity matrix.
 </dd>
@@ -2874,12 +3133,14 @@ Loads a 4 x 4 identity matrix.
 <dt>See Also</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trsm4
 
 ```c
 void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
+<dl>
 <dt>Description</dt><dd>
 Creates a 4 x 4 matrix with translation, rotation and scaling.
 </dd>
@@ -2893,12 +3154,14 @@ Creates a 4 x 4 matrix with translation, rotation and scaling.
 <dt>See Also</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## detm4
 
 ```c
 float detm4(addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the matrix's determinant.
 </dd>
@@ -2912,12 +3175,14 @@ The matrix's determinant.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## addm4
 
 ```c
 void addm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Adds matrices together.
 </dd>
@@ -2930,12 +3195,14 @@ Adds matrices together.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## subm4
 
 ```c
 void subm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Subtracts matrices.
 </dd>
@@ -2948,12 +3215,14 @@ Subtracts matrices.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4
 
 ```c
 void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies matrices.
 </dd>
@@ -2966,12 +3235,14 @@ Multiplies matrices.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v3
 
 ```c
 void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies a vector with three elements by a matrix.
 </dd>
@@ -2984,12 +3255,14 @@ Multiplies a vector with three elements by a matrix.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v4
 
 ```c
 void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Description</dt><dd>
 Multiplies a vector with four elements by a matrix.
 </dd>
@@ -3002,12 +3275,14 @@ Multiplies a vector with four elements by a matrix.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## invm4
 
 ```c
 void invm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Calculates inverse matrix.
 </dd>
@@ -3019,12 +3294,14 @@ Calculates inverse matrix.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trpm4
 
 ```c
 void trpm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Description</dt><dd>
 Transpose matrix.
 </dd>
@@ -3036,6 +3313,7 @@ Transpose matrix.
 <dt>See Also</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
 </dd>
+</dl>
 <hr>
 ## trns
 
@@ -3045,6 +3323,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
     uint16_t pitch, uint16_t yaw, uint16_t roll,
     float scale)
 ```
+<dl>
 <dt>Description</dt><dd>
 Translate a vertex cloud, aka. place a 3D model in [3D space].
 </dd>
@@ -3064,6 +3343,7 @@ Translate a vertex cloud, aka. place a 3D model in [3D space].
 <dt>See Also</dt><dd>
 [mesh]
 </dd>
+</dl>
 
 # Memory
 
@@ -3072,6 +3352,7 @@ Translate a vertex cloud, aka. place a 3D model in [3D space].
 ```c
 uint8_t inb(addr_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Read in one byte from memory.
 </dd>
@@ -3082,12 +3363,14 @@ Read in one byte from memory.
 <dt>Return Value</dt><dd>
 Returns the value at that address.
 </dd>
+</dl>
 <hr>
 ## inw
 
 ```c
 uint16_t inw(addr_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Read in a word (two bytes) from memory.
 </dd>
@@ -3098,12 +3381,14 @@ Read in a word (two bytes) from memory.
 <dt>Return Value</dt><dd>
 Returns the value at that address.
 </dd>
+</dl>
 <hr>
 ## ini
 
 ```c
 uint32_t ini(addr_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Read in an integer (four bytes) from memory.
 </dd>
@@ -3114,12 +3399,14 @@ Read in an integer (four bytes) from memory.
 <dt>Return Value</dt><dd>
 Returns the value at that address.
 </dd>
+</dl>
 <hr>
 ## outb
 
 ```c
 void outb(addr_t dst, uint8_t value)
 ```
+<dl>
 <dt>Description</dt><dd>
 Write out one byte to memory.
 </dd>
@@ -3128,12 +3415,14 @@ Write out one byte to memory.
 | dst | address, 0x00000 to 0xBFFFF |
 | value | value to set, 0 to 255 |
 </dd>
+</dl>
 <hr>
 ## outw
 
 ```c
 void outw(addr_t dst, uint16_t value)
 ```
+<dl>
 <dt>Description</dt><dd>
 Write out a word (two bytes) to memory.
 </dd>
@@ -3142,12 +3431,14 @@ Write out a word (two bytes) to memory.
 | dst | address, 0x00000 to 0xBFFFE |
 | value | value to set, 0 to 65535 |
 </dd>
+</dl>
 <hr>
 ## outi
 
 ```c
 void outi(addr_t dst, uint32_t value)
 ```
+<dl>
 <dt>Description</dt><dd>
 Write out an integer (four bytes) to memory.
 </dd>
@@ -3156,12 +3447,14 @@ Write out an integer (four bytes) to memory.
 | dst | address, 0x00000 to 0xBFFFC |
 | value | value to set, 0 to 4294967295 |
 </dd>
+</dl>
 <hr>
 ## memsave
 
 ```c
 int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
+<dl>
 <dt>Description</dt><dd>
 Saves memory area to overlay.
 </dd>
@@ -3177,12 +3470,14 @@ Returns 1 on success, 0 on error.
 <dt>See Also</dt><dd>
 [memload]
 </dd>
+</dl>
 <hr>
 ## memload
 
 ```c
 int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
+<dl>
 <dt>Description</dt><dd>
 Loads an overlay into the specified memory area.
 </dd>
@@ -3198,12 +3493,14 @@ Returns the number of bytes actually loaded.
 <dt>See Also</dt><dd>
 [memsave]
 </dd>
+</dl>
 <hr>
 ## memcpy
 
 ```c
 void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Description</dt><dd>
 Copy memory regions.
 </dd>
@@ -3213,12 +3510,14 @@ Copy memory regions.
 | src | source address, 0x00000 to 0xBFFFF |
 | len | number of bytes to copy |
 </dd>
+</dl>
 <hr>
 ## memset
 
 ```c
 void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
+<dl>
 <dt>Description</dt><dd>
 Set memory region to a given value.
 </dd>
@@ -3228,12 +3527,14 @@ Set memory region to a given value.
 | value | value to set, 0 to 255 |
 | len | number of bytes to set |
 </dd>
+</dl>
 <hr>
 ## memcmp
 
 ```c
 int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
+<dl>
 <dt>Description</dt><dd>
 Compare memory regions.
 </dd>
@@ -3246,12 +3547,14 @@ Compare memory regions.
 <dt>Return Value</dt><dd>
 Returns difference, 0 if the two memory region matches.
 </dd>
+</dl>
 <hr>
 ## deflate
 
 ```c
 int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Description</dt><dd>
 Compress a buffer using RFC1950 deflate (zlib).
 </dd>
@@ -3267,12 +3570,14 @@ Compress a buffer using RFC1950 deflate (zlib).
 <dt>See Also</dt><dd>
 [inflate]
 </dd>
+</dl>
 <hr>
 ## inflate
 
 ```c
 int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Description</dt><dd>
 Uncompress a buffer with RFC1950 deflate (zlib) compressed data.
 </dd>
@@ -3288,12 +3593,14 @@ Uncompress a buffer with RFC1950 deflate (zlib) compressed data.
 <dt>See Also</dt><dd>
 [deflate]
 </dd>
+</dl>
 <hr>
 ## time
 
 ```c
 float time(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the number of ticks since power on.
 </dd>
@@ -3303,12 +3610,14 @@ The elapsed time in milliseconds since power on.
 <dt>See Also</dt><dd>
 [now]
 </dd>
+</dl>
 <hr>
 ## now
 
 ```c
 uint32_t now(void)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns the UNIX timestamp. Check the byte at offset 0000C to see if it overflows.
 </dd>
@@ -3318,12 +3627,14 @@ The elapsed time in seconds since 1 Jan 1970 midnight, Greenwich Mean Time.
 <dt>See Also</dt><dd>
 [time]
 </dd>
+</dl>
 <hr>
 ## atoi
 
 ```c
 int atoi(str_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Converts an ASCII decimal string into an integer number.
 </dd>
@@ -3337,12 +3648,14 @@ The number value of the string.
 <dt>See Also</dt><dd>
 [itoa], [str], [val]
 </dd>
+</dl>
 <hr>
 ## itoa
 
 ```c
 str_t itoa(int value)
 ```
+<dl>
 <dt>Description</dt><dd>
 Converts an integer number into an ASCII decimal string.
 </dd>
@@ -3356,12 +3669,14 @@ The converted string.
 <dt>See Also</dt><dd>
 [atoi], [str], [val]
 </dd>
+</dl>
 <hr>
 ## val
 
 ```c
 float val(str_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Converts an ASCII decimal string into a floating point number.
 </dd>
@@ -3375,12 +3690,14 @@ The number value of the string.
 <dt>See Also</dt><dd>
 [itoa], [atoi], [str]
 </dd>
+</dl>
 <hr>
 ## str
 
 ```c
 str_t str(float value)
 ```
+<dl>
 <dt>Description</dt><dd>
 Converts a floating point number into an ASCII decimal string.
 </dd>
@@ -3394,12 +3711,14 @@ The converted string.
 <dt>See Also</dt><dd>
 [atoi], [itoa], [val]
 </dd>
+</dl>
 <hr>
 ## sprintf
 
 ```c
 str_t sprintf(str_t fmt, ...)
 ```
+<dl>
 <dt>Description</dt><dd>
 Returns a zero terminated UTF-8 string created using format and arguments.
 </dd>
@@ -3411,12 +3730,14 @@ Returns a zero terminated UTF-8 string created using format and arguments.
 <dt>Return Value</dt><dd>
 Constructed string.
 </dd>
+</dl>
 <hr>
 ## strlen
 
 ```c
 int strlen(str_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Return the number of bytes in a string (without the terminating zero).
 </dd>
@@ -3430,12 +3751,14 @@ The number of bytes in the string.
 <dt>See Also</dt><dd>
 [mblen]
 </dd>
+</dl>
 <hr>
 ## mblen
 
 ```c
 int mblen(str_t src)
 ```
+<dl>
 <dt>Description</dt><dd>
 Return the number of UTF-8 multi-byte characters in a string (without the terminating zero).
 </dd>
@@ -3449,12 +3772,14 @@ The number of characters in the string.
 <dt>See Also</dt><dd>
 [strlen]
 </dd>
+</dl>
 <hr>
 ## malloc
 
 ```c
 addr_t malloc(uint32_t size)
 ```
+<dl>
 <dt>Description</dt><dd>
 Allocates user memory dynamically.
 </dd>
@@ -3468,12 +3793,14 @@ Address of the new allocated buffer or NULL on error.
 <dt>See Also</dt><dd>
 [realloc], [free]
 </dd>
+</dl>
 <hr>
 ## realloc
 
 ```c
 addr_t realloc(addr_t addr, uint32_t size)
 ```
+<dl>
 <dt>Description</dt><dd>
 Resize a previously allocated buffer.
 </dd>
@@ -3488,12 +3815,14 @@ Address of the new allocated buffer or NULL on error.
 <dt>See Also</dt><dd>
 [malloc], [free]
 </dd>
+</dl>
 <hr>
 ## free
 
 ```c
 int free(addr_t addr)
 ```
+<dl>
 <dt>Description</dt><dd>
 Frees dynamically allocated user memory.
 </dd>
@@ -3507,3 +3836,4 @@ Frees dynamically allocated user memory.
 <dt>See Also</dt><dd>
 [malloc], [realloc]
 </dd>
+</dl>

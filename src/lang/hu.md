@@ -471,6 +471,7 @@ Lásd még a menüben a további alternatív beviteli módokat és azok gyorsbil
 ```c
 void putc(uint32_t chr)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiír egy karaktert a képernyőre.
 </dd>
@@ -478,12 +479,14 @@ Kiír egy karaktert a képernyőre.
 | Paraméter | Leírás |
 | chr | UTF-8 karakter |
 </dd>
+</dl>
 <hr>
 ## printf
 
 ```c
 void printf(str_t fmt, ...)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiír egy szöveget a képernyőre.
 </dd>
@@ -492,12 +495,14 @@ Kiír egy szöveget a képernyőre.
 | fmt | megjelenítendő [formázó sztring] |
 | ... | opcionális paraméterek |
 </dd>
+</dl>
 <hr>
 ## getc
 
 ```c
 uint32_t getc(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beolvas egy karaktert a konzolról, blokkolódik, ha nincs mit.
 </dd>
@@ -507,24 +512,28 @@ Egy UTF-8 karakter, amit a felhasználó leütött.
 <dt>Lásd még</dt><dd>
 [popkey]
 </dd>
+</dl>
 <hr>
 ## gets
 
 ```c
 str_t gets(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Bekér egy újsor karakterrel lezárt szöveget a felhasználótól (az újsor karaktert nem adja vissza).
 </dd>
 <dt>Visszatérési érték</dt><dd>
 A beolvasott bájtok egy sztringben.
 </dd>
+</dl>
 <hr>
 ## trace
 
 ```c
 void trace(str_t fmt, ...)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 A futás jelzése a kimenetre való írással. Csak akkor működik, ha a `meg4` a `-v` kapcsolóval lett indítva.
 </dd>
@@ -533,12 +542,14 @@ A futás jelzése a kimenetre való írással. Csak akkor működik, ha a `meg4`
 | fmt | [formázó sztring] |
 | ... | opcionális paraméterek |
 </dd>
+</dl>
 <hr>
 ## delay
 
 ```c
 void delay(uint16_t msec)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Késlelteti a programod végrehajtását.
 </dd>
@@ -546,15 +557,18 @@ Késlelteti a programod végrehajtását.
 | Paraméter | Leírás |
 | msec | késleltetés ezredmásodpercekben |
 </dd>
+</dl>
 <hr>
 ## exit
 
 ```c
 void exit(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kilép a programból.
 </dd>
+</dl>
 
 # Audió
 
@@ -563,6 +577,7 @@ Kilép a programból.
 ```c
 void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lejátszik egy hangeffektet.
 </dd>
@@ -572,12 +587,14 @@ Lejátszik egy hangeffektet.
 | channel | használni kívánt csatorna, 0-tól 11-ig |
 | volume | hangerő, 0-tól 255-ig, 0 kikapcsolja a csatornát |
 </dd>
+</dl>
 <hr>
 ## music
 
 ```c
 void music(uint8_t track, uint16_t row, uint8_t volume)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lejátszik egy zenesávot.
 </dd>
@@ -587,6 +604,7 @@ Lejátszik egy zenesávot.
 | row | amelyik sortól kezdve kell lejátszani, 0-tól 1023-ig (max sávhossz) |
 | volume | hangerő, 0-tól 255-ig, 0 kikapcsolja a zenét |
 </dd>
+</dl>
 
 # GPIO
 
@@ -595,18 +613,21 @@ Lejátszik egy zenesávot.
 ```c
 uint32_t gpio_rev(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lekérdezi a GPIO board revíziós számát. 0-át ad vissza, ha a platformon nincs GPIO.
 </dd>
 <dt>Visszatérési érték</dt><dd>
 Board revíziós szám, vagy 0 ha nem támogatott.
 </dd>
+</dl>
 <hr>
 ## gpio_get
 
 ```c
 int gpio_get(uint8_t pin)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiolvassa egy GPIO tüske értékét.
 </dd>
@@ -620,12 +641,14 @@ Kiolvassa egy GPIO tüske értékét.
 <dt>Lásd még</dt><dd>
 [gpio_set]
 </dd>
+</dl>
 <hr>
 ## gpio_set
 
 ```c
 int gpio_set(uint8_t pin, int value)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beállítja egy GPIO tüske értékét.
 </dd>
@@ -640,6 +663,7 @@ Beállítja egy GPIO tüske értékét.
 <dt>Lásd még</dt><dd>
 [gpio_get]
 </dd>
+</dl>
 
 # Grafika
 
@@ -648,6 +672,7 @@ Beállítja egy GPIO tüske értékét.
 ```c
 void cls(uint8_t palidx)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Törli a képernyőt és alaphelyzetbe állítja a megjelenítő ablakát.
 </dd>
@@ -658,12 +683,14 @@ Törli a képernyőt és alaphelyzetbe állítja a megjelenítő ablakát.
 <dt>Lásd még</dt><dd>
 [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## cget
 
 ```c
 uint32_t cget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiolvassa a megadott koordinátán lévő pixelt, és RGBA színt ad vissza.
 </dd>
@@ -678,12 +705,14 @@ Egy csomagolt színkód, RGBA csatornákkal (piros a legalacsonyabb bájtban).
 <dt>Lásd még</dt><dd>
 [cls], [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## pget
 
 ```c
 uint8_t pget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiolvassa a megadott koordinátán lévő pixelt, és paletta indexet ad vissza.
 </dd>
@@ -698,12 +727,14 @@ Szín paletta indexe, 0-tól 255-ig.
 <dt>Lásd még</dt><dd>
 [cls], [pset], [cget]
 </dd>
+</dl>
 <hr>
 ## pset
 
 ```c
 void pset(uint8_t palidx, uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirak egy pixelt a megadott koordinátára.
 </dd>
@@ -716,12 +747,14 @@ Kirak egy pixelt a megadott koordinátára.
 <dt>Lásd még</dt><dd>
 [cls], [pget]
 </dd>
+</dl>
 <hr>
 ## width
 
 ```c
 uint16_t width(int8_t type, str_t str)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a megjelenítendő szöveg szélességét pixelekben.
 </dd>
@@ -736,12 +769,14 @@ A szöveg megjelenítéshez szükséges pixelek száma.
 <dt>Lásd még</dt><dd>
 [text]
 </dd>
+</dl>
 <hr>
 ## text
 
 ```c
 void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint8_t sha, str_t str)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Szöveget ír ki a képernyőre.
 </dd>
@@ -758,12 +793,14 @@ Szöveget ír ki a képernyőre.
 <dt>Lásd még</dt><dd>
 [width]
 </dd>
+</dl>
 <hr>
 ## line
 
 ```c
 void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Húz egy anti-aliasolt vonalat.
 </dd>
@@ -778,6 +815,7 @@ Húz egy anti-aliasolt vonalat.
 <dt>Lásd még</dt><dd>
 [qbez], [cbez]
 </dd>
+</dl>
 <hr>
 ## qbez
 
@@ -785,6 +823,7 @@ Húz egy anti-aliasolt vonalat.
 void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx, int16_t cy)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Négyzetes (quadratic) Bezier ív húzása.
 </dd>
@@ -801,6 +840,7 @@ Négyzetes (quadratic) Bezier ív húzása.
 <dt>Lásd még</dt><dd>
 [line], [cbez]
 </dd>
+</dl>
 <hr>
 ## cbez
 
@@ -808,6 +848,7 @@ Négyzetes (quadratic) Bezier ív húzása.
 void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx0, int16_t cy0, int16_t cx1, int16_t cy1)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Köbös (cubic) Bezier ív húzása.
 </dd>
@@ -826,12 +867,14 @@ Köbös (cubic) Bezier ív húzása.
 <dt>Lásd még</dt><dd>
 [line], [qbez]
 </dd>
+</dl>
 <hr>
 ## tri
 
 ```c
 void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy háromszöget.
 </dd>
@@ -848,12 +891,14 @@ Kirajzol egy háromszöget.
 <dt>Lásd még</dt><dd>
 [ftri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## ftri
 
 ```c
 void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy kitöltött háromszöget.
 </dd>
@@ -870,6 +915,7 @@ Kirajzol egy kitöltött háromszöget.
 <dt>Lásd még</dt><dd>
 [tri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri2d
 
@@ -878,6 +924,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi1, int16_t x1, int16_t y1,
     uint8_t pi2, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy kitöltött háromszöget színátmenetekkel.
 </dd>
@@ -896,6 +943,7 @@ Kirajzol egy kitöltött háromszöget színátmenetekkel.
 <dt>Lásd még</dt><dd>
 [tri], [ftri], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri3d
 
@@ -904,6 +952,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t pi1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t pi2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy háromszöget színátmenetekkel [3D-s tér]ben.
 </dd>
@@ -925,6 +974,7 @@ Kirajzol egy háromszöget színátmenetekkel [3D-s tér]ben.
 <dt>Lásd még</dt><dd>
 [tri], [ftri], [tri2d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tritx
 
@@ -933,6 +983,7 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t u1, uint8_t v1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t u2, uint8_t v2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy textúrázott háromszöget [3D-s tér]ben.
 </dd>
@@ -957,12 +1008,14 @@ Kirajzol egy textúrázott háromszöget [3D-s tér]ben.
 <dt>Lásd még</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## mesh
 
 ```c
 void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy modellt a [3D-s tér]ben háromszögekből, indexált pontok és textúra koordináták (vagy paletta) használatával.
 </dd>
@@ -976,12 +1029,14 @@ Kirajzol egy modellt a [3D-s tér]ben háromszögekből, indexált pontok és te
 <dt>Lásd még</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [tritx], [trns]
 </dd>
+</dl>
 <hr>
 ## rect
 
 ```c
 void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy téglalapot.
 </dd>
@@ -996,12 +1051,14 @@ Kirajzol egy téglalapot.
 <dt>Lásd még</dt><dd>
 [frect]
 </dd>
+</dl>
 <hr>
 ## frect
 
 ```c
 void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy kitöltött téglalapot.
 </dd>
@@ -1016,12 +1073,14 @@ Kirajzol egy kitöltött téglalapot.
 <dt>Lásd még</dt><dd>
 [rect]
 </dd>
+</dl>
 <hr>
 ## circ
 
 ```c
 void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy kört.
 </dd>
@@ -1035,12 +1094,14 @@ Kirajzol egy kört.
 <dt>Lásd még</dt><dd>
 [fcirc], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## fcirc
 
 ```c
 void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy kitöltött kört.
 </dd>
@@ -1054,12 +1115,14 @@ Kirajzol egy kitöltött kört.
 <dt>Lásd még</dt><dd>
 [circ], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## ellip
 
 ```c
 void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy ellipszist.
 </dd>
@@ -1074,12 +1137,14 @@ Kirajzol egy ellipszist.
 <dt>Lásd még</dt><dd>
 [circ], [fcirc], [fellip]
 </dd>
+</dl>
 <hr>
 ## fellip
 
 ```c
 void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzol egy kitöltött ellipszist.
 </dd>
@@ -1094,12 +1159,14 @@ Kirajzol egy kitöltött ellipszist.
 <dt>Lásd még</dt><dd>
 [circ], [fcirc], [ellip]
 </dd>
+</dl>
 <hr>
 ## move
 
 ```c
 void move(int16_t x, int16_t y, uint16_t deg)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Elhelyezi a teknőst a képernyőn vagy az útvesztőben.
 </dd>
@@ -1112,12 +1179,14 @@ Elhelyezi a teknőst a képernyőn vagy az útvesztőben.
 <dt>Lásd még</dt><dd>
 [left], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## left
 
 ```c
 void left(uint16_t deg)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Balra forgatja a teknőst.
 </dd>
@@ -1128,12 +1197,14 @@ Balra forgatja a teknőst.
 <dt>Lásd még</dt><dd>
 [move], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## right
 
 ```c
 void right(uint16_t deg)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Jobbra forgatja a teknőst.
 </dd>
@@ -1144,36 +1215,42 @@ Jobbra forgatja a teknőst.
 <dt>Lásd még</dt><dd>
 [move], [left], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## up
 
 ```c
 void up(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Felemeli a teknős farkát. Ezután a teknős úgy mozog, hogy nem húz vonalat.
 </dd>
 <dt>Lásd még</dt><dd>
 [move], [left], [right], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## down
 
 ```c
 void down(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Leteszi a teknős farkát. Ezután amikor a teknős mozog, vonalat húz (lásd [color]).
 </dd>
 <dt>Lásd még</dt><dd>
 [move], [left], [right], [up], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## color
 
 ```c
 void color(uint8_t palidx)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beállítja a teknős farkának színét, amikor a teknős mozog, ilyen színű vonalat húz maga után.
 </dd>
@@ -1184,12 +1261,14 @@ Beállítja a teknős farkának színét, amikor a teknős mozog, ilyen színű 
 <dt>Lásd még</dt><dd>
 [move], [left], [right], [up], [down], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## forw
 
 ```c
 void forw(uint16_t cnt)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Előre mozgatja a teknőst.
 </dd>
@@ -1200,12 +1279,14 @@ Előre mozgatja a teknőst.
 <dt>Lásd még</dt><dd>
 [move], [left], [right], [up], [down], [color], [back]
 </dd>
+</dl>
 <hr>
 ## back
 
 ```c
 void back(uint16_t cnt)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Hátra mozgatja a teknőst.
 </dd>
@@ -1216,12 +1297,14 @@ Hátra mozgatja a teknőst.
 <dt>Lásd még</dt><dd>
 [move], [left], [right], [up], [down], [color], [forw]
 </dd>
+</dl>
 <hr>
 ## spr
 
 ```c
 void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t scale, uint8_t type)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Megjelenít egy, vagy akár több, egymásmelletti szprájtot.
 </dd>
@@ -1238,6 +1321,7 @@ Megjelenít egy, vagy akár több, egymásmelletti szprájtot.
 <dt>Lásd még</dt><dd>
 [dlg], [stext]
 </dd>
+</dl>
 <hr>
 ## dlg
 
@@ -1247,6 +1331,7 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     uint16_t ml, uint16_t bg, uint16_t mr,
     uint16_t bl, uint16_t bm, uint16_t br)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Megjelenít egy dialógusablakot szprájtok használatával.
 </dd>
@@ -1270,12 +1355,14 @@ Megjelenít egy dialógusablakot szprájtok használatával.
 <dt>Lásd még</dt><dd>
 [spr], [stext]
 </dd>
+</dl>
 <hr>
 ## stext
 
 ```c
 void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t sh, int8_t scale, str_t str)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Szöveg megjelenítése a képernyőn szprájtok használatával.
 </dd>
@@ -1293,12 +1380,14 @@ Szöveg megjelenítése a képernyőn szprájtok használatával.
 <dt>Lásd még</dt><dd>
 [spr], [dlg]
 </dd>
+</dl>
 <hr>
 ## remap
 
 ```c
 void remap(addr_t replace)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lecseréli a csempéket a térképen. Használható arra, hogy meganimáljuk a térképet.
 </dd>
@@ -1309,12 +1398,14 @@ Lecseréli a csempéket a térképen. Használható arra, hogy meganimáljuk a t
 <dt>Lásd még</dt><dd>
 [mget], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mget
 
 ```c
 uint16_t mget(uint16_t mx, uint16_t my)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a térkép egy csempéjét.
 </dd>
@@ -1329,12 +1420,14 @@ A megadott koordinátán lévő szprájt indexe.
 <dt>Lásd még</dt><dd>
 [remap], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mset
 
 ```c
 void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beállítja a térkép egy csempéjét.
 </dd>
@@ -1347,12 +1440,14 @@ Beállítja a térkép egy csempéjét.
 <dt>Lásd még</dt><dd>
 [remap], [mget], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## map
 
 ```c
 void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, int8_t scale)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kirajzolja a térképet (vagy egy részét).
 </dd>
@@ -1369,6 +1464,7 @@ Kirajzolja a térképet (vagy egy részét).
 <dt>Lásd még</dt><dd>
 [remap], [mget], [mset], [maze]
 </dd>
+</dl>
 <hr>
 ## maze
 
@@ -1376,6 +1472,7 @@ Kirajzolja a térképet (vagy egy részét).
 void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 A teknőc pozícióját használva 3D-s útvesztőként jeleníti meg a térképet.
 </dd>
@@ -1397,6 +1494,7 @@ A teknőc pozícióját használva 3D-s útvesztőként jeleníti meg a térkép
 <dt>Lásd még</dt><dd>
 [remap], [mget], [mset], [map]
 </dd>
+</dl>
 
 # Bemenet
 
@@ -1405,6 +1503,7 @@ A teknőc pozícióját használva 3D-s útvesztőként jeleníti meg a térkép
 ```c
 int getpad(int pad, int btn)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az egyik játékpad egy gombjának állapotát.
 </dd>
@@ -1419,12 +1518,14 @@ Nulla ha nincs lenyomva, nem nulla ha le van nyomva.
 <dt>Lásd még</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## prspad
 
 ```c
 int prspad(int pad, int btn)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Igaz értékkel tér vissza, ha a legutóbbi hívás óta le lett nyomva a játékpad gombja (press).
 </dd>
@@ -1439,12 +1540,14 @@ Nulla ha nem lett lenyomva, nem nulla ha le lett nyomva.
 <dt>Lásd még</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## relpad
 
 ```c
 int relpad(int pad, int btn)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Igaz értékkel tér vissza, ha a legutóbbi hívás óta fel lett engedve a játékpad gombja (release).
 </dd>
@@ -1459,12 +1562,14 @@ Nulla ha nem lett felengedve, nem nulla ha fel lett engedve.
 <dt>Lásd még</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getbtn
 
 ```c
 int getbtn(int btn)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az egyik egérgomb állapotát.
 </dd>
@@ -1478,12 +1583,14 @@ Nulla ha nincs lenyomva, nem nulla ha le van nyomva.
 <dt>Lásd még</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getclk
 
 ```c
 int getclk(int btn)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az egérgomb kattintást (click).
 </dd>
@@ -1497,12 +1604,14 @@ Nulla ha nem kattintottak vele, nem nulla ha volt kattinttás.
 <dt>Lásd még</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
 </dd>
+</dl>
 <hr>
 ## getkey
 
 ```c
 int getkey(int sc)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az egyik billentyű állapotát.
 </dd>
@@ -1516,12 +1625,14 @@ Nulla ha nincs lenyomva, nem nulla ha le van nyomva.
 <dt>Lásd még</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
 </dd>
+</dl>
 <hr>
 ## popkey
 
 ```c
 uint32_t popkey(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a következő UTF-8 gombot a billentyűsorból. Lásd [billentyűzet].
 </dd>
@@ -1531,12 +1642,14 @@ A gomb UTF-8 reprezentációja, vagy 0 ha a sor üres volt.
 <dt>Lásd még</dt><dd>
 [pendkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## pendkey
 
 ```c
 int pendkey(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Igaz értékkel tér vissza, ha legalább egy billentyű várakozik a sorban (de benthagyja a sorban, nem veszi ki).
 </dd>
@@ -1546,12 +1659,14 @@ Igaz értékkel tér vissza, ha legalább egy billentyű várakozik a sorban (de
 <dt>Lásd még</dt><dd>
 [popkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## lenkey
 
 ```c
 int lenkey(uint32_t key)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja egy UTF-8 gomb hosszát bájtokban.
 </dd>
@@ -1565,12 +1680,14 @@ UTF-8 reprezentáció hossza bájtokban.
 <dt>Lásd még</dt><dd>
 [popkey], [pendkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## speckey
 
 ```c
 int speckey(uint32_t key)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Igaz értékkel tér vissza, ha a gomb speciális.
 </dd>
@@ -1584,6 +1701,7 @@ Igaz értékkel tér vissza, ha a gomb speciális.
 <dt>Lásd még</dt><dd>
 [popkey], [pendkey], [lenkey]
 </dd>
+</dl>
 
 # Matematika
 
@@ -1592,8 +1710,9 @@ Igaz értékkel tér vissza, ha a gomb speciális.
 ```c
 uint32_t rand(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
-Véletlenszám. A `%` modulo használatával méretezhető, például `1 + rand() % 6` 1 és 6 között ad vissza értéket, mint egy dobókocka.
+Véletlenszám. A `%` modulo használatával méretezhető, például `1 + rand() % 6` 1 és 6 között ad vissza értéket, mint a dobókocka.
 </dd>
 <dt>Visszatérési érték</dt><dd>
 Egy véletlen szám 0 és 2^^32^^-1 (4294967295) között.
@@ -1601,12 +1720,14 @@ Egy véletlen szám 0 és 2^^32^^-1 (4294967295) között.
 <dt>Lásd még</dt><dd>
 [rnd]
 </dd>
+</dl>
 <hr>
 ## rnd
 
 ```c
 float rnd(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Véletlenszám. Ugyanaz, mint a [rand], csak lebegőpontos számot ad vissza.
 </dd>
@@ -1616,12 +1737,14 @@ Egy véletlen szám 0.0 és 1.0 között.
 <dt>Lásd még</dt><dd>
 [rand]
 </dd>
+</dl>
 <hr>
 ## float
 
 ```c
 float float(int val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Egy egészszám lebegőpontos alakját adja vissza.
 </dd>
@@ -1635,12 +1758,14 @@ Lebegőpontos szám.
 <dt>Lásd még</dt><dd>
 [int]
 </dd>
+</dl>
 <hr>
 ## int
 
 ```c
 int int(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Egy lebegőpontos szám egészszám alakos változatát adja vissza.
 </dd>
@@ -1654,12 +1779,14 @@ Egészszám.
 <dt>Lásd még</dt><dd>
 [float]
 </dd>
+</dl>
 <hr>
 ## floor
 
 ```c
 float floor(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a legnagyobb olyan egész lebegőpontos számot, ami még kissebb a megadottnál.
 </dd>
@@ -1673,12 +1800,14 @@ A szám lefele kerekítve.
 <dt>Lásd még</dt><dd>
 [ceil]
 </dd>
+</dl>
 <hr>
 ## ceil
 
 ```c
 float ceil(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a legkissebb olyan egész lebegőpontos számot, ami már nagyobb a megadottnál.
 </dd>
@@ -1692,12 +1821,14 @@ A szám felfele kerekítve.
 <dt>Lásd még</dt><dd>
 [floor]
 </dd>
+</dl>
 <hr>
 ## sgn
 
 ```c
 float sgn(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a szám előjelét.
 </dd>
@@ -1711,12 +1842,14 @@ Vagy 1.0 vagy -1.0.
 <dt>Lásd még</dt><dd>
 [abs]
 </dd>
+</dl>
 <hr>
 ## abs
 
 ```c
 float abs(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a lebegőpontos szám abszolút értékét.
 </dd>
@@ -1730,12 +1863,14 @@ Vagy az érték, vagy -érték, mindig pozitív.
 <dt>Lásd még</dt><dd>
 [sgn]
 </dd>
+</dl>
 <hr>
 ## exp
 
 ```c
 float exp(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az érték exponenciálisát, azaz a természetes alapú logaritmus értékedik hatványát.
 </dd>
@@ -1749,12 +1884,14 @@ Az e^^val^^ értéke.
 <dt>Lásd még</dt><dd>
 [log], [pow]
 </dd>
+</dl>
 <hr>
 ## log
 
 ```c
 float log(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az érték természetes alapú logaritmusát.
 </dd>
@@ -1768,12 +1905,14 @@ A val természetes alapú logaritmusa.
 <dt>Lásd még</dt><dd>
 [exp]
 </dd>
+</dl>
 <hr>
 ## pow
 
 ```c
 float pow(float val, float exp)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja egy szám hatványát. Ez nagyon lassú, próbáld elkerülni a használatát.
 </dd>
@@ -1788,12 +1927,14 @@ A val^^exp^^ értéke.
 <dt>Lásd még</dt><dd>
 [exp], [sqrt], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## sqrt
 
 ```c
 float sqrt(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja egy szám négyzetgyökét. Ez nagyon lassú, próbáld elkerülni a használatát.
 </dd>
@@ -1807,12 +1948,14 @@ Az érték négyzetgyöke.
 <dt>Lásd még</dt><dd>
 [pow], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## rsqrt
 
 ```c
 float rsqrt(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja egy szám négyzetgyökének reciprokát (1/sqrt(val)). John Carmack féle gyors metódust használ.
 </dd>
@@ -1826,12 +1969,14 @@ Az érték négyzetgyökének reciproka.
 <dt>Lásd még</dt><dd>
 [pow], [sqrt]
 </dd>
+</dl>
 <hr>
 ## clamp
 
 ```c
 float clamp(float val, float minv, float maxv)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lecsípi (klimpeli) a megadott értéket két határérték közé.
 </dd>
@@ -1847,12 +1992,14 @@ Klimpelt érték.
 <dt>Lásd még</dt><dd>
 [clampv2], [clampv3], [clampv4]
 </dd>
+</dl>
 <hr>
 ## lerp
 
 ```c
 float lerp(float a, float b, float t)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lineárisan interpolál két érték között.
 </dd>
@@ -1865,24 +2012,28 @@ Lineárisan interpolál két érték között.
 <dt>Lásd még</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## pi
 
 ```c
 float pi(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a π értékét lebegőpontos számként.
 </dd>
 <dt>Visszatérési érték</dt><dd>
 A 3.14159265358979323846 érték.
 </dd>
+</dl>
 <hr>
 ## cos
 
 ```c
 float cos(uint16_t deg)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a koszinuszt.
 </dd>
@@ -1896,12 +2047,14 @@ A fok koszinusza, -1.0 és 1.0 közötti érték.
 <dt>Lásd még</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## sin
 
 ```c
 float sin(uint16_t deg)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a szinuszt.
 </dd>
@@ -1915,12 +2068,14 @@ A fok szinusza, -1.0 és 1.0 közötti érték.
 <dt>Lásd még</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## tan
 
 ```c
 float tan(uint16_t deg)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a tangenst.
 </dd>
@@ -1934,12 +2089,14 @@ A fok tangense, -1.0 és 1.0 közötti érték.
 <dt>Lásd még</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## acos
 
 ```c
 uint16_t acos(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az arkuszkoszinuszt.
 </dd>
@@ -1953,12 +2110,14 @@ Arkuszkoszinusz fokokban, 0-tól 359-ig, 0 felfele, 90 jobbra.
 <dt>Lásd még</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## asin
 
 ```c
 uint16_t asin(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az arkuszszinuszt.
 </dd>
@@ -1972,12 +2131,14 @@ Arkuszszinusz fokokban, 0-tól 359-ig, 0 felfele, 90 jobbra.
 <dt>Lásd még</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan
 
 ```c
 uint16_t atan(float val)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja az arkusztangenst.
 </dd>
@@ -1991,12 +2152,14 @@ Arkusztangens fokokban, 0-tól 359-ig, 0 felfele, 90 jobbra.
 <dt>Lásd még</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan2
 
 ```c
 uint16_t atan2(float y, float x)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja y/x arkusztangensét, figyelembe véve az y és x előjelét a kvadráns meghatározásánál.
 </dd>
@@ -2011,12 +2174,14 @@ Arkusztangens fokokban, 0-tól 359-ig, 0 felfele, 90 jobbra.
 <dt>Lásd még</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
 </dd>
+</dl>
 <hr>
 ## dotv2
 
 ```c
 float dotv2(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámolja a kételemű vektorok skaláris szorzatát (dot product).
 </dd>
@@ -2031,12 +2196,14 @@ A vektorok skaláris szorzata.
 <dt>Lásd még</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lenv2
 
 ```c
 float lenv2(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámítja a kételemű vektor hosszát. Ez nagyon lassú, próbáld elkerülni a használatát (lásd [normv2]).
 </dd>
@@ -2050,12 +2217,14 @@ A vektor hossza.
 <dt>Lásd még</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## scalev2
 
 ```c
 void scalev2(addr_t a, float s)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Atméretezi a kételemű vektort (skálázás, skalárral szorzás).
 </dd>
@@ -2067,12 +2236,14 @@ Atméretezi a kételemű vektort (skálázás, skalárral szorzás).
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## negv2
 
 ```c
 void negv2(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Negálja a kételemű vektort.
 </dd>
@@ -2083,12 +2254,14 @@ Negálja a kételemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## addv2
 
 ```c
 void addv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összead két kételemű vektort.
 </dd>
@@ -2101,12 +2274,14 @@ void addv2(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## subv2
 
 ```c
 void subv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kivon két kételemű vektort.
 </dd>
@@ -2119,12 +2294,14 @@ Kivon két kételemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## mulv2
 
 ```c
 void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz két kételemű vektort (lineáris kombináció).
 </dd>
@@ -2137,12 +2314,14 @@ void mulv2(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## divv2
 
 ```c
 void divv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Eloszt két kételemű vektort (lineáris kombináció).
 </dd>
@@ -2155,12 +2334,14 @@ Eloszt két kételemű vektort (lineáris kombináció).
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## clampv2
 
 ```c
 void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lecsípi (klimpeli) a megadott kételemű vektort két határérték közé.
 </dd>
@@ -2174,12 +2355,14 @@ Lecsípi (klimpeli) a megadott kételemű vektort két határérték közé.
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lerpv2
 
 ```c
 void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lineárisan interpolál két kételemű vektor között.
 </dd>
@@ -2193,12 +2376,14 @@ Lineárisan interpolál két kételemű vektor között.
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## normv2
 
 ```c
 void normv2(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Normalizálja a kételemű vektort.
 </dd>
@@ -2209,12 +2394,14 @@ Normalizálja a kételemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
 </dd>
+</dl>
 <hr>
 ## dotv3
 
 ```c
 float dotv3(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámolja a háromelemű vektorok skaláris szorzatát (dot product).
 </dd>
@@ -2229,12 +2416,14 @@ A vektorok skaláris szorzata.
 <dt>Lásd még</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lenv3
 
 ```c
 float lenv3(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámítja a háromelemű vektor hosszát. Ez nagyon lassú, próbáld elkerülni a használatát (lásd [normv3]).
 </dd>
@@ -2248,12 +2437,14 @@ A vektor hossza.
 <dt>Lásd még</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## scalev3
 
 ```c
 void scalev3(addr_t a, float s)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Atméretezi a háromelemű vektort (skálázás, skalárral szorzás).
 </dd>
@@ -2265,12 +2456,14 @@ Atméretezi a háromelemű vektort (skálázás, skalárral szorzás).
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## negv3
 
 ```c
 void negv3(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Negálja a háromelemű vektort.
 </dd>
@@ -2281,12 +2474,14 @@ Negálja a háromelemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## addv3
 
 ```c
 void addv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összead két háromelemű vektort.
 </dd>
@@ -2299,12 +2494,14 @@ void addv3(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## subv3
 
 ```c
 void subv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kivon két háromelemű vektort.
 </dd>
@@ -2317,12 +2514,14 @@ Kivon két háromelemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## mulv3
 
 ```c
 void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz két háromelemű vektort (lineáris kombináció).
 </dd>
@@ -2335,12 +2534,14 @@ void mulv3(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## divv3
 
 ```c
 void divv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Eloszt két háromelemű vektort (lineáris kombináció).
 </dd>
@@ -2353,12 +2554,14 @@ Eloszt két háromelemű vektort (lineáris kombináció).
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## crossv3
 
 ```c
 void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz két háromelemű vektort (cross product, keresztszorzat, vektoriális szorzat).
 </dd>
@@ -2371,12 +2574,14 @@ void crossv3(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## clampv3
 
 ```c
 void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lecsípi (klimpeli) a megadott háromelemű vektort két határérték közé.
 </dd>
@@ -2390,12 +2595,14 @@ Lecsípi (klimpeli) a megadott háromelemű vektort két határérték közé.
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lerpv3
 
 ```c
 void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lineárisan interpolál két háromelemű vektor között.
 </dd>
@@ -2409,12 +2616,14 @@ Lineárisan interpolál két háromelemű vektor között.
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## normv3
 
 ```c
 void normv3(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Normalizálja a háromelemű vektort.
 </dd>
@@ -2425,12 +2634,14 @@ Normalizálja a háromelemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
 </dd>
+</dl>
 <hr>
 ## dotv4
 
 ```c
 float dotv4(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámolja a négyelemű vektorok skaláris szorzatát (dot product).
 </dd>
@@ -2445,12 +2656,14 @@ A vektorok skaláris szorzata.
 <dt>Lásd még</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lenv4
 
 ```c
 float lenv4(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámítja a négyelemű vektor hosszát. Ez nagyon lassú, próbáld elkerülni a használatát (lásd [normv4]).
 </dd>
@@ -2464,12 +2677,14 @@ A vektor hossza.
 <dt>Lásd még</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## scalev4
 
 ```c
 void scalev4(addr_t a, float s)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Atméretezi a négyelemű vektort (skálázás, skalárral szorzás).
 </dd>
@@ -2481,12 +2696,14 @@ Atméretezi a négyelemű vektort (skálázás, skalárral szorzás).
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## negv4
 
 ```c
 void negv4(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Negálja a négyelemű vektort.
 </dd>
@@ -2497,12 +2714,14 @@ Negálja a négyelemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## addv4
 
 ```c
 void addv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összead két négyelemű vektort.
 </dd>
@@ -2515,12 +2734,14 @@ void addv4(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## subv4
 
 ```c
 void subv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kivon két négyelemű vektort.
 </dd>
@@ -2533,12 +2754,14 @@ Kivon két négyelemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## mulv4
 
 ```c
 void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz két négyelemű vektort (lineáris kombináció).
 </dd>
@@ -2551,12 +2774,14 @@ void mulv4(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## divv4
 
 ```c
 void divv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Eloszt két négyelemű vektort (lineáris kombináció).
 </dd>
@@ -2569,12 +2794,14 @@ Eloszt két négyelemű vektort (lineáris kombináció).
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## clampv4
 
 ```c
 void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lecsípi (klimpeli) a megadott négyelemű vektort két határérték közé.
 </dd>
@@ -2588,12 +2815,14 @@ Lecsípi (klimpeli) a megadott négyelemű vektort két határérték közé.
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lerpv4
 
 ```c
 void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lineárisan interpolál két négyelemű vektor között.
 </dd>
@@ -2607,12 +2836,14 @@ Lineárisan interpolál két négyelemű vektor között.
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## normv4
 
 ```c
 void normv4(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Normalizálja a négyelemű vektort.
 </dd>
@@ -2623,12 +2854,14 @@ Normalizálja a négyelemű vektort.
 <dt>Lásd még</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
 </dd>
+</dl>
 <hr>
 ## idq
 
 ```c
 void idq(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Betölti az identitás kvaterniót.
 </dd>
@@ -2639,12 +2872,14 @@ Betölti az identitás kvaterniót.
 <dt>Lásd még</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## eulerq
 
 ```c
 void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Betölt egy Euler-szögekkel megadott kvaterniót.
 </dd>
@@ -2658,12 +2893,14 @@ Betölt egy Euler-szögekkel megadott kvaterniót.
 <dt>Lásd még</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## dotq
 
 ```c
 float dotq(addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámolja a kvaternió skaláris szorzatát (dot product).
 </dd>
@@ -2678,12 +2915,14 @@ A kvaternió skaláris szorzata.
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lenq
 
 ```c
 float lenq(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámítja a kvaternió hosszát. Ez nagyon lassú, próbáld elkerülni a használatát (lásd [normq]).
 </dd>
@@ -2697,12 +2936,14 @@ A kvaternió hossza.
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## scaleq
 
 ```c
 void scaleq(addr_t a, float s)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Atméretezi a kvaterniót (skálázás, skalárral szorzás).
 </dd>
@@ -2714,12 +2955,14 @@ Atméretezi a kvaterniót (skálázás, skalárral szorzás).
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## negq
 
 ```c
 void negq(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Negálja a kvaterniót.
 </dd>
@@ -2730,12 +2973,14 @@ Negálja a kvaterniót.
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## addq
 
 ```c
 void addq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összead két kvaterniót.
 </dd>
@@ -2748,12 +2993,14 @@ void addq(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## subq
 
 ```c
 void subq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kivon két kvaterniót.
 </dd>
@@ -2766,12 +3013,14 @@ Kivon két kvaterniót.
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## mulq
 
 ```c
 void mulq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz két kvaterniót (vektoriális szorzat).
 </dd>
@@ -2784,12 +3033,14 @@ void mulq(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## rotq
 
 ```c
 void rotq(addr_t dst, addr_t q, addr_t v)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz egy kvaterniót egy háromelemű forgatási vektorral.
 </dd>
@@ -2802,12 +3053,14 @@ void rotq(addr_t dst, addr_t q, addr_t v)
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lerpq
 
 ```c
 void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Lineárisan interpolál két kvaternió között.
 </dd>
@@ -2821,12 +3074,14 @@ Lineárisan interpolál két kvaternió között.
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## slerpq
 
 ```c
 void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Gömbfelületen interpolál két kvaternió között (spherical).
 </dd>
@@ -2840,12 +3095,14 @@ Gömbfelületen interpolál két kvaternió között (spherical).
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## normq
 
 ```c
 void normq(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Normalizálja a kvaterniót.
 </dd>
@@ -2856,12 +3113,14 @@ Normalizálja a kvaterniót.
 <dt>Lásd még</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## idm4
 
 ```c
 void idm4(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Betölti a 4 x 4-es identitás mátrixot.
 </dd>
@@ -2872,12 +3131,14 @@ Betölti a 4 x 4-es identitás mátrixot.
 <dt>Lásd még</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trsm4
 
 ```c
 void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Létrehoz egy 4 x 4-es transzformációs mátrixot eltolás, forgatás és nagyítás adatokból.
 </dd>
@@ -2891,12 +3152,14 @@ Létrehoz egy 4 x 4-es transzformációs mátrixot eltolás, forgatás és nagy�
 <dt>Lásd még</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## detm4
 
 ```c
 float detm4(addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a mátrix determinánsát.
 </dd>
@@ -2910,12 +3173,14 @@ A mátrix determinánsa.
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## addm4
 
 ```c
 void addm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összead két mátrixot.
 </dd>
@@ -2928,12 +3193,14 @@ void addm4(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## subm4
 
 ```c
 void subm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kivon két mátrixot.
 </dd>
@@ -2946,12 +3213,14 @@ Kivon két mátrixot.
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4
 
 ```c
 void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz két mátrixot.
 </dd>
@@ -2964,12 +3233,14 @@ void mulm4(addr_t dst, addr_t a, addr_t b)
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v3
 
 ```c
 void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz egy háromelemű vektort egy mátrixszal.
 </dd>
@@ -2982,12 +3253,14 @@ void mulm4v3(addr_t dst, addr_t m, addr_t v)
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v4
 
 ```c
 void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Összeszoroz egy négyelemű vektort egy mátrixszal.
 </dd>
@@ -3000,12 +3273,14 @@ void mulm4v4(addr_t dst, addr_t m, addr_t v)
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## invm4
 
 ```c
 void invm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiszámítja a mátrix inverzét.
 </dd>
@@ -3017,12 +3292,14 @@ Kiszámítja a mátrix inverzét.
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trpm4
 
 ```c
 void trpm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Transzponálja a mátrixot.
 </dd>
@@ -3034,6 +3311,7 @@ Transzponálja a mátrixot.
 <dt>Lásd még</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
 </dd>
+</dl>
 <hr>
 ## trns
 
@@ -3043,6 +3321,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
     uint16_t pitch, uint16_t yaw, uint16_t roll,
     float scale)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Transzformálja a vertex halmazt, azaz elhelyezi a 3D-s modellt a [3D-s tér]ben.
 </dd>
@@ -3062,6 +3341,7 @@ Transzformálja a vertex halmazt, azaz elhelyezi a 3D-s modellt a [3D-s tér]ben
 <dt>Lásd még</dt><dd>
 [mesh]
 </dd>
+</dl>
 
 # Memória
 
@@ -3070,6 +3350,7 @@ Transzformálja a vertex halmazt, azaz elhelyezi a 3D-s modellt a [3D-s tér]ben
 ```c
 uint8_t inb(addr_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beolvas egy bájtot a memóriából.
 </dd>
@@ -3080,12 +3361,14 @@ Beolvas egy bájtot a memóriából.
 <dt>Visszatérési érték</dt><dd>
 Visszaadja az értéket az adott címről.
 </dd>
+</dl>
 <hr>
 ## inw
 
 ```c
 uint16_t inw(addr_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beolvas egy szót (word, 2 bájt) a memóriából.
 </dd>
@@ -3096,12 +3379,14 @@ Beolvas egy szót (word, 2 bájt) a memóriából.
 <dt>Visszatérési érték</dt><dd>
 Visszaadja az értéket az adott címről.
 </dd>
+</dl>
 <hr>
 ## ini
 
 ```c
 uint32_t ini(addr_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Beolvas egy egészszámot (integer, 4 bájt) a memóriából.
 </dd>
@@ -3112,12 +3397,14 @@ Beolvas egy egészszámot (integer, 4 bájt) a memóriából.
 <dt>Visszatérési érték</dt><dd>
 Visszaadja az értéket az adott címről.
 </dd>
+</dl>
 <hr>
 ## outb
 
 ```c
 void outb(addr_t dst, uint8_t value)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiír egy bájtot a memóriába.
 </dd>
@@ -3126,12 +3413,14 @@ Kiír egy bájtot a memóriába.
 | dst | cím, 0x00000-tól 0xBFFFF-ig |
 | value | beállítandó érték, 0-tól 255-ig |
 </dd>
+</dl>
 <hr>
 ## outw
 
 ```c
 void outw(addr_t dst, uint16_t value)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiír egy szót (word, 2 bájt) a memóriába.
 </dd>
@@ -3140,12 +3429,14 @@ Kiír egy szót (word, 2 bájt) a memóriába.
 | dst | cím, 0x00000-tól 0xBFFFE-ig |
 | value | beállítandó érték, 0-tól 65536-ig |
 </dd>
+</dl>
 <hr>
 ## outi
 
 ```c
 void outi(addr_t dst, uint32_t value)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kiír egy egészszámot (integer, 4 bájt) a memóriába.
 </dd>
@@ -3154,12 +3445,14 @@ Kiír egy egészszámot (integer, 4 bájt) a memóriába.
 | dst | cím, 0x00000-tól 0xBFFFC-ig |
 | value | beállítandó érték, 0-tól 4294967295-ig |
 </dd>
+</dl>
 <hr>
 ## memsave
 
 ```c
 int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Elmenti a megadott memória tartalmát egy átfedőbe.
 </dd>
@@ -3175,12 +3468,14 @@ Elmenti a megadott memória tartalmát egy átfedőbe.
 <dt>Lásd még</dt><dd>
 [memload]
 </dd>
+</dl>
 <hr>
 ## memload
 
 ```c
 int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Betölti egy átfedő tartalmát a memória megadott címére.
 </dd>
@@ -3196,12 +3491,14 @@ Visszaadja, hogy hány bájtot töltött végül be (ami lehet kevesebb, mint a 
 <dt>Lásd még</dt><dd>
 [memsave]
 </dd>
+</dl>
 <hr>
 ## memcpy
 
 ```c
 void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Memóriaterületek másolása.
 </dd>
@@ -3211,12 +3508,14 @@ Memóriaterületek másolása.
 | src | forrás címe, 0x00000-tól 0xBFFFF-ig |
 | len | átmásolandó bájtok száma |
 </dd>
+</dl>
 <hr>
 ## memset
 
 ```c
 void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Memóriaterület feltöltése adott bájttal.
 </dd>
@@ -3226,12 +3525,14 @@ Memóriaterület feltöltése adott bájttal.
 | value | beállítandó érték, 0-tól 255-ig |
 | len | beállítandó bájtok száma |
 </dd>
+</dl>
 <hr>
 ## memcmp
 
 ```c
 int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Két memóriaterület összehasonlítása.
 </dd>
@@ -3244,12 +3545,14 @@ Két memóriaterület összehasonlítása.
 <dt>Visszatérési érték</dt><dd>
 Visszaadja a különbséget, azaz 0-át, ha a két terület tartalma megegyezik.
 </dd>
+</dl>
 <hr>
 ## deflate
 
 ```c
 int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Betömörít (összezsugorít) egy adatbuffert RFC1950 deflate (zlib) használatával.
 </dd>
@@ -3265,12 +3568,14 @@ Betömörít (összezsugorít) egy adatbuffert RFC1950 deflate (zlib) használat
 <dt>Lásd még</dt><dd>
 [inflate]
 </dd>
+</dl>
 <hr>
 ## inflate
 
 ```c
 int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kitömörít (felfúj) egy RFC1950 deflate (zlib) tömörített buffert.
 </dd>
@@ -3286,12 +3591,14 @@ Kitömörít (felfúj) egy RFC1950 deflate (zlib) tömörített buffert.
 <dt>Lásd még</dt><dd>
 [deflate]
 </dd>
+</dl>
 <hr>
 ## time
 
 ```c
 float time(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a bekapcsolás óta eltelt tikkek számát.
 </dd>
@@ -3301,12 +3608,14 @@ A bekapcsolás óta eltelt idő ezredmásodpercekben.
 <dt>Lásd még</dt><dd>
 [now]
 </dd>
+</dl>
 <hr>
 ## now
 
 ```c
 uint32_t now(void)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja a UNIX időbélyeget. A 0000C címen lévő bájttal ellenőrizheted, hogy túlcsordult-e.
 </dd>
@@ -3316,12 +3625,14 @@ A greenwichi középidő szerinti 1970. január 1.-e éjfél óta eltelt másodp
 <dt>Lásd még</dt><dd>
 [time]
 </dd>
+</dl>
 <hr>
 ## atoi
 
 ```c
 int atoi(str_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Egy ASCII decimális számot alakít át egészszámmá.
 </dd>
@@ -3335,12 +3646,14 @@ A sztringbeli szám egészszám megfelelője.
 <dt>Lásd még</dt><dd>
 [itoa], [str], [val]
 </dd>
+</dl>
 <hr>
 ## itoa
 
 ```c
 str_t itoa(int value)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Egy egésszámot alakít ASCII decimális karaktersorozattá, sztringé.
 </dd>
@@ -3354,12 +3667,14 @@ A szám sztringbe kiírt változata.
 <dt>Lásd még</dt><dd>
 [atoi], [str], [val]
 </dd>
+</dl>
 <hr>
 ## val
 
 ```c
 float val(str_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Egy ASCII decimális számot alakít át lebegőpontos számmá.
 </dd>
@@ -3373,12 +3688,14 @@ A sztringbeli szám lebegőpontos szám megfelelője.
 <dt>Lásd még</dt><dd>
 [itoa], [atoi], [str]
 </dd>
+</dl>
 <hr>
 ## str
 
 ```c
 str_t str(float value)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Egy lebegőpontos számot alakít ASCII decimális karaktersorozattá, sztringé.
 </dd>
@@ -3392,12 +3709,14 @@ A szám sztringbe kiírt változata.
 <dt>Lásd még</dt><dd>
 [atoi], [itoa], [val]
 </dd>
+</dl>
 <hr>
 ## sprintf
 
 ```c
 str_t sprintf(str_t fmt, ...)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Kigenerál egy nullával lezárt, UTF-8 sztringet a megadott formázás és paraméterek alapján.
 </dd>
@@ -3409,12 +3728,14 @@ Kigenerál egy nullával lezárt, UTF-8 sztringet a megadott formázás és para
 <dt>Visszatérési érték</dt><dd>
 A megformázott sztring.
 </dd>
+</dl>
 <hr>
 ## strlen
 
 ```c
 int strlen(str_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja, mennyi bájtból áll a sztring (a lezáró nulla nélkül).
 </dd>
@@ -3428,12 +3749,14 @@ A sztringben lévő bájtok száma.
 <dt>Lásd még</dt><dd>
 [mblen]
 </dd>
+</dl>
 <hr>
 ## mblen
 
 ```c
 int mblen(str_t src)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Visszaadja, mennyi UTF-8 multibájt karakterből áll a sztring (a lezáró nulla nélkül).
 </dd>
@@ -3447,12 +3770,14 @@ A sztringben lévő karakterek száma.
 <dt>Lásd még</dt><dd>
 [strlen]
 </dd>
+</dl>
 <hr>
 ## malloc
 
 ```c
 addr_t malloc(uint32_t size)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Dinamikusan lefoglalja a memória egy részét.
 </dd>
@@ -3466,12 +3791,14 @@ Az újonnan allokált buffer címe, vagy NULL hiba esetén.
 <dt>Lásd még</dt><dd>
 [realloc], [free]
 </dd>
+</dl>
 <hr>
 ## realloc
 
 ```c
 addr_t realloc(addr_t addr, uint32_t size)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Átméretez egy korábban lefoglalt buffert.
 </dd>
@@ -3486,12 +3813,14 @@ Az újonnan allokált buffer címe, vagy NULL hiba esetén.
 <dt>Lásd még</dt><dd>
 [malloc], [free]
 </dd>
+</dl>
 <hr>
 ## free
 
 ```c
 int free(addr_t addr)
 ```
+<dl>
 <dt>Leírás</dt><dd>
 Felszabadítja a dinamikusan lefoglalt memóriát.
 </dd>
@@ -3505,3 +3834,4 @@ Felszabadítja a dinamikusan lefoglalt memóriát.
 <dt>Lásd még</dt><dd>
 [malloc], [realloc]
 </dd>
+</dl>

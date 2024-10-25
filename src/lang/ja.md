@@ -460,6 +460,7 @@ MEG-4 では、3 次元空間は右手の法則に従って処理されます。
 ```c
 void putc(uint32_t chr)
 ```
+<dl>
 <dt>説明</dt><dd>
 文字をコンソールに出力します。
 </dd>
@@ -467,12 +468,14 @@ void putc(uint32_t chr)
 | 引数 | 説明 |
 | chr | UTF-8文字 |
 </dd>
+</dl>
 <hr>
 ## printf
 
 ```c
 void printf(str_t fmt, ...)
 ```
+<dl>
 <dt>説明</dt><dd>
 テキストをコンソールに出力します。
 </dd>
@@ -481,12 +484,14 @@ void printf(str_t fmt, ...)
 | fmt | 表示する文字列, [書式設定文字列] |
 | ... | オプションの引数 |
 </dd>
+</dl>
 <hr>
 ## getc
 
 ```c
 uint32_t getc(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 コンソールから文字を読み取り、入力がない場合はプログラムをブロックします。
 </dd>
@@ -496,24 +501,28 @@ uint32_t getc(void)
 <dt>関連項目</dt><dd>
 [popkey]
 </dd>
+</dl>
 <hr>
 ## gets
 
 ```c
 str_t gets(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 ユーザーから改行で終了した文字列を読み取ります (改行は返しません)。
 </dd>
 <dt>戻り値</dt><dd>
 文字列内の読み取りバイト。
 </dd>
+</dl>
 <hr>
 ## trace
 
 ```c
 void trace(str_t fmt, ...)
 ```
+<dl>
 <dt>説明</dt><dd>
 標準出力に出力して実行をトレースします。 `meg4` が `-v` 冗長フラグを指定して起動された場合にのみ機能します。
 </dd>
@@ -522,12 +531,14 @@ void trace(str_t fmt, ...)
 | fmt | [書式設定文字列] |
 | ... | オプションの引数 |
 </dd>
+</dl>
 <hr>
 ## delay
 
 ```c
 void delay(uint16_t msec)
 ```
+<dl>
 <dt>説明</dt><dd>
 プログラムの実行を遅らせます。
 </dd>
@@ -535,15 +546,18 @@ void delay(uint16_t msec)
 | 引数 | 説明 |
 | msec | ミリ秒単位の遅延 |
 </dd>
+</dl>
 <hr>
 ## exit
 
 ```c
 void exit(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 プログラムを終了します。
 </dd>
+</dl>
 
 # オーディオ
 
@@ -552,6 +566,7 @@ void exit(void)
 ```c
 void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 ```
+<dl>
 <dt>説明</dt><dd>
 効果音を再生します。
 </dd>
@@ -561,12 +576,14 @@ void sfx(uint8_t sfx, uint8_t channel, uint8_t volume)
 | channel | 使用するチャネル、0 ～ 11 |
 | volume | 使用するボリューム、0 ～ 255、0 はチャンネルをオフにします |
 </dd>
+</dl>
 <hr>
 ## music
 
 ```c
 void music(uint8_t track, uint16_t row, uint8_t volume)
 ```
+<dl>
 <dt>説明</dt><dd>
 音楽トラックを再生します。
 </dd>
@@ -576,6 +593,7 @@ void music(uint8_t track, uint16_t row, uint8_t volume)
 | row | 再生を開始する行、0 ～ 1023 (曲の最大長) |
 | volume | 使用するボリューム、0 ～ 255、0 は音楽をオフにします |
 </dd>
+</dl>
 
 # GPIO
 
@@ -584,18 +602,21 @@ void music(uint8_t track, uint16_t row, uint8_t volume)
 ```c
 uint32_t gpio_rev(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 GPIO ボードのリビジョン番号を問い合わせます。 プラットフォームが GPIO に対応していない場合は 0 を返します。
 </dd>
 <dt>戻り値</dt><dd>
 ボードのリビジョン番号、またはサポートされていない場合は 0。
 </dd>
+</dl>
 <hr>
 ## gpio_get
 
 ```c
 int gpio_get(uint8_t pin)
 ```
+<dl>
 <dt>説明</dt><dd>
 GPIO ピンの値を読み取ります。
 </dd>
@@ -609,12 +630,14 @@ GPIO ピンの値を読み取ります。
 <dt>関連項目</dt><dd>
 [gpio_set]
 </dd>
+</dl>
 <hr>
 ## gpio_set
 
 ```c
 int gpio_set(uint8_t pin, int value)
 ```
+<dl>
 <dt>説明</dt><dd>
 値を GPIO ピンに書き込みます。
 </dd>
@@ -629,6 +652,7 @@ int gpio_set(uint8_t pin, int value)
 <dt>関連項目</dt><dd>
 [gpio_get]
 </dd>
+</dl>
 
 # グラフィックス
 
@@ -637,6 +661,7 @@ int gpio_set(uint8_t pin, int value)
 ```c
 void cls(uint8_t palidx)
 ```
+<dl>
 <dt>説明</dt><dd>
 画面全体をクリアして表示オフセットをリセットし、コンソールの背景色も設定します。
 </dd>
@@ -647,12 +672,14 @@ void cls(uint8_t palidx)
 <dt>関連項目</dt><dd>
 [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## cget
 
 ```c
 uint32_t cget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>説明</dt><dd>
 座標のピクセルを取得し、カラー RGBA を返します。
 </dd>
@@ -667,12 +694,14 @@ RGBA チャネルを含むパックされたカラー (赤は最下位バイト�
 <dt>関連項目</dt><dd>
 [cls], [pget], [pset]
 </dd>
+</dl>
 <hr>
 ## pget
 
 ```c
 uint8_t pget(uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>説明</dt><dd>
 座標のピクセルを取得し、そのパレット インデックスを返します。
 </dd>
@@ -687,12 +716,14 @@ uint8_t pget(uint16_t x, uint16_t y)
 <dt>関連項目</dt><dd>
 [cls], [pset], [cget]
 </dd>
+</dl>
 <hr>
 ## pset
 
 ```c
 void pset(uint8_t palidx, uint16_t x, uint16_t y)
 ```
+<dl>
 <dt>説明</dt><dd>
 ある座標にピクセルをプロットします。
 </dd>
@@ -705,12 +736,14 @@ void pset(uint8_t palidx, uint16_t x, uint16_t y)
 <dt>関連項目</dt><dd>
 [cls], [pget]
 </dd>
+</dl>
 <hr>
 ## width
 
 ```c
 uint16_t width(int8_t type, str_t str)
 ```
+<dl>
 <dt>説明</dt><dd>
 表示されたテキストの幅をピクセル単位で返します。
 </dd>
@@ -725,12 +758,14 @@ uint16_t width(int8_t type, str_t str)
 <dt>関連項目</dt><dd>
 [text]
 </dd>
+</dl>
 <hr>
 ## text
 
 ```c
 void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint8_t sha, str_t str)
 ```
+<dl>
 <dt>説明</dt><dd>
 画面上にテキストを印刷します。
 </dd>
@@ -747,12 +782,14 @@ void text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t shidx, uint
 <dt>関連項目</dt><dd>
 [width]
 </dd>
+</dl>
 <hr>
 ## line
 
 ```c
 void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>説明</dt><dd>
 アンチエイリアス処理された線を描画します。
 </dd>
@@ -767,6 +804,7 @@ void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>関連項目</dt><dd>
 [qbez], [cbez]
 </dd>
+</dl>
 <hr>
 ## qbez
 
@@ -774,6 +812,7 @@ void line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx, int16_t cy)
 ```
+<dl>
 <dt>説明</dt><dd>
 二次ベジェ曲線を描きます。
 </dd>
@@ -790,6 +829,7 @@ void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 <dt>関連項目</dt><dd>
 [line], [cbez]
 </dd>
+</dl>
 <hr>
 ## cbez
 
@@ -797,6 +837,7 @@ void qbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     int16_t cx0, int16_t cy0, int16_t cx1, int16_t cy1)
 ```
+<dl>
 <dt>説明</dt><dd>
 3次ベジェ曲線を描きます。
 </dd>
@@ -815,12 +856,14 @@ void cbez(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1,
 <dt>関連項目</dt><dd>
 [line], [qbez]
 </dd>
+</dl>
 <hr>
 ## tri
 
 ```c
 void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>説明</dt><dd>
 三角形を描きます。
 </dd>
@@ -837,12 +880,14 @@ void tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t
 <dt>関連項目</dt><dd>
 [ftri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## ftri
 
 ```c
 void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>説明</dt><dd>
 塗りつぶされた三角形を描画します。
 </dd>
@@ -859,6 +904,7 @@ void ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_
 <dt>関連項目</dt><dd>
 [tri], [tri2d], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri2d
 
@@ -867,6 +913,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi1, int16_t x1, int16_t y1,
     uint8_t pi2, int16_t x2, int16_t y2)
 ```
+<dl>
 <dt>説明</dt><dd>
 カラーグラデーションを使用して塗りつぶされた三角形を描画します。
 </dd>
@@ -885,6 +932,7 @@ void tri2d(uint8_t pi0, int16_t x0, int16_t y0,
 <dt>関連項目</dt><dd>
 [tri], [ftri], [tri3d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tri3d
 
@@ -893,6 +941,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t pi1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t pi2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>説明</dt><dd>
 [3D空間]に色のグラデーションで塗りつぶされた三角形を描画します。
 </dd>
@@ -914,6 +963,7 @@ void tri3d(uint8_t pi0, int16_t x0, int16_t y0, int16_t z0,
 <dt>関連項目</dt><dd>
 [tri], [ftri], [tri2d], [tritx], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## tritx
 
@@ -922,6 +972,7 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
     uint8_t u1, uint8_t v1, int16_t x1, int16_t y1, int16_t z1,
     uint8_t u2, uint8_t v2, int16_t x2, int16_t y2, int16_t z2)
 ```
+<dl>
 <dt>説明</dt><dd>
 [3D空間]にテクスチャ付きの三角形を描画します。
 </dd>
@@ -946,12 +997,14 @@ void tritx(uint8_t u0, uint8_t v0, int16_t x0, int16_t y0, int16_t z0,
 <dt>関連項目</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [mesh], [trns]
 </dd>
+</dl>
 <hr>
 ## mesh
 
 ```c
 void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 ```
+<dl>
 <dt>説明</dt><dd>
 頂点のインデックスとテクスチャ座標(またはパレット)を使用して、[3D空間]に三角形で構成されるメッシュを描画します。
 </dd>
@@ -965,12 +1018,14 @@ void mesh(addr_t verts, addr_t uvs, uint16_t numtri, addr_t tris)
 <dt>関連項目</dt><dd>
 [tri], [ftri], [tri2d], [tri3d], [tritx], [trns]
 </dd>
+</dl>
 <hr>
 ## rect
 
 ```c
 void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>説明</dt><dd>
 長方形を描画します。
 </dd>
@@ -985,12 +1040,14 @@ void rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>関連項目</dt><dd>
 [frect]
 </dd>
+</dl>
 <hr>
 ## frect
 
 ```c
 void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>説明</dt><dd>
 塗りつぶされた長方形を描画します。
 </dd>
@@ -1005,12 +1062,14 @@ void frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>関連項目</dt><dd>
 [rect]
 </dd>
+</dl>
 <hr>
 ## circ
 
 ```c
 void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>説明</dt><dd>
 円を描きます。
 </dd>
@@ -1024,12 +1083,14 @@ void circ(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 <dt>関連項目</dt><dd>
 [fcirc], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## fcirc
 
 ```c
 void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 ```
+<dl>
 <dt>説明</dt><dd>
 塗りつぶされた円を描きます。
 </dd>
@@ -1043,12 +1104,14 @@ void fcirc(uint8_t palidx, int16_t x, int16_t y, uint16_t r)
 <dt>関連項目</dt><dd>
 [circ], [ellip], [fellip]
 </dd>
+</dl>
 <hr>
 ## ellip
 
 ```c
 void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>説明</dt><dd>
 楕円を描きます。
 </dd>
@@ -1063,12 +1126,14 @@ void ellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>関連項目</dt><dd>
 [circ], [fcirc], [fellip]
 </dd>
+</dl>
 <hr>
 ## fellip
 
 ```c
 void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 ```
+<dl>
 <dt>説明</dt><dd>
 塗りつぶされた楕円を描画します。
 </dd>
@@ -1083,12 +1148,14 @@ void fellip(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 <dt>関連項目</dt><dd>
 [circ], [fcirc], [ellip]
 </dd>
+</dl>
 <hr>
 ## move
 
 ```c
 void move(int16_t x, int16_t y, uint16_t deg)
 ```
+<dl>
 <dt>説明</dt><dd>
 カメを画面上または迷路内の指定された位置に移動します。
 </dd>
@@ -1101,12 +1168,14 @@ void move(int16_t x, int16_t y, uint16_t deg)
 <dt>関連項目</dt><dd>
 [left], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## left
 
 ```c
 void left(uint16_t deg)
 ```
+<dl>
 <dt>説明</dt><dd>
 カメを左に回転させます。
 </dd>
@@ -1117,12 +1186,14 @@ void left(uint16_t deg)
 <dt>関連項目</dt><dd>
 [move], [right], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## right
 
 ```c
 void right(uint16_t deg)
 ```
+<dl>
 <dt>説明</dt><dd>
 カメを右に回転させます。
 </dd>
@@ -1133,36 +1204,42 @@ void right(uint16_t deg)
 <dt>関連項目</dt><dd>
 [move], [left], [up], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## up
 
 ```c
 void up(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 カメの尻尾を持ち上げます。 亀は線を引かなくても動きます。
 </dd>
 <dt>関連項目</dt><dd>
 [move], [left], [right], [down], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## down
 
 ```c
 void down(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 亀の尻尾を下ろします。 カメは線を描いて移動します ([color] を参照)。
 </dd>
 <dt>関連項目</dt><dd>
 [move], [left], [right], [up], [color], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## color
 
 ```c
 void color(uint8_t palidx)
 ```
+<dl>
 <dt>説明</dt><dd>
 タートルのペイントの色を設定します。
 </dd>
@@ -1173,12 +1250,14 @@ void color(uint8_t palidx)
 <dt>関連項目</dt><dd>
 [move], [left], [right], [up], [down], [forw], [back]
 </dd>
+</dl>
 <hr>
 ## forw
 
 ```c
 void forw(uint16_t cnt)
 ```
+<dl>
 <dt>説明</dt><dd>
 カメを前方に移動させます。
 </dd>
@@ -1189,12 +1268,14 @@ void forw(uint16_t cnt)
 <dt>関連項目</dt><dd>
 [move], [left], [right], [up], [down], [color], [back]
 </dd>
+</dl>
 <hr>
 ## back
 
 ```c
 void back(uint16_t cnt)
 ```
+<dl>
 <dt>説明</dt><dd>
 カメを後方に移動します。
 </dd>
@@ -1205,12 +1286,14 @@ void back(uint16_t cnt)
 <dt>関連項目</dt><dd>
 [move], [left], [right], [up], [down], [color], [forw]
 </dd>
+</dl>
 <hr>
 ## spr
 
 ```c
 void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t scale, uint8_t type)
 ```
+<dl>
 <dt>説明</dt><dd>
 1 つのスプライト、または複数の隣接するスプライトを表示します。
 </dd>
@@ -1227,6 +1310,7 @@ void spr(int16_t x, int16_t y, uint16_t sprite, uint8_t sw, uint8_t sh, int8_t s
 <dt>関連項目</dt><dd>
 [dlg], [stext]
 </dd>
+</dl>
 <hr>
 ## dlg
 
@@ -1236,6 +1320,7 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     uint16_t ml, uint16_t bg, uint16_t mr,
     uint16_t bl, uint16_t bm, uint16_t br)
 ```
+<dl>
 <dt>説明</dt><dd>
 スプライトを使用してダイアログウィンドウを表示します。
 </dd>
@@ -1259,12 +1344,14 @@ void dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
 <dt>関連項目</dt><dd>
 [spr], [stext]
 </dd>
+</dl>
 <hr>
 ## stext
 
 ```c
 void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t sh, int8_t scale, str_t str)
 ```
+<dl>
 <dt>説明</dt><dd>
 スプライトを使用して画面上にテキストを表示します。
 </dd>
@@ -1282,12 +1369,14 @@ void stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, uint8_t s
 <dt>関連項目</dt><dd>
 [spr], [dlg]
 </dd>
+</dl>
 <hr>
 ## remap
 
 ```c
 void remap(addr_t replace)
 ```
+<dl>
 <dt>説明</dt><dd>
 マップ上のタイルを置き換えます。 マップ上のタイルをアニメーション化するために使用できます。
 </dd>
@@ -1298,12 +1387,14 @@ void remap(addr_t replace)
 <dt>関連項目</dt><dd>
 [mget], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mget
 
 ```c
 uint16_t mget(uint16_t mx, uint16_t my)
 ```
+<dl>
 <dt>説明</dt><dd>
 マップ上の 1 つのタイルを返します。
 </dd>
@@ -1318,12 +1409,14 @@ uint16_t mget(uint16_t mx, uint16_t my)
 <dt>関連項目</dt><dd>
 [remap], [mset], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## mset
 
 ```c
 void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 ```
+<dl>
 <dt>説明</dt><dd>
 マップ上に 1 つのタイルを設定します。
 </dd>
@@ -1336,12 +1429,14 @@ void mset(uint16_t mx, uint16_t my, uint16_t sprite)
 <dt>関連項目</dt><dd>
 [remap], [mget], [map], [maze]
 </dd>
+</dl>
 <hr>
 ## map
 
 ```c
 void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, int8_t scale)
 ```
+<dl>
 <dt>説明</dt><dd>
 マップ (の一部) を描画します。
 </dd>
@@ -1358,6 +1453,7 @@ void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t m
 <dt>関連項目</dt><dd>
 [remap], [mget], [mset], [maze]
 </dd>
+</dl>
 <hr>
 ## maze
 
@@ -1365,6 +1461,7 @@ void map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, uint16_t m
 void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc)
 ```
+<dl>
 <dt>説明</dt><dd>
 タートルの位置を使用して地図を 3D 迷路として表示します。
 </dd>
@@ -1386,6 +1483,7 @@ void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
 <dt>関連項目</dt><dd>
 [remap], [mget], [mset], [map]
 </dd>
+</dl>
 
 # 入力
 
@@ -1394,6 +1492,7 @@ void maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
 ```c
 int getpad(int pad, int btn)
 ```
+<dl>
 <dt>説明</dt><dd>
 ゲームパッドのボタンの現在の状態を取得します。
 </dd>
@@ -1408,12 +1507,14 @@ int getpad(int pad, int btn)
 <dt>関連項目</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## prspad
 
 ```c
 int prspad(int pad, int btn)
 ```
+<dl>
 <dt>説明</dt><dd>
 最後の呼び出し以降にゲームパッドのボタンが押された場合は true を返します。
 </dd>
@@ -1428,12 +1529,14 @@ int prspad(int pad, int btn)
 <dt>関連項目</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## relpad
 
 ```c
 int relpad(int pad, int btn)
 ```
+<dl>
 <dt>説明</dt><dd>
 最後の呼び出し以降にゲームパッドのボタンが放された場合は true を返します。
 </dd>
@@ -1448,12 +1551,14 @@ int relpad(int pad, int btn)
 <dt>関連項目</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getbtn
 
 ```c
 int getbtn(int btn)
 ```
+<dl>
 <dt>説明</dt><dd>
 マウスボタンの状態を取得します。
 </dd>
@@ -1467,12 +1572,14 @@ int getbtn(int btn)
 <dt>関連項目</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
 </dd>
+</dl>
 <hr>
 ## getclk
 
 ```c
 int getclk(int btn)
 ```
+<dl>
 <dt>説明</dt><dd>
 マウスボタンのクリックを取得します。
 </dd>
@@ -1486,12 +1593,14 @@ int getclk(int btn)
 <dt>関連項目</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
 </dd>
+</dl>
 <hr>
 ## getkey
 
 ```c
 int getkey(int sc)
 ```
+<dl>
 <dt>説明</dt><dd>
 キーの現在の状態を取得します。
 </dd>
@@ -1505,12 +1614,14 @@ int getkey(int sc)
 <dt>関連項目</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
 </dd>
+</dl>
 <hr>
 ## popkey
 
 ```c
 uint32_t popkey(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 キーボード キューから UTF-8 キーをポップします。 [キーボード] を参照し、ブロックバージョンについては [getc] を参照してください。
 </dd>
@@ -1520,12 +1631,14 @@ uint32_t popkey(void)
 <dt>関連項目</dt><dd>
 [pendkey], [lenkey], [speckey], [getc]
 </dd>
+</dl>
 <hr>
 ## pendkey
 
 ```c
 int pendkey(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 キュー内に保留中のキーがある場合は true を返します (ただし、キーはキュー内に残り、削除されません)。
 </dd>
@@ -1535,12 +1648,14 @@ int pendkey(void)
 <dt>関連項目</dt><dd>
 [popkey], [lenkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## lenkey
 
 ```c
 int lenkey(uint32_t key)
 ```
+<dl>
 <dt>説明</dt><dd>
 UTF-8 キーの長さをバイト単位で返します。
 </dd>
@@ -1554,12 +1669,14 @@ UTF-8 表現の長さ (バイト単位)。
 <dt>関連項目</dt><dd>
 [popkey], [pendkey], [speckey]
 </dd>
+</dl>
 <hr>
 ## speckey
 
 ```c
 int speckey(uint32_t key)
 ```
+<dl>
 <dt>説明</dt><dd>
 キーが特殊キーの場合は真実を返します。
 </dd>
@@ -1573,6 +1690,7 @@ int speckey(uint32_t key)
 <dt>関連項目</dt><dd>
 [popkey], [pendkey], [lenkey]
 </dd>
+</dl>
 
 # 数学
 
@@ -1581,6 +1699,7 @@ int speckey(uint32_t key)
 ```c
 uint32_t rand(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 ランダムに取得します。 `%` モジュロを使用して小さくします。たとえば、`1 + rand() % 6` は、サイコロのように 1 から 6 までのランダムを返します。
 </dd>
@@ -1590,12 +1709,14 @@ uint32_t rand(void)
 <dt>関連項目</dt><dd>
 [rnd]
 </dd>
+</dl>
 <hr>
 ## rnd
 
 ```c
 float rnd(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 ランダムに取得します。 [rand] と同じですが、浮動小数点数を返します。
 </dd>
@@ -1605,12 +1726,14 @@ float rnd(void)
 <dt>関連項目</dt><dd>
 [rand]
 </dd>
+</dl>
 <hr>
 ## float
 
 ```c
 float float(int val)
 ```
+<dl>
 <dt>説明</dt><dd>
 整数に相当する浮動小数点を返します。
 </dd>
@@ -1624,12 +1747,14 @@ float float(int val)
 <dt>関連項目</dt><dd>
 [int]
 </dd>
+</dl>
 <hr>
 ## int
 
 ```c
 int int(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 浮動小数点数に相当する整数を返します。
 </dd>
@@ -1643,12 +1768,14 @@ int int(float val)
 <dt>関連項目</dt><dd>
 [float]
 </dd>
+</dl>
 <hr>
 ## floor
 
 ```c
 float floor(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値以下の最大の整数を返します。
 </dd>
@@ -1662,12 +1789,14 @@ float floor(float val)
 <dt>関連項目</dt><dd>
 [ceil]
 </dd>
+</dl>
 <hr>
 ## ceil
 
 ```c
 float ceil(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値以上の最小の整数を返します。
 </dd>
@@ -1681,12 +1810,14 @@ float ceil(float val)
 <dt>関連項目</dt><dd>
 [floor]
 </dd>
+</dl>
 <hr>
 ## sgn
 
 ```c
 float sgn(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値の符号を返します。
 </dd>
@@ -1700,12 +1831,14 @@ float sgn(float val)
 <dt>関連項目</dt><dd>
 [abs]
 </dd>
+</dl>
 <hr>
 ## abs
 
 ```c
 float abs(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値の絶対値を返します。
 </dd>
@@ -1719,12 +1852,14 @@ value または -value のいずれかで、常に正です。
 <dt>関連項目</dt><dd>
 [sgn]
 </dd>
+</dl>
 <hr>
 ## exp
 
 ```c
 float exp(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値の指数、つまり自然対数の底を値で累乗した値を返します。
 </dd>
@@ -1738,12 +1873,14 @@ e^^val^^を返します。
 <dt>関連項目</dt><dd>
 [log], [pow]
 </dd>
+</dl>
 <hr>
 ## log
 
 ```c
 float log(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値の自然対数を返します。
 </dd>
@@ -1757,12 +1894,14 @@ float log(float val)
 <dt>関連項目</dt><dd>
 [exp]
 </dd>
+</dl>
 <hr>
 ## pow
 
 ```c
 float pow(float val, float exp)
 ```
+<dl>
 <dt>説明</dt><dd>
 指数乗した値を返します。 これは処理が遅いため、避けてください。
 </dd>
@@ -1777,12 +1916,14 @@ val^^exp^^を返します。
 <dt>関連項目</dt><dd>
 [exp], [sqrt], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## sqrt
 
 ```c
 float sqrt(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値の平方根を返します。 これは処理が遅いため、避けてください。
 </dd>
@@ -1796,12 +1937,14 @@ float sqrt(float val)
 <dt>関連項目</dt><dd>
 [pow], [rsqrt]
 </dd>
+</dl>
 <hr>
 ## rsqrt
 
 ```c
 float rsqrt(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 値の平方根の逆数 (`1 / sqrt(val)`) を返します。 John Carmack の高速メソッドを使用します。
 </dd>
@@ -1815,12 +1958,14 @@ float rsqrt(float val)
 <dt>関連項目</dt><dd>
 [pow], [sqrt]
 </dd>
+</dl>
 <hr>
 ## clamp
 
 ```c
 float clamp(float val, float minv, float maxv)
 ```
+<dl>
 <dt>説明</dt><dd>
 値を制限値の間に固定します。
 </dd>
@@ -1836,12 +1981,14 @@ float clamp(float val, float minv, float maxv)
 <dt>関連項目</dt><dd>
 [clampv2], [clampv3], [clampv4]
 </dd>
+</dl>
 <hr>
 ## lerp
 
 ```c
 float lerp(float a, float b, float t)
 ```
+<dl>
 <dt>説明</dt><dd>
 線形補間は 2 つの数値を補間します。
 </dd>
@@ -1854,24 +2001,28 @@ float lerp(float a, float b, float t)
 <dt>関連項目</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## pi
 
 ```c
 float pi(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 π を浮動小数点数として返します。
 </dd>
 <dt>戻り値</dt><dd>
 値は 3.14159265358979323846 です。
 </dd>
+</dl>
 <hr>
 ## cos
 
 ```c
 float cos(uint16_t deg)
 ```
+<dl>
 <dt>説明</dt><dd>
 コサインを返します。
 </dd>
@@ -1885,12 +2036,14 @@ float cos(uint16_t deg)
 <dt>関連項目</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## sin
 
 ```c
 float sin(uint16_t deg)
 ```
+<dl>
 <dt>説明</dt><dd>
 正弦を返します。
 </dd>
@@ -1904,12 +2057,14 @@ float sin(uint16_t deg)
 <dt>関連項目</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## tan
 
 ```c
 float tan(uint16_t deg)
 ```
+<dl>
 <dt>説明</dt><dd>
 接線を返します。
 </dd>
@@ -1923,12 +2078,14 @@ float tan(uint16_t deg)
 <dt>関連項目</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## acos
 
 ```c
 uint16_t acos(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 逆余弦を返します。
 </dd>
@@ -1942,12 +2099,14 @@ uint16_t acos(float val)
 <dt>関連項目</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## asin
 
 ```c
 uint16_t asin(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 円弧正弦を返します。
 </dd>
@@ -1961,12 +2120,14 @@ uint16_t asin(float val)
 <dt>関連項目</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan
 
 ```c
 uint16_t atan(float val)
 ```
+<dl>
 <dt>説明</dt><dd>
 アークタンジェントを返します。
 </dd>
@@ -1980,12 +2141,14 @@ uint16_t atan(float val)
 <dt>関連項目</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
 </dd>
+</dl>
 <hr>
 ## atan2
 
 ```c
 uint16_t atan2(float y, float x)
 ```
+<dl>
 <dt>説明</dt><dd>
 y と x の符号を使用して象限を決定し、y/x の逆正接を返します。
 </dd>
@@ -2000,12 +2163,14 @@ y と x の符号を使用して象限を決定し、y/x の逆正接を返し�
 <dt>関連項目</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
 </dd>
+</dl>
 <hr>
 ## dotv2
 
 ```c
 float dotv2(addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つ 2 つのベクトルの内積を計算します。
 </dd>
@@ -2020,12 +2185,14 @@ float dotv2(addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lenv2
 
 ```c
 float lenv2(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルの長さを計算します。 これは遅いので、避けるようにしてください ([normv2] を参照)。
 </dd>
@@ -2039,12 +2206,14 @@ float lenv2(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## scalev2
 
 ```c
 void scalev2(addr_t a, float s)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルをスケーリングします。
 </dd>
@@ -2056,12 +2225,14 @@ void scalev2(addr_t a, float s)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## negv2
 
 ```c
 void negv2(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルを否定します。
 </dd>
@@ -2072,12 +2243,14 @@ void negv2(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## addv2
 
 ```c
 void addv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルを加算します。
 </dd>
@@ -2090,12 +2263,14 @@ void addv2(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## subv2
 
 ```c
 void subv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルを減算します。
 </dd>
@@ -2108,12 +2283,14 @@ void subv2(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## mulv2
 
 ```c
 void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 ベクトルと 2 つの要素を乗算します。
 </dd>
@@ -2126,12 +2303,14 @@ void mulv2(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## divv2
 
 ```c
 void divv2(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 ベクトルを 2 つの要素で除算します。
 </dd>
@@ -2144,12 +2323,14 @@ void divv2(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## clampv2
 
 ```c
 void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルをクランプします。
 </dd>
@@ -2163,12 +2344,14 @@ void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## lerpv2
 
 ```c
 void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>説明</dt><dd>
 線形補間は 2 つの要素を持つベクトルを補間します。
 </dd>
@@ -2182,12 +2365,14 @@ void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
 </dd>
+</dl>
 <hr>
 ## normv2
 
 ```c
 void normv2(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 2 つの要素を持つベクトルを正規化します。
 </dd>
@@ -2198,12 +2383,14 @@ void normv2(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
 </dd>
+</dl>
 <hr>
 ## dotv3
 
 ```c
 float dotv3(addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つ 2 つのベクトルの内積を計算します。
 </dd>
@@ -2218,12 +2405,14 @@ float dotv3(addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lenv3
 
 ```c
 float lenv3(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルの長さを計算します。 これは遅いので、避けるようにしてください ([normv3] を参照)。
 </dd>
@@ -2237,12 +2426,14 @@ float lenv3(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## scalev3
 
 ```c
 void scalev3(addr_t a, float s)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルをスケーリングします。
 </dd>
@@ -2254,12 +2445,14 @@ void scalev3(addr_t a, float s)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## negv3
 
 ```c
 void negv3(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルを否定します。
 </dd>
@@ -2270,12 +2463,14 @@ void negv3(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## addv3
 
 ```c
 void addv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルを加算します。
 </dd>
@@ -2288,12 +2483,14 @@ void addv3(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## subv3
 
 ```c
 void subv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルを減算します。
 </dd>
@@ -2306,12 +2503,14 @@ void subv3(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## mulv3
 
 ```c
 void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 ベクトルと 3 つの要素を乗算します。
 </dd>
@@ -2324,12 +2523,14 @@ void mulv3(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## divv3
 
 ```c
 void divv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 ベクトルを 3 つの要素で分割します。
 </dd>
@@ -2342,12 +2543,14 @@ void divv3(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## crossv3
 
 ```c
 void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を含むベクトルの外積を計算します。
 </dd>
@@ -2360,12 +2563,14 @@ void crossv3(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## clampv3
 
 ```c
 void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルをクランプします。
 </dd>
@@ -2379,12 +2584,14 @@ void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## lerpv3
 
 ```c
 void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>説明</dt><dd>
 線形補間では、3 つの要素を含むベクトルが補間されます。
 </dd>
@@ -2398,12 +2605,14 @@ void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
 </dd>
+</dl>
 <hr>
 ## normv3
 
 ```c
 void normv3(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を含むベクトルを正規化します。
 </dd>
@@ -2414,12 +2623,14 @@ void normv3(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
 </dd>
+</dl>
 <hr>
 ## dotv4
 
 ```c
 float dotv4(addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つ 2 つのベクトルの内積を計算します。
 </dd>
@@ -2434,12 +2645,14 @@ float dotv4(addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lenv4
 
 ```c
 float lenv4(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルの長さを計算します。 これは遅いので、避けるようにしてください ([normv4] を参照)。
 </dd>
@@ -2453,12 +2666,14 @@ float lenv4(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## scalev4
 
 ```c
 void scalev4(addr_t a, float s)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルをスケーリングします。
 </dd>
@@ -2470,12 +2685,14 @@ void scalev4(addr_t a, float s)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## negv4
 
 ```c
 void negv4(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルを否定します。
 </dd>
@@ -2486,12 +2703,14 @@ void negv4(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## addv4
 
 ```c
 void addv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルを加算します。
 </dd>
@@ -2504,12 +2723,14 @@ void addv4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [negv4], [scalev4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## subv4
 
 ```c
 void subv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルを減算します。
 </dd>
@@ -2522,12 +2743,14 @@ void subv4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## mulv4
 
 ```c
 void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 ベクトルと 4 つの要素を乗算します。
 </dd>
@@ -2540,12 +2763,14 @@ void mulv4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## divv4
 
 ```c
 void divv4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 ベクトルを 4 つの要素で除算します。
 </dd>
@@ -2558,12 +2783,14 @@ void divv4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## clampv4
 
 ```c
 void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルをクランプします。
 </dd>
@@ -2577,12 +2804,14 @@ void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## lerpv4
 
 ```c
 void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>説明</dt><dd>
 線形補間は 4 つの要素を持つベクトルを補間します。
 </dd>
@@ -2596,12 +2825,14 @@ void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
 </dd>
+</dl>
 <hr>
 ## normv4
 
 ```c
 void normv4(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を持つベクトルを正規化します。
 </dd>
@@ -2612,12 +2843,14 @@ void normv4(addr_t a)
 <dt>関連項目</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
 </dd>
+</dl>
 <hr>
 ## idq
 
 ```c
 void idq(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 恒等四元数をロードします。
 </dd>
@@ -2628,12 +2861,14 @@ void idq(addr_t a)
 <dt>関連項目</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## eulerq
 
 ```c
 void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
+<dl>
 <dt>説明</dt><dd>
 オイラー角を使用して四元数を読み込みます。
 </dd>
@@ -2647,12 +2882,14 @@ void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 <dt>関連項目</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## dotq
 
 ```c
 float dotq(addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンの内積を計算します。
 </dd>
@@ -2667,12 +2904,14 @@ float dotq(addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lenq
 
 ```c
 float lenq(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンの長さを計算します。
 </dd>
@@ -2686,12 +2925,14 @@ float lenq(addr_t a)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## scaleq
 
 ```c
 void scaleq(addr_t a, float s)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンをスケールします。
 </dd>
@@ -2703,12 +2944,14 @@ void scaleq(addr_t a, float s)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## negq
 
 ```c
 void negq(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンを否定します。
 </dd>
@@ -2719,12 +2962,14 @@ void negq(addr_t a)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## addq
 
 ```c
 void addq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンを加算します。
 </dd>
@@ -2737,12 +2982,14 @@ void addq(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## subq
 
 ```c
 void subq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンを減算します。
 </dd>
@@ -2755,12 +3002,14 @@ void subq(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## mulq
 
 ```c
 void mulq(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンを乗算します。
 </dd>
@@ -2773,12 +3022,14 @@ void mulq(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## rotq
 
 ```c
 void rotq(addr_t dst, addr_t q, addr_t v)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を持つベクトルをクォータニオンで回転します。
 </dd>
@@ -2791,12 +3042,14 @@ void rotq(addr_t dst, addr_t q, addr_t v)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## lerpq
 
 ```c
 void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>説明</dt><dd>
 線形補間は 2 つの四元数を補間します。
 </dd>
@@ -2810,12 +3063,14 @@ void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## slerpq
 
 ```c
 void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
+<dl>
 <dt>説明</dt><dd>
 球面はクォータニオンを補間します。
 </dd>
@@ -2829,12 +3084,14 @@ void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
 </dd>
+</dl>
 <hr>
 ## normq
 
 ```c
 void normq(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 クォータニオンを正規化します。
 </dd>
@@ -2845,12 +3102,14 @@ void normq(addr_t a)
 <dt>関連項目</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
 </dd>
+</dl>
 <hr>
 ## idm4
 
 ```c
 void idm4(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 x 4 単位行列を読み込みます。
 </dd>
@@ -2861,12 +3120,14 @@ void idm4(addr_t a)
 <dt>関連項目</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trsm4
 
 ```c
 void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
+<dl>
 <dt>説明</dt><dd>
 移動、回転、スケーリングを備えた 4 x 4 行列を作成します。
 </dd>
@@ -2880,12 +3141,14 @@ void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 <dt>関連項目</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## detm4
 
 ```c
 float detm4(addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 行列の行列式を返します。
 </dd>
@@ -2899,12 +3162,14 @@ float detm4(addr_t a)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## addm4
 
 ```c
 void addm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 行列を加算します。
 </dd>
@@ -2917,12 +3182,14 @@ void addm4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## subm4
 
 ```c
 void subm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 行列を減算します。
 </dd>
@@ -2935,12 +3202,14 @@ void subm4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4
 
 ```c
 void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
+<dl>
 <dt>説明</dt><dd>
 行列を乗算します。
 </dd>
@@ -2953,12 +3222,14 @@ void mulm4(addr_t dst, addr_t a, addr_t b)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v3
 
 ```c
 void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>説明</dt><dd>
 3 つの要素を含むベクトルに行列を乗算します。
 </dd>
@@ -2971,12 +3242,14 @@ void mulm4v3(addr_t dst, addr_t m, addr_t v)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## mulm4v4
 
 ```c
 void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
+<dl>
 <dt>説明</dt><dd>
 4 つの要素を含むベクトルに行列を乗算します。
 </dd>
@@ -2989,12 +3262,14 @@ void mulm4v4(addr_t dst, addr_t m, addr_t v)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## invm4
 
 ```c
 void invm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 逆行列を計算します。
 </dd>
@@ -3006,12 +3281,14 @@ void invm4(addr_t dst, addr_t a)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
 </dd>
+</dl>
 <hr>
 ## trpm4
 
 ```c
 void trpm4(addr_t dst, addr_t a)
 ```
+<dl>
 <dt>説明</dt><dd>
 転置行列。
 </dd>
@@ -3023,6 +3300,7 @@ void trpm4(addr_t dst, addr_t a)
 <dt>関連項目</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
 </dd>
+</dl>
 <hr>
 ## trns
 
@@ -3032,6 +3310,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
     uint16_t pitch, uint16_t yaw, uint16_t roll,
     float scale)
 ```
+<dl>
 <dt>説明</dt><dd>
 頂点クラウド、別名を変換します。 [3D空間]に3Dモデルを配置します。
 </dd>
@@ -3051,6 +3330,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 <dt>関連項目</dt><dd>
 [mesh]
 </dd>
+</dl>
 
 # メモリ
 
@@ -3059,6 +3339,7 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 ```c
 uint8_t inb(addr_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリから 1 バイト (byte) で読み取ります。
 </dd>
@@ -3069,12 +3350,14 @@ uint8_t inb(addr_t src)
 <dt>戻り値</dt><dd>
 そのアドレスの値を返します。
 </dd>
+</dl>
 <hr>
 ## inw
 
 ```c
 uint16_t inw(addr_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリからワード (word、2 バイト) で読み取ります。
 </dd>
@@ -3085,12 +3368,14 @@ uint16_t inw(addr_t src)
 <dt>戻り値</dt><dd>
 そのアドレスの値を返します。
 </dd>
+</dl>
 <hr>
 ## ini
 
 ```c
 uint32_t ini(addr_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリから整数 (int、4 バイト) を読み取ります。
 </dd>
@@ -3101,12 +3386,14 @@ uint32_t ini(addr_t src)
 <dt>戻り値</dt><dd>
 そのアドレスの値を返します。
 </dd>
+</dl>
 <hr>
 ## outb
 
 ```c
 void outb(addr_t dst, uint8_t value)
 ```
+<dl>
 <dt>説明</dt><dd>
 1 バイト (byte) をメモリに書き込みます。
 </dd>
@@ -3115,12 +3402,14 @@ void outb(addr_t dst, uint8_t value)
 | dst | アドレス、0x00000 ～ 0xBFFFF |
 | value | 設定する値、0 ～ 255 |
 </dd>
+</dl>
 <hr>
 ## outw
 
 ```c
 void outw(addr_t dst, uint16_t value)
 ```
+<dl>
 <dt>説明</dt><dd>
 ワード (word、2 バイト) をメモリに書き込みます。
 </dd>
@@ -3129,12 +3418,14 @@ void outw(addr_t dst, uint16_t value)
 | dst | アドレス、0x00000 ～ 0xBFFFE |
 | value | 設定する値、0 ～ 65535 |
 </dd>
+</dl>
 <hr>
 ## outi
 
 ```c
 void outi(addr_t dst, uint32_t value)
 ```
+<dl>
 <dt>説明</dt><dd>
 整数 (int、4 バイト) をメモリに書き込みます。
 </dd>
@@ -3143,12 +3434,14 @@ void outi(addr_t dst, uint32_t value)
 | dst | アドレス、0x00000 ～ 0xBFFFC |
 | value | 設定する値、0 ～ 4294967295 |
 </dd>
+</dl>
 <hr>
 ## memsave
 
 ```c
 int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリ領域をオーバーレイに保存します。
 </dd>
@@ -3164,12 +3457,14 @@ int memsave(uint8_t overlay, addr_t src, uint32_t size)
 <dt>関連項目</dt><dd>
 [memload]
 </dd>
+</dl>
 <hr>
 ## memload
 
 ```c
 int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
+<dl>
 <dt>説明</dt><dd>
 オーバーレイを指定されたメモリ領域にロードします。
 </dd>
@@ -3185,12 +3480,14 @@ int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 <dt>関連項目</dt><dd>
 [memsave]
 </dd>
+</dl>
 <hr>
 ## memcpy
 
 ```c
 void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリ領域をコピーします。
 </dd>
@@ -3200,12 +3497,14 @@ void memcpy(addr_t dst, addr_t src, uint32_t len)
 | src | 送信元アドレス、0x00000 ～ 0xBFFFF |
 | len | コピーするバイト数 |
 </dd>
+</dl>
 <hr>
 ## memset
 
 ```c
 void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリ領域を指定された値に設定します。
 </dd>
@@ -3215,12 +3514,14 @@ void memset(addr_t dst, uint8_t value, uint32_t len)
 | value | 設定する値、0 ～ 255 |
 | len | 設定するバイト数 |
 </dd>
+</dl>
 <hr>
 ## memcmp
 
 ```c
 int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
+<dl>
 <dt>説明</dt><dd>
 メモリ領域を比較します。
 </dd>
@@ -3233,12 +3534,14 @@ int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 <dt>戻り値</dt><dd>
 2 つのメモリ領域が一致する場合は差を返し、0 を返します。
 </dd>
+</dl>
 <hr>
 ## deflate
 
 ```c
 int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>説明</dt><dd>
 RFC1950 deflate (zlib) を使用してバッファを圧縮します。
 </dd>
@@ -3254,12 +3557,14 @@ RFC1950 deflate (zlib) を使用してバッファを圧縮します。
 <dt>関連項目</dt><dd>
 [inflate]
 </dd>
+</dl>
 <hr>
 ## inflate
 
 ```c
 int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
+<dl>
 <dt>説明</dt><dd>
 RFC1950 deflate (zlib) 圧縮データを含むバッファを解凍します。
 </dd>
@@ -3275,12 +3580,14 @@ RFC1950 deflate (zlib) 圧縮データを含むバッファを解凍します。
 <dt>関連項目</dt><dd>
 [deflate]
 </dd>
+</dl>
 <hr>
 ## time
 
 ```c
 float time(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 電源投入以降のティック数を返します。
 </dd>
@@ -3290,12 +3597,14 @@ float time(void)
 <dt>関連項目</dt><dd>
 [now]
 </dd>
+</dl>
 <hr>
 ## now
 
 ```c
 uint32_t now(void)
 ```
+<dl>
 <dt>説明</dt><dd>
 UNIX タイムスタンプを返します。 オフセット 0000C のバイトをチェックして、オーバーフローしていないかどうかを確認します。
 </dd>
@@ -3305,12 +3614,14 @@ UNIX タイムスタンプを返します。 オフセット 0000C のバイト�
 <dt>関連項目</dt><dd>
 [time]
 </dd>
+</dl>
 <hr>
 ## atoi
 
 ```c
 int atoi(str_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 ASCII 10 進数文字列を整数に変換します。
 </dd>
@@ -3324,12 +3635,14 @@ ASCII 10 進数文字列を整数に変換します。
 <dt>関連項目</dt><dd>
 [itoa], [str], [val]
 </dd>
+</dl>
 <hr>
 ## itoa
 
 ```c
 str_t itoa(int value)
 ```
+<dl>
 <dt>説明</dt><dd>
 整数を ASCII 10 進数文字列に変換します。
 </dd>
@@ -3343,12 +3656,14 @@ str_t itoa(int value)
 <dt>関連項目</dt><dd>
 [atoi], [str], [val]
 </dd>
+</dl>
 <hr>
 ## val
 
 ```c
 float val(str_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 ASCII 10 進数文字列を浮動小数点数に変換します。
 </dd>
@@ -3362,12 +3677,14 @@ ASCII 10 進数文字列を浮動小数点数に変換します。
 <dt>関連項目</dt><dd>
 [itoa], [atoi], [str]
 </dd>
+</dl>
 <hr>
 ## str
 
 ```c
 str_t str(float value)
 ```
+<dl>
 <dt>説明</dt><dd>
 浮動小数点数を ASCII 10 進数文字列に変換します。
 </dd>
@@ -3381,12 +3698,14 @@ str_t str(float value)
 <dt>関連項目</dt><dd>
 [atoi], [itoa], [val]
 </dd>
+</dl>
 <hr>
 ## sprintf
 
 ```c
 str_t sprintf(str_t fmt, ...)
 ```
+<dl>
 <dt>説明</dt><dd>
 フォーマットと引数を使用して作成された、ゼロで終了する UTF-8 文字列を返します。
 </dd>
@@ -3398,12 +3717,14 @@ str_t sprintf(str_t fmt, ...)
 <dt>戻り値</dt><dd>
 構築された文字列。
 </dd>
+</dl>
 <hr>
 ## strlen
 
 ```c
 int strlen(str_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 文字列内のバイト数を返します (終端ゼロは除きます)。
 </dd>
@@ -3417,12 +3738,14 @@ int strlen(str_t src)
 <dt>関連項目</dt><dd>
 [mblen]
 </dd>
+</dl>
 <hr>
 ## mblen
 
 ```c
 int mblen(str_t src)
 ```
+<dl>
 <dt>説明</dt><dd>
 文字列内の UTF-8 マルチバイト文字の数を返します (終了ゼロは除きます)。
 </dd>
@@ -3436,12 +3759,14 @@ int mblen(str_t src)
 <dt>関連項目</dt><dd>
 [strlen]
 </dd>
+</dl>
 <hr>
 ## malloc
 
 ```c
 addr_t malloc(uint32_t size)
 ```
+<dl>
 <dt>説明</dt><dd>
 ユーザーメモリを動的に割り当てます。
 </dd>
@@ -3455,12 +3780,14 @@ addr_t malloc(uint32_t size)
 <dt>関連項目</dt><dd>
 [realloc], [free]
 </dd>
+</dl>
 <hr>
 ## realloc
 
 ```c
 addr_t realloc(addr_t addr, uint32_t size)
 ```
+<dl>
 <dt>説明</dt><dd>
 以前に割り当てられたバッファのサイズを変更します。
 </dd>
@@ -3475,12 +3802,14 @@ addr_t realloc(addr_t addr, uint32_t size)
 <dt>関連項目</dt><dd>
 [malloc], [free]
 </dd>
+</dl>
 <hr>
 ## free
 
 ```c
 int free(addr_t addr)
 ```
+<dl>
 <dt>説明</dt><dd>
 動的に割り当てられたユーザー メモリを解放します。
 </dd>
@@ -3494,3 +3823,4 @@ int free(addr_t addr)
 <dt>関連項目</dt><dd>
 [malloc], [realloc]
 </dd>
+</dl>

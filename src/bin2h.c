@@ -267,7 +267,7 @@ int main(int argc, char **argv)
                                             (a - 1) << 2);
                                         n += sprintf(dis + n, "); break; \\\n");
                                         napi++;
-                                        memcpy(buff + size, ")\n```\n<dt>Description</dt><dd>\n", 31); size += 31;
+                                        memcpy(buff + size, ")\n```\n<dl>\n<dt>Description</dt><dd>\n", 36); size += 36;
                                         d = strstr(d, " * ") + 3;
                                         while(*d && *d != '@' && memcmp(d, "*/", 2)) {
                                             while(*d && *d != '\r' && *d != '\n') buff[size++] = *d++;
@@ -304,6 +304,7 @@ int main(int argc, char **argv)
                                             if(!memcmp(d, "* ", 2)) d += 2;
                                             memcpy(buff + size, "\n</dd>\n", 7); size += 7;
                                         }
+                                        memcpy(buff + size, "</dl>\n", 6); size += 6;
                                     }
                                 }
                             }
