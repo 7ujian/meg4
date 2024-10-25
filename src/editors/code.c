@@ -243,7 +243,7 @@ void code_insert(char *str, uint32_t len)
         meg4.src_len = strlen(meg4.src);
         if(meg4.src_len && meg4.src[meg4.src_len - 1] != '\n') meg4.src[meg4.src_len++] = '\n';
         meg4.src[meg4.src_len++] = 0;
-        for(numnl = i = 0; i < meg4.src_len; i++) if(meg4.src[i] == '\n') numnl++;
+        for(numnl = 1, i = 0; i < meg4.src_len; i++) if(meg4.src[i] == '\n') numnl++;
     }
     /* if it was the first line that was edited, refresh rules too */
     if(row < 2) {

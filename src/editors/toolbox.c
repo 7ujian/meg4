@@ -115,6 +115,7 @@ void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, u
     if(!paintline && (meg4_api_getkey(MEG4_KEY_LSHIFT) || meg4_api_getkey(MEG4_KEY_RSHIFT))) {
         if(tc) memset(tc, 0, tp * th * 2);
         if(lsx == -1 || lsy == -1 || lex == -1 || ley == -1 || (lsx == lex && lsy == ley)) return;
+        lsx -= sx; lex -= sx; lsy -= sy; ley -= sy;
         dx =  abs(lex-lsx); i = lsx<lex ? 1 : -1;
         dy = -abs(ley-lsy), j = lsy<ley ? 1 : -1;
         err = dx+dy;
@@ -141,9 +142,9 @@ void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, u
         lsx = x; lsy = y;
     } else {
         if(!tb || (tc && ts > 0 && !tc[(y + sy + th) * tp + sx + x])) return;
+        lsx = sx + x; lsy = sy + y;
         if(idxs == idxe) {
             tb[(y + sy) * tp + sx + x] = meg4.mode == MEG4_MODE_SPRITE && ((le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_R)) ? 0 : idxs;
-            lsx = sx + x; lsy = sy + y;
         } else {
             if(idxe < idxs) idxe = idxs;
             i = idxs & 31; j = idxe & 31; w = j - i + 1; i = idxs >> 5; j = idxe >> 5; h = j - i + 1;

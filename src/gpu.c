@@ -698,8 +698,8 @@ void meg4_redraw(uint32_t *dst, int dw, int dh, int dp)
     ptr = meg4.screen.buf;
     w = (meg4.screen.w < dw ? meg4.screen.w : dw);
     h = meg4.screen.h < dh ? meg4.screen.h : dh;
-    x0 = meg4.mmio.cropx0; meg4.mmio.cropx0 = 0; x1 = meg4.mmio.cropx1; meg4.mmio.cropx1 = htole16(w);
-    y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = 0; y1 = meg4.mmio.cropy1; meg4.mmio.cropy1 = htole16(h);
+    x0 = meg4.mmio.cropx0; meg4.mmio.cropx0 = 0; x1 = meg4.mmio.cropx1; meg4.mmio.cropx1 = htole16(dw);
+    y0 = meg4.mmio.cropy0; meg4.mmio.cropy0 = 0; y1 = meg4.mmio.cropy1; meg4.mmio.cropy1 = htole16(dh);
     /* panic, this should only be shown when editors aren't compiled in. But just in case something really goes wrong, no ifdef */
     if(meg4.mode == MEG4_MODE_GURU) {
         meg4.screen.w = 320; meg4.screen.h = 200; for(y = 0, j = w << 2; y < h; y++, d += p) memset(d, 0, j);
@@ -910,6 +910,8 @@ void meg4_spr(uint32_t *dst, int dp, int x, int y, int sprite, int scale, int ty
     int x0 = le16toh(meg4.mmio.cropx0), y0 = le16toh(meg4.mmio.cropy0), x1 = le16toh(meg4.mmio.cropx1), y1 = le16toh(meg4.mmio.cropy1);
     uint8_t *s, *d, *a, *b;
 
+    if(x1 > 640) x1 = 640;
+    if(y1 > 400) y1 = 400;
     if(x >= x1 || y >= y1 || sprite > 1023 || scale < -3 || scale > 4 || type < 0 || type > 7) return;
     if(!scale) scale = 1;
     w = siz[scale + 3];
@@ -925,7 +927,7 @@ void meg4_spr(uint32_t *dst, int dp, int x, int y, int sprite, int scale, int ty
         for(j = 0; j < w; j++, d += dp)
             if(y + j >= y0 && y + j < y1)
                 for(a = d, i = 0; i < w; i++, a += 4)
-                    if(x + i >= x0 && x + i < y1) {
+                    if(x + i >= x0 && x + i < x1) {
                         switch(type) {
                             case 1: b = s + ((w - i - 1) << p) + (j << 2); break;
                             case 2: b = s + ((w - j - 1) << p) + ((w - i - 1) << 2); break;
@@ -947,7 +949,7 @@ void meg4_spr(uint32_t *dst, int dp, int x, int y, int sprite, int scale, int ty
         for(j = 0, l = y; j < 8; j++, l += scale, d += p)
             if(l >= y0 && l < y1)
                 for(a = d, i = 0, m = x; i < 8; i++, m += scale, a += k)
-                    if(m >= x0 && m < y1) {
+                    if(m >= x0 && m < x1) {
                         switch(type) {
                             case 1: b = s + ((7 - i) << 8) + (j); break;
                             case 2: b = s + ((7 - j) << 8) + (7 - i); break;
@@ -1430,7 +1432,8 @@ static __inline__ void meg4_setpixel(uint16_t x, uint16_t y, uint8_t r, uint8_t 
 {
     uint8_t *d;
     int i;
-    if(a && x >= le16toh(meg4.mmio.cropx0) && x < le16toh(meg4.mmio.cropx1) && y >= le16toh(meg4.mmio.cropy0) && y < le16toh(meg4.mmio.cropy1)) {
+    if(a && x >= le16toh(meg4.mmio.cropx0) && x < le16toh(meg4.mmio.cropx1) && x < 640 &&
+      y >= le16toh(meg4.mmio.cropy0) && y < le16toh(meg4.mmio.cropy1) && y < 400) {
         d = (uint8_t*)&meg4.vram[y * 640 + x]; i = 255 - a;
         d[2] = (b*a + i*d[2]) >> 8; d[1] = (g*a + i*d[1]) >> 8; d[0] = (r*a + i*d[0]) >> 8;
     }
@@ -1443,9 +1446,10 @@ static __inline__ void meg4_fill(uint16_t x0, uint16_t x1, uint16_t y, uint8_t *
 {
     uint8_t *d;
     int i, x, xs, xe, r, g, b;
-    if(c[3] && x0 < x1 && y >= le16toh(meg4.mmio.cropy0) && y < le16toh(meg4.mmio.cropy1)) {
+    if(c[3] && x0 < x1 && y >= le16toh(meg4.mmio.cropy0) && y < le16toh(meg4.mmio.cropy1) && y < 400) {
         xs = x0 < le16toh(meg4.mmio.cropx0) ? le16toh(meg4.mmio.cropx0) : x0;
         xe = x1 < le16toh(meg4.mmio.cropx1) ? x1 : le16toh(meg4.mmio.cropx1);
+        if(xe > 639) xe = 639;
         i = 255 - c[3]; r = c[0]*c[3]; g = c[1]*c[3]; b = c[2]*c[3];
         d = (uint8_t*)&meg4.vram[y * 640 + xs];
         for(x = xs; x <= xe; x++, d += 4) { d[2] = (b + i*d[2]) >> 8; d[1] = (g + i*d[1]) >> 8; d[0] = (r + i*d[0]) >> 8; }
@@ -1488,8 +1492,16 @@ void meg4_api_cls(uint8_t palidx)
     uint8_t c[4];
     int i, j;
 
-    meg4.mmio.scrx = meg4.mmio.scry = meg4.mmio.conx = meg4.mmio.cony = 0;
-    meg4.screen.w = 320; meg4.screen.h = 200; meg4.screen.buf = meg4.vram;
+    /* respect requested screen dimensions */
+    if(meg4.mmio.scrx == 0xffff || meg4.mmio.scry == 0xffff) {
+        meg4.screen.w = 640; meg4.screen.h = 400;
+    } else {
+        meg4.screen.w = 320; meg4.screen.h = 200;
+        meg4.mmio.scrx = meg4.mmio.scry = 0;
+    }
+    meg4.mmio.conx = meg4.mmio.cony = 0;
+    meg4.screen.buf = meg4.vram;
+    /* clear screen */
     for(i = 0; i < 640 * 400; i++) meg4.vram[i] = bg;
     /* set console's color either black or white depending if this clear color is bright or dark */
     meg4_conrst(); meg4.mmio.conb = palidx; c[3] = 0xff;
@@ -1541,8 +1553,7 @@ uint8_t meg4_api_pget(uint16_t x, uint16_t y)
 void meg4_api_pset(uint8_t palidx, uint16_t x, uint16_t y)
 {
     uint8_t *c = (uint8_t*)&meg4.mmio.palette[(int)palidx];
-    if(x < 640 && y < 400)
-        meg4_setpixel(x, y, c[0], c[1], c[2], c[3]);
+    meg4_setpixel(x, y, c[0], c[1], c[2], c[3]);
 }
 
 /**
@@ -1698,7 +1709,7 @@ void meg4_api_tri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1
 void meg4_api_ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 {
     uint8_t *c = (uint8_t*)&meg4.mmio.palette[(int)palidx];
-    int i, j, h, s, xa, xb, y, d1, d2, d3;
+    int i, j, h, s, xa, xb, y, d1, d2, d3, cy = le16toh(meg4.mmio.cropy1);
     float a, b, ia, ib;
 
     meg4_api_tri(palidx, x0, y0, x1, y1, x2, y2);
@@ -1708,7 +1719,8 @@ void meg4_api_ftri(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y
     if(y1 > y2) { i = x1; x1 = x2; x2 = i; i = y1; y1 = y2; y2 = i; }
     d1 = y1 - y0; d2 = y2 - y1; d3 = y2 - y0;
     if(y0 > le16toh(meg4.mmio.cropy0)) { y = y0; i = 0; } else { y = le16toh(meg4.mmio.cropy0); i = le16toh(meg4.mmio.cropy0) - y0; }
-    for(; i < d3 && y < le16toh(meg4.mmio.cropy1); i++, y++) {
+    if(cy > 400) cy = 400;
+    for(; i < d3 && y < cy; i++, y++) {
         h = i > d1 || y1 == y0; s = h ? d2 : d1;
         a = (float)i / (float)d3; ia = 1.0 - a; b = ((float)i - (float)(h ? d1 : 0)) / (float)s; ib = 1.0 - b;
         xa = ia * x0 + a * x2; xb = h ? ib * x1 + b * x2 : ib * x0 + b * x1;
@@ -1735,7 +1747,7 @@ void meg4_api_tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     uint8_t pi2, int16_t x2, int16_t y2)
 {
     uint8_t c[4], *c0, *c1, *c2, *d, e[4], f[4];
-    int i, j, k, l, m, h, s, x, xa, xb, xs, xe, y, d1, d2, d3;
+    int i, j, k, l, m, h, s, x, xa, xb, xs, xe, y, d1, d2, d3, cy = le16toh(meg4.mmio.cropy1);
     float a, b, ia, ib, g, ig;
 
     if((y0 == y1 && y0 == y2) || (x0 == x1 && x0 == x2)) return;
@@ -1747,13 +1759,15 @@ void meg4_api_tri2d(uint8_t pi0, int16_t x0, int16_t y0,
     c2 = (uint8_t*)&meg4.mmio.palette[(int)pi2];
     d1 = y1 - y0; d2 = y2 - y1; d3 = y2 - y0;
     if(y0 > le16toh(meg4.mmio.cropy0)) { y = y0; i = 0; } else { y = le16toh(meg4.mmio.cropy0); i = le16toh(meg4.mmio.cropy0) - y0; }
-    for(; i < d3 && y < le16toh(meg4.mmio.cropy1); i++, y++) {
+    if(cy > 400) cy = 400;
+    for(; i < d3 && y < cy; i++, y++) {
         h = i > d1 || y1 == y0; s = h ? d2 : d1;
         a = (float)i / (float)d3; ia = 1.0 - a; b = ((float)i - (float)(h ? d1 : 0)) / (float)s; ib = 1.0 - b;
         xa = ia * x0 + a * x2; xb = h ? ib * x1 + b * x2 : ib * x0 + b * x1;
         if(xa > xb) { j = xa; xa = xb; xb = j; }
         xs = xa < le16toh(meg4.mmio.cropx0) ? le16toh(meg4.mmio.cropx0) : xa;
         xe = xb < le16toh(meg4.mmio.cropx1) ? xb : le16toh(meg4.mmio.cropx1);
+        if(xe > 639) xe = 639;
         k = xs - xa; l = xb - xa + 1;
         e[0] = ia * c0[0] + a * c2[0]; e[1] = ia * c0[1] + a * c2[1]; e[2] = ia * c0[2] + a * c2[2]; e[3] = ia * c0[3] + a * c2[3];
         if(h) {
@@ -1889,27 +1903,32 @@ void meg4_api_rect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y
     uint8_t *c = (uint8_t*)&meg4.mmio.palette[(int)palidx];
     uint8_t *d;
     int i, x, xs, xe, r, g, b;
-    if(c[3] && x0 < x1 && y0 < y1 && x0 < le16toh(meg4.mmio.cropx1) && x1 > le16toh(meg4.mmio.cropx0) &&
-      y0 < le16toh(meg4.mmio.cropy1) && y1 > le16toh(meg4.mmio.cropy0)) {
-        xs = x0 < le16toh(meg4.mmio.cropx0) ? le16toh(meg4.mmio.cropx0) : x0;
-        xe = x1 < le16toh(meg4.mmio.cropx1) ? x1 : le16toh(meg4.mmio.cropx1);
+    int cx0 = le16toh(meg4.mmio.cropx0), cy0 = le16toh(meg4.mmio.cropy0), cx1 = le16toh(meg4.mmio.cropx1), cy1 = le16toh(meg4.mmio.cropy1);
+
+    if(cx1 > 640) cx1 = 640;
+    if(cy1 > 400) cy1 = 400;
+    if(c[3] && x0 < x1 && y0 < y1 && x0 < cx1 && x1 > cx0 && y0 < cy1 && y1 > cy0) {
+        xs = x0 < cx0 ? cx0 : x0;
+        xe = x1 < cx1 ? x1 : cx1;
+        if(xe > 639) xe = 639;
         i = 255 - c[3]; r = c[0]*c[3]; g = c[1]*c[3]; b = c[2]*c[3];
-        if(y0 >= le16toh(meg4.mmio.cropy0) && y0 < le16toh(meg4.mmio.cropy1)) {
+        if(y0 >= cy0 && y0 < cy1) {
             d = (uint8_t*)&meg4.vram[y0 * 640 + xs];
             for(x = xs; x <= xe; x++, d += 4) { d[2] = (b + i*d[2]) >> 8; d[1] = (g + i*d[1]) >> 8; d[0] = (r + i*d[0]) >> 8; }
         }
-        if(y1 >= le16toh(meg4.mmio.cropy0) && y1 < le16toh(meg4.mmio.cropy1)) {
+        if(y1 >= cy0 && y1 < cy1) {
             d = (uint8_t*)&meg4.vram[y1 * 640 + xs];
             for(x = xs; x <= xe; x++, d += 4) { d[2] = (b + i*d[2]) >> 8; d[1] = (g + i*d[1]) >> 8; d[0] = (r + i*d[0]) >> 8; }
         }
-        xs = y0 < le16toh(meg4.mmio.cropy0) ? le16toh(meg4.mmio.cropy0) : y0;
-        xe = y1 < le16toh(meg4.mmio.cropy1) ? y1 : le16toh(meg4.mmio.cropy1);
+        xs = y0 < cy0 ? cy0 : y0;
+        xe = y1 < cy1 ? y1 : cy1;
+        if(xe > 400) xe = 400;
         for(x = xs + 1; x < xe; x++) {
-            if(x0 >= le16toh(meg4.mmio.cropx0) && x0 < le16toh(meg4.mmio.cropy1)) {
+            if(x0 >= cx0 && x0 < cx1) {
                 d = (uint8_t*)&meg4.vram[x * 640 + x0];
                 d[2] = (b + i*d[2]) >> 8; d[1] = (g + i*d[1]) >> 8; d[0] = (r + i*d[0]) >> 8;
             }
-            if(x1 >= le16toh(meg4.mmio.cropx0) && x1 < le16toh(meg4.mmio.cropx1)) {
+            if(x1 >= cx0 && x1 < cx1) {
                 d = (uint8_t*)&meg4.vram[x * 640 + x1];
                 d[2] = (b + i*d[2]) >> 8; d[1] = (g + i*d[1]) >> 8; d[0] = (r + i*d[0]) >> 8;
             }
@@ -1937,6 +1956,8 @@ void meg4_api_frect(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t 
         xe = x1 < le16toh(meg4.mmio.cropx1) ? x1 : le16toh(meg4.mmio.cropx1);
         ys = y0 < le16toh(meg4.mmio.cropy0) ? le16toh(meg4.mmio.cropy0) : y0;
         ye = y1 < le16toh(meg4.mmio.cropy1) ? y1 : le16toh(meg4.mmio.cropy1);
+        if(xe > 639) xe = 639;
+        if(ye > 399) ye = 399;
         i = 255 - c[3]; r = c[0]*c[3]; g = c[1]*c[3]; b = c[2]*c[3];
         for(y = ys; y <= ye; y++) {
             d = (uint8_t*)&meg4.vram[y * 640 + xs];
@@ -2333,11 +2354,12 @@ void meg4_api_dlg(int16_t x, int16_t y, uint16_t w, uint16_t h, int8_t scale,
     int i, j, k, l, x0, x1, y0, y1, s, siz[] = { 1, 2, 4, 0, 8, 16, 24, 32 };
     if(scale < -3 || scale > 4) return;
     s = siz[(!scale ? 1 : scale) + 3];
-    if(x + s >= le16toh(meg4.mmio.cropx1) || y + s >= le16toh(meg4.mmio.cropy1) || w > 640 - 2 * s || h > 400 - 2 * s ||
-      x + w + s < le16toh(meg4.mmio.cropx0) || y + h + s < le16toh(meg4.mmio.cropy0)) return;
-    k = x + w; if(k > le16toh(meg4.mmio.cropx1)) k = le16toh(meg4.mmio.cropx1);
-    l = y + h; if(l > le16toh(meg4.mmio.cropy1)) l = le16toh(meg4.mmio.cropy1);
     x0 = le16toh(meg4.mmio.cropx0); x1 = le16toh(meg4.mmio.cropx1); y0 = le16toh(meg4.mmio.cropy0); y1 = le16toh(meg4.mmio.cropy1);
+    if(x >= x1 || y >= y1 || w > 640 - 2 * s || h > 400 - 2 * s || x + w + s < x0 || y + h + s < y0) return;
+    k = x + w; if(k > x1) k = x1;
+    l = y + h; if(l > y1) l = y1;
+    if(k > 640) k = 640;
+    if(l > 400) l = 400;
     if(y - s > y0) {
         meg4_spr(meg4.vram, 2560, x - s, y - s, tl, scale, 0);
         meg4.mmio.cropx1 = htole16(k);
@@ -2380,25 +2402,29 @@ void meg4_api_stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, 
 {
     uint32_t c;
     char *end, *t;
-    int l, s, siz[] = { 1, 2, 4, 0, 8, 16, 24, 32 };
+    int w, h, l, k, m, s, siz[] = { 1, 2, 4, 0, 8, 16, 24, 32 };
 
     if(x >= le16toh(meg4.mmio.cropx1) || y >= le16toh(meg4.mmio.cropy1) || fs > 1023 || sw < 1 || sh < 1 || scale < -3 || scale > 4 ||
       str < MEG4_MEM_USER || str >= MEG4_MEM_LIMIT) return;
     t = (char*)meg4.data + str - MEG4_MEM_USER;
     if(!*t) return;
     s = siz[(!scale ? 1 : scale) + 3];
+    w = s * sw; h = s * sh; k = 32 / sw; m = 32 * sh;
     /* force a maximum number of characters to display just in case */
     l = strlen(t); if(l > 256) { l = 256; } end = t + l;
     if((uintptr_t)t >= (uintptr_t)&meg4.data && (uintptr_t)t < (uintptr_t)&meg4.data + sizeof(meg4.data) &&
       end > (char*)meg4.data + sizeof(meg4.data) - 1)
         end = (char*)meg4.data + sizeof(meg4.data) - 1;
-    for(l = x; t < end && *t; x += s * sw) {
+    for(l = x - w; t < end && *t; x += w) {
         t = meg4_utf8(t, &c);
+        /* if there's no sprite for space, then just skip it */
+        if(fu > ' ' && c == ' ') continue;
+        /* handle newlines */
         if(c == '\r') { x = l; continue; }
-        if(c == '\n') { x = l; y += s * sh; continue; }
+        if(c == '\n') { x = l; y += h; continue; }
+        /* convert character to sprite and display */
         if(c < ' ' || c < fu) break;
-        /* TODO: take into account sprite height (sh) too */
-        c -= fu; c *= sw;
+        c -= fu; c = (c / k) * m + (c % k) * sw;
         if(y >= le16toh(meg4.mmio.cropy1) || fs + c > 1023) break;
         meg4_api_spr(x, y, fs + c, sw, sh, scale, 0);
     }
