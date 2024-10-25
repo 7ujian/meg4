@@ -1,53 +1,53 @@
 # Mapa pamięci
 
-## Różnorodny
+## Informacje ogólne
 
-Wszystkie wartości są w formacie little endian, więc mniejsza cyfra jest przechowywana pod mniejszym adresem.
+Wszystkie wartości w formie little endian, więc mniejsza cyfra jest przechowywana pod mniejszym adresem.
 
 | Offset | Rozmiar    | Opis                                                               |
 |--------|-----------:|--------------------------------------------------------------------|
-|  00000 |          1 | Wersja oprogramowania układowego MEG-4 główna                      |
-|  00001 |          1 | Wersja oprogramowania układowego MEG-4 mniejsza                    |
-|  00002 |          1 | Wersja oprogramowania układowego MEG-4 poprawka błędu              |
+|  00000 |          1 | MEG-4 wersja firmware - major                                      |
+|  00001 |          1 | MEG-4 wersja firmware - minor                                      |
+|  00002 |          1 | MEG-4 wersja firmware - poprawki                                   |
 |  00003 |          1 | licznik wydajności, niewykorzystany czas ostatniej klatki w 1/1000 sekundy |
 |  00004 |          4 | liczba tyknięć 1/1000 sekundy od włączenia zasilania               |
 |  00008 |          8 | Znak czasu UTC UNIX                                                |
 |  00010 |          2 | bieżąca lokalizacja                                                |
 
-Licznik wydajności pokazuje czas, który pozostał, gdy wygenerowano ostatnią klatkę. Jeśli jest to zero lub wartość
-ujemna, oznacza to, o ile funkcja loop() przekroczyła dostępny przedział czasowy.
+Licznik wydajności pokazuje czas niewykorzystany podczas generowania ostatniej ramki. Jeśli wartość ta wynosi zero lub jest ujemna, oznacza to
+jak bardzo funkcja loop() przekroczyła dostępne ramy czasowe.
 
 ## Wskaźnik
 
 | Offset | Rozmiar    | Opis                                                               |
 |--------|-----------:|--------------------------------------------------------------------|
-|  00012 |          2 | stan przycisków wskaźnika (patrz [getbtn] i [getclk])              |
-|  00014 |          2 | indeks sprite'a wskaźnika                                          |
-|  00016 |          2 | współrzędna wskaźnika X                                            |
-|  00018 |          2 | współrzędna wskaźnika Y                                            |
+|  00012 |          2 | wskaźnik stanu przycisków (zobacz [getbtn] i [getclk])             |
+|  00014 |          2 | wskaźnik indeksu sprite'a                                          |
+|  00016 |          2 | wskaźnik współrzędnej X                                            |
+|  00018 |          2 | wskaźnik współrzędnej Y                                            |
 
-Przyciski wskaźnika są następujące:
+Wskaźniki przycisków:
 
-| Define  | Maska bitowa | Opis                                                            |
+| Define  | Bitmask   | Opis                                                               |
 |---------|----------:|--------------------------------------------------------------------|
 | `BTN_L` |         1 | Lewy przycisk myszy                                                |
 | `BTN_M` |         2 | Środkowy przycisk myszy                                            |
 | `BTN_R` |         4 | Prawy przycisk myszy                                               |
-| `SCR_U` |         8 | Przewiń w górę                                                     |
-| `SCR_D` |        16 | Przewiń w dół                                                      |
-| `SCR_L` |        32 | Przewiń w lewo                                                     |
-| `SCR_R` |        64 | Przewiń w prawo                                                    |
+| `SCR_U` |         8 | Przewijanie do góry                                                |
+| `SCR_D` |        16 | Przewijanie w dół                                                  |
+| `SCR_L` |        32 | Przewijanie w lewo                                                 |
+| `SCR_R` |        64 | Przewijanie w prawo                                                |
 
-Górne bity indeksu sprite'a wskaźnika są używane dla punktów aktywnych: bit 13-15 hotspot Y, bit 10-12 hotspot X, bit 0-9 sprite.
-Istnieje kilka wstępnie zdefiniowanych wbudowanych kursorów:
+Górne bity indeksu wskaźnika sprite są używane dla hotspotów: bit 13-15 hotspot Y, bit 10-12 hotspot X, bit 0-9 sprite.
+Istnieją pewne predefiniowane wbudowane kursory:
 
 | Define       | Wartość   | Opis                                                          |
 |--------------|----------:|---------------------------------------------------------------|
-| `PTR_NORM`   |      03fb | Wskaźnik normalny (strzałka)                                  |
-| `PTR_TEXT`   |      03fc | Wskaźnik tekstu                                               |
-| `PTR_HAND`   |      0bfd | Wskaźnik łącza                                                |
-| `PTR_ERR`    |      93fe | Wskaźnik błędu                                                |
-| `PTR_NONE`   |      ffff | Wskaźnik jest ukryty                                          |
+| `PTR_NORM`   |      03fb | Zwykły kursor (strzałka)                                      |
+| `PTR_TEXT`   |      03fc | Kursor tekstu                                                 |
+| `PTR_HAND`   |      0bfd | Kursor odnośnika                                              |
+| `PTR_ERR`    |      93fe | Kursor błędu                                                  |
+| `PTR_NONE`   |      ffff | Kursor jest ukryty                                            |
 
 ## Klawiatura
 
@@ -225,9 +225,9 @@ Kody skanowania są następujące:
 |--------|-----------:|--------------------------------------------------------------------|
 |  0006E |          2 | próg joysticka gamepada (domyślnie 8000)                           |
 |  00070 |          8 | główny gamepad - mapowania kodów skanowania klawiatury (patrz [klawiatura]) |
-|  00078 |          4 | 4 stan naciśnięcia przycisku gamepada (patrz [getpad])             |
+|  00078 |          4 | 4 stany naciśnięcia przycisków gamepada (patrz [getpad])           |
 
-Przyciski gamepada są następujące:
+Przyciski gamepada:
 
 | Define  | Maska bitowa | Opis                                                            |
 |---------|----------:|--------------------------------------------------------------------|
@@ -242,7 +242,7 @@ Przyciski gamepada są następujące:
 
 Sekwencja `△△▽▽◁▷◁▷ⒷⒶ` powoduje naciśnięcie klawisza `KEY_CHEAT`.
 
-## Jednostka Przetwarzania Grafiki
+## Procesor graficzny
 
 | Offset | Rozmiar    | Opis                                                               |
 |--------|-----------:|--------------------------------------------------------------------|
@@ -309,7 +309,7 @@ Format każdego innego przebiegu:
 
 | Offset | Rozmiar    | Opis                                                               |
 |--------|-----------:|--------------------------------------------------------------------|
-|      0 |          2 | liczba próbek                                                      |
+|      0 |          2 | liczba sampli                                                      |
 |      2 |          2 | początek pętli                                                     |
 |      4 |          2 | długość pętli                                                      |
 |      6 |          1 | dostosuj wartość, od -8 do 7                                       |
@@ -321,9 +321,9 @@ każdym rzędzie, po jednej na każdy kanał, a rzędów jest 1024. W przypadku 
 
 | Offset | Rozmiar    | Opis                                                               |
 |--------|-----------:|--------------------------------------------------------------------|
-|      0 |          1 | numer notatki, patrz definicja `NOTE_x`, od 0 do 96                |
+|      0 |          1 | numer nuty, patrz definicja `NOTE_x`, od 0 do 96                   |
 |      1 |          1 | indeks przebiegu, od 0 do 31                                       |
-|      2 |          1 | typ efektu, od 0 do 255 (patrz [uwaga efekty])                     |
+|      2 |          1 | typ efektu, od 0 do 255 (patrz [efekty nut])                       |
 |      3 |          1 | parametr efektu                                                    |
 
 Zliczanie nut przebiega następująco: 0 oznacza brak ustawionej nuty. Następnie następuje 8 oktaw, każda z 12 nutami, więc 1
@@ -331,7 +331,7 @@ równa się C-0, 12 to B-0 (w najniższej oktawie), 13 to C-1 (oktawa wyżej), a
 nuta D w 4. oktawie to 1 + 4\*12 + 2 = 51. B-7 to 96, najwyższa nuta w najwyższej oktawie. Masz również wbudowane definicje,
 na przykład C-1 to `NOTE_C_1`, a C#1 to `NOTE_Cs1`, jeśli nie chcesz liczyć, możesz ich również użyć w swoim programie.
 
-## Uwaga Efekty
+## Efekty nut
 
 Dla uproszczenia MEG-4 używa tych samych kodów co plik Amiga MOD (w ten sposób zobaczysz to samo we wbudowanym edytorze, jak i
 w zewnętrznym trackerze muzycznym), ale nie obsługuje ich wszystkich. Jak wspomniano wcześniej, kody te są reprezentowane przez
@@ -388,9 +388,9 @@ w programie.
 
 Jeśli przypadkiem góra dynamicznie przydzielanych danych i dół stosu nałożą się na siebie, MEG-4 zgłosi błąd „Brak pamięci”.
 
-## Ciąg formatujący
+## Formatowanie ciągów
 
-Niektóre funkcje, [printf], [sprintf] i [trace] używają ciągu formatującego, który może zawierać znaki specjalne, aby odwołać się do
+Niektóre funkcje, [printf], [sprintf] i [trace] używają formatowania ciągów, można posłużyć się znakami specjalnymi, aby odwołać się do
 argumentów i opisać sposób ich wyświetlania. Są to:
 
 | Kod  | Opis                                                       |
@@ -402,7 +402,7 @@ argumentów i opisać sposób ich wyświetlania. Są to:
 | `%o` | Następny parametr jako liczba ósemkowa                     |
 | `%b` | Następny parametr jako liczba binarna                      |
 | `%f` | Następny parametr jako liczba zmiennoprzecinkowa           |
-| `%s` | Następny parametr jako ciąg                                |
+| `%s` | Następny parametr jako ciąg znaków                         |
 | `%c` | Następny parametr jako znak UTF-8                          |
 | `%p` | Następny parametr jako adres (wskaźnik)                    |
 | `\t` | Tab, napraw pozycję pionową przed kontynuowaniem           |
@@ -426,7 +426,7 @@ jest skierowany w stronę patrzącego.
 ```
 
 Każdy punkt musi być umieszczony w zakresie od -32767 do +32767. Sposób wyświetlania tego świata 3D na ekranie 2D zależy od
-konfiguracji kamery (patrz adres [Jednostka Przetwarzania Grafiki] 0049E). Oczywiście musisz umieścić kamerę w świecie, używając
+konfiguracji kamery (patrz adres [procesor graficzny] 0049E). Oczywiście musisz umieścić kamerę w świecie, używając
 współrzędnych X, Y, Z. Następnie musisz określić, w którą stronę patrzy kamera, używając kąta pochylenia i odchylenia. Na koniec
 musisz również określić, jaki obiektyw ma kamera, określając kąt pola widzenia. Ten ostatni powinien zwykle wynosić od 30
 (bardzo wąski) do 180 stopni (jak ryby i ptaki). MEG-4 obsługuje do 127 stopni, ale jest pewien trik. Dodatnie wartości FOV będą
@@ -440,7 +440,7 @@ chcesz wyświetlić wiele modeli w świecie, najpierw powinieneś je przetłumac
 a następnie użyć przetłumaczonej chmury wierzchołków za pomocą [mesh] (przesuwanie i obracanie modelu nie zmieni trójkątów, tylko
 ich współrzędne wierzchołków).
 
-## Skróty Edytora Kodu
+## Skróty klawiszowe Edytora Kodu
 
 Dodatkowe skróty [klawiatura], których możesz również użyć podczas edycji źródła:
 
@@ -448,7 +448,7 @@ Dodatkowe skróty [klawiatura], których możesz również użyć podczas edycji
 |------------------------------|--------------------------------------------------------------------------------------|
 | <kbd>Ctrl</kbd>+<kbd>F</kbd> | Znajdź ciąg |
 | <kbd>Ctrl</kbd>+<kbd>G</kbd> | Znajdź ponownie |
-| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Wyszukaj i zamień (w zaznaczonym tekście lub w jego braku, w całym źródle) |
+| <kbd>Ctrl</kbd>+<kbd>H</kbd> | Wyszukaj i zamień (w zaznaczonym tekście lub w całym źródle) |
 | <kbd>Ctrl</kbd>+<kbd>J</kbd> | Przejdź do linii |
 | <kbd>Ctrl</kbd>+<kbd>D</kbd> | Przejdź do definicji funkcji |
 | <kbd>Ctrl</kbd>+<kbd>N</kbd> | Wyświetl listę zakładek |
@@ -490,7 +490,7 @@ Wyświetla tekst na konsoli.
 </dd>
 <dt>Parametry</dt><dd>
 | Argument | Opis |
-| fmt | ciąg do wyświetlenia, [ciąg formatujący] |
+| fmt | ciąg do wyświetlenia, [formatowanie ciągów] |
 | ... | opcjonalne argumenty |
 </dd>
 <hr>
@@ -531,7 +531,7 @@ void trace(str_t fmt, ...)
 </dd>
 <dt>Parametry</dt><dd>
 | Argument | Opis |
-| fmt | [ciąg formatujący] |
+| fmt | [formatowanie ciągów] |
 | ... | opcjonalne argumenty |
 </dd>
 <hr>
@@ -642,7 +642,7 @@ Zwraca 0 w przypadku powodzenia, -1 w przypadku błędu (pin GPIO nie jest obsł
 [gpio_get]
 </dd>
 
-# Graphics
+# Grafika
 
 ## cls
 
@@ -3405,7 +3405,7 @@ Zwraca zakończony zerem ciąg UTF-8 utworzony przy użyciu formatu i argumentó
 </dd>
 <dt>Parametry</dt><dd>
 | Argument | Opis |
-| fmt | [ciąg formatujący] |
+| fmt | [formatowanie ciągów] |
 | ... | opcjonalne argumenty |
 </dd>
 <dt>Wartość zwracana</dt><dd>
