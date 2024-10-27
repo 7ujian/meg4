@@ -1457,6 +1457,51 @@ static __inline__ void meg4_fill(uint16_t x0, uint16_t x1, uint16_t y, uint8_t *
 }
 
 /**
+ * Draws an anti-aliased line. Coordinates have an 8 bit fixed point fractional part.
+ */
+static void meg4_line(uint8_t palidx, int x0, int y0, int x1, int y1)
+{
+    /* (coordinates here are signed, because the turtle might wander off screen) */
+    uint8_t *c = (uint8_t*)&meg4.mmio.palette[(int)palidx];
+    int sx, sy, dx, dy, x2, a, err, e2;
+    int cx0 = le16toh(meg4.mmio.cropx0), cy0 = le16toh(meg4.mmio.cropy0), cx1 = le16toh(meg4.mmio.cropx1), cy1 = le16toh(meg4.mmio.cropy1);
+
+    /* TODO: take fractional part into account when calculating err and e2, we just chop it off now */
+    x0 /= 256; y0 /= 256; x1 /= 256; y1 /= 256;
+
+    if(!c[3] || (x0 == x1 && y0 == y1) || (x0 < cx0 && x1 < cx0) || (x0 >= cx1 && x1 >= cx1) ||
+        (y0 < cy0 && y1 < cy0) || (y0 >= cy1 && y1 >= cy1)) return;
+
+    sx = x0 < x1 ? 1 : -1; sy = y0 < y1 ? 1 : -1;
+    dx = abs(x1-x0);       dy = abs(y1-y0);
+    err = dx*dx+dy*dy;     e2 = err == 0 ? 1 : 0xffff7fl/sqrt(err);
+
+    dx *= e2; dy *= e2; err = dx-dy;
+    while(1) {
+        a = err-dx+dy; if(a < 0) a = -a;
+        a = 255 - (a >> 16); a = a * c[3] / 255;
+        meg4_setpixel(x0, y0, c[0], c[1], c[2], a);
+        e2 = err; x2 = x0;
+        if(2*e2 >= -dx) {
+            if(x0 == x1) break;
+            if(e2+dy < 0xff0000l) {
+                a = 255 - ((e2+dy) >> 16); a = a * c[3] / 255;
+                meg4_setpixel(x0, y0 + sy, c[0], c[1], c[2], a);
+            }
+            err -= dy; x0 += sx;
+        }
+        if(2*e2 <= dy) {
+            if(y0 == y1) break;
+            if(dx-e2 < 0xff0000l) {
+                a = 255 - ((dx-e2) >> 16); a = a * c[3] / 255;
+                meg4_setpixel(x2 + sx, y0, c[0], c[1], c[2], a);
+            }
+            err += dx; y0 += sy;
+        }
+    }
+}
+
+/**
  * Recursively calculate Bezier curve
  */
 static int bezx, bezy;
@@ -1474,9 +1519,7 @@ static __inline__ void meg4_bezier(uint8_t palidx, int x0,int y0, int x1,int y1,
         meg4_bezier(palidx, m5x,m5y, m4x,m4y, m2x,m2y, x3,y3, l + 1);
     }
     if(l) {
-        /* FIXME: we should use a specialized line drawing routine here that uses 8 bit fixed precision coordinates and
-         * calculates alpha accordingly. This sticks the point to the pixel grid, thus loosing anti-alias details */
-        meg4_api_line(palidx, bezx >> 8, bezy >> 8, x3 >> 8, y3 >> 8);
+        meg4_line(palidx, bezx, bezy, x3, y3);
         bezx = x3; bezy = y3;
     }
 }
@@ -1600,35 +1643,12 @@ void meg4_api_text(uint8_t palidx, int16_t x, int16_t y, int8_t type, uint8_t sh
  */
 void meg4_api_line(uint8_t palidx, int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 {
-    /* (coordinates here are signed, because the turtle might wander off screen) */
     uint8_t *c = (uint8_t*)&meg4.mmio.palette[(int)palidx];
-    int sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1, x2, a;
-    int dx = abs(x1-x0), dy = abs(y1-y0), err = dx*dx+dy*dy;
-    int e2 = err == 0 ? 1 : 0xffff7fl/sqrt(err);
-
-    if(!c[3] || (x0 == x1 && y0 == y1)) return;
-    dx *= e2; dy *= e2; err = dx-dy;
-    while(1) {
-        a = err-dx+dy; if(a < 0) a = -a;
-        a = 255 - (a >> 16); a = a * c[3] / 255;
-        meg4_setpixel(x0, y0, c[0], c[1], c[2], a);
-        e2 = err; x2 = x0;
-        if(2*e2 >= -dx) {
-            if(x0 == x1) break;
-            if(e2+dy < 0xff0000l) {
-                a = 255 - ((e2+dy) >> 16); a = a * c[3] / 255;
-                meg4_setpixel(x0, y0 + sy, c[0], c[1], c[2], a);
-            }
-            err -= dy; x0 += sx;
-        }
-        if(2*e2 <= dy) {
-            if(y0 == y1) break;
-            if(dx-e2 < 0xff0000l) {
-                a = 255 - ((dx-e2) >> 16); a = a * c[3] / 255;
-                meg4_setpixel(x2 + sx, y0, c[0], c[1], c[2], a);
-            }
-            err += dx; y0 += sy;
-        }
+    if(c[3]) {
+        if(x0 == x1 && y0 == y1)
+            meg4_setpixel(x0, y0, c[0], c[1], c[2], c[3]);
+        else
+            meg4_line(palidx, x0 << 8, y0 << 8, x1 << 8, y1 << 8);
     }
 }
 
