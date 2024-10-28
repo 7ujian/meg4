@@ -1463,40 +1463,39 @@ static void meg4_line(uint8_t palidx, int x0, int y0, int x1, int y1)
 {
     /* (coordinates here are signed, because the turtle might wander off screen) */
     uint8_t *c = (uint8_t*)&meg4.mmio.palette[(int)palidx];
-    int sx, sy, dx, dy, x2, a, err, e2;
+    int64_t dx, dy, sx, sy, sfx, sfy, err, e, e2;
+    int x2, y2, ex, ey, a;
     int cx0 = le16toh(meg4.mmio.cropx0), cy0 = le16toh(meg4.mmio.cropy0), cx1 = le16toh(meg4.mmio.cropx1), cy1 = le16toh(meg4.mmio.cropy1);
 
-    /* TODO: take fractional part into account when calculating err and e2, we just chop it off now */
-    x0 /= 256; y0 /= 256; x1 /= 256; y1 /= 256;
+    x2 = x0 / 256; y2 = y0 / 256;
+    ex = x1 / 256; ey = y1 / 256;
+    if(!c[3] || (x2 == ex && y2 == ey) || (x2 < cx0 && ex < cx0) || (x2 >= cx1 && ex >= cx1) ||
+        (y2 < cy0 && ey < cy0) || (y2 >= cy1 && ey >= cy1)) return;
 
-    if(!c[3] || (x0 == x1 && y0 == y1) || (x0 < cx0 && x1 < cx0) || (x0 >= cx1 && x1 >= cx1) ||
-        (y0 < cy0 && y1 < cy0) || (y0 >= cy1 && y1 >= cy1)) return;
-
-    sx = x0 < x1 ? 1 : -1; sy = y0 < y1 ? 1 : -1;
-    dx = abs(x1-x0);       dy = abs(y1-y0);
-    err = dx*dx+dy*dy;     e2 = err == 0 ? 1 : 0xffff7fl/sqrt(err);
-
-    dx *= e2; dy *= e2; err = dx-dy;
+    sx = x0 < x1 ? 1 : -1;  sy = y0 < y1 ? 1 : -1;
+    sfx = sx * 256;         sfy = sy * 256;
+    dx = abs(x1-x0);        dy = abs(y1-y0);
+    a = dx >> 8;            e = dy >> 8;
+    err = ((dx*dx) >> 8) + ((dy*dy) >> 8);
+    e2 = err == 0 ? 1 : 0xffff7f / sqrt(a*a + e*e);
+    dx *= e2;               dy *= e2;
+    err = (dx + ((x0 & 0xff) << 24)) - (dy - ((y0 & 0xff) << 24));
     while(1) {
-        a = err-dx+dy; if(a < 0) a = -a;
-        a = 255 - (a >> 16); a = a * c[3] / 255;
-        meg4_setpixel(x0, y0, c[0], c[1], c[2], a);
-        e2 = err; x2 = x0;
-        if(2*e2 >= -dx) {
-            if(x0 == x1) break;
-            if(e2+dy < 0xff0000l) {
-                a = 255 - ((e2+dy) >> 16); a = a * c[3] / 255;
-                meg4_setpixel(x0, y0 + sy, c[0], c[1], c[2], a);
-            }
-            err -= dy; x0 += sx;
+        x2 = x0 >> 8; y2 = y0 >> 8;
+        a = err - dx + dy; if(a < 0) a = -a;
+        meg4_setpixel(x2, y2, c[0], c[1], c[2], (255 - (a >> 24)) * c[3] / 255);
+        e2 = 2 * err; e = err;
+        if(e2 >= -dx) {
+            if(x2 == ex) break;
+            a = (e+dy) >> 24;
+            if(a < 255) meg4_setpixel(x2, y2 + sy, c[0], c[1], c[2], (255 - a) * c[3] / 255);
+            err -= dy; x0 += sfx;
         }
-        if(2*e2 <= dy) {
-            if(y0 == y1) break;
-            if(dx-e2 < 0xff0000l) {
-                a = 255 - ((dx-e2) >> 16); a = a * c[3] / 255;
-                meg4_setpixel(x2 + sx, y0, c[0], c[1], c[2], a);
-            }
-            err += dx; y0 += sy;
+        if(e2 <= dy) {
+            if(y2 == ey) break;
+            a = (dx-e) >> 24;
+            if(a < 255) meg4_setpixel(x2 + sx, y2, c[0], c[1], c[2], (255 - a) * c[3] / 255);
+            err += dx; y0 += sfy;
         }
     }
 }
