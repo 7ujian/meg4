@@ -1,5 +1,5 @@
 MEG-4 libmeg4.a API
-==================
+===================
 
 This is the API of the `libmeg4.a` library, needed to know when you're porting it to new platforms. For the API used by your
 MEG-4 programs, see the [MEG-4 User's Manual](https://bztsrc.gitlab.io/meg4/manual_en.html).

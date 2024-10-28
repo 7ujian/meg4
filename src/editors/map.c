@@ -111,7 +111,7 @@ int map_ctrl(void)
         if(px >= 4 && px < 4+624 && py >= 16 && py < 16+294) {
             if(tool == 3)
                 toolbox_selrect(0, 0, 320, 200, tilesx, tilesy, tileex - tilesx + 1, tileey - tilesy + 1);
-            if(tool == 0 || inpaste)
+            if(tool == 0 || tool == 5 || inpaste)
                 toolbox_histadd();
         } else
         if(py >= 314 && py < 327) {
@@ -169,7 +169,7 @@ int map_ctrl(void)
                 if(py >= 346 && py < 360) key = (px - 60) / 16; else
                 if(py >= 362 && py < 376) key = 8 + (px - 60) / 16;
                 if(key >= 0)
-                    for(i = j = 0, npix = (spre & 31) - (sprs & 31) + 1; key + i < 16 && j < spre; i++) {
+                    for(i = 0, j = -1, npix = (spre & 31) - (sprs & 31) + 1; key + i < 16 && j < spre; i++) {
                         j = sprs + (i / npix) * 32 + (i % npix);
                         meg4.wangcfg[wang][key + i] = j;
                     }

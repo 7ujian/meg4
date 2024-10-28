@@ -50,7 +50,7 @@ véletlenszerűen választ egyet a kijelölt 4 fa-szprájt közül, ami már sok
 
 <h2>Wang csempék</h2>
 
-Amikor a Wang csempe eszköz van kiválasztva, akkor a Wang csempékészlet terület (<ui2>4</ui2>) aktívvá válik. Ezzel a szerszámmal
+Amikor a Wang csempe eszköz van kiválasztva, akkor a Wang csempekészlet terület (<ui2>4</ui2>) aktívvá válik. Ezzel a szerszámmal
 könnyedén lehet utakat, folyókat, várfalakat, stb. rajzolni.
 
 <imgc ../img/wang.png><fig>Wang csempe eszköz</fig>

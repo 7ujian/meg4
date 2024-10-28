@@ -31,7 +31,7 @@
 extern const char *copyright[3];
 static int menu_width = 0, menu_subwidth = 0, menu_sel = -1, menu_zip = 0, menu_pro = 0, menu_last = 0, subw = 0;
 static char *keys[12] = { "Ctrl\0R", "Ctrl\0S", "Ctrl\0L", "Ctrl\0⏎", "F1\0", "GUI\0", "AltGr\0", "Alt\0I", "Alt\0K", "Alt\0J", "Alt\0C", "Alt\0G" };
-static int keyw[28], titlew[HELP_TOC - MENU_HELP], zipt, zipa, zipe, zipl, zipb, zipo, zipw, zipbin = 0;
+static int keyw[28], titlew[HELP_TOC - MENU_HELP + 1], zipt, zipa, zipe, zipl, zipb, zipo, zipw, zipbin = 0;
 int menu_active = 0, menu_scroll, menu_scrmax, menu_scrhgt, menu_scrbtn, menu_scrpos, menu_scrsiz, menu_scrofs, menu_stat = 0, last = 0;
 
 /**
@@ -86,6 +86,7 @@ void menu_init(void)
     }
     for(i = MENU_HELP; i < HELP_TOC; i++)
         titlew[i - MENU_HELP] = meg4_width(meg4_font, 1, lang[i], NULL) / 2;
+    titlew[i - MENU_HELP] = meg4_width(meg4_font, 1, lang[MENU_RUN], NULL) / 2;
     zipt = meg4_width(meg4_font, 2, lang[MENU_EXPZIP], NULL);
     zipa = meg4_width(meg4_font, 2, lang[MENU_EXPWASM], NULL);
     zipe = meg4_width(meg4_font, 2, lang[MENU_EXPEXE], NULL);
@@ -259,8 +260,15 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
         case MEG4_MODE_OVERLAY: overlay_menu(dst, dw, dh, dp); break;
         case MEG4_MODE_LOAD: load_menu(dst, dw, dh, dp); break;
     }
-    i = menu_stat ? menu_stat - MENU_HELP : t;
-    meg4_text(dst, 320 - titlew[i], 1, dp, theme[THEME_MENU_FG], htole32(0x3f000000), 1, meg4_font, lang[i + MENU_HELP]);
+    /* menubar title */
+    if(menu_stat == MENU_RUN) {
+        i = MENU_RUN - MENU_HELP;
+        j = titlew[HELP_TOC - MENU_HELP];
+    } else {
+        i = menu_stat ? menu_stat - MENU_HELP : t;
+        j = titlew[i];
+    }
+    meg4_text(dst, 320 - j, 1, dp, theme[THEME_MENU_FG], htole32(0x3f000000), 1, meg4_font, lang[i + MENU_HELP]);
     /* popup menu */
     menu_sel = -1;
     if(!meg4_author[0]) meg4_pro = 0;
