@@ -25,9 +25,9 @@ When the <kbd>Shift</kbd> is hold down, then a line can be drawn from last modif
 <h2 map_tools>Toolbar</h2>
 
 Below the map editor area is the toolbar (<ui2>2</ui2>), same as on the [sprite editor] page, with exactly the same functionality
-and same keyboard shortcuts (but it can use sprite patterns too, see below). Next to the tool buttons you can find the zoom
-buttons and the map selector. This latter selects which sprite bank is used on the map (just for the editor. When your game runs,
-you'll have to set the byte at offset 0007F to change the map's sprite bank, see [Graphics Processing Unit]).
+and same keyboard shortcuts (but has a Wang tile tool and it can use sprite patterns too, see below). Next to the tool buttons you
+can find the zoom buttons and the map selector. This latter selects which sprite bank is used on the map (just for the editor. When
+your game runs, you'll have to set the byte at offset 0007F to change the map's sprite bank, see [Graphics Processing Unit]).
 
 <h2 map_sprs>Sprite Palette</h2>
 
@@ -44,6 +44,25 @@ randomly. For example, let's assume you have 4 sprites with different looking tr
 on the map, then those sprites will be placed always in the same order, repeating one after another, which isn't looking good for
 a forest. But if you press and hold down <kbd>Shift</kbd> during clicking with the fill tool, then each tile will be choosen
 randomly from those selected 4 tree sprites, which looks much more a real forest.
+
+<h2>Wang Tiles</h2>
+
+When the Wang tile tool is selected, the Wang tilesets area (<ui2>4</ui2>) becomes active. You can easily draw roads, rivers,
+castlewalls, etc. with this tool.
+
+<imgc ../img/wang.png><fig>Wang tile tool</fig>
+
+But before you could use it, you have to configure it. It can hold 64 different tilesets (eg. one for a river, one for a road,
+etc.), and each tileset has 16 sprites, one for each combination.
+
+To set it up, first select a sprite on the sprite palette, then click on the corresponding Wang tile button depending which
+combination that sprite represents. If you select more sprites on the palette, then you can set up more tiles at once (starting
+from the button you've clicked).
+
+NOTE: Wang tileset configurations are reserved and saved on your floppy.
+
+Now that you have a Wang tileset configured, you can use the tool just like paint, except it will automatically place the
+approprite sprite to draw continuous shapes on the map.
 
 3D Maze
 -------

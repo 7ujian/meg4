@@ -92,6 +92,7 @@
 "Pobierz barwę",
 "Zaznaczenie prostokątne",
 "Różdżka",
+"Płytki Wang",
 "Wybór kolorów HSV",
 "Powiększenie",
 "Wybór banku",

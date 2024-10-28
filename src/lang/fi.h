@@ -92,6 +92,7 @@
 "Picker",
 "Suorakulmio Valitse",
 "Sumea valinta",
+"Wang laatat",
 "HSV-värinvalitsin",
 "Zoomaus",
 "Pankin valitsin",

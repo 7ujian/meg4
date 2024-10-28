@@ -92,6 +92,7 @@
 "Recogedor",
 "Selección de rectángulo",
 "Selección difusa",
+"Mosaicos Wang",
 "Selector de color HSV",
 "Zoom",
 "Selector de banco",

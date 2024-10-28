@@ -92,6 +92,7 @@
 "Farbwähler",
 "Rechteck auswählen",
 "Fuzzy-Auswahl",
+"Wang-Kacheln",
 "HSV-Farbwähler",
 "Zoomen",
 "Bankauswahl",

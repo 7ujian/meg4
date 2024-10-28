@@ -224,7 +224,7 @@ int sprite_ctrl(void)
                     toolbox_paste(((wins & 31) << 3), ((wins >> 5) << 3), npix, npix, sprex, sprey);
                 } else
                 if(tool == 0)
-                    toolbox_paint(((wins & 31) << 3), ((wins >> 5) << 3), npix, npix, sprex, sprey, palidx, palidx);
+                    toolbox_paint(((wins & 31) << 3), ((wins >> 5) << 3), npix, npix, sprex, sprey, palidx, palidx, -1);
             } else
             /* sprite selector area movement */
             if(px >= 339 && px < 629 && py >= 23 && py < 313) {

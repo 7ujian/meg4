@@ -92,6 +92,7 @@
 "Berač",
 "Odabir pravokutnika",
 "Fuzzy Odaberite",
+"Wang pločice",
 "HSV birač boja",
 "Zum",
 "Odabir banke",

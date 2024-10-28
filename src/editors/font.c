@@ -194,7 +194,7 @@ int font_ctrl(void)
     if(last && clk) {
         if(px >= 11 && px < 11+40*8 && py >= 23 && py < 23+40*8) {
             /* glyph editor area move with click */
-            toolbox_paint(0, 0, 8, 8, ((px - 11) / 40), (py - 23) / 40, 0, 0);
+            toolbox_paint(0, 0, 8, 8, ((px - 11) / 40), (py - 23) / 40, 0, 0, -1);
             if(modified) meg4_recalcfont(idx, idx);
         }
     }

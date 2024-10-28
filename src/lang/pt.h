@@ -92,6 +92,7 @@
 "selecionador",
 "Selecionar Retângulo",
 "Seleção difusa",
+"Azulejos Wang",
 "Seletor de cores HSV",
 "Ampliação",
 "Seletor de banco",

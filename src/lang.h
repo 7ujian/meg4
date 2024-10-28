@@ -92,6 +92,7 @@ enum {
     STAT_PICKER,
     STAT_RECT,
     STAT_FUZZY,
+    STAT_WANG,
     STAT_HSV,
     STAT_ZOOM,
     STAT_BANK,

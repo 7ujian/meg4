@@ -25,7 +25,7 @@
 #include "editors.h"
 
 static int tool = 0, mapsel = 0, dx = -1, dy = -1, ox, oy, mm, mb, ms, mp, mo = 0, mx = 0, zoom = 0, sprs = 0, spre = 0;
-static int tilesx = 0, tilesy = 0, tileex = 0, tileey = 0, inpaste = 0;
+static int tilesx = 0, tilesy = 0, tileex = 0, tileey = 0, inpaste = 0, wang = 0;
 
 /**
  * Zoom in
@@ -73,7 +73,7 @@ void map_free(void)
  */
 int map_ctrl(void)
 {
-    int npix = (16 >> zoom), key, clk = le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_L;
+    int i, j, npix = (16 >> zoom), key, clk = le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_L;
     int px = le16toh(meg4.mmio.ptrx), py = le16toh(meg4.mmio.ptry);
 
     if(py >= 16 && py < 310 && px >= 4 && px < 628) {
@@ -132,6 +132,7 @@ int map_ctrl(void)
                 case 9:  tool = 2; inpaste = 0; break;
                 case 10: tool = 3; inpaste = 0; break;
                 case 11: tool = 4; inpaste = 0; break;
+                case 12: tool = 5; inpaste = 0; break;
             }
         } else
         if(py < 12) {
@@ -154,7 +155,25 @@ int map_ctrl(void)
         } else
         if(px >= 339 && px < 628 && py >= 317 && py < 390) {
             sprs = spre = ((py - 317) / 9) * 32 + (px - 339) / 9;
-            if(tool > 1) tool = 0;
+            if(tool > 1 && tool != 5) tool = 0;
+        } else
+        if(tool == 5) {
+            if(py >= 354 && py < 368) {
+                if(px >= 192 && px < 206) memset(&meg4.wangcfg[wang], 0, sizeof(meg4.wangcfg[0]));
+                if(px >= 10 && px < 24) wang--;
+                if(px >= 42 && px < 56) wang++;
+                wang &= 63;
+            }
+            if(px >= 60 && px < 60 + 8*16) {
+                key = -1;
+                if(py >= 346 && py < 360) key = (px - 60) / 16; else
+                if(py >= 362 && py < 376) key = 8 + (px - 60) / 16;
+                if(key >= 0)
+                    for(i = j = 0, npix = (spre & 31) - (sprs & 31) + 1; key + i < 16 && j < spre; i++) {
+                        j = sprs + (i / npix) * 32 + (i % npix);
+                        meg4.wangcfg[wang][key + i] = j;
+                    }
+            }
         }
     } else
     if(last && clk) {
@@ -162,8 +181,8 @@ int map_ctrl(void)
             if(inpaste) {
                 toolbox_paste(0, 0, 320, 200, tileex, tileey);
             } else
-            if(tool == 0)
-                toolbox_paint(0, 0, 320, 200, tileex, tileey, sprs, spre);
+            if(tool == 0 || tool == 5)
+                toolbox_paint(0, 0, 320, 200, tileex, tileey, sprs, spre, tool == 5 ? wang : -1);
         } else
         if(px >= 339 && px < 628 && py >= 317 && py < 390) {
             spre = ((py - 317) / 9) * 32 + (px - 339) / 9;
@@ -239,7 +258,7 @@ void map_menu(uint32_t *dst, int dw, int dh, int dp)
 void map_view(void)
 {
     int i, j, k, l, p, npix = (16 >> zoom);
-    char tmp[2] = { 0 };
+    char tmp[8] = { 0 };
 
     menu_scrhgt = 294; menu_scrmax = 200 * npix;
     if(menu_scroll + menu_scrhgt >= menu_scrmax) menu_scroll = menu_scrmax - menu_scrhgt;
@@ -278,9 +297,30 @@ void map_view(void)
     toolbox_btn(240, 302, 0x0e, 0);
     toolbox_btn(256, 302, 0x0f, 0);
     toolbox_btn(296, 302, 0x11, 0);
-    tmp[0] = '0' + mapsel;
+    tmp[0] = '0' + mapsel; tmp[1] = 0;
     meg4_text(meg4.valt, 312, 304, 2560, theme[THEME_FG], 0, 1, meg4_font, tmp);
     toolbox_btn(319, 302, 0x10, 0);
+
+    /* wang tiles */
+    j = tool == 5 ? 0 : -1;
+    toolbox_btn(10, 342, 0x11, j);
+    sprintf(tmp, "%u", wang);
+    meg4_text(meg4.valt, 39 - meg4_width(meg4_font, 1, tmp, tmp + 2), 344, 2560,
+        theme[tool == 5 ? THEME_FG : THEME_L], 0, 1, meg4_font, tmp);
+    toolbox_btn(42, 342, 0x10, j);
+    for(i = 0; i < 8; i++) {
+        k = toolbox_btn(60 + i * 16, 334, 0x80 + i, j);
+        if(tool == 5 && meg4.wangcfg[wang][i]) {
+            l = (mapsel << 3) + meg4.wangcfg[wang][i];
+            toolbox_blit(63 + i * 16, 337 + k, 2560, 8, 8, (l & 31) << 3, (l >> 5) << 3, 8, 8, 256, -1);
+        }
+        k = toolbox_btn(60 + i * 16, 350, 0x88 + i, j);
+        if(tool == 5 && meg4.wangcfg[wang][8 + i]) {
+            l = (mapsel << 3) + meg4.wangcfg[wang][8 + i];
+            toolbox_blit(63 + i * 16, 353 + k, 2560, 8, 8, (l & 31) << 3, (l >> 5) << 3, 8, 8, 256, -1);
+        }
+    }
+    toolbox_btn(192, 342, 0x7f, j);
 
     /* sprite palette */
     meg4_box(meg4.valt, 640, 388, 2560, 338, 302, 291, 75, theme[THEME_D], theme[THEME_BG], theme[THEME_L], 0, 0, 0, 9, 9);

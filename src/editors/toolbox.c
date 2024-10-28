@@ -106,7 +106,7 @@ void toolbox_bounds(void)
 /**
  * "Paint", set one pixel or a brush at given position, with left click to color, with right click clear
  */
-void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe)
+void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe, int wang)
 {
     static int paintline = 0;
     int i, j, w, h, dx, dy, err, e2;
@@ -122,7 +122,7 @@ void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, u
         x = lsx; y = lsy; ts = 0;
         paintline = 1;
         for(;;){
-            toolbox_paint(sx, sy, sw, sh, x, y, idxs, idxe);
+            toolbox_paint(sx, sy, sw, sh, x, y, idxs, idxe, wang);
             e2 = 2*err;
             if (e2 >= dy) { if (x == lex) { break; } err += dy; x += i; }
             if (e2 <= dx) { if (y == ley) { break; } err += dx; y += j; }
@@ -143,6 +143,33 @@ void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, u
     } else {
         if(!tb || (tc && ts > 0 && !tc[(y + sy + th) * tp + sx + x])) return;
         lsx = sx + x; lsy = sy + y;
+        if(wang >= 0) {
+            x += sx; y += sy;
+            for(i = j = 0; i < 16; i++) {
+                if(!meg4.wangcfg[wang][i]) continue;
+                if(y > 0 && tb[(y - 1) * tp + x] == meg4.wangcfg[wang][i]) {
+                    if(!(i & 4) && meg4.wangcfg[wang][i | 4])
+                        tb[(y - 1) * tp + x] = meg4.wangcfg[wang][i | 4];
+                    j |= 1;
+                }
+                if(x + 1 < sw && tb[y * tp + x + 1] == meg4.wangcfg[wang][i]) {
+                    if(!(i & 8) && meg4.wangcfg[wang][i | 8])
+                        tb[y * tp + x + 1] = meg4.wangcfg[wang][i | 8];
+                    j |= 2;
+                }
+                if(y + 1 < sh && tb[(y + 1) * tp + x] == meg4.wangcfg[wang][i]) {
+                    if(!(i & 1) && meg4.wangcfg[wang][i | 1])
+                        tb[(y + 1) * tp + x] = meg4.wangcfg[wang][i | 1];
+                    j |= 4;
+                }
+                if(x > 0 && tb[y * tp + x - 1] == meg4.wangcfg[wang][i]) {
+                    if(!(i & 2) && meg4.wangcfg[wang][i | 2])
+                        tb[y * tp + x - 1] = meg4.wangcfg[wang][i | 2];
+                    j |= 8;
+                }
+            }
+            tb[y * tp + x] = meg4.wangcfg[wang][j];
+        } else
         if(idxs == idxe) {
             tb[(y + sy) * tp + sx + x] = meg4.mode == MEG4_MODE_SPRITE && ((le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_R)) ? 0 : idxs;
         } else {
@@ -577,16 +604,22 @@ void toolbox_flh(int sx, int sy, int sw, int sh)
 /**
  * Button
  */
-void toolbox_btn(int x, int y, int c, int t)
+int toolbox_btn(int x, int y, int c, int t)
 {
+    if(t < 0) {
+        meg4_box(meg4.valt, 640, 388, 2560, x, y, 13, 13, theme[THEME_L], theme[THEME_L], theme[THEME_L], 0, 0, 0, 0, 0);
+        meg4_char(meg4.valt, 2560, x + 3, y + 3, theme[THEME_D], 1, meg4_font, c);
+    } else
     if(t || ((le16toh(meg4.mmio.ptrbtn) & MEG4_BTN_L) && le16toh(meg4.mmio.ptry) >= y + 12 && le16toh(meg4.mmio.ptry) < y + 25 &&
       le16toh(meg4.mmio.ptrx) >= x && le16toh(meg4.mmio.ptrx) < x + 13)) {
         meg4_box(meg4.valt, 640, 388, 2560, x, y, 13, 13, theme[THEME_BTN_D], theme[t > 0 ? THEME_SEL_BG : THEME_BTN_BG], theme[THEME_BTN_L], 0, 0, 0, 0, 0);
         meg4_char(meg4.valt, 2560, x + 3, y + 4, theme[t > 0 ? THEME_SEL_FG : THEME_BTN_FG], 1, meg4_font, c);
+        return 1;
     } else {
         meg4_box(meg4.valt, 640, 388, 2560, x, y, 13, 13, theme[THEME_BTN_L], theme[THEME_BTN_BG], theme[THEME_BTN_D], 0, 0, 0, 0, 0);
         meg4_char(meg4.valt, 2560, x + 3, y + 3, theme[THEME_BTN_FG], 1, meg4_font, c);
     }
+    return 0;
 }
 
 /**
@@ -829,7 +862,7 @@ void toolbox_view(int x, int y, int type)
 {
     int sintbl[] = { 0x14, 0x20, 0x2c, 0x36, 0x3d, 0x3f, 0x3f, 0x3f, 0x3f, 0x3f, 0x3f, 0x3f, 0x3d, 0x36, 0x2c, 0x20 };
     ta = sintbl[(le16toh(meg4.mmio.tick) >> 7) & 15];
-    tx = x; ty = y; tn = type < 0 ? 7 : 12;
+    tx = x; ty = y; tn = type < 0 ? 7 : (meg4.mode == MEG4_MODE_MAP ? 13 : 12);
     toolbox_btn(x, y, 0x1b, 0);
     toolbox_btn(x + 16, y, 0x18, 0);
     toolbox_btn(x + 32, y, 0x19, 0);
@@ -841,8 +874,10 @@ void toolbox_view(int x, int y, int type)
         toolbox_btn(x + 112, y, 0x13, type == 0);
         toolbox_btn(x + 128, y, 0x14, type == 1);
         toolbox_btn(x + 144, y, 0x15, type == 2);
-        toolbox_btn(x + 160, y, 0x16, type == 3);
+        toolbox_btn(x + 160, y, 0x00, type == 3);
         toolbox_btn(x + 176, y, 0x17, type == 4);
+        if(meg4.mode == MEG4_MODE_MAP)
+            toolbox_btn(x + 192, y, 0x16, type == 5);
     }
 }
 

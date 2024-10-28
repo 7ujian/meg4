@@ -26,9 +26,10 @@ Ha lenyomjuk a <kbd>Shift</kbd>-et, akkor vonalat húzhatunk a legutóbb módos�
 <h2 map_tools>Eszköztár</h2>
 
 A térképszerkesztő mező alatt található az eszköztár (<ui2>2</ui2>), ugyanaz, mint a [szprájt szerkesztő] képernyőn, ugyanazokkal
-a funkciókkal és ugyanazokkal a gyorsgombokkal (csak itt használhatók szprájtminták is, lásd alább). Az eszközgombok mellett vannak
-a nagyítás és kicsinyítés gombok, ezek után pedig a szprájtbankválasztó a szprájtpaletta választáshoz (de csak a szerkesztőben.
-Amikor a programod fut, akkor a 0007F címen lévő bájtot kell állítani a bankok váltásához, lásd [Grafikus Feldolgozó Egység]).
+a funkciókkal és ugyanazokkal a gyorsgombokkal (csak itt van még egy Wang csempe eszköz és használhatók szprájtminták is, lásd
+alább). Az eszközgombok mellett vannak a nagyítás és kicsinyítés gombok, ezek után pedig a szprájtbankválasztó a szprájtpaletta
+választáshoz (de csak a szerkesztőben. Amikor a programod fut, akkor a 0007F címen lévő bájtot kell állítani a bankok váltásához,
+lásd [Grafikus Feldolgozó Egység]).
 
 <h2 map_sprs>Szprájtpaletta</h2>
 
@@ -46,6 +47,25 @@ szprájtok közül. Például, tegyük fel, hogy van 4 féle különböző szpr�
 szánt részt a térképen, akkor ezek a szprájtok libasorban, egymásután ismételve kerülnek elhelyezésre, ami nem néz ki túl jól
 erdőként. Viszont ha lenyomva tartod a <kbd>Shift</kbd>-et, miközben a kitöltéssel kattintasz, akkor minden mezőhöz
 véletlenszerűen választ egyet a kijelölt 4 fa-szprájt közül, ami már sokkal inkább néz ki igazi erdőnek.
+
+<h2>Wang csempék</h2>
+
+Amikor a Wang csempe eszköz van kiválasztva, akkor a Wang csempékészlet terület (<ui2>4</ui2>) aktívvá válik. Ezzel a szerszámmal
+könnyedén lehet utakat, folyókat, várfalakat, stb. rajzolni.
+
+<imgc ../img/wang.png><fig>Wang csempe eszköz</fig>
+
+Azonban mielőtt használhatnánk, előbb be kell konfigurálni. Összesen 64 különfélé csempekészlet adható meg (pl. egy a folyónak, egy
+az útnak, stb.), és mindegyik készlet 16 különböző szprájtot tartalmaz, minden kombinációhoz egyet.
+
+A csempekészletet úgy kell beállítani, hogy előbb a szprájtpalettán kiválasztunk egy szprájtot, majd a Wang csempe gombjára
+kattintva megadjuk, hogy melyik kombinációt ábrázolja. Amennyiben több szprájt is ki van választva, úgy egyszerre több csempe
+is beállítódik (attól a gombtól kezdve, amelyikre kattintottunk).
+
+NOTE: A Wang csempekészletbeállítások megőrződnek, el lesznek mentve a flopira.
+
+Ha már van egy Wang csempekészlet beállítva, akkor a szerszám pontosan ugyanúgy használható, mint a ceruza, csak épp automatikusan
+fogja kiválasztani, hogy melyik csempére van épp szüksége ahhoz, hogy folyamatos mintákat rajzoljon a térképre.
 
 3D-s útvesztő
 -------------

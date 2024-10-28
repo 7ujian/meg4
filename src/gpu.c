@@ -1507,7 +1507,7 @@ static int bezx, bezy;
 static __inline__ void meg4_bezier(uint8_t palidx, int x0,int y0, int x1,int y1, int x2,int y2, int x3,int y3, int l)
 {
     int m0x, m0y, m1x, m1y, m2x, m2y, m3x, m3y, m4x, m4y,m5x, m5y;
-    if(l < 8 && (x0 != x3 || y0 != y3)) {
+    if(l < 5 && (x0 != x3 || y0 != y3)) {
         m0x = ((x1-x0)/2) + x0;     m0y = ((y1-y0)/2) + y0;
         m1x = ((x2-x1)/2) + x1;     m1y = ((y2-y1)/2) + y1;
         m2x = ((x3-x2)/2) + x2;     m2y = ((y3-y2)/2) + y2;

@@ -92,6 +92,7 @@
 "Szippantó",
 "Téglalap kijelölése",
 "Azonosak kijelölése",
+"Wang csempe",
 "HSV Színválasztó",
 "Nagyítás/Kicsinyítés",
 "Bankválasztó",

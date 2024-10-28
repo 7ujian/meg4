@@ -2,7 +2,6 @@
   to be used with gendoc, like this:
   $ gendoc ../../public/manual_en.html manual.xml
   see https://gitlab.com/bztsrc/gendoc
-  it will give a lot of warnings about missing dl tags, that's fine
 -->
 <doc>
     <titleimg>../img/logo.png MEG-4</titleimg>

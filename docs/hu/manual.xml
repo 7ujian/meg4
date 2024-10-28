@@ -2,7 +2,6 @@
   gendoc-kal kell használni, így:
   $ gendoc ../../public/manual_en.html manual.xml
   lásd https://gitlab.com/bztsrc/gendoc
-  reklamálni fog egy csomó hiányzó dl tegre, de ez nem gond
 -->
 <doc>
     <titleimg>../img/logo.png MEG-4</titleimg>

@@ -92,6 +92,7 @@
 "Raccoglitore",
 "Selezione rettangolo",
 "Selezione sfocata",
+"Tessere Wang",
 "Selettore colore HSV",
 "Ingrandisci",
 "Selettore banca",

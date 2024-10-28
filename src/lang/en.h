@@ -92,6 +92,7 @@
 "Picker",
 "Rectangle Select",
 "Fuzzy Select",
+"Wang Tiles",
 "HSV Color Picker",
 "Zoom",
 "Bank Selector",

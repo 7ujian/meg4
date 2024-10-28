@@ -92,6 +92,7 @@
 "Seçici",
 "Dikdörtgen Seçimi",
 "Bulanık Seçim",
+"Wang fayansları",
 "HSV Renk Seçici",
 "Yakınlaştır",
 "Banka Seçici",

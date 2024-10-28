@@ -198,7 +198,7 @@ This is an optional multiple chunk.
 |-------:|------:|--------------------------------------------------------|
 |      0 |     1 | Magic 12, `MEG4_CHUNK_WANGCFG`                         |
 |      1 |     3 | at least 5                                             |
-|      4 |     1 | wang index (valid values 0 - 255)                      |
+|      4 |     1 | wang index (valid values 0 - 63)                       |
 |      5 |     x | wang data                                              |
 
 This chunk stores the wang tileset configuration for the Map Editor. It is just technical, not used by the game in any way.

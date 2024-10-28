@@ -87,7 +87,7 @@ void textinp_view(uint32_t *dst, int dp);
 int  textinp_cursor(uint32_t *dst, int dp);
 
 /* toolbox.c */
-void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe);
+void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe, int wang);
 void toolbox_fill(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe);
 uint8_t toolbox_pick(int sx, int sy, int sw, int sh, int x, int y);
 void toolbox_selall(int sx, int sy, int sw, int sh);
@@ -107,7 +107,7 @@ void toolbox_shr(int sx, int sy, int sw, int sh);
 void toolbox_rcw(int sx, int sy, int sw, int sh);
 void toolbox_flv(int sx, int sy, int sw, int sh);
 void toolbox_flh(int sx, int sy, int sw, int sh);
-void toolbox_btn(int x, int y, int c, int t);
+int  toolbox_btn(int x, int y, int c, int t);
 void toolbox_histadd(void);
 void toolbox_histundo(void);
 void toolbox_histredo(void);

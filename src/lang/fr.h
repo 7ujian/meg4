@@ -92,6 +92,7 @@
 "Cueilleur",
 "Sélection rectangulaire",
 "Sélection floue",
+"Tuiles Wang",
 "Sélecteur de couleurs HSV",
 "Zoom",
 "Sélecteur de banque",

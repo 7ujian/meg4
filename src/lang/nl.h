@@ -92,6 +92,7 @@
 "Plukker",
 "Rechthoek selecteren",
 "Vage selectie",
+"Wang tegels",
 "HSV Kleurkiezer",
 "Zoom",
 "Bankkiezer",
