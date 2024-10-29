@@ -698,7 +698,9 @@ int main_savefile(const char *name, uint8_t *buf, int len)
         mkdir(path, 0755);
         strcat(path, SEP);
         strcat(path, name);
-        return main_writefile(path, buf, len);
+        ret = main_writefile(path, buf, len);
+        if(!memcmp(buf, "\177ELF", 4)) chmod(path, 0755);
+        return ret;
     }
 #ifndef EMBED
     else {
