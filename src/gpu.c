@@ -1257,7 +1257,7 @@ int meg4_text(uint32_t *dst, int dx, int dy, int dp, uint32_t color, uint32_t sh
 
     if(type < -4 || type > 4 || !font || !str || (type && (!dst || dx < 0 || dy < 0 || dp < 4))) return 0;
     /* force a maximum number of characters to display just in case */
-    l = strlen(str); if(l > 256) { l = 256; } end = str + l;
+    l = strlen(str); if(l > 2048) { l = 2048; } end = str + l;
     if((uintptr_t)str >= (uintptr_t)&meg4.data && (uintptr_t)str < (uintptr_t)&meg4.data + sizeof(meg4.data) &&
       end > (char*)meg4.data + sizeof(meg4.data) - 1)
         end = (char*)meg4.data + sizeof(meg4.data) - 1;
@@ -2430,7 +2430,7 @@ void meg4_api_stext(int16_t x, int16_t y, uint16_t fs, uint16_t fu, uint8_t sw, 
     s = siz[(!scale ? 1 : scale) + 3];
     w = s * sw; h = s * sh; k = 32 / sw; m = 32 * sh;
     /* force a maximum number of characters to display just in case */
-    l = strlen(t); if(l > 256) { l = 256; } end = t + l;
+    l = strlen(t); if(l > 2048) { l = 2048; } end = t + l;
     if((uintptr_t)t >= (uintptr_t)&meg4.data && (uintptr_t)t < (uintptr_t)&meg4.data + sizeof(meg4.data) &&
       end > (char*)meg4.data + sizeof(meg4.data) - 1)
         end = (char*)meg4.data + sizeof(meg4.data) - 1;

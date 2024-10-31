@@ -75,6 +75,7 @@
 "Kopieren",
 "Einfügen",
 "Löschen",
+"Neuladen aus ROM",
 "Abspielen/Stopp",
 "Zeile einfügen",
 "Zeile löschen",

@@ -75,6 +75,7 @@
 "Copie",
 "Pastă",
 "Şterge",
+"Reîncărcați din ROM",
 "Redare/Oprire",
 "Inserați rând",
 "Ștergeți rândul",

@@ -75,6 +75,7 @@
 "Kopio",
 "Liitä",
 "Poista",
+"Lataa uudelleen ROM-muistista",
 "Toista/Lopeta",
 "Lisää rivi",
 "Poista rivi",

@@ -187,8 +187,10 @@ void meg4_export(char *name, int binary)
         }
     }
 
-    /* font (only save if it differs to the built-in one) */
-    if(!meg4_isbyte(meg4.font, 0, 32 * 8) || memcmp(meg4.font + 32 * 8, meg4_font + 32 * 8, 65504 * 8)) {
+    /* font (only save if it differs to the built-in one, but we skip control codes 0 - 31 and 128 - 159) */
+    if((meg4_font && (!meg4_isbyte(meg4.font, 0, 32 * 8) || memcmp(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96) ||
+       !meg4_isbyte(meg4.font + 8 * 128, 0, 8 * 32) || memcmp(meg4.font + 8 * 160, meg4_font + 8 * 160, 8 * 65376))) ||
+       (!meg4_font && !meg4_isbyte(meg4.font, 0, 8 * 65536))) {
         for(i = len = 0; i < 65536; i++) if(i == 0 || i == 32 || i == 160 || !meg4_isbyte(meg4.font + (i << 3), 0, 8)) len++;
         if(binary) {
             out = (uint8_t*)malloc(32 + len * 16);
@@ -402,6 +404,25 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
 
     /* memory overlays (do this soon, in case the overlay's data contains some magic bytes which would be interpreted) */
     if(name && strlen(name) == 9 && !memcmp(name, "mem", 3) && name[5] == '.') {
+        if(!memcmp(name + 6, "txt", 4)) {
+            /* for hexdump format, len contains the string's length, we need to get highest address in hexdump */
+            for(s = buf, len = 0; s < end - 10;) {
+                if(*s != '*') {
+                    j = gethex(s, 8);
+                    while(s + 2 < end && *s != ':' && *s != ' ' && *s != '\r' && *s != '\n') s++;
+                    if(*s == ':' || *s == ' ') s++;
+                    if(*s == ' ') s++;
+                    for(k = 0; k < 16 && s + 2 < end; k++) {
+                        if(*s != ' ') j++;
+                        s += 3;
+                        if(*s == ' ') s++;
+                    }
+                    if(j > len) len = j;
+                }
+                while(s < end && *s && *s != '\r' && *s != '\n') s++;
+                while(s < end && (*s == '\r' || *s == '\n')) s++;
+            }
+        }
         i = gethex((uint8_t*)name + 3, 2);
         if(len > MEG4_MEM_USER + (int)sizeof(meg4.data)) len = MEG4_MEM_USER + (int)sizeof(meg4.data);
         meg4.ovls[i].size = len;
@@ -417,11 +438,16 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
                 main_log(1, "memory overlay %02X (hex) detected", i);
                 memset(meg4.ovls[i].data, 0, len);
                 for(s = buf; s < end - 10;) {
-                    j = gethex(s, 8); s += 9; if(*s == ' ') s++;
-                    if(j >= len) break;
-                    for(k = 0; k < 16 && j + k < len; k++) {
-                        meg4.ovls[i].data[j + k] = gethex(s, 2); s += 3;
+                    if(*s != '*') {
+                        j = gethex(s, 8);
+                        while(s + 2 < end && *s != ':' && *s != ' ' && *s != '\r' && *s != '\n') s++;
+                        if(*s == ':' || *s == ' ') s++;
                         if(*s == ' ') s++;
+                        if(j >= len) break;
+                        for(k = 0; k < 16 && j + k < len; k++) {
+                            meg4.ovls[i].data[j + k] = gethex(s, 2); s += 3;
+                            if(*s == ' ') s++;
+                        }
                     }
                     while(s < end && *s && *s != '\r' && *s != '\n') s++;
                     while(s < end && (*s == '\r' || *s == '\n')) s++;
@@ -450,7 +476,7 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
     if(!memcmp(buf, "\x89PNG", 4)) {
         i = ((buf[18] << 8) | buf[19]); j = ((buf[22] << 8) | buf[23]);
         if(i == 256 && j == 256) {
-            for(s = buf + 8; s < end - 12; s += k + 12) {
+            for(s = buf + 8, k = 1; s < end - 12 && k > 0; s += k + 12) {
                 k = ((s[0] << 24) | (s[1] << 16) | (s[2] << 8) | s[3]);
                 /* could be a tic-80 cartridge */
                 if(!memcmp(s + 4, "caRt", 4)) { e = s + 8; goto ticbin; }
@@ -643,6 +669,7 @@ readuints:                  for(i = j = 0; j < h; data++) {
     if(len > 32 && !memcmp(buf, "SFN2", 4) && buf[10] == 8 && buf[11] == 8) {
         main_log(1, "font (ssfn) detected");
         memset(meg4.font, 0, sizeof(meg4.font));
+        if(meg4_font) memcpy(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96);
         for(s = buf + le32toh(*((uint32_t*)(buf + 16))), c = 0; c < 0x010000 && s < end; c++) {
             if(s[0] == 0xFF) { c += 65535; s++; } else
             if((s[0] & 0xC0) == 0xC0) { j = (((s[0] & 0x3F) << 8) | s[1]); c += j; s += 2; } else
@@ -672,6 +699,7 @@ readuints:                  for(i = j = 0; j < h; data++) {
     if(len > 9 && !memcmp(buf, "STARTFONT", 9)) {
         main_log(1, "font (bdf) detected");
         memset(meg4.font, 0, sizeof(meg4.font));
+        if(meg4_font) memcpy(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96);
         for(b = w = h = l = t = 0, s = buf, unicode = b = 0; s < end - 8 && *s; ) {
             if(!memcmp(s, "FONT_ASCENT ", 12)) { s += 12; b = atoi((char*)s); } else
             if(!memcmp(s, "ENCODING ", 9)) { s += 9; unicode = atoi((char*)s); } else
@@ -704,6 +732,7 @@ readuints:                  for(i = j = 0; j < h; data++) {
     if(len > 12 && !memcmp(buf, "SplineFontDB", 12)) {
         main_log(1, "font (sfd) detected");
         memset(meg4.font, 0, sizeof(meg4.font));
+        if(meg4_font) memcpy(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96);
         for(a = b = 0, s = buf; s < end - 8 && *s; ) {
             if(!memcmp(s, "BitmapFont: ", 12)) {
                 s += 12; while(*s == ' ') s++;
@@ -754,6 +783,7 @@ readuints:                  for(i = j = 0; j < h; data++) {
     if(len > 32 && buf[0]==0x72 && buf[1]==0xB5 && buf[2]==0x4A && buf[3]==0x86 && buf[8]==32 && buf[24]==8 && buf[28]==8) {
         main_log(1, "font (psf) detected");
         memset(meg4.font, 0, sizeof(meg4.font));
+        if(meg4_font) memcpy(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96);
         a = (buf[17] << 8) | buf[16];
         frg = buf + 32; ptr = frg + a * 8;
         if(ptr < end) {

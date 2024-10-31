@@ -75,6 +75,7 @@
 "Copiar",
 "Pegar",
 "Borrar",
+"Recargar desde ROM",
 "Reproducir/Detener",
 "Insertar fila",
 "Borrar fila",

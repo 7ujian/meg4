@@ -75,6 +75,7 @@
 "cópia de",
 "Colar",
 "Apagar",
+"Recarregar a partir da ROM",
 "Reproduzir/Parar",
 "Inserir Linha",
 "Excluir linha",

@@ -75,6 +75,7 @@
 "copia",
 "Impasto",
 "Cancellare",
+"Ricarica dalla ROM",
 "Riproduci/Interrompi",
 "Inserisci riga",
 "Elimina riga",

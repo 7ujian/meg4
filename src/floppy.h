@@ -127,6 +127,8 @@ static int meg4_deserialize(uint8_t *buf, int len)
 
             case MEG4_CHUNK_FONT:
                 ret |= 8;
+                memset(meg4.font, 0, sizeof(meg4.font));
+                if(meg4_font) memcpy(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96);
                 for(i = 0, ptr = buf; ptr < buf + s && i < 65536;) {
                     pack = *ptr++;
                     if(pack >= 0) {
@@ -269,11 +271,15 @@ uint8_t *meg4_serialize(int *len, int type)
     if(!meg4_isbyte(meg4.mmio.map, 0, sizeof(meg4.mmio.map))) {
         map = meg4_rle_enc(meg4.mmio.map, sizeof(meg4.mmio.map), &mapsiz); if(map) siz += 5 + mapsiz;
     }
-    if(memcmp(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 65504)) {
+    /* if we have a default font, then we check if current font has control codes empty and everything else matches
+     * otherwise we just check if font isn't empty entirely */
+    if((meg4_font && (!meg4_isbyte(meg4.font, 0, 32 * 8) || memcmp(meg4.font + 8 * 32, meg4_font + 8 * 32, 8 * 96) ||
+       !meg4_isbyte(meg4.font + 8 * 128, 0, 8 * 32) || memcmp(meg4.font + 8 * 160, meg4_font + 8 * 160, 8 * 65376))) ||
+       (!meg4_font && !meg4_isbyte(meg4.font, 0, 8 * 65536))) {
         for(i = 0; i < 65536; i += j) {
-            for(j = 0; j < 127 && (i + j) < 65536 && !meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++);
+            for(j = 0; j < 128 && (i + j) < 65536 && !meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++);
             if(j) { fontsiz += 1 + (j << 3); }
-            else { for(j = 0; j < 128 && (i + j) < 65536 && meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++){}; fontsiz++; }
+            else { for(j = 0; j < 128 && (i + j) < 65536 && meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++){}; if(j) fontsiz++; }
         }
         siz += 4 + fontsiz;
     }
@@ -359,9 +365,9 @@ uint8_t *meg4_serialize(int *len, int type)
         hdr = htole32(((4 + fontsiz) << 8) | MEG4_CHUNK_FONT);
         memcpy(ptr, &hdr, 4); ptr += 4;
         for(i = 0; i < 65536; i += j) {
-            for(j = 0; j < 127 && (i + j) < 65536 && !meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++);
-            if(j) { *ptr++ = j; memcpy(ptr, meg4.font + ((i + j) << 3), j << 3); ptr += j << 3; }
-            else { for(j = 0; j < 128 && (i + j) < 65536 && meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++){}; *ptr++ = -j; }
+            for(j = 0; j < 128 && (i + j) < 65536 && !meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++);
+            if(j) { *ptr++ = j - 1; memcpy(ptr, meg4.font + (i << 3), j << 3); ptr += j << 3; }
+            else { for(j = 0; j < 128 && (i + j) < 65536 && meg4_isbyte(meg4.font + ((i + j) << 3), 0, 8); j++){}; if(j) *ptr++ = -j; }
         }
     }
 
@@ -370,7 +376,7 @@ uint8_t *meg4_serialize(int *len, int type)
         if(meg4.waveforms[i][0] || meg4.waveforms[i][1]) {
             j = ((meg4.waveforms[i][1]<<8)|meg4.waveforms[i][0]);
             hdr = htole32(((6 + 8 + j) << 8) | MEG4_CHUNK_WAVE);
-            memcpy(ptr, &hdr, 4); ptr += 4; *ptr++ = i + 1; /* wavefor id is one bigger */
+            memcpy(ptr, &hdr, 4); ptr += 4; *ptr++ = i + 1; /* waveform id is one bigger */
             *ptr++ = 0; /* this is the format, only 8-bit mono supported for now */
             memcpy(ptr, meg4.waveforms[i], 8 + j); ptr += 8 + j;
         }

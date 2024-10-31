@@ -114,6 +114,14 @@ int font_ctrl(void)
         toolbox_selline(-1, -1);
         /* menubar click release */
         if(py < 12) {
+            if(px >= 490 && px < 502) {
+                font_free();
+                memcpy(meg4.font, meg4_font, 8 * 65536);
+                memset(meg4.font, 0, 8 * 32);
+                memset(meg4.font + 8 * 128, 0, 8 * 32);
+                meg4_recalcfont(0, 0xffff);
+                font_init();
+            } else
             if(px >= 502 && px < 514) font_histundo(); else
             if(px >= 514 && px < 526) font_histredo(); else
             if(px >= 526 && px < 538) goto cut; else
@@ -264,7 +272,8 @@ void font_menu(uint32_t *dst, int dw, int dh, int dp)
     char tmp[32];
 
     sprintf(tmp, "U+%04X", idx);
-    meg4_text(dst, 460, 2, dp, theme[THEME_MENU_FG], 0, 1, meg4_font, tmp);
+    meg4_text(dst, 450, 2, dp, theme[THEME_MENU_FG], 0, 1, meg4_font, tmp);
+    /* reload */    menu_icon(dst, dw, dh, dp, 490,   0, 56, 0, 0, STAT_RELOAD);
     /* undo */      menu_icon(dst, dw, dh, dp, 502,   8, 56, 1, MEG4_KEY_Z, STAT_UNDO);
     /* redo */      menu_icon(dst, dw, dh, dp, 514,  16, 56, 1, MEG4_KEY_Y, STAT_REDO);
     /* cut */       menu_icon(dst, dw, dh, dp, 526, 136, 40, 1, MEG4_KEY_X, STAT_CUT);

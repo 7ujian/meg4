@@ -26,7 +26,7 @@ SUB loop
   REM BASIC stílusú print
   PRINT "Épp"; " futok"
   REM MEG-4 stílusú kimenet
-  GOSUB printf("a számláló %d, balshift %d\n", számláló%, getkey%(KEY_LSHIFT))
+  printf("a számláló %d, balshift %d\n", számláló%, getkey%(KEY_LSHIFT))
 END SUB
 ```
 
@@ -378,3 +378,6 @@ megfelelő utótagot kaptak (például az [str] sztringet ad vissza, ezért `STR
 Fontos, hogy az ECMA-55 a trigonometrikus függvényeknél radiánt vár alapból (és egy `OPTION` paranccsal lehet fokokra váltani),
 de a MEG-4 API mindig fokokat használ, 0-tól 359-ig, ahol a 0 a felfele irány és 90 a jobbra. Ezért van az, hogy az `ATN%` egy
 egészszám típus utótagot kap például, mivel fokokat ad vissza egészszámban.
+
+Alap esetben az olyan funkciókat, melyeknek nincs visszatérési értékük, a `GOSUB` kulcsszóval kell meghívni, azonban a MEG-4 API
+egy különleges eset, mert azoknál ez a kulcsszó elhagyható, és az API egy-az-egyben hívható.

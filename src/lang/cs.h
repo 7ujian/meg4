@@ -75,6 +75,7 @@
 "kopírovat",
 "Vložit",
 "Vymazat",
+"Znovu načíst z ROM",
 "Přehrát/Zastavit",
 "Vložit řádek",
 "Smazat řádek",

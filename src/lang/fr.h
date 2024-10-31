@@ -75,6 +75,7 @@
 "Copie",
 "Pâte",
 "Effacer",
+"Recharger depuis la ROM",
 "Jouer/Arrêter",
 "Insérer une ligne",
 "Supprimer la ligne",

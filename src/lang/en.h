@@ -75,6 +75,7 @@
 "Copy",
 "Paste",
 "Erase",
+"Reload from ROM",
 "Play/Stop",
 "Insert Row",
 "Delete Row",

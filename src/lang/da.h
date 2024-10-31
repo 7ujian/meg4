@@ -75,6 +75,7 @@
 "Kopi",
 "sæt ind",
 "Slette",
+"Genindlæs fra ROM",
 "Afspil/Stop",
 "Indsæt række",
 "Slet række",

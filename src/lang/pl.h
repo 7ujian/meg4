@@ -75,6 +75,7 @@
 "Kopiuj",
 "Wklej",
 "Usuń",
+"Załaduj ponownie z ROMu",
 "Odtwórz/Zatrzymaj",
 "Wstaw wiersz",
 "Usuń wiersz",

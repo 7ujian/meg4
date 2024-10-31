@@ -75,6 +75,7 @@
 "Kopiera",
 "Klistra",
 "Radera",
+"Ladda om från ROM",
 "Spela/Stoppa",
 "Infoga rad",
 "Ta bort rad",

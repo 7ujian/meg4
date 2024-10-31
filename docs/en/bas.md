@@ -26,7 +26,7 @@ SUB loop
   REM BASIC style print
   PRINT "I"; " am"; " running"
   REM Get MEG-4 style outputs
-  GOSUB printf("a counter %d, left shift %d\n", acounter%, getkey%(KEY_LSHIFT))
+  printf("a counter %d, left shift %d\n", acounter%, getkey%(KEY_LSHIFT))
 END SUB
 ```
 
@@ -378,3 +378,6 @@ it is called `STR$`).
 Note that ECMA-55 expects that trigonometrical functions use radians by default (with an `OPTION` command to switch to degrees),
 however the MEG-4 API always uses degrees, 0 to 359, where 0 is up, and 90 is to the right. That's why the `ATN%` gets an
 integer type suffix for example, as it returns degrees in an integer.
+
+Normally all functions without a return value must be called with the `GOSUB` keyword, however the MEG-4 API is a special case,
+because with those the keyword can be ommited, and the API function can be used as-is.

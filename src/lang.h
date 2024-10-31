@@ -75,6 +75,7 @@ enum {
     STAT_COPY,
     STAT_PASTE,
     STAT_ERASE,
+    STAT_RELOAD,
     STAT_PLAY,
     STAT_INSERT,
     STAT_DELETE,

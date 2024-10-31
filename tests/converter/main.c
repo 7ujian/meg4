@@ -25,6 +25,7 @@
 #include <stdio.h>
 #include "../../src/meg4.h"
 #include "editors.h"
+#include "advgame.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_WRITE_ONLY_PNG
@@ -50,6 +51,7 @@ char meg4_title[64], meg4_author[64], meg4_pro = 0;
 void meg4_switchmode(int mode) { (void)mode; }
 void meg4_recalcfont(int s, int e) { (void)s; (void)e; }
 void meg4_recalcmipmap(void) { }
+int  gpio_init(uint8_t *buf, int len) { (void)buf; (void)len; return 0; }
 
 uint8_t meg4_palidx(uint8_t *rgba)
 {
@@ -156,7 +158,7 @@ int main(int argc, char **argv)
     meg4_defwaves = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_sounds_mod, sizeof(binary_sounds_mod), 65536, &i, 1);
 
     /* import */
-    if(!main_import(argv[1], buf, len)) {
+    if(!main_advgame(argv[1], buf, len) && !main_import(argv[1], buf, len)) {
         free(buf); free(meg4_defwaves);
         printf("unable to load file\n");
         exit(1);

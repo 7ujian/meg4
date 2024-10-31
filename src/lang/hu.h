@@ -75,6 +75,7 @@
 "Másolás",
 "Beillesztés",
 "Törlés",
+"Újratöltés ROM-ból",
 "Lejátszás/Leállítás",
 "Sor beszúrása",
 "Sor törlése",

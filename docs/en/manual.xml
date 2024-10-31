@@ -61,6 +61,7 @@
 <include tut_walk.md>
 <include tut_cannon.md>
 <include tut_snd.md>
+<include advgame.md>
 
 <cap>Appendix</cap>
 <include license.md>

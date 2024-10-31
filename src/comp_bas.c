@@ -132,21 +132,29 @@ static int statement(compiler_t *comp, int s, int e)
         /* assignment */
         if(tok[s].type == HL_V || tok[s].type == HL_F) {
             for(i = s + 1; i < l && meg4.src[tok[i].pos] != '='; i++);
-            if(tok[i].len != 1 || meg4.src[tok[i].pos] != '=' || (j = comp_findid(comp, &tok[s])) < MEG4_NUM_API + MEG4_NUM_BDEF ||
-              (comp->id[j].t & 15) < T_SCALAR) { code_error(tok[s].pos, lang[ERR_SYNTAX]); return 0; }
-            k = comp->id[j].t;
-            comp_cdbg(comp, s);
-            end = 0;
-            if(!comp_expr(comp, s, i, &k, &end, O_CND)) return 0;
-            j = comp->code[--comp->nc] & 0xff;
-            if(j < BC_LDB || j > BC_LDF || end) { code_error(tok[s].pos, lang[ERR_BADLVAL]); return 0; }
-            comp_push(comp, T(T_SCALAR, T_I32));
-            m = k;
-            i++;
-            if(!(s = comp_expr(comp, i, l, &m, &end, O_CND))) return 0;
-            if(k != m) { code_error(tok[i].pos, lang[ERR_BADARG]); return 0; }
-            comp_resolve(comp, end);
-            comp_store(comp, k);
+            j = comp_findid(comp, &tok[s]);
+            /* special case, MEG-4 API subroutine call without "GOSUB" keyword */
+            if(tok[i].len == 1 && meg4.src[tok[i].pos] == '\n' && tok[s].type == HL_F && comp->id[j].t == T(T_FUNC, T_VOID)) {
+                end = 0;
+                if(!(s = comp_expr(comp, s, l, &m, &end, O_CND))) return 0;
+                comp_resolve(comp, end);
+            } else {
+                if(tok[i].len != 1 || meg4.src[tok[i].pos] != '=' || j < MEG4_NUM_API + MEG4_NUM_BDEF ||
+                  (comp->id[j].t & 15) < T_SCALAR) { code_error(tok[s].pos, lang[ERR_SYNTAX]); return 0; }
+                k = comp->id[j].t;
+                comp_cdbg(comp, s);
+                end = 0;
+                if(!comp_expr(comp, s, i, &k, &end, O_CND)) return 0;
+                j = comp->code[--comp->nc] & 0xff;
+                if(j < BC_LDB || j > BC_LDF || end) { code_error(tok[s].pos, lang[ERR_BADLVAL]); return 0; }
+                comp_push(comp, T(T_SCALAR, T_I32));
+                m = k;
+                i++;
+                if(!(s = comp_expr(comp, i, l, &m, &end, O_CND))) return 0;
+                if(k != m) { code_error(tok[i].pos, lang[ERR_BADARG]); return 0; }
+                comp_resolve(comp, end);
+                comp_store(comp, k);
+            }
         } else
         /* other statements */
         if(tok[s].type == HL_K) {
@@ -179,7 +187,7 @@ static int statement(compiler_t *comp, int s, int e)
                 break;
                 case BAS_GOSUB:
                     s++;
-                    if(s >= l || tok[s].type != HL_V || (j = comp_findid(comp, &tok[s])) < 0 ||
+                    if(s >= l || (tok[s].type != HL_V && tok[s].type != HL_F) || (j = comp_findid(comp, &tok[s])) < 0 ||
                       comp->id[j].t != T(T_FUNC, T_VOID)) { code_error(tok[s].pos, lang[ERR_SYNTAX]); return 0; }
                     end = 0;
                     if(!(s = comp_expr(comp, s, l, &m, &end, O_CND))) return 0;

@@ -75,6 +75,7 @@
 "Kopiere",
 "Lim inn",
 "Viske ut",
+"Last ned fra ROM",
 "Spill/stopp",
 "Sett inn rad",
 "Slett rad",

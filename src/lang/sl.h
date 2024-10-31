@@ -75,6 +75,7 @@
 "Kopirati",
 "Prilepi",
 "Izbriši",
+"Znova naloži iz ROM-a",
 "Predvajaj/Ustavi",
 "Vstavi vrstico",
 "Izbriši vrstico",

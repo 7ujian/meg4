@@ -75,6 +75,7 @@
 "Kopiëren",
 "Plakken",
 "Wissen",
+"Herladen vanaf ROM",
 "Afspelen/stoppen",
 "Rij invoegen",
 "Verwijder rij",

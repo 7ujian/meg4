@@ -487,7 +487,7 @@ int comp_expr(compiler_t *comp, int s, int e, int *type, int *end, int lvl)
     /* --- unary --- */
     if(tok[s].type == HL_N) {
         /* number literal */
-        if(*type != T(T_SCALAR, T_FLOAT))
+        if(*type != T(T_SCALAR, T_FLOAT) && (meg4.src[tok[s].pos] != '0' || (meg4.src[tok[s].pos + 1] != 'x' && meg4.src[tok[s].pos + 1] != 'X')))
             for(i = 0; i < tok[s].len; i++) {
                 j = meg4.src[tok[s].pos + i];
                 if(j == '.' || j == 'e' || j == 'E' || j == 'p' || j == 'P') { *type = T(T_SCALAR, T_FLOAT); break; }

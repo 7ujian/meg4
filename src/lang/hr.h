@@ -75,6 +75,7 @@
 "Kopirati",
 "Zalijepiti",
 "Izbriši",
+"Ponovno učitavanje iz ROM-a",
 "Pusti/zaustavi",
 "Umetni red",
 "Izbriši redak",

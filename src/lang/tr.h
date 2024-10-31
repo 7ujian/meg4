@@ -75,6 +75,7 @@
 "Kopyala",
 "Yapıştırmak",
 "Sil",
+"ROM'dan yeniden yükle",
 "Oynat/Durdur",
 "Satır Ekle",
 "Sırayı sil",

@@ -75,6 +75,7 @@
 "Kopírovať",
 "Vložiť",
 "Vymazať",
+"Znovu načítať z ROM",
 "Prehrať/Zastaviť",
 "Vložiť riadok",
 "Odstrániť riadok",
