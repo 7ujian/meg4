@@ -8,7 +8,7 @@ noun(s) combination, then it is executed.
 
 Limitations:
 
-- verbs: 16 different actions, each 15 bytes, optionally up to 4 synonims
+- verbs: 16 different actions, each 15 bytes, optionally up to 4 synonyms
 - nouns: 96 different objects, each 15 bytes
 - messages: 16 different strings per room, each 127 bytes
 - scripts: 1 global, 63 per on room (1 executes automatically when the player enters the room)
@@ -52,7 +52,7 @@ There's a main and an alternative configuration to support more languages. Its f
 - `lang`: string, two letter language code
 - `text`: string, intro text (up to 429 bytes)
 - `answers`: array of 4 string, messages (up to 63 bytes): unknown verb, can't go there, can't use, game saved
-- `save`: array of strings, commands to save game (up to 15 bytes, 4 synonims)
+- `save`: array of strings, commands to save game (up to 15 bytes, 4 synonyms)
 - `load`: array of strings, commands to load game
 - `north`: array of strings, verbs to navigate to North
 - `west`: array of strings, verbs to navigate to West
@@ -72,12 +72,12 @@ Rooms
 Room numbers are 1 to 254. Its fields are:
 
 - `image`: string, path to a PNG image. Width is up to 256 pixels, height is up to 96 pixels.
-- `north`: number, room on the North (0 means invalid direction)
-- `west`: number, room on the West (0 means invalid direction)
-- `east`: number, room on the East (0 means invalid direction)
-- `south`: number, room on the South (0 means invalid direction)
-- `up`: number, room upstairs (0 means invalid direction)
-- `down`: number, room downstairs (0 means invalid direction)
+- `north`: number, room on the North / array of strings, script to run when player goes North
+- `west`: number, room on the West / array of strings, script to run when player goes West
+- `east`: number, room on the East / array of strings, script to run when player goes East
+- `south`: number, room on the South / array of strings, script to run when player goes North
+- `up`: number, room upstairs / array of strings, script to run when player goes upstairs
+- `down`: number, room downstairs / array of strings, script to run when player goes downstairs
 - `text0`: array of strings, texts for `config0` (up to 16 strings, each 127 bytes)
 - `text1`: array of strings, texts for `config1`
 - `logic`: array of strings, commands to run when player enters this specific room (there's no alias for this)
@@ -88,6 +88,9 @@ Room numbers are 1 to 254. Its fields are:
 Texts can be 127 bytes long, and each room might have 16 texts, which can be displayed with `say` / `sayz` / `saynz`.
 
 If room logic is given, then first game logic runs, then room logic.
+
+With the directions number 0 means invalid direction, otherwise if you pass an array of strings, you can add a script
+with custom logic.
 
 Commands
 --------

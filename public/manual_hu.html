@@ -5450,12 +5450,12 @@ felhasználható. Ezek lehetnek jelzőbitek, változók, bármi. Ez az állapot 
 <h2 id="szobak">Szobák<a href="#szobak"></a></h2>
 <p>A szoba száma 1 és 254 közötti. A mezői:</p>
 <ul><li><samp>image</samp>: sztring, egy PNG elérési útja. Szélessége 256 pixel, magassága legfeljebb 96 pixeles</li>
-<li><samp>north</samp>: szám, szoba északra (0 jelentése nem járható irány)</li>
-<li><samp>west</samp>: szám, szoba nyugatra (0 jelentése nem járható irány)</li>
-<li><samp>east</samp>: szám, szoba keletre (0 jelentése nem járható irány)</li>
-<li><samp>south</samp>: szám, szoba délre (0 jelentése nem járható irány)</li>
-<li><samp>up</samp>: szám, szoba felette (0 jelentése nem járható irány)</li>
-<li><samp>down</samp>: szám, szoba alatta (0 jelentése nem járható irány)</li>
+<li><samp>north</samp>: szám, szoba északra / sztringtömb, ha északot választja a játékos szkript</li>
+<li><samp>west</samp>: szám, szoba nyugatra / sztringtömb, ha nyugatot választja a játékos szkript</li>
+<li><samp>east</samp>: szám, szoba keletre / sztringtömb, ha keletet választja a játékos szkript</li>
+<li><samp>south</samp>: szám, szoba délre / sztringtömb, ha delet választja a játékos szkript</li>
+<li><samp>up</samp>: szám, szoba felette / sztringtömb, ha felfelét választja a játékos szkript</li>
+<li><samp>down</samp>: szám, szoba alatta / sztringtömb, ha lefelét választja a játékos szkript</li>
 <li><samp>text0</samp>: sztringtömb, a <samp>config0</samp>-hoz tartozó szövegek (16 sztringig, egyenként 127 bájt)</li>
 <li><samp>text1</samp>: sztringtömb, a <samp>config1</samp>-hez tartozó szövegek</li>
 <li><samp>logic</samp>: sztringtömb, a szobába lépéskor automatikusan lefutó szkript (ehhez nincs aliasz)</li>
@@ -5465,6 +5465,7 @@ felhasználható. Ezek lehetnek jelzőbitek, változók, bármi. Ez az állapot 
 <p>A szövegek 127 bájtosak lehetnek, és minden szobának saját 16 szövege lehet, melyeket a <samp>say</samp> / <samp>sayz</samp> / <samp>saynz</samp> utasításokkal
 lehet megjeleníteni.</p>
 <p>Ha a szoba logika meg van adva, akkot előbb mindig az általános játéklogika fut le, aztán a szobáé.</p>
+<p>Az irányoknál a 0 jelentése nem járható irány, egyébként ha sztringtömb, akkor megadható egy szkript tetszőleges logikával.</p>
 <h2 id="utasitasok">Utasítások<a href="#utasitasok"></a></h2>
 <p>Ezek befolyásolják a játék állapotát, szöveget jelenítenek meg, stb. és a <samp>logic</samp> és a szobák <samp>verb*</samp> mezőiben szerepelnek.</p>
 <ul><li><samp>end</samp>: szkript vége</li>

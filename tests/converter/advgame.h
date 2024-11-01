@@ -48,12 +48,7 @@ typedef struct {
 /* stored in overlays 1 to 254 */
 typedef struct {
     char        msg[2][16][128];/* text messages */
-    uint8_t     north;          /* navigation, room numbers or 0 */
-    uint8_t     west;
-    uint8_t     east;
-    uint8_t     south;
-    uint8_t     up;
-    uint8_t     down;
+    uint8_t     dir[6];         /* navigation, room numbers or 0 / 255 if script */
     ag_cmds_t   cmds[63];       /* commands understand in this room (script list) */
 } __attribute__((packed)) ag_room_t;
 extern char c_assert2[sizeof(ag_room_t) <= 8192 ? 1 : -1];
@@ -193,13 +188,17 @@ static char *program = "#!c\n\n"
 "    while(i < 255 && inp[i] && inp[i] != ' ') i++;\n"
 "  }\n"
 "  trace(\"%%d %%d %%d\",v,n1,n2);\n"
+"  /* built-in navigation verbs */\n"
+"  if(v >= 2 && v <= 7) {\n"
+"    v -= 2;\n"
+"    if(dir[v] == 255) { v += 128; n1 = n2 = 0; }\n"
+"    else { if(!dir[v]) say = 1; else load_room(dir[v]); return; }\n"
+"  }\n"
 "  /* built-in save and load game verbs */\n"
 "  if(v == 0) { memsave(255, &state, 256); say = 3; } else\n"
 "  if(v == 1) { memload(&state, 255, 256); load_room(state[0]); } else\n"
-"  /* built-in navigation verbs */\n"
-"  if(v >= 2 && v <= 7) { v -= 2; if(!dir[v]) say = 1; else load_room(dir[v]); } else\n"
+"  /* look for a room script for this verb and noun(s) */\n"
 "  if(v != 255) {\n"
-"    /* look for a script for this verb and noun(s) */\n"
 "    for(i = 64; i < 63*64; i += 64)\n"
 "      if(cmd[i] == v) {\n"
 "        say = cmd[i + 1] ? 2 : 255;\n"
@@ -664,12 +663,32 @@ readverb:               for(i = 0; buf < end && *buf != ']' && *buf != '}' && i 
                         } else
                             fprintf(stderr, "converter: line %u: unable to load '%s'\r\n", line, tmp);
                     } else
-                    if(!memcmp(buf, "\"north\"", 7)) { buf = json_skip(buf + 7, end, ',', 0); room->north = atoi((char*)buf); } else
-                    if(!memcmp(buf, "\"west\"", 6))  { buf = json_skip(buf + 6, end, ',', 0); room->west = atoi((char*)buf); } else
-                    if(!memcmp(buf, "\"east\"", 6))  { buf = json_skip(buf + 6, end, ',', 0); room->east = atoi((char*)buf); } else
-                    if(!memcmp(buf, "\"south\"", 7)) { buf = json_skip(buf + 7, end, ',', 0); room->south = atoi((char*)buf); } else
-                    if(!memcmp(buf, "\"up\"", 4))    { buf = json_skip(buf + 4, end, ',', 0); room->up = atoi((char*)buf); } else
-                    if(!memcmp(buf, "\"down\"", 6))  { buf = json_skip(buf + 6, end, ',', 0); room->down = atoi((char*)buf); } else
+                    if(!memcmp(buf, "\"north\"", 7)) { buf += 7; j = 0; goto readdir; } else
+                    if(!memcmp(buf, "\"west\"", 6))  { buf += 6; j = 1; goto readdir; } else
+                    if(!memcmp(buf, "\"east\"", 6))  { buf += 6; j = 2; goto readdir; } else
+                    if(!memcmp(buf, "\"south\"", 7)) { buf += 7; j = 3; goto readdir; } else
+                    if(!memcmp(buf, "\"up\"", 4))    { buf += 4; j = 4; goto readdir; } else
+                    if(!memcmp(buf, "\"down\"", 6))  {
+                        buf += 6; j = 5;
+readdir:                buf = json_skip(buf, end, '[', 0);
+                        if(*buf == '[') {
+                            if(n >= 63)
+                                fprintf(stderr, "converter: line %u: too many scripts in room %u\r\n", line, l);
+                            else {
+                                room->dir[j] = 255;
+                                cmds = &room->cmds[n++];
+                                cmds->verb = 0x80 | j;
+                                buf = json_opcodes(cmds->op, buf, end, 61, n, l);
+                            }
+                        } else {
+                            i = atoi((char*)buf);
+                            if(i >= 255 || (!i && !meg4.ovls[i].data)) {
+                                fprintf(stderr, "converter: line %u: invalid navigation to %u in room %u\r\n", line, i, l);
+                                i = 0;
+                            }
+                            room->dir[j] = i;
+                        }
+                    } else
                     if(!memcmp(buf, "\"text", 5)) {
                         j = buf[5] == '1' ? 1 : 0;
                         buf = json_skip(buf + 6, end, '[', ']');
@@ -746,19 +765,6 @@ readops:                if(j >= 0 && j <= NUMVERB) {
     if((meg4.ovls[0].data = (uint8_t*)realloc(meg4.ovls[0].data, meg4.ovls[0].size))) {
         memcpy(meg4.ovls[0].data, meg4.mmio.sprites, meg4.ovls[0].size);
     } else meg4.ovls[0].size = 0;
-
-    /* failsafe, check navigation */
-    for(i = 1; i < 255; i++)
-        if((room = (ag_room_t*)meg4.ovls[i].data)) {
-            j = 0;
-            if(room->north && (room->north > 254 || !meg4.ovls[(uint32_t)room->north].data)) { j = 1; room->north = 0; }
-            if(room->west && (room->west > 254 || !meg4.ovls[(uint32_t)room->west].data)) { j = 1; room->west = 0; }
-            if(room->east && (room->east > 254 || !meg4.ovls[(uint32_t)room->east].data)) { j = 1; room->east = 0; }
-            if(room->south && (room->south > 254 || !meg4.ovls[(uint32_t)room->south].data)) { j = 1; room->south = 0; }
-            if(room->up && (room->up > 254 || !meg4.ovls[(uint32_t)room->up].data)) { j = 1; room->up = 0; }
-            if(room->down && (room->down > 254 || !meg4.ovls[(uint32_t)room->down].data)) { j = 1; room->down = 0; }
-            if(j) fprintf(stderr, "converter: invalid navigation in room %u\r\n", i);
-        }
 
     /* add game interpreter */
     if(comment) { for(s = (uint8_t*)comment + 3; memcmp(s - 3, "*/\n", 3); s++) {} *s = 0; } else comment = "";

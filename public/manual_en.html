@@ -5365,7 +5365,7 @@ into MEG-4 Adventure Games. These are classic textual games (also known as Inter
 in order to progress. Each sentence is then parsed into a verb and noun(s), and looked up. If a script is found for that verb and
 noun(s) combination, then it is executed.</p>
 <p>Limitations:</p>
-<ul><li>verbs: 16 different actions, each 15 bytes, optionally up to 4 synonims</li>
+<ul><li>verbs: 16 different actions, each 15 bytes, optionally up to 4 synonyms</li>
 <li>nouns: 96 different objects, each 15 bytes</li>
 <li>messages: 16 different strings per room, each 127 bytes</li>
 <li>scripts: 1 global, 63 per on room (1 executes automatically when the player enters the room)</li>
@@ -5397,7 +5397,7 @@ the custom ui code you can display whatever and however sprites you'd like.</p>
 <ul><li><samp>lang</samp>: string, two letter language code</li>
 <li><samp>text</samp>: string, intro text (up to 429 bytes)</li>
 <li><samp>answers</samp>: array of 4 string, messages (up to 63 bytes): unknown verb, can't go there, can't use, game saved</li>
-<li><samp>save</samp>: array of strings, commands to save game (up to 15 bytes, 4 synonims)</li>
+<li><samp>save</samp>: array of strings, commands to save game (up to 15 bytes, 4 synonyms)</li>
 <li><samp>load</samp>: array of strings, commands to load game</li>
 <li><samp>north</samp>: array of strings, verbs to navigate to North</li>
 <li><samp>west</samp>: array of strings, verbs to navigate to West</li>
@@ -5413,12 +5413,12 @@ the custom ui code you can display whatever and however sprites you'd like.</p>
 <h2 id="rooms">Rooms<a href="#rooms"></a></h2>
 <p>Room numbers are 1 to 254. Its fields are:</p>
 <ul><li><samp>image</samp>: string, path to a PNG image. Width is up to 256 pixels, height is up to 96 pixels.</li>
-<li><samp>north</samp>: number, room on the North (0 means invalid direction)</li>
-<li><samp>west</samp>: number, room on the West (0 means invalid direction)</li>
-<li><samp>east</samp>: number, room on the East (0 means invalid direction)</li>
-<li><samp>south</samp>: number, room on the South (0 means invalid direction)</li>
-<li><samp>up</samp>: number, room upstairs (0 means invalid direction)</li>
-<li><samp>down</samp>: number, room downstairs (0 means invalid direction)</li>
+<li><samp>north</samp>: number, room on the North / array of strings, script to run when player goes North</li>
+<li><samp>west</samp>: number, room on the West / array of strings, script to run when player goes West</li>
+<li><samp>east</samp>: number, room on the East / array of strings, script to run when player goes East</li>
+<li><samp>south</samp>: number, room on the South / array of strings, script to run when player goes North</li>
+<li><samp>up</samp>: number, room upstairs / array of strings, script to run when player goes upstairs</li>
+<li><samp>down</samp>: number, room downstairs / array of strings, script to run when player goes downstairs</li>
 <li><samp>text0</samp>: array of strings, texts for <samp>config0</samp> (up to 16 strings, each 127 bytes)</li>
 <li><samp>text1</samp>: array of strings, texts for <samp>config1</samp></li>
 <li><samp>logic</samp>: array of strings, commands to run when player enters this specific room (there's no alias for this)</li>
@@ -5427,6 +5427,8 @@ the custom ui code you can display whatever and however sprites you'd like.</p>
 <li><samp>verbX Y Z</samp>: array of strings, commands for a verb with two nouns (Y, Z goes 1 to 96)</li></ul>
 <p>Texts can be 127 bytes long, and each room might have 16 texts, which can be displayed with <samp>say</samp> / <samp>sayz</samp> / <samp>saynz</samp>.</p>
 <p>If room logic is given, then first game logic runs, then room logic.</p>
+<p>With the directions number 0 means invalid direction, otherwise if you pass an array of strings, you can add a script
+with custom logic.</p>
 <h2 id="commands">Commands<a href="#commands"></a></h2>
 <p>These alter the game's state, display messages, etc., and are listed in <samp>logic</samp> and room's <samp>verb*</samp> fields.</p>
 <ul><li><samp>end</samp>: end script</li>

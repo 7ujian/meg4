@@ -72,12 +72,12 @@ Szobák
 A szoba száma 1 és 254 közötti. A mezői:
 
 - `image`: sztring, egy PNG elérési útja. Szélessége 256 pixel, magassága legfeljebb 96 pixeles
-- `north`: szám, szoba északra (0 jelentése nem járható irány)
-- `west`: szám, szoba nyugatra (0 jelentése nem járható irány)
-- `east`: szám, szoba keletre (0 jelentése nem járható irány)
-- `south`: szám, szoba délre (0 jelentése nem járható irány)
-- `up`: szám, szoba felette (0 jelentése nem járható irány)
-- `down`: szám, szoba alatta (0 jelentése nem járható irány)
+- `north`: szám, szoba északra / sztringtömb, ha északot választja a játékos szkript
+- `west`: szám, szoba nyugatra / sztringtömb, ha nyugatot választja a játékos szkript
+- `east`: szám, szoba keletre / sztringtömb, ha keletet választja a játékos szkript
+- `south`: szám, szoba délre  / sztringtömb, ha delet választja a játékos szkript
+- `up`: szám, szoba felette  / sztringtömb, ha felfelét választja a játékos szkript
+- `down`: szám, szoba alatta  / sztringtömb, ha lefelét választja a játékos szkript
 - `text0`: sztringtömb, a `config0`-hoz tartozó szövegek (16 sztringig, egyenként 127 bájt)
 - `text1`: sztringtömb, a `config1`-hez tartozó szövegek
 - `logic`: sztringtömb, a szobába lépéskor automatikusan lefutó szkript (ehhez nincs aliasz)
@@ -89,6 +89,8 @@ A szövegek 127 bájtosak lehetnek, és minden szobának saját 16 szövege lehe
 lehet megjeleníteni.
 
 Ha a szoba logika meg van adva, akkot előbb mindig az általános játéklogika fut le, aztán a szobáé.
+
+Az irányoknál a 0 jelentése nem járható irány, egyébként ha sztringtömb, akkor megadható egy szkript tetszőleges logikával.
 
 Utasítások
 ----------
