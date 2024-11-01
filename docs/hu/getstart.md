@@ -63,7 +63,7 @@ program helyett erre a parancsikonra kattints, és az adott opciókkal fog elind
 is lehet, különböző opciókkal.
 
 ```
-meg4 [-L <xx>] [-z] [-n] [-v|-vv] [-s] [-d <mappa>] [flopi]
+meg4 [-L <xx>] [-z] [-n] [-w] [-v|-vv] [-s] [-d <mappa>] [flopi]
 ```
 
 | Opció        | Leírás      |
@@ -71,6 +71,7 @@ meg4 [-L <xx>] [-z] [-n] [-v|-vv] [-s] [-d <mappa>] [flopi]
 | `-L <xx>`    | A kapcsoló paramétere "en", "es", "de", "fr" stb. lehet. A megadásával egy adott szótárat használ az emulátor, és nem detektálja a nyelvet. Ha nincs a megadott szótár, akkor angolra vált. |
 | `-z`         | Linux alatt alapból a GTK függvénykönyvtárakat futáskor linkeli, hogy a fájlválasztót megnyissa. Ennek a kapcsolónak a hatására inkább a `zenity` programot fogja meghívni (a zenitynek telepítve kell lennie a gépeden). |
 | `-n`         | Mindenképp a "nearest" (legközelebbi pixel) interpolációs metódust használja. Alapból csak akkor használatos, ha az emulátor ablakmérete a 320 x 200 egész többszöröse. |
+| `-w`         | Ablakos módban indul (alapértelmezetten teljesképernyős) |
 | `-v, -vv`    | Szószátyár mód. `meg4` részletes infókat fog kiírni a szabvány kimenetre (valamint a programod [trace] hívásai is itt jelennek meg), ezért ez a kapcsoló terminálból hívandó. |
 | `-s`         | Strace mód, rendszerhívások listázása (csak ha DEBUG támogatással lett fordítva). |
 | `-d <mappa>` | Opcionális, ha meg van adva, akkor a flopikat ebben a könyvtárban fogja tárolni, és nem használ fájlválasztót. |

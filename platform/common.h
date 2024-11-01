@@ -31,7 +31,7 @@
 #endif
 
 /* command line flags */
-int verbose = 0, zenity = 0, nearest = 0, strace = 0;
+int verbose = 0, zenity = 0, nearest = 0, windowed = 0, strace = 0;
 char *main_floppydir = NULL;
 void main_hdr(void);
 void meg4_export(char *name, int binary);
@@ -986,13 +986,14 @@ void main_parsecommandline(int argc, char **argv, char **lng, char ***infile)
                     case 'z': zenity++; break;
 #endif
                     case 'n': nearest++; break;
+                    case 'w': windowed++; break;
                     default:
 usage:                  main_hdr();
                         printf("  meg4 [" CLIFLAG "L <xx>] "
 #ifndef __WIN32__
                             "[" CLIFLAG "z] "
 #endif
-                            "[" CLIFLAG "n] [" CLIFLAG "v|" CLIFLAG "vv|" CLIFLAG "vvv] "
+                            "[" CLIFLAG "n] [" CLIFLAG "w] [" CLIFLAG "v|" CLIFLAG "vv|" CLIFLAG "vvv] "
 #ifdef DEBUG
                             "[" CLIFLAG "s]"
 #endif

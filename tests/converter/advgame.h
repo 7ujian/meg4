@@ -63,37 +63,38 @@ enum { ARG_NONE, ARG_MUS, ARG_SFX, ARG_VAR, ARG_VAL, ARG_MSG, ARG_ROOM };
 typedef struct { char *op; int len, arg[3]; } ag_ops_t;
 static ag_ops_t ops[] = {
  /*  0 */ { "end",   3, { ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  1 */ { "mus",   3, { ARG_MUS,  ARG_NONE, ARG_NONE } },
- /*  2 */ { "sfx",   3, { ARG_SFX,  ARG_NONE, ARG_NONE } },
- /*  3 */ { "sfxz",  4, { ARG_SFX,  ARG_VAR,  ARG_NONE } },
- /*  4 */ { "sfxnz", 5, { ARG_SFX,  ARG_VAR,  ARG_NONE } },
- /*  5 */ { "say",   3, { ARG_MSG,  ARG_NONE, ARG_NONE } },
- /*  6 */ { "sayz",  4, { ARG_MSG,  ARG_VAR,  ARG_NONE } },
- /*  7 */ { "saynz", 5, { ARG_MSG,  ARG_VAR,  ARG_NONE } },
- /*  8 */ { "inc",   3, { ARG_VAR,  ARG_NONE, ARG_NONE } },
- /*  9 */ { "incz",  4, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
- /* 10 */ { "incnz", 5, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
- /* 11 */ { "dec",   3, { ARG_VAR,  ARG_NONE, ARG_NONE } },
- /* 12 */ { "decz",  4, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
- /* 13 */ { "decnz", 5, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
- /* 14 */ { "set",   3, { ARG_VAR,  ARG_VAL,  ARG_NONE } },
- /* 15 */ { "setz",  4, { ARG_VAR,  ARG_VAL,  ARG_VAR  } },
- /* 16 */ { "setnz", 5, { ARG_VAR,  ARG_VAL,  ARG_VAR  } },
- /* 17 */ { "jmp",   3, { ARG_ROOM, ARG_NONE, ARG_NONE } },
- /* 18 */ { "jz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 19 */ { "jnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 20 */ { "nz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 21 */ { "nnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 22 */ { "wz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 23 */ { "wnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 24 */ { "ez",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 25 */ { "enz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 26 */ { "sz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 27 */ { "snz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 28 */ { "uz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 29 */ { "unz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 30 */ { "dz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
- /* 31 */ { "dnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } }
+ /*  1 */ { "reset", 5, { ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  2 */ { "mus",   3, { ARG_MUS,  ARG_NONE, ARG_NONE } },
+ /*  3 */ { "sfx",   3, { ARG_SFX,  ARG_NONE, ARG_NONE } },
+ /*  4 */ { "sfxz",  4, { ARG_SFX,  ARG_VAR,  ARG_NONE } },
+ /*  5 */ { "sfxnz", 5, { ARG_SFX,  ARG_VAR,  ARG_NONE } },
+ /*  6 */ { "say",   3, { ARG_MSG,  ARG_NONE, ARG_NONE } },
+ /*  7 */ { "sayz",  4, { ARG_MSG,  ARG_VAR,  ARG_NONE } },
+ /*  8 */ { "saynz", 5, { ARG_MSG,  ARG_VAR,  ARG_NONE } },
+ /*  9 */ { "inc",   3, { ARG_VAR,  ARG_NONE, ARG_NONE } },
+ /* 10 */ { "incz",  4, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
+ /* 11 */ { "incnz", 5, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
+ /* 12 */ { "dec",   3, { ARG_VAR,  ARG_NONE, ARG_NONE } },
+ /* 13 */ { "decz",  4, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
+ /* 14 */ { "decnz", 5, { ARG_VAR,  ARG_VAR,  ARG_NONE } },
+ /* 15 */ { "set",   3, { ARG_VAR,  ARG_VAL,  ARG_NONE } },
+ /* 16 */ { "setz",  4, { ARG_VAR,  ARG_VAL,  ARG_VAR  } },
+ /* 17 */ { "setnz", 5, { ARG_VAR,  ARG_VAL,  ARG_VAR  } },
+ /* 18 */ { "jmp",   3, { ARG_ROOM, ARG_NONE, ARG_NONE } },
+ /* 19 */ { "jz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 20 */ { "jnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 21 */ { "nz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 22 */ { "nnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 23 */ { "wz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 24 */ { "wnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 25 */ { "ez",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 26 */ { "enz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 27 */ { "sz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 28 */ { "snz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 29 */ { "uz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 20 */ { "unz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 31 */ { "dz",    2, { ARG_ROOM, ARG_VAR,  ARG_NONE } },
+ /* 32 */ { "dnz",   3, { ARG_ROOM, ARG_VAR,  ARG_NONE } }
 };
 
 /* the MEG-4 Adventure Game interpreter program */
@@ -103,8 +104,8 @@ static char *program = "#!c\n\n"
 " * Copyright (c) bzt 2024 CC-0\n"
 " */\n%s\n"
 "/* variables */\n"
-"uint8_t lang, state[256], colors[5], textpos, logic[74], dir[8], cmd[4096], say;\n"
-"char ans[256], verb[1408], noun[1536], msg[2048], inp[256];\n\n"
+"uint8_t lang, state[256], colors[5], textpos, logic[74], dir[8], cmd[4096], say, rst;\n"
+"char ans[256], verb[1536], noun[1536], msg[2048], inp[256];\n\n"
 "/* customize your UI here */\n"
 "void custom_intro()\n{\n%s\n}\n"
 "void custom_room()\n{\n%s\n}\n\n"
@@ -115,37 +116,38 @@ static char *program = "#!c\n\n"
 "  while(*c) {\n"
 "    op = *c++;\n"
 "    switch(op) {\n"
-"      case 1: music(*c++, 0, 128); break;\n"
-"      case 2: sfx(*c++, 0, 255); break;\n"
-"      case 3: arg1 = *c++; arg2 = *c++; if(!state[arg2]) sfx(arg1, 0, 255); break;\n"
-"      case 4: arg1 = *c++; arg2 = *c++; if(state[arg2]) sfx(arg1, 0, 255); break;\n"
-"      case 5: arg1 = *c++; say = 255; if(arg1 < 16) say = arg1 + 4; break;\n"
-"      case 6: arg1 = *c++; arg2 = *c++; say = 255; if(!state[arg2] && arg1 < 16) say = arg1 + 4; break;\n"
-"      case 7: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] && arg1 < 16) say = arg1 + 4; break;\n"
-"      case 8: arg1 = *c++; if(state[arg1] < 255) state[arg1]++; break;\n"
-"      case 9: arg1 = *c++; arg2 = *c++; if(!state[arg2] && state[arg1] < 255) state[arg1]++; break;\n"
-"      case 10: arg1 = *c++; arg2 = *c++; if(state[arg2] && state[arg1] < 255) state[arg1]++; break;\n"
-"      case 11: arg1 = *c++; if(state[arg1] > 0) state[arg1]--; break;\n"
-"      case 12: arg1 = *c++; arg2 = *c++; if(!state[arg2] && state[arg1] > 0) state[arg1]--; break;\n"
-"      case 13: arg1 = *c++; arg2 = *c++; if(state[arg2] && state[arg1] > 0) state[arg1]--; break;\n"
-"      case 14: arg1 = *c++; arg2 = *c++; state[arg1] = arg2; break;\n"
-"      case 15: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(!state[arg3]) state[arg1] = arg2; break;\n"
-"      case 16: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(state[arg3]) state[arg1] = arg2; break;\n"
-"      case 17: load_room(*c++); return;\n"
-"      case 18: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { load_room(arg1); return; } break;\n"
-"      case 19: arg1 = *c++; arg2 = *c++; if(state[arg2]) { load_room(arg1); return; } break;\n"
-"      case 20: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[0] = arg1; custom_room(); } break;\n"
-"      case 21: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[0] = arg1; custom_room(); } break;\n"
-"      case 22: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[1] = arg1; custom_room(); } break;\n"
-"      case 23: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[1] = arg1; custom_room(); } break;\n"
-"      case 24: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[2] = arg1; custom_room(); } break;\n"
-"      case 25: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[2] = arg1; custom_room(); } break;\n"
-"      case 26: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[3] = arg1; custom_room(); } break;\n"
-"      case 27: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[3] = arg1; custom_room(); } break;\n"
-"      case 28: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[4] = arg1; custom_room(); } break;\n"
-"      case 29: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[4] = arg1; custom_room(); } break;\n"
-"      case 30: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[5] = arg1; custom_room(); } break;\n"
-"      case 31: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[5] = arg1; custom_room(); } break;\n"
+"      case 1: inp[0] = 0; rst = 1;\n"
+"      case 2: music(*c++, 0, 128); break;\n"
+"      case 3: sfx(*c++, 0, 255); break;\n"
+"      case 4: arg1 = *c++; arg2 = *c++; if(!state[arg2]) sfx(arg1, 0, 255); break;\n"
+"      case 5: arg1 = *c++; arg2 = *c++; if(state[arg2]) sfx(arg1, 0, 255); break;\n"
+"      case 6: arg1 = *c++; say = 255; if(arg1 < 16) say = arg1 + 4; break;\n"
+"      case 7: arg1 = *c++; arg2 = *c++; say = 255; if(!state[arg2] && arg1 < 16) say = arg1 + 4; break;\n"
+"      case 8: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] && arg1 < 16) say = arg1 + 4; break;\n"
+"      case 9: arg1 = *c++; if(state[arg1] < 255) state[arg1]++; break;\n"
+"      case 10: arg1 = *c++; arg2 = *c++; if(!state[arg2] && state[arg1] < 255) state[arg1]++; break;\n"
+"      case 11: arg1 = *c++; arg2 = *c++; if(state[arg2] && state[arg1] < 255) state[arg1]++; break;\n"
+"      case 12: arg1 = *c++; if(state[arg1] > 0) state[arg1]--; break;\n"
+"      case 13: arg1 = *c++; arg2 = *c++; if(!state[arg2] && state[arg1] > 0) state[arg1]--; break;\n"
+"      case 14: arg1 = *c++; arg2 = *c++; if(state[arg2] && state[arg1] > 0) state[arg1]--; break;\n"
+"      case 15: arg1 = *c++; arg2 = *c++; state[arg1] = arg2; break;\n"
+"      case 16: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(!state[arg3]) state[arg1] = arg2; break;\n"
+"      case 17: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(state[arg3]) state[arg1] = arg2; break;\n"
+"      case 18: load_room(*c++); return;\n"
+"      case 19: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { load_room(arg1); return; } break;\n"
+"      case 20: arg1 = *c++; arg2 = *c++; if(state[arg2]) { load_room(arg1); return; } break;\n"
+"      case 21: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[0] = arg1; custom_room(); } break;\n"
+"      case 22: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[0] = arg1; custom_room(); } break;\n"
+"      case 23: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[1] = arg1; custom_room(); } break;\n"
+"      case 24: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[1] = arg1; custom_room(); } break;\n"
+"      case 25: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[2] = arg1; custom_room(); } break;\n"
+"      case 26: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[2] = arg1; custom_room(); } break;\n"
+"      case 27: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[3] = arg1; custom_room(); } break;\n"
+"      case 28: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[3] = arg1; custom_room(); } break;\n"
+"      case 29: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[4] = arg1; custom_room(); } break;\n"
+"      case 30: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[4] = arg1; custom_room(); } break;\n"
+"      case 31: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[5] = arg1; custom_room(); } break;\n"
+"      case 32: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[5] = arg1; custom_room(); } break;\n"
 "    }\n"
 "  }\n"
 "}\n"
@@ -179,10 +181,10 @@ static char *program = "#!c\n\n"
 "  for(i = 0; i < 255 && inp[i] && !n2;) {\n"
 "    while(i < 255 && inp[i] == ' ') i++;\n"
 "    if(v == 255)\n"
-"      for(m = j = 0; j < 22; j++)\n"
+"      for(m = j = 0; j < 24; j++)\n"
 "        for(k = 0; k < 4; k++, m += 16) {\n"
 "          l = strlen(&verb[m]);\n"
-"          if(l && !memcmp(&inp[i], &verb[m], l)) { v = j; j = 22; break; }\n"
+"          if(l && !memcmp(&inp[i], &verb[m], l)) { v = j; j = 24; break; }\n"
 "        }\n"
 "    for(m = j = 0; j < 96; j++, m += 16) {\n"
 "      l = strlen(&noun[m]);\n"
@@ -190,6 +192,7 @@ static char *program = "#!c\n\n"
 "    }\n"
 "    while(i < 255 && inp[i] && inp[i] != ' ') i++;\n"
 "  }\n"
+"  trace(\"%%d %%d %%d\",v,n1,n2);\n"
 "  /* built-in save and load game verbs */\n"
 "  if(v == 0) { memsave(255, &state, 256); say = 3; } else\n"
 "  if(v == 1) { memload(&state, 255, 256); load_room(state[0]); } else\n"
@@ -205,29 +208,36 @@ static char *program = "#!c\n\n"
 "  }\n"
 "}\n"
 "\n"
+"/* wait for a keypress and jump to the first room */\n"
+"void reset_game()\n"
+"{\n"
+"  uint8_t r;\n"
+"  getc();\n"
+"  memload(0x10000, 0, 32768);\n"
+"  memcpy(&state, 0x10EB0, 256);\n"
+"  /* jump to the first room */\n"
+"  r = state[0] ? state[0] : 1;\n"
+"  state[0] = rst = 0;\n"
+"  load_room(r);\n"
+"}\n"
+"\n"
 "/* load game configuration and display intro screen */\n"
 "void setup()\n"
 "{\n"
-"  uint8_t r;\n"
 "  memload(0x10000, 0, 32768);\n"
 "  lang = inb(0x11000) && (inb(16) != inb(0x10000) || inb(17) != inb(0x10001)) ? 1 : 0;\n"
-"  memcpy(&state, 0x10EB0, 256);\n"
 "  memcpy(&colors, 0x10FB0, 5);\n"
 "  memcpy(&textpos, 0x10FB5, 1);\n"
 "  memcpy(&logic, 0x10FB6, 74);\n"
 "  memcpy(&msg, 0x10002 + lang * 4096, 750);\n"
-"  memcpy(&ans, 0x10230 + lang * 4096, 256);\n"
-"  memcpy(&verb, 0x10330 + lang * 4096, 1408);\n"
+"  memcpy(&ans, 0x101B0 + lang * 4096, 256);\n"
+"  memcpy(&verb, 0x102B0 + lang * 4096, 1536);\n"
 "  memcpy(&noun, 0x108B0 + lang * 4096, 1536);\n"
 "  cls(colors[0]);\n"
 "  spr(32, 2, 128, 32, textpos > 96 ? 12 : textpos/8, 0, 0);\n"
 "  custom_intro();\n"
 "  text(colors[1], 40, textpos, 1, 0, 0, &msg);\n"
-"  getc();\n"
-"  /* jump to the first room */\n"
-"  r = state[0] ? state[0] : 1;\n"
-"  state[0] = 0;\n"
-"  load_room(r);\n"
+"  reset_game();\n"
 "}\n"
 "\n"
 "/* display prompt and parse user input */\n"
@@ -243,8 +253,10 @@ static char *program = "#!c\n\n"
 "    outw(0x49A, 4); outb(0x498, colors[3]);\n"
 "    printf(\"%%s\\n\", say < 4 ? &ans[say * 64] : &msg[(say - 4) * 128]);\n"
 "  }\n"
-"  outw(0x49A, 4); outb(0x498, colors[4]); printf(\"> \");\n"
-"  parse_cmd(gets());\n"
+"  if(!rst) {\n"
+"    outw(0x49A, 4); outb(0x498, colors[4]); printf(\"> \");\n"
+"    parse_cmd(gets());\n"
+"  } else reset_game();\n"
 "}\n";
 
 int line;
@@ -743,6 +755,8 @@ readops:                if(j >= 0 && j <= NUMVERB) {
             if(room->west && (room->west > 254 || !meg4.ovls[(uint32_t)room->west].data)) { j = 1; room->west = 0; }
             if(room->east && (room->east > 254 || !meg4.ovls[(uint32_t)room->east].data)) { j = 1; room->east = 0; }
             if(room->south && (room->south > 254 || !meg4.ovls[(uint32_t)room->south].data)) { j = 1; room->south = 0; }
+            if(room->up && (room->up > 254 || !meg4.ovls[(uint32_t)room->up].data)) { j = 1; room->up = 0; }
+            if(room->down && (room->down > 254 || !meg4.ovls[(uint32_t)room->down].data)) { j = 1; room->down = 0; }
             if(j) fprintf(stderr, "converter: invalid navigation in room %u\r\n", i);
         }
 

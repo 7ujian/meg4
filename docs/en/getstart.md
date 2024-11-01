@@ -61,7 +61,7 @@ don't click on the program, rather click on this shortcut, and the program will 
 wish, you can have multiple shortcuts with different options.
 
 ```
-meg4 [-L <xx>] [-z] [-n] [-v|-vv] [-s] [-d <dir>] [floppy]
+meg4 [-L <xx>] [-z] [-n] [-w] [-v|-vv] [-s] [-d <dir>] [floppy]
 ```
 
 | Option     | Description |
@@ -69,6 +69,7 @@ meg4 [-L <xx>] [-z] [-n] [-v|-vv] [-s] [-d <dir>] [floppy]
 | `-L <xx>`  | The argument of this flag can be "en", "es", "de", "fr" etc. Using this flag forces a specific language dictionary for the emulator and avoids automatic detection. If there's no such dictionary, then English is used. |
 | `-z`       | On Linux by default, the GTK libraries are run-time linked to get the open file modal. Using this flag will make it call `zenity` instead (requires zenity to be installed on your computer). |
 | `-n`       | Force using the "nearest" interpolation method. By default, it is only used if the screen size is multiple of 320 x 200. |
+| `-w`       | Start in windowed mode (by default it is fullscreen) |
 | `-v, -vv`  | Enable verbose mode. `meg4` will print out detailed information to the standard output (as well as your script's [trace] calls), so run this from a terminal. |
 | `-s`       | Enable strace, tracing of system calls (only if compiled with DEBUG). |
 | `-d <dir>` | Optional, if given, then floppies will be stored in this directory and no open file modal is used. |

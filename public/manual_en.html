@@ -440,12 +440,13 @@ A window will appear, where you can specify the command line options in the <i>T
 don't click on the program, rather click on this shortcut, and the program will start with those command line options. If you
 wish, you can have multiple shortcuts with different options.</p>
 <div class="pre"><pre>
-meg4 [-L &lt;xx&gt;] [-z] [-n] [-v|-vv] [-s] [-d &lt;dir&gt;] [floppy]
+meg4 [-L &lt;xx&gt;] [-z] [-n] [-w] [-v|-vv] [-s] [-d &lt;dir&gt;] [floppy]
 </pre></div>
 <div class="table"><table><tr><th>Option </th><th>Description </th></tr>
 <tr><td><samp>-L &lt;xx&gt;</samp> </td><td>The argument of this flag can be "en", "es", "de", "fr" etc. Using this flag forces a specific language dictionary for the emulator and avoids automatic detection. If there's no such dictionary, then English is used. </td></tr>
 <tr><td><samp>-z</samp> </td><td>On Linux by default, the GTK libraries are run-time linked to get the open file modal. Using this flag will make it call <samp>zenity</samp> instead (requires zenity to be installed on your computer). </td></tr>
 <tr><td><samp>-n</samp> </td><td>Force using the "nearest" interpolation method. By default, it is only used if the screen size is multiple of 320 x 200. </td></tr>
+<tr><td><samp>-w</samp> </td><td>Start in windowed mode (by default it is fullscreen) </td></tr>
 <tr><td><samp>-v, -vv</samp> </td><td>Enable verbose mode. <samp>meg4</samp> will print out detailed information to the standard output (as well as your script's <a href="#@GENDOC:litra@" onclick="c('@GENDOC:litra@')">trace</a> calls), so run this from a terminal. </td></tr>
 <tr><td><samp>-s</samp> </td><td>Enable strace, tracing of system calls (only if compiled with DEBUG). </td></tr>
 <tr><td><samp>-d &lt;dir&gt;</samp> </td><td>Optional, if given, then floppies will be stored in this directory and no open file modal is used. </td></tr>
@@ -5429,6 +5430,7 @@ the custom ui code you can display whatever and however sprites you'd like.</p>
 <h2 id="commands">Commands<a href="#commands"></a></h2>
 <p>These alter the game's state, display messages, etc., and are listed in <samp>logic</samp> and room's <samp>verb*</samp> fields.</p>
 <ul><li><samp>end</samp>: end script</li>
+<li><samp>reset</samp>: wait for a keypress and reset game</li>
 <li><samp>mus X</samp>: play background music (X goes 0 to 7)</li>
 <li><samp>sfx X</samp>: play sound effect (X goes 0 to 63)</li>
 <li><samp>sfxz X Y</samp>: play sound effect X if variable Y is zero</li>

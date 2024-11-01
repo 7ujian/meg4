@@ -96,6 +96,7 @@ Utasítások
 Ezek befolyásolják a játék állapotát, szöveget jelenítenek meg, stb. és a `logic` és a szobák `verb*` mezőiben szerepelnek.
 
 - `end`: szkript vége
+- `reset`: vár egy billentyűleütésre és újraindítja a játékot
 - `mus X`: háttérzene lejátszása (X értéke 0 és 7 közötti)
 - `sfx X`: hangeffekt lejátszása (X értéke 0 és 63 közötti)
 - `sfxz X Y`: X hangeffekt lejátszása, ha az Y változó nulla

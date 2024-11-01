@@ -594,7 +594,7 @@ int main(int argc, char **argv)
 #else
     for(win_w = win_h = 0; win_w + 320 < main_w && win_h + 200 < main_h; win_w += 320, win_h += 200);
     main_win(win_w/*main_w*/, win_h/*main_h*/, 0/*1*/);
-    main_fullscreen();
+    if(!windowed) main_fullscreen();
 #endif
     if(!window) {
         meg4_poweroff();

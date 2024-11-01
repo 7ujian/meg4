@@ -95,6 +95,7 @@ Commands
 These alter the game's state, display messages, etc., and are listed in `logic` and room's `verb*` fields.
 
 - `end`: end script
+- `reset`: wait for a keypress and reset game
 - `mus X`: play background music (X goes 0 to 7)
 - `sfx X`: play sound effect (X goes 0 to 63)
 - `sfxz X Y`: play sound effect X if variable Y is zero

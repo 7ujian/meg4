@@ -193,7 +193,7 @@ static void init(void)
     audio = saudio_isvalid();
     if(verbose && audio) main_log(1, "audio opened %uHz, %u bits", 44100, 32);
 #ifndef DEBUG
-    main_fullscreen();
+    if(!windowed) main_fullscreen();
 #endif
     meg4_setptr(mx, my);
     meg4_hidecursor();

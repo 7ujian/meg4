@@ -335,7 +335,7 @@ int main(int argc, char **argv)
     main_win(640, 400, 0);
 #else
     main_win(640/*main_w*/, 400/*main_h*/, 0/*1*/);
-    main_fullscreen();
+    if(!windowed) main_fullscreen();
 #endif
     screen = al_create_bitmap(640, 400);
     al_register_event_source(queue, al_get_keyboard_event_source());
