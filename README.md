@@ -83,8 +83,8 @@ Contributors
 
 I would like to say thanks to [Mátyás Jani](https://gitlab.com/jzombi) for thorough testing and making suggestions on useful
 features, and [Tony Wang](https://github.com/paladin-t) for the Chinese, [nics_le](https://gitlab.com/nics_le) for the German,
-[Openovchik](https://gitlab.com/openovchik) for the Russian, and [Johnny](https://gitlab.com/pwolski) for the Polish translation
-fixes!
+[Openovchik](https://gitlab.com/openovchik) for the Russian, [Johnny](https://gitlab.com/pwolski) for the Polish, and
+[Andreas](https://gitlab.com/nackros) for the Swedish translation fixes!
 
 Social and Newsroom
 -------------------
