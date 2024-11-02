@@ -5466,7 +5466,8 @@ felhasználható. Ezek lehetnek jelzőbitek, változók, bármi. Ez az állapot 
 <p>A szövegek 255 bájtosak lehetnek, és minden szobának saját 8 szövege lehet, melyeket a <samp>say</samp> / <samp>sayz</samp> / <samp>saynz</samp> utasításokkal
 lehet megjeleníteni.</p>
 <p>Ha a szoba logika meg van adva, akkot előbb mindig az általános játéklogika fut le, aztán a szobáé.</p>
-<p>Az irányoknál a 0 jelentése nem járható irány, egyébként ha sztringtömb, akkor megadható egy szkript tetszőleges logikával.</p>
+<p>Az irányoknál a 0 jelentése nem járható irány, egyébként ha sztringtömb, akkor megadható egy szkript tetszőleges logikával (lásd
+alább).</p>
 <h2 id="utasitasok">Utasítások<a href="#utasitasok"></a></h2>
 <p>Ezek befolyásolják a játék állapotát, szöveget jelenítenek meg, stb. és a <samp>logic</samp> és a szobák <samp>verb*</samp> mezőiben szerepelnek.</p>
 <ul><li><samp>end</samp>: szkript vége</li>
@@ -5504,9 +5505,24 @@ lehet megjeleníteni.</p>
 <li><samp>dnz X Y</samp>: alatta lévő szobát X-re állítja, ha az Y változó nem nulla</li></ul>
 <p>Az utolsó 12 utasítás a navigáció feltételes szabályozásához használatos. Például ha van egy "kulcs felvéve" jelző a 8-as
 állapotban, és a 11-es szobában pedig van egy ajtó az északi irányban a 12-es szoba felé, és azt akarjuk, hogy csak akkor legyen
-járható, ha a játékos rendelkezik a kulccsal. Ilyenkor nem a 11-es szoba <samp>north</samp> mezőjét kell állítani, hanem a <samp>logic</samp>-hoz kell
-hozzáadni egy <samp>nnz 12 8</samp> utasítást. Ez csak akkor teszi járhatóvá az északi irányt a 12-es szoba felé, ha a 8-as állapot be lett
-állítva.</p>
+járható, ha a játékos rendelkezik a kulccsal.</p>
+<div class="pre"><pre>
+  &quot;11&quot;: {
+    &quot;north&quot;: 0,
+    &quot;logic&quot;: [ &quot;nnz 12 8&quot; ]
+  }
+</pre></div>
+<p>Ilyenkor nem a 11-es szoba <samp>north</samp> mezőjét kell állítani, hanem a <samp>logic</samp>-hoz kell hozzáadni egy <samp>nnz 12 8</samp> utasítást. Ez csak
+akkor teszi járhatóvá az északi irányt a 12-es szoba felé, ha a 8-as állapot be lett állítva.</p>
+<div class="pre"><pre>
+  &quot;11&quot;: {
+    &quot;text0&quot;: [ &quot;Az ajtó zárva.&quot; ],
+    &quot;north&quot;: [ &quot;jnz 12 8&quot;, &quot;sayz 1 8&quot; ]
+  }
+</pre></div>
+<p>Az is működik, ha a <samp>north</samp> mezőnek egy <samp>jnz 12 8</samp> szkriptet adunk meg. Ez csak abban az esetben ugrik a 12-es szobába, ha a 8-as
+állapot nem nulla, egyébként marad a 11-esben. Ilyenkor mondhatjuk, hogy "Az ajtó zárva" a <samp>sayz 1 8</samp> (írd ki az 1-es szöveget, ha
+a 8-as állapot nincs beállítva).</p>
 <h2 id="minta_jatek">Minta játék<a href="#minta_jatek"></a></h2>
 <p>Minta MEG-4 Kalandjáték a <a href="https://gitlab.com/bztsrc/meg4_idoregesz" target="new">meg4_idoregesz</a> repóban található.</p><br style="clear:both;"><label class="btn prev" accesskey="p" for="_hangeffekt" title="Hangeffekt">Előző</label><label class="btn next" accesskey="n" for="_meg_4_licensz" title="MEG-4 Licensz">Következő</label></div>
 <div class="page" rel="meg_4_licensz"><div><ul class="breadcrumbs"><li><label class="home" for="_" title="Főoldal"></label>&nbsp;»</li><li>&nbsp;Függelék&nbsp;»</li><li>&nbsp;MEG-4 Licensz</li></ul><hr></div>

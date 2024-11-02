@@ -5429,7 +5429,7 @@ the custom ui code you can display whatever and however sprites you'd like.</p>
 <p>Texts can be 255 bytes long, and each room might have 8 texts, which can be displayed with <samp>say</samp> / <samp>sayz</samp> / <samp>saynz</samp>.</p>
 <p>If room logic is given, then first game logic runs, then room logic.</p>
 <p>With the directions number 0 means invalid direction, otherwise if you pass an array of strings, you can add a script
-with custom logic.</p>
+with custom logic (see below).</p>
 <h2 id="commands">Commands<a href="#commands"></a></h2>
 <p>These alter the game's state, display messages, etc., and are listed in <samp>logic</samp> and room's <samp>verb*</samp> fields.</p>
 <ul><li><samp>end</samp>: end script</li>
@@ -5466,9 +5466,23 @@ with custom logic.</p>
 <li><samp>dz X Y</samp>: set the room downstairs to X if variable Y is zero</li>
 <li><samp>dnz X Y</samp>: set the room downstairs to X if variable Y is non-zero</li></ul>
 <p>The last 12 instructions can be used to alter the navigation conditionally. For example you store a "has the key" flag in game
-state 8, and in room 11 you has a door and you only want to allow to go North to room 12 if the player has that key. In this case
-do not set the <samp>north</samp> property for room 11, instead add <samp>nnz 12 8</samp> to its <samp>logic</samp>. This will only enable the North direction to
-room 12 if game state 8 is set.</p>
+state 8, and in room 11 you has a door and you only want to allow to go North to room 12 if the player has that key.</p>
+<div class="pre"><pre>
+  &quot;11&quot;: {
+    &quot;north&quot;: 0,
+    &quot;logic&quot;: [ &quot;nnz 12 8&quot; ]
+  }
+</pre></div>
+<p>In this case do not set the <samp>north</samp> property for room 11, instead add <samp>nnz 12 8</samp> to its <samp>logic</samp>. This will only enable the
+North direction to room 12 if game state 8 is set.</p>
+<div class="pre"><pre>
+  &quot;11&quot;: {
+    &quot;text0&quot;: [ &quot;The door is closed.&quot; ],
+    &quot;north&quot;: [ &quot;jnz 12 8&quot;, &quot;sayz 1 8&quot; ]
+  }
+</pre></div>
+<p>Alternatively you could add a <samp>jnz 12 8</samp> script to <samp>north</samp> property as well. This would only jump to room 12 if state 8 is set,
+otherwise it remains in room 11. You could also say "The door is closed" with <samp>sayz 1 8</samp> (prints text 1 if state 8 is clear).</p>
 <h2 id="example_game">Example Game<a href="#example_game"></a></h2>
 <p>An example MEG-4 Adventure Game can be found in the <a href="https://gitlab.com/bztsrc/meg4_idoregesz" target="new">meg4_idoregesz</a> repository.</p><br style="clear:both;"><label class="btn prev" accesskey="p" for="_sound_effect" title="Sound Effect">Previous</label><label class="btn next" accesskey="n" for="_meg_4_license" title="MEG-4 License">Next</label></div>
 <div class="page" rel="meg_4_license"><div><ul class="breadcrumbs"><li><label class="home" for="_" title="Home"></label>&nbsp;»</li><li>&nbsp;Appendix&nbsp;»</li><li>&nbsp;MEG-4 License</li></ul><hr></div>

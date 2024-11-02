@@ -48,7 +48,7 @@ typedef struct {
 /* stored in overlays 1 to 254 */
 typedef struct {
     char        msg[2][8][256]; /* text messages */
-    uint8_t     dir[6];         /* navigation, room numbers or 0 / 255 if script */
+    uint8_t     dir[6];         /* navigation, room numbers or 0 if none / 255 if script */
     ag_cmds_t   cmds[63];       /* commands understand in this room (script list) */
 } __attribute__((packed)) ag_room_t;
 extern char c_assert2[sizeof(ag_room_t) <= 8192 ? 1 : -1];
@@ -102,7 +102,7 @@ static char *program = "#!c\n\n"
 " * Copyright (c) bzt 2024 CC-0\n"
 " */\n%s\n"
 "/* variables */\n"
-"uint8_t lang, state[256], colors[5], textpos, logic[74], dir[8], cmd[4096], say, rst;\n"
+"uint8_t lang, state[256], colors[5], textpos, logic[74], dir[8], cmd[4096], say, say2, rst;\n"
 "char ans[256], verb[1536], noun[1536], msg[2048], inp[256];\n\n"
 "/* customize your UI here */\n"
 "void custom_intro()\n{\n%s\n}\n"
@@ -119,9 +119,9 @@ static char *program = "#!c\n\n"
 "      case 3: sfx(*c++, 0, 255); break;\n"
 "      case 4: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) sfx(arg1, 0, 255); break;\n"
 "      case 5: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) sfx(arg1, 0, 255); break;\n"
-"      case 6: arg1 = *c++; say = 255; if(arg1 < 8) say = arg1 + 4; break;\n"
-"      case 7: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] == 0 && arg1 < 8) say = arg1 + 4; break;\n"
-"      case 8: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] != 0 && arg1 < 8) say = arg1 + 4; break;\n"
+"      case 6: arg1 = *c++; say = 255; if(arg1 < 8) { say2 = say; say = arg1 + 4; } break;\n"
+"      case 7: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] == 0 && arg1 < 8) { say2 = say; say = arg1 + 4; } break;\n"
+"      case 8: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] != 0 && arg1 < 8) { say2 = say; say = arg1 + 4; } break;\n"
 "      case 9: arg1 = *c++; if(state[arg1] < 255) state[arg1]++; break;\n"
 "      case 10: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0 && state[arg1] < 255) state[arg1]++; break;\n"
 "      case 11: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0 && state[arg1] < 255) state[arg1]++; break;\n"
@@ -134,18 +134,18 @@ static char *program = "#!c\n\n"
 "      case 18: load_room(*c++); return;\n"
 "      case 19: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { load_room(arg1); return; } break;\n"
 "      case 20: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { load_room(arg1); return; } break;\n"
-"      case 21: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[0] = arg1; custom_room(); } break;\n"
-"      case 22: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[0] = arg1; custom_room(); } break;\n"
-"      case 23: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[1] = arg1; custom_room(); } break;\n"
-"      case 24: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[1] = arg1; custom_room(); } break;\n"
-"      case 25: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[2] = arg1; custom_room(); } break;\n"
-"      case 26: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[2] = arg1; custom_room(); } break;\n"
-"      case 27: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[3] = arg1; custom_room(); } break;\n"
-"      case 28: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[3] = arg1; custom_room(); } break;\n"
-"      case 29: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[4] = arg1; custom_room(); } break;\n"
-"      case 30: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[4] = arg1; custom_room(); } break;\n"
-"      case 31: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[5] = arg1; custom_room(); } break;\n"
-"      case 32: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[5] = arg1; custom_room(); } break;\n"
+"      case 21: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { dir[0] = arg1; custom_room(); } break;\n"
+"      case 22: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { dir[0] = arg1; custom_room(); } break;\n"
+"      case 23: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { dir[1] = arg1; custom_room(); } break;\n"
+"      case 24: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { dir[1] = arg1; custom_room(); } break;\n"
+"      case 25: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { dir[2] = arg1; custom_room(); } break;\n"
+"      case 26: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { dir[2] = arg1; custom_room(); } break;\n"
+"      case 27: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { dir[3] = arg1; custom_room(); } break;\n"
+"      case 28: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { dir[3] = arg1; custom_room(); } break;\n"
+"      case 29: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { dir[4] = arg1; custom_room(); } break;\n"
+"      case 30: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { dir[4] = arg1; custom_room(); } break;\n"
+"      case 31: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { dir[5] = arg1; custom_room(); } break;\n"
+"      case 32: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { dir[5] = arg1; custom_room(); } break;\n"
 "    }\n"
 "  }\n"
 "}\n"
@@ -159,7 +159,7 @@ static char *program = "#!c\n\n"
 "  memcpy(&msg, 0x10000 + lang * 2048, 2048);\n"
 "  memcpy(&dir, 0x11000, 6);\n"
 "  memcpy(&cmd, 0x11006, 4096);\n"
-"  inp[0] = 0; say = 255;\n"
+"  inp[0] = 0; say = 255; say2 = 0;\n"
 "  parse_ops(&logic);\n"
 "  parse_ops(&cmd[3]);\n"
 "  cls(colors[2]);\n"
@@ -182,11 +182,11 @@ static char *program = "#!c\n\n"
 "      for(m = j = 0; j < 24; j++)\n"
 "        for(k = 0; k < 4; k++, m += 16) {\n"
 "          l = strlen(&verb[m]);\n"
-"          if(l && !memcmp(&inp[i], &verb[m], l)) { v = j; j = 24; break; }\n"
+"          if(l && (l > 2 || !inp[i + l] || inp[i + l] == ' ') && !memcmp(&inp[i], &verb[m], l)) { v = j; j = 24; break; }\n"
 "        }\n"
 "    for(m = j = 0; j < 96; j++, m += 16) {\n"
 "      l = strlen(&noun[m]);\n"
-"      if(l && !memcmp(&inp[i], &noun[m], l)) { j++; if(!n1) n1 = j; else n2 = j; break; }\n"
+"      if(l && (l > 2 || !inp[i + l] || inp[i + l] == ' ') && !memcmp(&inp[i], &noun[m], l)) { j++; if(!n1) n1 = j; else n2 = j; break; }\n"
 "    }\n"
 "    while(i < 255 && inp[i] && inp[i] != ' ') i++;\n"
 "  }\n"
@@ -201,11 +201,8 @@ static char *program = "#!c\n\n"
 "  if(v == 1) { memload(&state, 255, 256); load_room(state[0]); } else\n"
 "  /* look for a room script for this verb and noun(s) */\n"
 "  if(v != 255) {\n"
-"    for(i = 64; i < 63*64; i += 64)\n"
-"      if(cmd[i] == v) {\n"
-"        say = cmd[i + 1] ? 2 : 255;\n"
-"        if(cmd[i + 1] == n1 && cmd[i + 2] == n2) { say = 255; parse_ops(&cmd[i + 3]); break; }\n"
-"      }\n"
+"    for(say = 2, i = 64; i < 63*64; i += 64)\n"
+"      if(cmd[i] == v && cmd[i + 1] == n1 && cmd[i + 2] == n2) { say = 255; parse_ops(&cmd[i + 3]); break; }\n"
 "  }\n"
 "}\n"
 "\n"
@@ -225,6 +222,7 @@ static char *program = "#!c\n\n"
 "/* load game configuration and display intro screen */\n"
 "void setup()\n"
 "{\n"
+"  outw(0x14, PTR_NONE);\n"
 "  memload(0x10000, 0, 32768);\n"
 "  lang = inb(0x11000) && (inb(16) != inb(0x10000) || inb(17) != inb(0x10001)) ? 1 : 0;\n"
 "  memcpy(&colors, 0x10FB0, 5);\n"
@@ -251,9 +249,11 @@ static char *program = "#!c\n\n"
 "    printf(\"> %%s\\n\", &inp);\n"
 "  }\n"
 "  if(say <= 12) {\n"
-"    outw(0x49A, 4); outb(0x498, colors[3]);\n"
-"    printf(\"%%s\\n\", say < 4 ? &ans[say * 64] : &msg[(say - 4) * 256]);\n"
+"    outb(0x498, colors[3]);\n"
+"    if(say2 >= 4 && say2 <= 12) { outw(0x49A, 4); printf(\"%%s\\n\", &msg[(say2 - 4) * 256]); }\n"
+"    outw(0x49A, 4); printf(\"%%s\\n\", say < 4 ? &ans[say * 64] : &msg[(say - 4) * 256]);\n"
 "  }\n"
+"  say2 = 0;\n"
 "  if(!rst) {\n"
 "    outw(0x49A, 4); outb(0x498, colors[4]); printf(\"> \");\n"
 "    parse_cmd(gets());\n"
@@ -357,7 +357,7 @@ void json_wrap(char *dst, char *src, int len)
             if(!meg4.font[8 * 65536 + c] && meg4_isbyte(meg4.font + 8 * c, 0, 8)) c = 0;
             w += ((meg4.font[8 * 65536 + c] >> 4) - (meg4.font[8 * 65536 + c] & 0xf) + 1) + 1;
         }
-        if(w > 312 && space > 0) {
+        if(w > 310 && space > 0) {
             memmove(dst + space + 1, dst + space, l - space + 1);
             dst[space] = '\n'; space = 0; w -= o; l++;
         }
@@ -429,7 +429,7 @@ uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, 
                                 }
                                 o++;
                             }
-                            if(!o || o > 254 || !meg4.ovls[o].data) e = 7; else { op[j++] = o; roomref[o] = 1; }
+                            if((!o && k < 21) || o > 254 || (o && !meg4.ovls[o].data)) e = 7; else { op[j++] = o; roomref[o] = 1; }
                         break;
                     }
                 }
@@ -484,6 +484,8 @@ int main_advgame(char *fn, uint8_t *buf, int len)
 
     /* collect defined rooms in advance */
     for(s = buf + 9, l = line, k = 0; s < end; s++) {
+        if(s[0] == '/' && s[1] == '*') for(s += 2; s < end && (s[-2] != '*' || s[-1] != '/'); s++) if(*s == '\n') l++;
+        if(s[0] == '/' && s[1] == '/') for(s += 2; s < end && *s != '\n'; s++);
         if(*s == '\n') l++;
         if(*s == '{' || *s == '[') k++;
         if(*s == '}' || *s == ']') k--;
@@ -885,14 +887,14 @@ readops:                if(j >= 0 && j <= NUMVERB) {
                                         }
                                 }
                             }
-                            if(cmds) buf = json_opcodes(cmds->op, buf, end, 61, j ? n : 0, l);
+                            if(cmds) buf = json_opcodes(cmds->op, buf, end, 61, j ? n - 1 : 0, l);
                         } else
                             fprintf(stderr, "converter: line %u: invalid verb %u in room %u\r\n", line, j, l);
                     } else
                     if(*buf == '\"')
                         for(buf++, i = 0; i < NUMVERB; i++) {
                             j = verbs[i] ? strlen(verbs[i]) : 0;
-                            if(j && !memcmp(buf, verbs[i], j) && buf[j] == '\"') { buf += j + 1; j = i + 1; goto readops; }
+                            if(j && !memcmp(buf, verbs[i], j) && (buf[j] == '\"' || buf[j] == ' ')) { buf += j; j = i + 8; goto readops; }
                         }
                 }
             } else

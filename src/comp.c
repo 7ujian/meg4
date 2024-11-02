@@ -908,16 +908,14 @@ arrayindex:         s += 2; q = 1;
                 comp->code[i] = comp->lc = comp->nc;
             break;
             case O_LOR:
-                if(comp->code[comp->nc - 1] == BC_NOT) comp->code[comp->nc - 1] = BC_JZ;
-                else comp_gen(comp, BC_JNZ);
+                comp_gen(comp, BC_JNZ);
                 comp_gen(comp, end ? *end : 0); if(end) *end = comp->nc - 1;
                 s++; comp_cdbg(comp, s);
                 if(!(s = comp_expr(comp, s, e, type, end, O_LOR + 1))) return 0;
                 *type = T(T_SCALAR, T_I32);
             break;
             case O_LAND:
-                if(comp->code[comp->nc - 1] == BC_NOT) comp->code[comp->nc - 1] = BC_JNZ;
-                else comp_gen(comp, BC_JZ);
+                comp_gen(comp, BC_JZ);
                 comp_gen(comp, end ? *end : 0); if(end) *end = comp->nc - 1;
                 s++; comp_cdbg(comp, s);
                 if(!(s = comp_expr(comp, s, e, type, end, O_LAND + 1))) return 0;
