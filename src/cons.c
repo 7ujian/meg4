@@ -175,7 +175,7 @@ str_t meg4_api_gets(void)
     if(key == le32toh('\n') || getspos + l >= (int)sizeof(meg4.data) - 1)
         return (str_t)(MEG4_MEM_LIMIT - 256);
     else {
-        meg4_putc(htole32(key));
+        meg4_api_putc(htole32(key));
         meg4.flg |= 2;
         if(key == le32toh(8)) {
             if(getspos > (int)sizeof(meg4.data) - 256) {

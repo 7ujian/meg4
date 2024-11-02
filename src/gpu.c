@@ -1396,7 +1396,7 @@ int meg4_width(uint8_t *font, int8_t type, char *str, char *end)
     uint32_t c;
 
     if(!font || type < -4 || type > 4 || !str || !*str) return 0;
-    if(!end) end = str + 256;
+    if(!end) end = str + 2048;
     if((uintptr_t)str >= (uintptr_t)&meg4.data && (uintptr_t)str < (uintptr_t)&meg4.data + sizeof(meg4.data) &&
       (uintptr_t)end > (uintptr_t)&meg4.data + sizeof(meg4.data)) end = (char*)meg4.data + sizeof(meg4.data);
     while(str < end && *str) {

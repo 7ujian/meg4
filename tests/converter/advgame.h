@@ -47,11 +47,14 @@ typedef struct {
 
 /* stored in overlays 1 to 254 */
 typedef struct {
-    char        msg[2][16][128];/* text messages */
+    char        msg[2][8][256]; /* text messages */
     uint8_t     dir[6];         /* navigation, room numbers or 0 / 255 if script */
     ag_cmds_t   cmds[63];       /* commands understand in this room (script list) */
 } __attribute__((packed)) ag_room_t;
 extern char c_assert2[sizeof(ag_room_t) <= 8192 ? 1 : -1];
+
+/* directions */
+static char *dirs[6] = { "north", "west", "east", "south", "up", "down" };
 
 /* script opcodes */
 enum { ARG_NONE, ARG_MUS, ARG_SFX, ARG_VAR, ARG_VAL, ARG_MSG, ARG_ROOM };
@@ -114,35 +117,35 @@ static char *program = "#!c\n\n"
 "      case 1: inp[0] = 0; rst = 1;\n"
 "      case 2: music(*c++, 0, 128); break;\n"
 "      case 3: sfx(*c++, 0, 255); break;\n"
-"      case 4: arg1 = *c++; arg2 = *c++; if(!state[arg2]) sfx(arg1, 0, 255); break;\n"
-"      case 5: arg1 = *c++; arg2 = *c++; if(state[arg2]) sfx(arg1, 0, 255); break;\n"
-"      case 6: arg1 = *c++; say = 255; if(arg1 < 16) say = arg1 + 4; break;\n"
-"      case 7: arg1 = *c++; arg2 = *c++; say = 255; if(!state[arg2] && arg1 < 16) say = arg1 + 4; break;\n"
-"      case 8: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] && arg1 < 16) say = arg1 + 4; break;\n"
+"      case 4: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) sfx(arg1, 0, 255); break;\n"
+"      case 5: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) sfx(arg1, 0, 255); break;\n"
+"      case 6: arg1 = *c++; say = 255; if(arg1 < 8) say = arg1 + 4; break;\n"
+"      case 7: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] == 0 && arg1 < 8) say = arg1 + 4; break;\n"
+"      case 8: arg1 = *c++; arg2 = *c++; say = 255; if(state[arg2] != 0 && arg1 < 8) say = arg1 + 4; break;\n"
 "      case 9: arg1 = *c++; if(state[arg1] < 255) state[arg1]++; break;\n"
-"      case 10: arg1 = *c++; arg2 = *c++; if(!state[arg2] && state[arg1] < 255) state[arg1]++; break;\n"
-"      case 11: arg1 = *c++; arg2 = *c++; if(state[arg2] && state[arg1] < 255) state[arg1]++; break;\n"
+"      case 10: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0 && state[arg1] < 255) state[arg1]++; break;\n"
+"      case 11: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0 && state[arg1] < 255) state[arg1]++; break;\n"
 "      case 12: arg1 = *c++; if(state[arg1] > 0) state[arg1]--; break;\n"
-"      case 13: arg1 = *c++; arg2 = *c++; if(!state[arg2] && state[arg1] > 0) state[arg1]--; break;\n"
-"      case 14: arg1 = *c++; arg2 = *c++; if(state[arg2] && state[arg1] > 0) state[arg1]--; break;\n"
+"      case 13: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0 && state[arg1] > 0) state[arg1]--; break;\n"
+"      case 14: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0 && state[arg1] > 0) state[arg1]--; break;\n"
 "      case 15: arg1 = *c++; arg2 = *c++; state[arg1] = arg2; break;\n"
-"      case 16: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(!state[arg3]) state[arg1] = arg2; break;\n"
-"      case 17: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(state[arg3]) state[arg1] = arg2; break;\n"
+"      case 16: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(state[arg3] == 0) state[arg1] = arg2; break;\n"
+"      case 17: arg1 = *c++; arg2 = *c++; arg3 = *c++; if(state[arg3] != 0) state[arg1] = arg2; break;\n"
 "      case 18: load_room(*c++); return;\n"
-"      case 19: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { load_room(arg1); return; } break;\n"
-"      case 20: arg1 = *c++; arg2 = *c++; if(state[arg2]) { load_room(arg1); return; } break;\n"
-"      case 21: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[0] = arg1; custom_room(); } break;\n"
-"      case 22: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[0] = arg1; custom_room(); } break;\n"
-"      case 23: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[1] = arg1; custom_room(); } break;\n"
-"      case 24: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[1] = arg1; custom_room(); } break;\n"
-"      case 25: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[2] = arg1; custom_room(); } break;\n"
-"      case 26: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[2] = arg1; custom_room(); } break;\n"
-"      case 27: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[3] = arg1; custom_room(); } break;\n"
-"      case 28: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[3] = arg1; custom_room(); } break;\n"
-"      case 29: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[4] = arg1; custom_room(); } break;\n"
-"      case 30: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[4] = arg1; custom_room(); } break;\n"
-"      case 31: arg1 = *c++; arg2 = *c++; if(!state[arg2]) { cmd[5] = arg1; custom_room(); } break;\n"
-"      case 32: arg1 = *c++; arg2 = *c++; if(state[arg2]) { cmd[5] = arg1; custom_room(); } break;\n"
+"      case 19: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { load_room(arg1); return; } break;\n"
+"      case 20: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { load_room(arg1); return; } break;\n"
+"      case 21: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[0] = arg1; custom_room(); } break;\n"
+"      case 22: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[0] = arg1; custom_room(); } break;\n"
+"      case 23: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[1] = arg1; custom_room(); } break;\n"
+"      case 24: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[1] = arg1; custom_room(); } break;\n"
+"      case 25: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[2] = arg1; custom_room(); } break;\n"
+"      case 26: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[2] = arg1; custom_room(); } break;\n"
+"      case 27: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[3] = arg1; custom_room(); } break;\n"
+"      case 28: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[3] = arg1; custom_room(); } break;\n"
+"      case 29: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[4] = arg1; custom_room(); } break;\n"
+"      case 30: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[4] = arg1; custom_room(); } break;\n"
+"      case 31: arg1 = *c++; arg2 = *c++; if(state[arg2] == 0) { cmd[5] = arg1; custom_room(); } break;\n"
+"      case 32: arg1 = *c++; arg2 = *c++; if(state[arg2] != 0) { cmd[5] = arg1; custom_room(); } break;\n"
 "    }\n"
 "  }\n"
 "}\n"
@@ -150,7 +153,7 @@ static char *program = "#!c\n\n"
 "/* function to load a room */\n"
 "void load_room(int r)\n"
 "{\n"
-"  if(state[0] == r) return;\n"
+"  if(state[0] == r || !r || r == 255) return;\n"
 "  state[0] = r;\n"
 "  memload(0x10000, r, 32768);\n"
 "  memcpy(&msg, 0x10000 + lang * 2048, 2048);\n"
@@ -187,7 +190,6 @@ static char *program = "#!c\n\n"
 "    }\n"
 "    while(i < 255 && inp[i] && inp[i] != ' ') i++;\n"
 "  }\n"
-"  trace(\"%%d %%d %%d\",v,n1,n2);\n"
 "  /* built-in navigation verbs */\n"
 "  if(v >= 2 && v <= 7) {\n"
 "    v -= 2;\n"
@@ -248,9 +250,9 @@ static char *program = "#!c\n\n"
 "    outb(0x498, colors[4]);\n"
 "    printf(\"> %%s\\n\", &inp);\n"
 "  }\n"
-"  if(say <= 20) {\n"
+"  if(say <= 12) {\n"
 "    outw(0x49A, 4); outb(0x498, colors[3]);\n"
-"    printf(\"%%s\\n\", say < 4 ? &ans[say * 64] : &msg[(say - 4) * 128]);\n"
+"    printf(\"%%s\\n\", say < 4 ? &ans[say * 64] : &msg[(say - 4) * 256]);\n"
 "  }\n"
 "  if(!rst) {\n"
 "    outw(0x49A, 4); outb(0x498, colors[4]); printf(\"> \");\n"
@@ -259,7 +261,7 @@ static char *program = "#!c\n\n"
 "}\n";
 
 int line;
-char *vars[256] = { 0 };
+char *vars[256] = { 0 }, *rooms[254] = { 0 }, roomref[256] = { 0 };
 
 /**
  * Helper to skip comments
@@ -309,14 +311,64 @@ uint8_t *json_unescape(char *dst, uint8_t *src, uint8_t *end, int len)
                         default: break;
                     }
                 } else
-                if(*ptr == '\n' || *ptr >= 32) dst[l++] = *ptr;
+                if((*ptr == '\n' || *ptr >= 32) && (!l || !(*ptr == ' ' && dst[l - 1] == ' '))) dst[l++] = *ptr;
             }
-            if(l >= len - 1 && ptr < src) fprintf(stderr, "converter: line %u: string truncated to %u bytes\r\n", line, l);
             dst[l] = 0;
+            if(l >= len - 1 && ptr < src) fprintf(stderr, "converter: line %u: string truncated to %u bytes\r\n\"%s\"\r\n", line, l, dst);
             src++;
         }
     }
     return src;
+}
+
+/**
+ * Helper, convert UTF-8 to UNICODE codepoint
+ */
+char *json_utf8(char *str, uint32_t *out)
+{
+    if((*str & 128) != 0) {
+        if(!(*str & 32)) { *out = ((*str & 0x1F)<<6)|(*(str+1) & 0x3F); str += 1; } else
+        if(!(*str & 16)) { *out = ((*str & 0xF)<<12)|((*(str+1) & 0x3F)<<6)|(*(str+2) & 0x3F); str += 2; } else
+        if(!(*str & 8)) { *out = ((*str & 0x7)<<18)|((*(str+1) & 0x3F)<<12)|((*(str+2) & 0x3F)<<6)|(*(str+3) & 0x3F); str += 3; }
+        else *out = 0;
+    } else *out = *str;
+    return str + 1;
+}
+
+/**
+ * Helper to wrap text
+ */
+void json_wrap(char *dst, char *src, int len)
+{
+    uint32_t c;
+    char *bef;
+    int space = 0, l, s, w = 0, o = 0;
+
+    memset(dst, 0, len);
+    for(l = 0; l + 1 < len && *src;) {
+        bef = src; src = json_utf8(src, &c);
+        if(c == ' ') { space = l; o = w; }
+        if(c == '\r') { w = 0; continue; } else
+        if(c == '\n') { w = 0; dst[l++] = '\n'; dst[l] = ' '; space = 0; continue; } else
+        if(c == 0x2328 || c == 0x1F3AE || c == 0x1F5B1 ||
+          (c >= EMOJI_FIRST && c < EMOJI_LAST && c - EMOJI_FIRST < (uint32_t)(sizeof(emoji)/sizeof(emoji[0]))))
+            w += 8 + 1; else
+        if(c <= 0xffff) {
+            if(!meg4.font[8 * 65536 + c] && meg4_isbyte(meg4.font + 8 * c, 0, 8)) c = 0;
+            w += ((meg4.font[8 * 65536 + c] >> 4) - (meg4.font[8 * 65536 + c] & 0xf) + 1) + 1;
+        }
+        if(w > 312 && space > 0) {
+            memmove(dst + space + 1, dst + space, l - space + 1);
+            dst[space] = '\n'; space = 0; w -= o; l++;
+        }
+        s = (uintptr_t)src - (uintptr_t)bef;
+        if(s > 0) {
+            if(l + s + 1 >= len) { dst[l] = 0; l = len - 1; break; }
+            memcpy(dst + l, bef, s); l += s;
+        }
+    }
+    dst[l] = 0;
+    if(l >= len - 1) fprintf(stderr, "converter: line %u: string truncated to %u bytes\r\n\"%s\"\r\n", line, l, dst);
 }
 
 /**
@@ -333,7 +385,7 @@ uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, 
         for(k = 0; k < (int)(sizeof(ops)/sizeof(ops[0])); k++) {
             if(!memcmp(src, ops[k].op, ops[k].len) && (src[ops[k].len] == '\"' || src[ops[k].len] <= ' ')) {
                 j = 1; e = 0; op[0] = k; src += ops[k].len;
-                for(m = 0; m < 3 && ops[k].arg[m]; m++) {
+                for(m = 0; m < 3 && ops[k].arg[m] && !e; m++) {
                     while(src < end && *src == ' ') src++;
                     if(strchr("\",;\r\n]}", *src)) { e = 1; break; }
                     switch(ops[k].arg[m]) {
@@ -366,8 +418,18 @@ uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, 
                             if(!o || o > 16) e = 6; else op[j++] = o - 1;
                         break;
                         case ARG_ROOM:
-                            o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            if(!o || o > 254 || !meg4.ovls[o].data) e = 7; else op[j++] = o;
+                            if(*src >= '0' && *src <= '9') {
+                                o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
+                            } else {
+                                for(o = 0; o < 254; o++) {
+                                    p = rooms[o] ? strlen(rooms[o]) : 0;
+                                    if(p && !memcmp(src, rooms[o], p) && (src[p] == '\"' || src[p] == ' ')) {
+                                        src += p; break;
+                                    }
+                                }
+                                o++;
+                            }
+                            if(!o || o > 254 || !meg4.ovls[o].data) e = 7; else { op[j++] = o; roomref[o] = 1; }
                         break;
                     }
                 }
@@ -394,10 +456,15 @@ int main_advgame(char *fn, uint8_t *buf, int len)
     ag_conf_t *game = (ag_conf_t*)meg4.mmio.sprites;
     ag_room_t *room;
     ag_cmds_t *cmds;
-    char tmp[4096], *verbs[NUMVERB] = { 0 }, *nouns[NUMNOUN] = { 0 }, *comment = NULL, custom[2][4096] = { "", "" };
+    char tmp[4096], str[1024], *verbs[NUMVERB] = { 0 }, *nouns[NUMNOUN] = { 0 }, *comment = NULL, custom[2][4096] = { "", "" };
     FILE *f;
     uint8_t *end = buf + len, *img, *s, *e, *iend;
     int i, j, k, l, m, n, p, flen, size;
+    char *keywords1[] = { "sprites", "setup", "rooms", "verbs", "nouns", "vars", "colors", "textpos", "custom", "logic",
+        "config", "config0", "config1" };
+    char *keywords2[] = { "lang", "text", "text0", "text1", "answers", "save", "load", "north", "west", "east", "south",
+        "up", "down", "nouns", "image", "logic", "verb1", "verb2", "verb3", "verb4", "verb5", "verb6", "verb7", "verb8",
+        "verb9", "verb10", "verb11", "verb12", "verb13", "verb14", "verb15", "verb16" };
 
     line = 1;
 
@@ -416,11 +483,43 @@ int main_advgame(char *fn, uint8_t *buf, int len)
     }
 
     /* collect defined rooms in advance */
-    for(s = buf + 9, l = line; s < end; s++) {
+    for(s = buf + 9, l = line, k = 0; s < end; s++) {
         if(*s == '\n') l++;
+        if(*s == '{' || *s == '[') k++;
+        if(*s == '}' || *s == ']') k--;
+        if(k != 1) continue;
+
+        /* rooms (JSON-only aliases) */
+        if(!memcmp(s, "\"rooms\"", 7)) {
+            for(s += 7, i = j = 0; s < end && *s != ']'; i++) {
+                for(;s < end && *s != '\"' && *s != ']'; s++) if(*s == '\n') l++;
+                if(*s != '\"') break; else s++;
+                if(i < 254) {
+                    rooms[i] = (char*)s;
+                    for(m = 0; m < (int)(sizeof(keywords1)/sizeof(keywords1[0])); m++)
+                        if(!strcmp((char*)s, keywords1[m])) {
+                            rooms[i] = NULL;
+                            fprintf(stderr, "converter: line %u: keyword '%s' cannot be a room alias\r\n", l, keywords1[m]);
+                        }
+                } else j = 1;
+                for(;s < end && *s != '\"'; s++) if(*s == '\n') l++;
+                *s++ = 0;
+            }
+            if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", l, 254);
+        } else
+
+        /* room definiton with an alias */
+        if(s[0] == '\"' && ((s[1] >= 'a' && s[1] <= 'z') || (s[1] >= 'A' && s[1] <= 'Z'))) {
+            for(s++, i = 0; i < 254; i++) {
+                j = rooms[i] ? strlen(rooms[i]) : 0;
+                if(j && !memcmp(s, rooms[i], j) && s[j] == '\"') { s += j + 1; i++; goto isroom; }
+            }
+        } else
+
+        /* room definition with a number */
         if(s[0] == '\"' && s[1] >= '0' && s[1] <= '9') {
             s++; i = atoi((char*)s);
-            if(i > 0 && i < 255) {
+isroom:     if(i > 0 && i < 255) {
                 if(meg4.ovls[i].data)
                     fprintf(stderr, "converter: line %u: duplicate room %u\r\n", l, i);
                 meg4.ovls[i].size = 32768;
@@ -504,6 +603,7 @@ int main_advgame(char *fn, uint8_t *buf, int len)
                 while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
             }
             if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 256);
+            roomref[(int)game[0].setup[0]] = 1;
         } else
 
         /* colors key */
@@ -531,12 +631,25 @@ int main_advgame(char *fn, uint8_t *buf, int len)
             if(*buf != ']' && i >= 2) { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 2); }
         } else
 
+        /* rooms (JSON-only aliases) */
+        if(!memcmp(buf, "\"rooms\"", 7)) {
+            /* we have already parsed these, so now just skip */
+            for(buf += 7; buf < end && *buf != ']'; buf++) if(*buf == '\n') line++;
+        } else
+
         /* verbs (JSON-only aliases) */
         if(!memcmp(buf, "\"verbs\"", 7)) {
             for(buf += 7, i = j = 0; buf < end && *buf != ']'; i++) {
                 buf = json_skip(buf, end, ']', '\"');
                 if(*buf != '\"') break; else buf++;
-                if(i < NUMVERB) verbs[i] = (char*)buf; else j = 1;
+                if(i < NUMVERB) {
+                    verbs[i] = (char*)buf;
+                    for(m = 0; m < (int)(sizeof(keywords2)/sizeof(keywords2[0])); m++)
+                        if(!strcmp((char*)buf, keywords2[m])) {
+                            verbs[i] = NULL;
+                            fprintf(stderr, "converter: line %u: keyword '%s' cannot be a verb alias\r\n", l, keywords2[m]);
+                        }
+                } else j = 1;
                 buf = json_skip(buf, end, ']', '\"');
                 *buf++ = 0;
             }
@@ -581,7 +694,7 @@ int main_advgame(char *fn, uint8_t *buf, int len)
                 /* config properties */
                 if(!memcmp(buf, "\"lang\"", 6)) {
                     buf = json_skip(buf + 6, end, '\"', 0);
-                    if(*buf == '\"') { game[l].lang[0] = buf[1]; game[l].lang[1] = buf[2]; buf += 4; }
+                    if(*buf == '\"') { game[l].lang[0] = buf[1]; game[l].lang[1] = buf[2]; buf += 3; }
                 } else
                 if(!memcmp(buf, "\"text\"", 6))     buf = json_unescape(game[l].text, buf + 6, end, sizeof(game[0].text)); else
                 if(!memcmp(buf, "\"answers\"", 9)) {
@@ -625,13 +738,23 @@ readverb:               for(i = 0; buf < end && *buf != ']' && *buf != '}' && i 
             }
         } else
 
-        /* room definitions */
+        /* room definiton with an alias */
+        if(buf[0] == '\"' && ((buf[1] >= 'a' && buf[1] <= 'z') || (buf[1] >= 'A' && buf[1] <= 'Z'))) {
+            for(buf++, l = 0; l < 254; l++) {
+                j = rooms[l] ? strlen(rooms[l]) : 0;
+                if(j && !memcmp(buf, rooms[l], j) && buf[j] == '\"') { buf += j + 1; l++; goto readroom; }
+            }
+            fprintf(stderr, "converter: line %u: unknown keyword or room alias\r\n", line);
+            break;
+        } else
+
+        /* room definition with a number */
         if(buf[0] == '\"' && buf[1] >= '0' && buf[1] <= '9') {
             buf++; l = atoi((char*)buf);
-            if(l > 0 && l < 255) {
+readroom:   if(l > 0 && l < 255) {
                 memset(meg4.ovls[l].data, 0, 32768);
                 room = (ag_room_t*)meg4.ovls[l].data;
-                for(buf++, n = 0; buf < end && *buf != '}'; buf++) {
+                for(buf++, n = 1; buf < end && *buf != '}'; buf++) {
                     buf = json_iscomment(buf, end);
                     /* room properties */
                     if(!memcmp(buf, "\"image\"", 7)) {
@@ -670,32 +793,49 @@ readverb:               for(i = 0; buf < end && *buf != ']' && *buf != '}' && i 
                     if(!memcmp(buf, "\"up\"", 4))    { buf += 4; j = 4; goto readdir; } else
                     if(!memcmp(buf, "\"down\"", 6))  {
                         buf += 6; j = 5;
-readdir:                buf = json_skip(buf, end, '[', 0);
+readdir:                buf = json_skip(buf, end, '[', '\"');
                         if(*buf == '[') {
-                            if(n >= 63)
+                            /* script given for this direction */
+                            if(n >= 63) {
                                 fprintf(stderr, "converter: line %u: too many scripts in room %u\r\n", line, l);
-                            else {
-                                room->dir[j] = 255;
+                                i = 0;
+                            } else {
                                 cmds = &room->cmds[n++];
                                 cmds->verb = 0x80 | j;
                                 buf = json_opcodes(cmds->op, buf, end, 61, n, l);
+                                i = 255;
                             }
-                        } else {
-                            i = atoi((char*)buf);
-                            if(i >= 255 || (!i && !meg4.ovls[i].data)) {
-                                fprintf(stderr, "converter: line %u: invalid navigation to %u in room %u\r\n", line, i, l);
+                        } else
+                        if(*buf == '\"') {
+                            /* room alias given */
+                            for(buf++, i = 0; i < 254; i++) {
+                                k = rooms[i] ? strlen(rooms[i]) : 0;
+                                if(k && !memcmp(buf, rooms[i], k) && buf[k] == '\"') { buf += k + 1; i++; break; }
+                            }
+                            if(i >= 254 || (i && !meg4.ovls[i].data)) {
+                                fprintf(stderr, "converter: line %u: invalid %s room alias in room %u\r\n", line, dirs[j], l);
                                 i = 0;
                             }
-                            room->dir[j] = i;
+                        } else {
+                            /* room number given */
+                            i = atoi((char*)buf);
+                            if(i >= 255 || (i && !meg4.ovls[i].data)) {
+                                fprintf(stderr, "converter: line %u: invalid %s direction to %u in room %u\r\n", line, dirs[j], i, l);
+                                i = 0;
+                            }
                         }
+                        if(i && i < 255) roomref[i] = 1;
+                        room->dir[j] = i;
                     } else
                     if(!memcmp(buf, "\"text", 5)) {
                         j = buf[5] == '1' ? 1 : 0;
                         buf = json_skip(buf + 6, end, '[', ']');
-                        for(i = 0; buf < end && *buf != ']' && *buf != '}' && i < 16; i++)
-                            buf = json_unescape(room->msg[j][i], buf, end, 128);
+                        for(i = 0; buf < end && *buf != ']' && *buf != '}' && i < 8; i++) {
+                            buf = json_unescape(str, buf, end, sizeof(str));
+                            json_wrap(room->msg[j][i], str, 256);
+                        }
                         for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-                        if(*buf != ']' && i >= 16) { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 16); }
+                        if(*buf != ']' && i >= 8) { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 8); }
                     } else
                     if(!memcmp(buf, "\"logic\"", 7)) { buf += 7; j = 0; goto readops; } else
                     if(!memcmp(buf, "\"verb", 5)) {
@@ -759,6 +899,15 @@ readops:                if(j >= 0 && j <= NUMVERB) {
                 fprintf(stderr, "converter: line %u: invalid room number %u\r\n", line, l);
         }
     }
+
+    /* check room references */
+    for(i = 1; i < 255; i++)
+        if(!roomref[i] && meg4.ovls[i].data) {
+            fprintf(stderr, "converter: unreferenced room(s):");
+            for(i = 1; i < 255; i++) if(!roomref[i] && meg4.ovls[i].data) fprintf(stderr, " %u", i);
+            fprintf(stderr, "\r\n");
+            break;
+        }
 
     /* save game configuration to overlay */
     meg4.ovls[0].size = 32768;

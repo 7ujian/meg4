@@ -10,7 +10,7 @@ Korlátok:
 
 - igék: 16 különböző akció, egyenként 15 bájt, opcionálisan 4 szinonímával
 - főnevek: 96 különböző tárgy, egyenként 15 bájt
-- üzenetek: 16 különböző sztring szobánként, egyenként 127 bájt
+- üzenetek: 8 különböző sztring szobánként, egyenként 255 bájt
 - szkriptek: 1 globális, szobánként pedig 63  (1 automatikusan lefut, amikor a szobába lépnek)
 - utasítások: 32 mnemonik, egyszerű elágazásmentes kivitelezés, 61 utasítás szkriptenként
 - képek: alapból 1 szobánként, de használható egyéni implementáció
@@ -29,6 +29,7 @@ A forrásfájl legfelső szintjén lennie kell egy `"AdvGame"` struktúrának, a
 
 - `sprites`: sztring, egy PNG elérési útja, az alapértelmezett 256 x 256 pixeles szprájtképet tölti be, a felső 32 sornak üresnek kell lennie
 - `setup`: számtömb, a játék induló állapota (256 elemű, mind 0 és 255 közötti, az első szám az induló szoba)
+- `rooms`: sztringtömb, a szobaszámok aliaszai (csak a JSON-ben használt)
 - `verbs`: sztringtömb, a `verb1`, `verb2`, `verb3` stb. aliaszai (csak a JSON-ben használt)
 - `nouns`: sztringtömb, a főnevek aliaszai (csak a JSON-ben használt)
 - `vars`: sztringtömb, a játékállapot indexeinek aliaszai (csak a JSON-ben használt)
@@ -38,7 +39,7 @@ A forrásfájl legfelső szintjén lennie kell egy `"AdvGame"` struktúrának, a
 - `logic`: sztringtömb, általános játék logika, ami mindig lefut, ha egy szobába lép a játékos
 - `config0`: struktúra, fő játékkonfiguráció
 - `config1`: struktúra, alternatív játékkonfiguráció (többnyelvűség támogatás)
-- számok: struktúra, szobadefiníciók, a szobák száma 1 és 254 közötti (0-ás szoba az intró, a 255-ös meg a mentett játékállás helye)
+- szám/aliasz: struktúra, szobadefiníciók, a szobák száma 1 és 254 közötti (0-ás szoba az intró, a 255-ös meg a mentett játékállás helye)
 
 Alapesetben feltételezi, hogy a szprájtlap ketté van vágva: a felső 128 sor szobánként cserélődik, az alsó 128 sor állandó
 (felhasználói felület elemei, ikonok stb.) Ha a textpos be van állítva, akkor az intrónál és a szobáknál is a 32 és textpos közötti
@@ -72,20 +73,20 @@ Szobák
 A szoba száma 1 és 254 közötti. A mezői:
 
 - `image`: sztring, egy PNG elérési útja. Szélessége 256 pixel, magassága legfeljebb 96 pixeles
-- `north`: szám, szoba északra / sztringtömb, ha északot választja a játékos szkript
-- `west`: szám, szoba nyugatra / sztringtömb, ha nyugatot választja a játékos szkript
-- `east`: szám, szoba keletre / sztringtömb, ha keletet választja a játékos szkript
-- `south`: szám, szoba délre  / sztringtömb, ha delet választja a játékos szkript
-- `up`: szám, szoba felette  / sztringtömb, ha felfelét választja a játékos szkript
-- `down`: szám, szoba alatta  / sztringtömb, ha lefelét választja a játékos szkript
-- `text0`: sztringtömb, a `config0`-hoz tartozó szövegek (16 sztringig, egyenként 127 bájt)
+- `north`: szám/sztring, szoba északra / sztringtömb, ha északot választja a játékos szkript
+- `west`: szám/sztring, szoba nyugatra / sztringtömb, ha nyugatot választja a játékos szkript
+- `east`: szám/sztring, szoba keletre / sztringtömb, ha keletet választja a játékos szkript
+- `south`: szám/sztring, szoba délre  / sztringtömb, ha delet választja a játékos szkript
+- `up`: szám/sztring, szoba felette  / sztringtömb, ha felfelét választja a játékos szkript
+- `down`: szám/sztring, szoba alatta  / sztringtömb, ha lefelét választja a játékos szkript
+- `text0`: sztringtömb, a `config0`-hoz tartozó szövegek (8 sztringig, egyenként 255 bájt)
 - `text1`: sztringtömb, a `config1`-hez tartozó szövegek
 - `logic`: sztringtömb, a szobába lépéskor automatikusan lefutó szkript (ehhez nincs aliasz)
 - `verbX`: sztringtömb, önálló igés parancs (X értéke 1 és 16 közötti, vagy verbs aliasz)
 - `verbX Y`: sztringtömb, egy főnévvel rendelkező parancsok (Y értéke 1 és 96 közötti)
 - `verbX Y Z`: sztringtömb, két főnévvel rendelkező parancsok (Y, Z értéke 1 és 96 közötti)
 
-A szövegek 127 bájtosak lehetnek, és minden szobának saját 16 szövege lehet, melyeket a `say` / `sayz` / `saynz` utasításokkal
+A szövegek 255 bájtosak lehetnek, és minden szobának saját 8 szövege lehet, melyeket a `say` / `sayz` / `saynz` utasításokkal
 lehet megjeleníteni.
 
 Ha a szoba logika meg van adva, akkot előbb mindig az általános játéklogika fut le, aztán a szobáé.
@@ -103,7 +104,7 @@ Ezek befolyásolják a játék állapotát, szöveget jelenítenek meg, stb. és
 - `sfx X`: hangeffekt lejátszása (X értéke 0 és 63 közötti)
 - `sfxz X Y`: X hangeffekt lejátszása, ha az Y változó nulla
 - `sfxnz X Y`: X hangeffekt lejátszása, ha az Y változó nem nulla
-- `say X`: szöveg megjelenítése (X értéke 1 és 16 közötti)
+- `say X`: szöveg megjelenítése (X értéke 1 és 8 közötti)
 - `sayz X Y`: az X szöveg megjelenítése, ha az Y változó nulla
 - `saynz X Y`: az X szöveg megjelenítése, ha az Y változó nem nulla
 - `inc X`: egyik változó növelése (X értéke 1 és 255 közötti)

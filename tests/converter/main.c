@@ -24,6 +24,7 @@
 #define _POSIX_C_SOURCE 199309L    /* needed for timespec and nanosleep() */
 #include <stdio.h>
 #include "../../src/meg4.h"
+#include "../../src/misc/emoji.h"
 #include "editors.h"
 #include "advgame.h"
 
@@ -49,9 +50,27 @@ uint8_t *meg4_font = NULL, *meg4_defwaves = NULL, *meg4_init = NULL;
 uint32_t meg4_init_len = 0;
 char meg4_title[64], meg4_author[64], meg4_pro = 0;
 void meg4_switchmode(int mode) { (void)mode; }
-void meg4_recalcfont(int s, int e) { (void)s; (void)e; }
 void meg4_recalcmipmap(void) { }
 int  gpio_init(uint8_t *buf, int len) { (void)buf; (void)len; return 0; }
+void meg4_recalcfont(int s, int e)
+{
+    uint8_t *fnt = meg4.font + 8 * s, *ptr = meg4.font + 8 * 65536 + s;
+    int i, x, y, l, r;
+
+    if(s < 0 || s > 0xffff || e < 0 || e > 0xffff || e < s) return;
+    memset(ptr, 0, e - s + 1);
+    for(i = s; i <= e; i++, fnt += 8, ptr++) {
+        if(i == 32 || i == 160) { *ptr = 0x30; continue; }
+        for(l = 7, r = y = 0; y < 8; y++)
+            for(x = 0; x < 8; x++)
+                if(fnt[y] & (1 << x)) {
+                    if(l > x) l = x;
+                    if(r < x) r = x;
+                }
+        if(l > r) l = r;
+        *ptr = (r << 4) | l;
+    }
+}
 
 uint8_t meg4_palidx(uint8_t *rgba)
 {
@@ -127,13 +146,67 @@ int main_import(char *name, uint8_t *buf, int len)
 }
 
 /**
+ * Initialize stuff because we haven't turn on the MEG-4
+ */
+void main_init(void)
+{
+    int c, i, j, k, l, m, n, s;
+    uint8_t *font, *ptr, *frg, *buf, *o;
+
+    memset(&meg4, 0, sizeof(meg4));
+    memcpy(meg4.mmio.palette, default_pal, sizeof(meg4.mmio.palette));
+    /* just in case, if someone wants to import MIDI files */
+    meg4_defwaves = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_sounds_mod, sizeof(binary_sounds_mod), 65536, &i, 1);
+    /* uncompress and set default font */
+    meg4_font = (uint8_t*)malloc(9 * 65536);
+    if(meg4_font) {
+        memset(meg4_font, 0, 9 * 65536);
+        ptr = (uint8_t*)binary_default_sfn + 3;
+        i = *ptr++; ptr += 6; if(i & 4) { k = *ptr++; k += (*ptr++ << 8); ptr += k; } if(i & 8) { while(*ptr++ != 0); }
+        if(i & 16) { while(*ptr++ != 0); } j = sizeof(binary_default_sfn) - (size_t)(ptr - binary_default_sfn);
+        font = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char*)ptr, j, 65536, &s, 0);
+        if(font) {
+            for(buf = font + le32toh(*((uint32_t*)(font + 16))), c = 0; c < 0x010000 && buf < font + s; c++) {
+                if(buf[0] == 0xFF) { c += 65535; buf++; } else
+                if((buf[0] & 0xC0) == 0xC0) { j = (((buf[0] & 0x3F) << 8) | buf[1]); c += j; buf += 2; } else
+                if((buf[0] & 0xC0) == 0x80) { j = (buf[0] & 0x3F); c += j; buf++; } else {
+                    ptr = buf + 6; o = meg4_font + c * 8;
+                    for(i = n = 0; i < buf[1]; i++, ptr += buf[0] & 0x40 ? 6 : 5) {
+                        if(ptr[0] == 255 && ptr[1] == 255) continue;
+                        frg = font + (buf[0] & 0x40 ? ((ptr[5] << 24) | (ptr[4] << 16) | (ptr[3] << 8) | ptr[2]) :
+                            ((ptr[4] << 16) | (ptr[3] << 8) | ptr[2]));
+                        if((frg[0] & 0xE0) != 0x80) continue;
+                        o += (int)(ptr[1] - n); n = ptr[1]; k = ((frg[0] & 0x0F) + 1) << 3; j = frg[1] + 1; frg += 2;
+                        for(m = 1; j; j--, n++, o++)
+                            for(l = 0; l < k; l++, m <<= 1) {
+                                if(m > 0x80) { frg++; m = 1; }
+                                if(*frg & m) *o |= m;
+                            }
+                    }
+                    buf += 6 + buf[1] * (buf[0] & 0x40 ? 6 : 5);
+                }
+            }
+            free(font);
+        }
+        memcpy(meg4.font, meg4_font, 8 * 65536);
+        meg4_recalcfont(0, 0xffff);
+        memcpy(meg4_font + 8 * 65536, meg4.font + 8 * 65536, 65536);
+        /* clear control codes */
+        memset(meg4.font, 0, 8 * 32);
+        memset(meg4.font + 8 * 65536, 0, 32);
+        memset(meg4.font + 8 * 128, 0, 8 * 32);
+        memset(meg4.font + 8 * 65536 + 128, 0, 32);
+    }
+}
+
+/**
  * Main function
  */
 int main(int argc, char **argv)
 {
     FILE *f;
     uint8_t *buf = NULL;
-    int i, len = 0;
+    int len = 0;
 
     /* load input */
     if(argc < 1 || !argv[1]) {
@@ -150,25 +223,24 @@ int main(int argc, char **argv)
         if(buf) fread(buf, 1, len, f); else len = 0;
         fclose(f);
     }
+    main_init();
     printf("importing...\n");
-
-    memset(&meg4, 0, sizeof(meg4));
-    memcpy(meg4.mmio.palette, default_pal, sizeof(meg4.mmio.palette));
-    /* just in case, if someone wants to import MIDI files */
-    meg4_defwaves = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_sounds_mod, sizeof(binary_sounds_mod), 65536, &i, 1);
 
     /* import */
     if(!main_advgame(argv[1], buf, len) && !main_import(argv[1], buf, len)) {
-        free(buf); free(meg4_defwaves);
+        free(buf); free(meg4_defwaves); free(meg4_font);
         printf("unable to load file\n");
         exit(1);
     }
     free(buf);
-    free(meg4_defwaves);
 
     printf("exporting...\n");
 
     /* export */
     meg4_export(argv[2] ? argv[2] : "output.zip", 0);
+
+    /* free resources */
+    free(meg4_defwaves);
+    free(meg4_font);
     return 0;
 }

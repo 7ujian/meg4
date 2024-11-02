@@ -289,7 +289,7 @@ void meg4_reset(void)
         memset(meg4.font, 0, 8 * 32);
         memset(meg4.font + 8 * 65536, 0, 32);
         memset(meg4.font + 8 * 128, 0, 8 * 32);
-        memset(meg4.font + 8 * (128 + 65536), 0, 32);
+        memset(meg4.font + 8 * 65536 + 128, 0, 32);
     }
 #ifdef __WIN32__
     timeBeginPeriod(1000);

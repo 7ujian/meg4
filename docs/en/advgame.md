@@ -10,7 +10,7 @@ Limitations:
 
 - verbs: 16 different actions, each 15 bytes, optionally up to 4 synonyms
 - nouns: 96 different objects, each 15 bytes
-- messages: 16 different strings per room, each 127 bytes
+- messages: 8 different strings per room, each 255 bytes
 - scripts: 1 global, 63 per on room (1 executes automatically when the player enters the room)
 - instructions: 32 mnemonics, simple branch-free design, 61 instructions per scripts
 - images: 1 per room by default, but you can add custom implementation
@@ -29,6 +29,7 @@ The source file must have a `"AdvGame"` structure at the top which is also a mag
 
 - `sprites`: string, path to a PNG, loads a default 256 x 256 pixels sprite image, the first 32 rows must be empty
 - `setup`: array of numbers, initial game state values (up to 256 elements, each between 0 and 255, first number is starting room)
+- `rooms`: array of strings, aliases to room numbers (only used in the JSON)
 - `verbs`: array of strings, aliases to `verb1`, `verb2`, `verb3` etc. (only used in the JSON)
 - `nouns`: array of strings, aliases to nouns (only used in the JSON)
 - `vars`: array of strings, aliases to game state indeces (only used in the JSON)
@@ -38,7 +39,7 @@ The source file must have a `"AdvGame"` structure at the top which is also a mag
 - `logic`: array of strings, common game logic executed when entering any room
 - `config0`: structure, main game configuration
 - `config1`: structure, alternative game configuration (to support multi-language)
-- numbers: structure, room definitions, room number goes from 1 to 254 (room 0 is the intro page, 255 is the saved game slot)
+- numbers/alias: structure, room definitions, room number goes from 1 to 254 (room 0 is the intro page, 255 is the saved game slot)
 
 Normally sprites are assumed to be splitted: top 128 rows are swapped between rooms, bottom 128 rows are fixed (for ui elements,
 icons, etc.). If textpos is set, then both on the intro page and in rooms rows 32 to textpos (up to 96 pixels) will be shown. With
@@ -72,20 +73,20 @@ Rooms
 Room numbers are 1 to 254. Its fields are:
 
 - `image`: string, path to a PNG image. Width is up to 256 pixels, height is up to 96 pixels.
-- `north`: number, room on the North / array of strings, script to run when player goes North
-- `west`: number, room on the West / array of strings, script to run when player goes West
-- `east`: number, room on the East / array of strings, script to run when player goes East
-- `south`: number, room on the South / array of strings, script to run when player goes North
-- `up`: number, room upstairs / array of strings, script to run when player goes upstairs
-- `down`: number, room downstairs / array of strings, script to run when player goes downstairs
-- `text0`: array of strings, texts for `config0` (up to 16 strings, each 127 bytes)
+- `north`: number/string, room on the North / array of strings, script to run when player goes North
+- `west`: number/string, room on the West / array of strings, script to run when player goes West
+- `east`: number/string, room on the East / array of strings, script to run when player goes East
+- `south`: number/string, room on the South / array of strings, script to run when player goes North
+- `up`: number/string, room upstairs / array of strings, script to run when player goes upstairs
+- `down`: number/string, room downstairs / array of strings, script to run when player goes downstairs
+- `text0`: array of strings, texts for `config0` (up to 8 strings, each 255 bytes)
 - `text1`: array of strings, texts for `config1`
 - `logic`: array of strings, commands to run when player enters this specific room (there's no alias for this)
 - `verbX`: array of strings, commands for a single verb (X goes 1 to 16 or one of the verbs aliases)
 - `verbX Y`: array of strings, commands for a verb with a single noun (Y goes 1 to 96)
 - `verbX Y Z`: array of strings, commands for a verb with two nouns (Y, Z goes 1 to 96)
 
-Texts can be 127 bytes long, and each room might have 16 texts, which can be displayed with `say` / `sayz` / `saynz`.
+Texts can be 255 bytes long, and each room might have 8 texts, which can be displayed with `say` / `sayz` / `saynz`.
 
 If room logic is given, then first game logic runs, then room logic.
 
@@ -103,7 +104,7 @@ These alter the game's state, display messages, etc., and are listed in `logic` 
 - `sfx X`: play sound effect (X goes 0 to 63)
 - `sfxz X Y`: play sound effect X if variable Y is zero
 - `sfxnz X Y`: play sound effect X if variable Y is non-zero
-- `say X`: says one of the texts (X is from 1 to 16)
+- `say X`: says one of the texts (X is from 1 to 8)
 - `sayz X Y`: say text X if variable Y is zero
 - `saynz X Y`: say text X if variable Y is non-zero
 - `inc X`: increases one of the game variables (X goes from 1 to 255)
