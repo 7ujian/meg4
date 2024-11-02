@@ -91,7 +91,8 @@ lehet megjeleníteni.
 
 Ha a szoba logika meg van adva, akkot előbb mindig az általános játéklogika fut le, aztán a szobáé.
 
-Az irányoknál a 0 jelentése nem járható irány, egyébként ha sztringtömb, akkor megadható egy szkript tetszőleges logikával.
+Az irányoknál a 0 jelentése nem járható irány, egyébként ha sztringtömb, akkor megadható egy szkript tetszőleges logikával (lásd
+alább).
 
 Utasítások
 ----------
@@ -134,9 +135,28 @@ Ezek befolyásolják a játék állapotát, szöveget jelenítenek meg, stb. és
 
 Az utolsó 12 utasítás a navigáció feltételes szabályozásához használatos. Például ha van egy "kulcs felvéve" jelző a 8-as
 állapotban, és a 11-es szobában pedig van egy ajtó az északi irányban a 12-es szoba felé, és azt akarjuk, hogy csak akkor legyen
-járható, ha a játékos rendelkezik a kulccsal. Ilyenkor nem a 11-es szoba `north` mezőjét kell állítani, hanem a `logic`-hoz kell
-hozzáadni egy `nnz 12 8` utasítást. Ez csak akkor teszi járhatóvá az északi irányt a 12-es szoba felé, ha a 8-as állapot be lett
-állítva.
+járható, ha a játékos rendelkezik a kulccsal.
+
+```
+  "11": {
+    "north": 0,
+    "logic": [ "nnz 12 8" ]
+  }
+```
+
+Ilyenkor nem a 11-es szoba `north` mezőjét kell állítani, hanem a `logic`-hoz kell hozzáadni egy `nnz 12 8` utasítást. Ez csak
+akkor teszi járhatóvá az északi irányt a 12-es szoba felé, ha a 8-as állapot be lett állítva.
+
+```
+  "11": {
+    "text0": [ "Az ajtó zárva." ],
+    "north": [ "jnz 12 8", "sayz 1 8" ]
+  }
+```
+
+Az is működik, ha a `north` mezőnek egy `jnz 12 8` szkriptet adunk meg. Ez csak abban az esetben ugrik a 12-es szobába, ha a 8-as
+állapot nem nulla, egyébként marad a 11-esben. Ilyenkor mondhatjuk, hogy "Az ajtó zárva" a `sayz 1 8` (írd ki az 1-es szöveget, ha
+a 8-as állapot nincs beállítva).
 
 Minta játék
 -----------

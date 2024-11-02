@@ -91,7 +91,7 @@ Texts can be 255 bytes long, and each room might have 8 texts, which can be disp
 If room logic is given, then first game logic runs, then room logic.
 
 With the directions number 0 means invalid direction, otherwise if you pass an array of strings, you can add a script
-with custom logic.
+with custom logic (see below).
 
 Commands
 --------
@@ -133,9 +133,27 @@ These alter the game's state, display messages, etc., and are listed in `logic` 
 - `dnz X Y`: set the room downstairs to X if variable Y is non-zero
 
 The last 12 instructions can be used to alter the navigation conditionally. For example you store a "has the key" flag in game
-state 8, and in room 11 you has a door and you only want to allow to go North to room 12 if the player has that key. In this case
-do not set the `north` property for room 11, instead add `nnz 12 8` to its `logic`. This will only enable the North direction to
-room 12 if game state 8 is set.
+state 8, and in room 11 you has a door and you only want to allow to go North to room 12 if the player has that key.
+
+```
+  "11": {
+    "north": 0,
+    "logic": [ "nnz 12 8" ]
+  }
+```
+
+In this case do not set the `north` property for room 11, instead add `nnz 12 8` to its `logic`. This will only enable the
+North direction to room 12 if game state 8 is set.
+
+```
+  "11": {
+    "text0": [ "The door is closed." ],
+    "north": [ "jnz 12 8", "sayz 1 8" ]
+  }
+```
+
+Alternatively you could add a `jnz 12 8` script to `north` property as well. This would only jump to room 12 if state 8 is set,
+otherwise it remains in room 11. You could also say "The door is closed" with `sayz 1 8` (prints text 1 if state 8 is clear).
 
 Example Game
 ------------
