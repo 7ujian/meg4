@@ -156,7 +156,7 @@ akkor teszi járhatóvá az északi irányt a 12-es szoba felé, ha a 8-as álla
 
 Az is működik, ha a `north` mezőnek egy `jnz 12 8` szkriptet adunk meg. Ez csak abban az esetben ugrik a 12-es szobába, ha a 8-as
 állapot nem nulla, egyébként marad a 11-esben. Ilyenkor mondhatjuk, hogy "Az ajtó zárva" a `sayz 1 8` (írd ki az 1-es szöveget, ha
-a 8-as állapot nincs beállítva).
+a 8-as állapot nincs beállítva) utasítással.
 
 Minta játék
 -----------

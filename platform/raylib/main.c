@@ -71,7 +71,8 @@ void main_win(int w, int h, int f)
     /* unfortuantely this only works *after* an InitWindow call was already made */
     main_w = GetMonitorWidth(GetCurrentMonitor());
     main_h = GetMonitorHeight(GetCurrentMonitor());
-    for(win_w = win_h = 0; win_w + 320 < main_w && win_h + 200 < main_h; win_w += 320, win_h += 200);
+    w = main_w / 320; h = main_h / 200; if(w > h) w = h;
+    win_w = w * 320; win_h = w * 200;
     SetWindowMinSize(win_w, win_h);
 }
 
@@ -459,8 +460,15 @@ int main(int argc, char **argv)
         UpdateTexture(screen, image.data);
         src.x = src.y = 0.0f; src.width = (float)meg4.screen.w; src.height = (float)meg4.screen.h;
         ww = GetRenderWidth(); wh = GetRenderHeight();
-        w = ww; h = (int)meg4.screen.h * ww / (int)meg4.screen.w;
-        if(h > wh) { h = wh; w = (int)meg4.screen.w * wh / (int)meg4.screen.h; }
+        if(!win_f && nearest) {
+            SetTextureFilter(screen, TEXTURE_FILTER_POINT);
+            i = ww / 320; h = wh / 200; if(i > h) i = h;
+            w = 320 * i; h = 200 * i;
+        } else {
+            SetTextureFilter(screen, nearest || (!(ww % 320) && !(wh % 200)) ? TEXTURE_FILTER_POINT : TEXTURE_FILTER_BILINEAR);
+            w = ww; h = (int)meg4.screen.h * ww / (int)meg4.screen.w;
+            if(h > wh) { h = wh; w = (int)meg4.screen.w * wh / (int)meg4.screen.h; }
+        }
         dst.width = w; dst.height = h;
         dst.x = (ww - w) >> 1; dst.y = (wh - h) >> 1;
         BeginDrawing();

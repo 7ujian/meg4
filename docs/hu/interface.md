@@ -1,6 +1,10 @@
 Interfész
 =========
 
+Alapból a kép homályos lesz, hogy jobban hasonlítson a régi CRT monitorokra. Ez kikapcsolható a `-n` (vagy `/n` Windowson)
+parancssori kapcsolóval, ilyenkor azonban nem minden pixel lesz egyforma méretű. Ez ellensúlyozható azzal, ha ablakos módba
+váltunk, ahol a képernyőméret mindig 320 x 200 pixel egész többszöröse lesz.
+
 Játékképernyő
 -------------
 

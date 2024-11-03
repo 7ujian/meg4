@@ -71,8 +71,10 @@ void main_win(int w, int h, int f)
 {
     ALLEGRO_BITMAP *icon;
 
-    win_f = f; (void)w; (void)h;
-    for(win_w = win_h = 0; win_w + 320 < main_w && win_h + 200 < main_h; win_w += 320, win_h += 200);
+    win_f = f;
+    w = main_w / 320; h = main_h / 200; if(w > h) w = h;
+    win_w = 320 * w; win_h = 200 * w;
+    al_set_new_display_flags(ALLEGRO_RESIZABLE);
     if((disp = al_create_display(win_w, win_h))) {
         al_set_window_constraints(disp, 320, 200, main_w, main_h);
         al_set_window_title(disp, "MEG-4");
@@ -89,6 +91,7 @@ void main_win(int w, int h, int f)
  */
 void main_fullscreen(void)
 {
+    win_f ^= 1;
     al_set_display_flag(disp, ALLEGRO_FULLSCREEN_WINDOW, !(al_get_display_flags(disp) & ALLEGRO_FULLSCREEN_WINDOW));
 }
 
@@ -337,6 +340,7 @@ int main(int argc, char **argv)
     main_win(640/*main_w*/, 400/*main_h*/, 0/*1*/);
     if(!windowed) main_fullscreen();
 #endif
+    if(!nearest) al_set_new_bitmap_flags(al_get_new_bitmap_flags() | ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
     screen = al_create_bitmap(640, 400);
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_mouse_event_source());
@@ -357,6 +361,7 @@ int main(int argc, char **argv)
         al_wait_for_event(queue, &event);
         switch(event.type) {
             case ALLEGRO_EVENT_DISPLAY_CLOSE: running = 0; break;
+            case ALLEGRO_EVENT_DISPLAY_RESIZE: al_acknowledge_resize(disp); redraw = 1; break;
             case ALLEGRO_EVENT_TIMER: meg4_run(); redraw = 1; break;
             /* audio event */
             case ALLEGRO_EVENT_AUDIO_STREAM_FRAGMENT:
@@ -502,10 +507,15 @@ int main(int argc, char **argv)
             meg4_redraw((uint32_t*)screen->memory, 640, 400, screen->pitch);
             al_clear_to_color(al_map_rgba_f(0, 0, 0, 1));
             ww = al_get_display_width(disp); wh = al_get_display_height(disp);
-            w = ww; h = (int)meg4.screen.h * ww / (int)meg4.screen.w;
-            if(h > wh) { h = wh; w = (int)meg4.screen.w * wh / (int)meg4.screen.h; }
+            if(!win_f && nearest) {
+                i = ww / 320; h = wh / 200; if(i > h) i = h;
+                w = 320 * i; h = 200 * i;
+            } else {
+                w = ww; h = (int)meg4.screen.h * ww / (int)meg4.screen.w;
+                if(h > wh) { h = wh; w = (int)meg4.screen.w * wh / (int)meg4.screen.h; }
+            }
             al_draw_scaled_bitmap(screen, 0, 0, (float)meg4.screen.w, (float)meg4.screen.h,
-                (float)((ww - w) >> 1), (float)((wh - h) >> 1), (float)ww, (float)wh, 0);
+                (float)((ww - w) >> 1), (float)((wh - h) >> 1), (float)w, (float)h, 0);
             al_flip_display();
         }
     }

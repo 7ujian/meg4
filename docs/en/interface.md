@@ -1,6 +1,10 @@
 Interface
 =========
 
+By default the screen will be blurry to mimic old CRT monitors. You can turn this off with the `-n` (or `/n` on Windows)
+command line flag, however then pixels won't be equally sized. You can counteract this by switching to windowed mode, where
+the screen size will be always exact multiple of 320 x 200 pixels.
+
 Game Screen
 -----------
 

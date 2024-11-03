@@ -592,7 +592,8 @@ int main(int argc, char **argv)
 #if DEBUG
     main_win(640, 400, 0);
 #else
-    for(win_w = win_h = 0; win_w + 320 < main_w && win_h + 200 < main_h; win_w += 320, win_h += 200);
+    i = main_w / 320; h = main_h / 200; if(i > h) i = h;
+    win_w = 320 * i; win_h = 200 * i;
     main_win(win_w/*main_w*/, win_h/*main_h*/, 0/*1*/);
     if(!windowed) main_fullscreen();
 #endif
@@ -665,10 +666,15 @@ serr:   if(vshdr) glDeleteShader(vshdr);
         main_pointer(window, mx, my);
         meg4_run();
         meg4_redraw(scrbuf, 640, 400, 640 * 4);
-        if(nearest) {
-            for(i = 1; i < 16 && (i + 1) * 320 <= ww && (i + 1) * 200 <= wh; i++);
+        if(!win_f && nearest) {
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            i = ww / 320; h = wh / 200; if(i > h) i = h;
             w = 320 * i; h = 200 * i;
         } else {
+            i = nearest || (!(ww % 320) && !(wh % 200)) ? GL_NEAREST : GL_LINEAR;
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, i);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, i);
             w = ww; h = (int)meg4.screen.h * ww / (int)meg4.screen.w;
             if(h > wh) { h = wh; w = (int)meg4.screen.w * wh / (int)meg4.screen.h; }
         }
@@ -701,9 +707,6 @@ serr:   if(vshdr) glDeleteShader(vshdr);
 #endif
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, screen);
-        i = nearest || (!(ww % 320) && !(wh % 200)) ? GL_NEAREST : GL_LINEAR;
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, i);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, i);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 640, 400, 0, GL_RGBA, GL_UNSIGNED_BYTE, scrbuf);
 #ifndef NOGLES
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, idx);

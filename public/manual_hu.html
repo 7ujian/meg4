@@ -447,7 +447,7 @@ meg4 [-L &lt;xx&gt;] [-z] [-n] [-w] [-v|-vv] [-s] [-d &lt;mappa&gt;] [flopi]
 <div class="table"><table><tr><th>Opció </th><th>Leírás </th></tr>
 <tr><td><samp>-L &lt;xx&gt;</samp> </td><td>A kapcsoló paramétere "en", "es", "de", "fr" stb. lehet. A megadásával egy adott szótárat használ az emulátor, és nem detektálja a nyelvet. Ha nincs a megadott szótár, akkor angolra vált. </td></tr>
 <tr><td><samp>-z</samp> </td><td>Linux alatt alapból a GTK függvénykönyvtárakat futáskor linkeli, hogy a fájlválasztót megnyissa. Ennek a kapcsolónak a hatására inkább a <samp>zenity</samp> programot fogja meghívni (a zenitynek telepítve kell lennie a gépeden). </td></tr>
-<tr><td><samp>-n</samp> </td><td>Mindenképp a "nearest" (legközelebbi pixel) interpolációs metódust használja. Alapból csak akkor használatos, ha az emulátor ablakmérete a 320 x 200 egész többszöröse. </td></tr>
+<tr><td><samp>-n</samp> </td><td>Mindenképp a "nearest" (legközelebbi pixel) interpolációs metódust használja. Alapból csak akkor használatos, ha az emulátor ablakmérete a 320 x 200 egész többszöröse. Ez utóbbit ki is kényszeríti ablakos módban. </td></tr>
 <tr><td><samp>-w</samp> </td><td>Ablakos módban indul (alapértelmezetten teljesképernyős) </td></tr>
 <tr><td><samp>-v, -vv</samp> </td><td>Szószátyár mód. <samp>meg4</samp> részletes infókat fog kiírni a szabvány kimenetre (valamint a programod <a href="#@GENDOC:ortra@" onclick="c('@GENDOC:ortra@')">trace</a> hívásai is itt jelennek meg), ezért ez a kapcsoló terminálból hívandó. </td></tr>
 <tr><td><samp>-s</samp> </td><td>Strace mód, rendszerhívások listázása (csak ha DEBUG támogatással lett fordítva). </td></tr>
@@ -647,6 +647,9 @@ eredménye <samp>Πλατων</samp>.</p>
 programozói ismeretek nélkül is.</p></div><br style="clear:both;"><label class="btn prev" accesskey="p" for="_fajlformatumok" title="Fájlformátumok">Előző</label><label class="btn next" accesskey="n" for="_interfesz" title="Interfész">Következő</label></div>
 <div class="page" rel="interfesz"><div><ul class="breadcrumbs"><li><label class="home" for="_" title="Főoldal"></label>&nbsp;»</li><li>&nbsp;Alapok&nbsp;»</li><li>&nbsp;Interfész</li></ul><hr></div>
 <h1 id="interfesz">Interfész<a href="#interfesz"></a></h1>
+<p>Alapból a kép homályos lesz, hogy jobban hasonlítson a régi CRT monitorokra. Ez kikapcsolható a <samp>-n</samp> (vagy <samp>/n</samp> Windowson)
+parancssori kapcsolóval, ilyenkor azonban nem minden pixel lesz egyforma méretű. Ez ellensúlyozható azzal, ha ablakos módba
+váltunk, ahol a képernyőméret mindig 320 x 200 pixel egész többszöröse lesz.</p>
 <h2 id="jatekkepernyo">Játékképernyő<a href="#jatekkepernyo"></a></h2>
 <p>Alapból a játékképernyő fogad, ahol a programod fut (illetve a MEG-4 Flopi Meghajtó, ha nincs betöltve program). Ha ezen a
 képernyőn leütöd az <kbd>Esc</kbd> gombot, akkor átvált szerkesztő módba.</p>
@@ -5522,7 +5525,7 @@ akkor teszi járhatóvá az északi irányt a 12-es szoba felé, ha a 8-as álla
 </pre></div>
 <p>Az is működik, ha a <samp>north</samp> mezőnek egy <samp>jnz 12 8</samp> szkriptet adunk meg. Ez csak abban az esetben ugrik a 12-es szobába, ha a 8-as
 állapot nem nulla, egyébként marad a 11-esben. Ilyenkor mondhatjuk, hogy "Az ajtó zárva" a <samp>sayz 1 8</samp> (írd ki az 1-es szöveget, ha
-a 8-as állapot nincs beállítva).</p>
+a 8-as állapot nincs beállítva) utasítással.</p>
 <h2 id="minta_jatek">Minta játék<a href="#minta_jatek"></a></h2>
 <p>Minta MEG-4 Kalandjáték a <a href="https://gitlab.com/bztsrc/meg4_idoregesz" target="new">meg4_idoregesz</a> repóban található.</p><br style="clear:both;"><label class="btn prev" accesskey="p" for="_hangeffekt" title="Hangeffekt">Előző</label><label class="btn next" accesskey="n" for="_meg_4_licensz" title="MEG-4 Licensz">Következő</label></div>
 <div class="page" rel="meg_4_licensz"><div><ul class="breadcrumbs"><li><label class="home" for="_" title="Főoldal"></label>&nbsp;»</li><li>&nbsp;Függelék&nbsp;»</li><li>&nbsp;MEG-4 Licensz</li></ul><hr></div>

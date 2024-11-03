@@ -68,7 +68,7 @@ meg4 [-L <xx>] [-z] [-n] [-w] [-v|-vv] [-s] [-d <dir>] [floppy]
 |------------|-------------|
 | `-L <xx>`  | The argument of this flag can be "en", "es", "de", "fr" etc. Using this flag forces a specific language dictionary for the emulator and avoids automatic detection. If there's no such dictionary, then English is used. |
 | `-z`       | On Linux by default, the GTK libraries are run-time linked to get the open file modal. Using this flag will make it call `zenity` instead (requires zenity to be installed on your computer). |
-| `-n`       | Force using the "nearest" interpolation method. By default, it is only used if the screen size is multiple of 320 x 200. |
+| `-n`       | Force using the "nearest" interpolation method. By default, it is only used if the screen size is multiple of 320 x 200. Also forces this latter in windowed mode. |
 | `-w`       | Start in windowed mode (by default it is fullscreen) |
 | `-v, -vv`  | Enable verbose mode. `meg4` will print out detailed information to the standard output (as well as your script's [trace] calls), so run this from a terminal. |
 | `-s`       | Enable strace, tracing of system calls (only if compiled with DEBUG). |

@@ -90,6 +90,7 @@ void main_quit(void)
 void main_fullscreen(void)
 {
     sapp_toggle_fullscreen();
+    win_f = sapp_is_fullscreen();
 }
 
 /**
@@ -179,7 +180,7 @@ static void init(void)
         .width = 640,
         .height = 400,
         .usage = SG_USAGE_STREAM,
-        .mag_filter = SG_FILTER_NEAREST,
+        .mag_filter = nearest ? SG_FILTER_NEAREST : SG_FILTER_LINEAR,
         .min_filter = nearest ? SG_FILTER_NEAREST : SG_FILTER_LINEAR,
         .wrap_u = SG_WRAP_CLAMP_TO_EDGE,
         .wrap_v = SG_WRAP_CLAMP_TO_EDGE
@@ -210,10 +211,12 @@ static void frame(void)
     meg4_run();
     meg4_redraw(scrbuf, 640, 400, 640 * 4);
     sg_update_image(img, &(sg_image_data){ .subimage[0][0] = { .ptr = scrbuf, .size = 640 * 400 * 4 } });
-    if(nearest) {
-        for(i = 1; i < 16 && (i + 1) * 320 <= ww && (i + 1) * 200 <= wh; i++);
+    if(!win_f && nearest) {
+        /* img.min_filter = img.mag_filter = SG_FILTER_NEAREST; */
+        i = ww / 320; h = wh / 200; if(i > h) i = h;
         w = 320 * i; h = 200 * i;
     } else {
+        /* img.min_filter = img.mag_filter = nearest || (!(ww % 320) && !(wh % 200)) ? SG_FILTER_NEAREST : SG_FILTER_LINEAR; */
         w = ww; h = (int)meg4.screen.h * ww / (int)meg4.screen.w;
         if(h > wh) { h = wh; w = (int)meg4.screen.w * wh / (int)meg4.screen.h; }
     }

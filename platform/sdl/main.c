@@ -166,15 +166,6 @@ void main_win(int w, int h, int f)
     }
     screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, 640, 400);
     if(screen) {
-#if SDL_VERSION_ATLEAST(2,0,12)
-        SDL_SetTextureScaleMode(screen,
-#if SDL_VERSION_ATLEAST(3,0,0)
-            SDL_SCALEMODE_NEAREST
-#else
-            SDL_ScaleModeNearest
-#endif
-        );
-#endif
         SDL_LockTexture(screen, NULL, &data, &p);
         memset(data, 0, p * 400);
         SDL_UnlockTexture(screen);
@@ -188,15 +179,6 @@ void main_fullscreen(void)
 {
     win_f ^= 1;
     SDL_SetWindowFullscreen(window, win_f ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
-#if SDL_VERSION_ATLEAST(2,0,12)
-    SDL_SetTextureScaleMode(screen, nearest || (!((win_f ? main_w : win_w) % 320) && !((win_f ? main_h : win_h) % 200)) ?
-#if SDL_VERSION_ATLEAST(3,0,0)
-        SDL_SCALEMODE_NEAREST : SDL_SCALEMODE_LINEAR
-#else
-        SDL_ScaleModeNearest : SDL_ScaleModeLinear
-#endif
-    );
-#endif
 }
 
 /**
@@ -251,10 +233,28 @@ void main_loop(void) {
     if(data) SDL_UnlockTexture(screen);
     src.x = src.y = 0; src.w = meg4.screen.w; src.h = meg4.screen.h;
     if(src.w && src.h) {
-        if(nearest) {
-            for(i = 1; i < 16 && (i + 1) * 320 <= win_w && (i + 1) * 200 <= win_h; i++);
+        if(!win_f && nearest) {
+#if SDL_VERSION_ATLEAST(2,0,12)
+            SDL_SetTextureScaleMode(screen,
+#if SDL_VERSION_ATLEAST(3,0,0)
+                SDL_SCALEMODE_NEAREST
+#else
+                SDL_ScaleModeNearest
+#endif
+            );
+#endif
+            i = win_w / 320; p = win_h / 200; if(i > p) i = p;
             dst.w = 320 * i; dst.h = 200 * i;
         } else {
+#if SDL_VERSION_ATLEAST(2,0,12)
+            SDL_SetTextureScaleMode(screen, nearest || (!((win_f ? main_w : win_w) % 320) && !((win_f ? main_h : win_h) % 200)) ?
+#if SDL_VERSION_ATLEAST(3,0,0)
+                SDL_SCALEMODE_NEAREST : SDL_SCALEMODE_LINEAR
+#else
+                SDL_ScaleModeNearest : SDL_ScaleModeLinear
+#endif
+            );
+#endif
             dst.w = win_w; dst.h = src.h * win_w / src.w;
             if(dst.h > win_h) { dst.h = win_h; dst.w = src.w * win_h / src.h; }
         }
@@ -286,16 +286,6 @@ void main_loop(void) {
                     case SDL_WINDOWEVENT_RESIZED: case SDL_WINDOWEVENT_SIZE_CHANGED:
 #endif
                         win_w = event.window.data1; win_h = event.window.data2;
-                        i = win_w / 320;
-#if SDL_VERSION_ATLEAST(2,0,12)
-                        SDL_SetTextureScaleMode(screen, nearest || (!(win_w % 320) && !(win_h % 200)) ?
-#if SDL_VERSION_ATLEAST(3,0,0)
-                                SDL_SCALEMODE_NEAREST : SDL_SCALEMODE_LINEAR
-#else
-                                SDL_ScaleModeNearest : SDL_ScaleModeLinear
-#endif
-                        );
-#endif
                     break;
                 }
             break;
@@ -796,7 +786,8 @@ int main(int argc, char **argv)
 #if DEBUG
     main_win(640, 400, 0);
 #else
-    for(win_w = win_h = 0; win_w + 320 < main_w && win_h + 200 < main_h; win_w += 320, win_h += 200);
+    i = main_w / 320; j = main_h / 200; if(i > j) i = j;
+    win_w = 320 * i; win_h = 200 * i;
     main_win(win_w/*main_w*/, win_h/*main_h*/, 0/*1*/);
     if(!windowed) main_fullscreen();
 #endif

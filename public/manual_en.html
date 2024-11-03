@@ -445,7 +445,7 @@ meg4 [-L &lt;xx&gt;] [-z] [-n] [-w] [-v|-vv] [-s] [-d &lt;dir&gt;] [floppy]
 <div class="table"><table><tr><th>Option </th><th>Description </th></tr>
 <tr><td><samp>-L &lt;xx&gt;</samp> </td><td>The argument of this flag can be "en", "es", "de", "fr" etc. Using this flag forces a specific language dictionary for the emulator and avoids automatic detection. If there's no such dictionary, then English is used. </td></tr>
 <tr><td><samp>-z</samp> </td><td>On Linux by default, the GTK libraries are run-time linked to get the open file modal. Using this flag will make it call <samp>zenity</samp> instead (requires zenity to be installed on your computer). </td></tr>
-<tr><td><samp>-n</samp> </td><td>Force using the "nearest" interpolation method. By default, it is only used if the screen size is multiple of 320 x 200. </td></tr>
+<tr><td><samp>-n</samp> </td><td>Force using the "nearest" interpolation method. By default, it is only used if the screen size is multiple of 320 x 200. Also forces this latter in windowed mode. </td></tr>
 <tr><td><samp>-w</samp> </td><td>Start in windowed mode (by default it is fullscreen) </td></tr>
 <tr><td><samp>-v, -vv</samp> </td><td>Enable verbose mode. <samp>meg4</samp> will print out detailed information to the standard output (as well as your script's <a href="#@GENDOC:litra@" onclick="c('@GENDOC:litra@')">trace</a> calls), so run this from a terminal. </td></tr>
 <tr><td><samp>-s</samp> </td><td>Enable strace, tracing of system calls (only if compiled with DEBUG). </td></tr>
@@ -639,6 +639,9 @@ will produce the characters <samp>Πλατων</samp>.</p>
 <div class="info"><p><span>Note</span></p><p> This feature is implemented using data tables, new combinations can be added to <samp>src/inp.c</samp> any time without coding skills.</p></div><br style="clear:both;"><label class="btn prev" accesskey="p" for="_file_formats" title="File Formats">Previous</label><label class="btn next" accesskey="n" for="_interface" title="Interface">Next</label></div>
 <div class="page" rel="interface"><div><ul class="breadcrumbs"><li><label class="home" for="_" title="Home"></label>&nbsp;»</li><li>&nbsp;Basics&nbsp;»</li><li>&nbsp;Interface</li></ul><hr></div>
 <h1 id="interface">Interface<a href="#interface"></a></h1>
+<p>By default the screen will be blurry to mimic old CRT monitors. You can turn this off with the <samp>-n</samp> (or <samp>/n</samp> on Windows)
+command line flag, however then pixels won't be equally sized. You can counteract this by switching to windowed mode, where
+the screen size will be always exact multiple of 320 x 200 pixels.</p>
 <h2 id="game_screen">Game Screen<a href="#game_screen"></a></h2>
 <p>By default, you'll see the game screen, with your game running (or the MEG-4 Floppy Drive if there's no game loaded). When you
 press <kbd>Esc</kbd> on this screen, then you'll switch to editor mode.</p>
@@ -2095,7 +2098,7 @@ keys, for example:</p>
 <tr><td>004AE </td><td class="right">2 </td><td>light source position Z offset </td></tr>
 <tr><td>00600 </td><td class="right">64000 </td><td>map, 320 x 200 sprite indices (see <a href="#@GENDOC:" onclick="c('@GENDOC:')">map</a> and <a href="#@GENDOC:" onclick="c('@GENDOC:')">maze</a>) </td></tr>
 <tr><td>10000 </td><td class="right">65536 </td><td>sprites, 256 x 256 palette indices, 1024 8 x 8 pixels (see <a href="#@GENDOC:" onclick="c('@GENDOC:')">spr</a>) </td></tr>
-<tr><td>28000 </td><td class="right">2048 </td><td>window for 4096 font glyphs (see 0007E, <a href="#@GENDOC:" onclick="c('@GENDOC:')">width</a> and <a href="#@GENDOC:" onclick="c('@GENDOC:')">text</a>) </td></tr></table></div>
+<tr><td>28000 </td><td class="right">32768 </td><td>window for 4096 font glyphs (see 0007E, <a href="#@GENDOC:" onclick="c('@GENDOC:')">width</a> and <a href="#@GENDOC:" onclick="c('@GENDOC:')">text</a>) </td></tr></table></div>
 <h2 id="digital_signal_processor">Digital Signal Processor<a href="#digital_signal_processor"></a></h2>
 <div class="table"><table><tr><th>Offset </th><th>Size </th><th>Description </th></tr>
 <tr><td>0007C </td><td class="right">1 </td><td>waveform bank selector (1 to 31) </td></tr>
