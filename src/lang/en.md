@@ -278,7 +278,7 @@ The `△△▽▽◁▷◁▷ⒷⒶ` sequence makes the `KEY_CHEAT` "key" presse
 |  004AE |          2 | light source position Z offset                                     |
 |  00600 |      64000 | map, 320 x 200 sprite indices (see [map] and [maze])               |
 |  10000 |      65536 | sprites, 256 x 256 palette indices, 1024 8 x 8 pixels (see [spr])  |
-|  28000 |       2048 | window for 4096 font glyphs (see 0007E, [width] and [text])        |
+|  28000 |      32768 | window for 4096 font glyphs (see 0007E, [width] and [text])        |
 
 ## Digital Signal Processor
 
