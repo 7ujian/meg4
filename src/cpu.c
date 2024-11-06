@@ -90,9 +90,13 @@ void cpu_run(void)
     /* check if there's bytecode, script finished or running is still blocked */
     if(!meg4.code || meg4.code_len < 4 ||                               /* no script */
         (meg4.flg & 8) ||                                               /* execution stopped */
-       ((meg4.flg & 4) && meg4.mmio.tick < meg4.tmr) ||                 /* blocked for timer */
+       ((meg4.flg & 4) && le32toh(meg4.mmio.tick) < meg4.tmr) ||        /* blocked for timer */
        ((meg4.flg & 2) && meg4.mmio.kbdhead == meg4.mmio.kbdtail)       /* blocked for io */
-       ) return;
+       ) {
+        /* if we are blocked for io and blinking cursor was requested as well */
+        if(meg4.flg & 18) meg4_getscsr(le32toh(meg4.mmio.tick) & 512);
+        return;
+    }
     meg4.flg &= ~4;
     switch(meg4.code_type) {
         /* third party scripting languages */

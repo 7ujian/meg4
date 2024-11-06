@@ -192,11 +192,10 @@ static int meg4_deserialize(uint8_t *buf, int len)
             case MEG4_CHUNK_OVL:
                 if(s > 1) {
                     ret |= 64;
-                    i = buf[0];
-                    if(s > (uint32_t)sizeof(meg4.data) + 1) s = (uint32_t)sizeof(meg4.data) + 1;
-                    meg4.ovls[i].size = s - 1;
-                    meg4.ovls[i].data = (uint8_t*)realloc(meg4.ovls[i].data, s - 1);
-                    if(meg4.ovls[i].data) memcpy(meg4.ovls[i].data, buf + 1, s - 1);
+                    i = buf[0]; e = s > (uint32_t)sizeof(meg4.data) + 1 ? (uint32_t)sizeof(meg4.data) + 1 : s;
+                    meg4.ovls[i].size = e - 1;
+                    meg4.ovls[i].data = (uint8_t*)realloc(meg4.ovls[i].data, e - 1);
+                    if(meg4.ovls[i].data) memcpy(meg4.ovls[i].data, buf + 1, e - 1);
                     else meg4.ovls[i].size = 0;
                 }
             break;

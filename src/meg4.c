@@ -107,7 +107,7 @@ static DWORD start, lastt;
 static struct timespec started, now;
 #endif
 
-const char meg4ver[] = "0.0.1";
+const char meg4ver[] = MEG4_VERSION;
 const char *copyright[3] = {
     "You should have received a copy of the GNU General Public License",
     "along with this program; if not, write to the Free Software",

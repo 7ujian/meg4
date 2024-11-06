@@ -39,6 +39,8 @@ extern "C" {
 #pragma pack(1)
 #endif
 
+#define MEG4_VERSION "0.0.1"
+
 /*****************************************************************************
  *                            MEG-4 Memory Map                               *
  *****************************************************************************/
@@ -269,7 +271,7 @@ typedef struct {
     uint32_t tmr, dp, bp, sp, cp, pc;       /* delay timer, data, base, stack, callstack pointers and program counter */
     int ac;                                 /* integer accumulator register */
     float af;                               /* floating point accumulator register */
-    uint8_t flg;                            /* flags (bit 0: setup done, 1: io block, 2: timer block, 3: stopped) */
+    uint8_t flg;                            /* flags (bit 0: setup done, 1: io block, 2: timer block, 3: stopped, 4: blink cursor) */
     char *src;                              /* source code */
     uint32_t src_len, src_bm[42];           /* length and bookmarks */
     meg4_ovl_t ovls[256];                   /* overlays, MEG-4 "files" */
@@ -547,6 +549,7 @@ int   meg4_api_free(addr_t addr);
 /* cons.c - console, high level input / output */
 char *meg4_utf8(char *str, uint32_t *out);
 void meg4_conrst(void);
+void meg4_getscsr(int blink);
 void meg4_putc(uint32_t c);
 void meg4_api_putc(uint32_t chr);
 void meg4_api_printf(str_t fmt, ...);

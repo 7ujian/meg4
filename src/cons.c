@@ -25,7 +25,11 @@
 #include "meg4.h"
 #include "misc/emoji.h"
 
-static int numcache, cache[640], getspos;
+#define HISTLEN 16
+
+static char hist[HISTLEN][256] = { 0 };
+static int numcache, cache[640], getspos, histpos;
+static uint16_t conx, cony;
 
 /**
  * Helper, convert UTF-8 to UNICODE codepoint
@@ -108,6 +112,69 @@ void meg4_putc(uint32_t c)
 }
 
 /**
+ * Print the gets buffer to console
+ */
+void meg4_getsprt(char *s)
+{
+    uint32_t c, *dst, bg = (0xff << 24) | meg4.mmio.palette[(int)meg4.mmio.conb];
+    int x, y, l, dx, dy, p = 640;
+    char *o = s;
+
+    /* clear the area */
+    dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + conx;
+    dy = (meg4.mmio.scry > 200 ? 0 : meg4.mmio.scry) + cony;
+    dst = &meg4.vram[dy * p + dx];
+    l = meg4.mmio.conx - conx + 1;
+    if(meg4.mmio.cony < cony) {
+        /* screen was scrolled, just clear the first line */
+        dx -= conx; dy -= cony; dst = &meg4.vram[dy * p + dx];
+        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
+            for(x = 0; x < p && dx + x < p; x++)
+                dst[x] = bg;
+    } else
+    if(meg4.mmio.cony == cony) {
+        /* one line */
+        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
+            for(x = 0; x < l && dx + x < p; x++)
+                dst[x] = bg;
+    } else {
+        /* more lines */
+        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
+            for(x = 0; dx + x < p; x++)
+                dst[x] = bg;
+        dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + meg4.mmio.conx; dy += 8;
+        dst = &meg4.vram[dy * p];
+        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
+            for(x = 0; x < dx && x < p; x++)
+                dst[x] = bg;
+    }
+    /* reset to starting point and print new string filling up cache from the beginning */
+    meg4.mmio.conx = conx; meg4.mmio.cony = cony; meg4_conrst();
+    while(*s && (uintptr_t)s - (uintptr_t)o < 256) {
+        s = meg4_utf8(s, &c);
+        if(!c) break;
+        meg4_putc(c);
+    }
+}
+
+/**
+ * Draw the cursor
+ */
+void meg4_getscsr(int blink)
+{
+    uint32_t *dst, bg = (0xff << 24) | meg4.mmio.palette[(int)(blink ? meg4.mmio.conf : meg4.mmio.conb)];
+    int x, y, dx, dy, p = 640;
+
+    /* clear the area */
+    dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + meg4.mmio.conx;
+    dy = (meg4.mmio.scry > 200 ? 0 : meg4.mmio.scry) + meg4.mmio.cony;
+    dst = &meg4.vram[dy * p + dx];
+    for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
+        for(x = 0; x < 6 && dx + x < p; x++)
+            dst[x] = bg;
+}
+
+/**
  * Prints a character to console.
  * @param chr UTF-8 character
  */
@@ -167,14 +234,43 @@ str_t meg4_api_gets(void)
     uint32_t key;
     int l;
 
-    if(!(meg4.flg & 2)) { getspos = sizeof(meg4.data) - 256; memset(meg4.data + getspos, 0, 256); meg4_conrst(); }
+    if(!(meg4.flg & 2)) {
+        meg4.flg |= 16;
+        histpos = -1; conx = meg4.mmio.conx; cony = meg4.mmio.cony;
+        getspos = sizeof(meg4.data) - 256; memset(meg4.data + getspos, 0, 256); meg4_conrst();
+    }
     meg4.flg &= ~2;
     key = meg4_api_popkey();
     if(!key) { meg4.flg |= 2; return 0; }
+    meg4_getscsr(0);
     l = meg4_api_lenkey(key);
-    if(key == le32toh('\n') || getspos + l >= (int)sizeof(meg4.data) - 1)
+    if(!memcmp(&key, "Up", l)) {
+        if(histpos < HISTLEN - 1 && hist[histpos + 1][0]) {
+            getspos = sizeof(meg4.data) - 256;
+            memcpy(meg4.data + getspos, hist[++histpos], 256);
+            meg4_getsprt((char*)meg4.data + getspos);
+            getspos += strlen((char*)meg4.data + getspos);
+        }
+        meg4.flg |= 2;
+    } else
+    if(!memcmp(&key, "Down", l)) {
+        getspos = sizeof(meg4.data) - 256;
+        if(histpos > 0) memcpy(meg4.data + getspos, hist[--histpos], 256);
+        else memset(meg4.data + getspos, 0, 256);
+        meg4_getsprt((char*)meg4.data + getspos);
+        getspos += strlen((char*)meg4.data + getspos);
+        meg4.flg |= 2;
+    } else
+    if(key == le32toh('\n')) {
+        if(strcmp(hist[0], (char*)meg4.data + sizeof(meg4.data) - 256)) {
+            memmove(hist[1], hist[0], (HISTLEN - 1) * 256);
+            memcpy(hist[0], meg4.data + sizeof(meg4.data) - 256, 256);
+        }
+        histpos = -1;
+        meg4.flg &= ~16;
         return (str_t)(MEG4_MEM_LIMIT - 256);
-    else {
+    } else
+    if(getspos + l < (int)sizeof(meg4.data) - 1) {
         meg4_api_putc(htole32(key));
         meg4.flg |= 2;
         if(key == le32toh(8)) {

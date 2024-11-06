@@ -34,7 +34,7 @@ ARCH = $(shell uname -m)
 TMP = $(ARCH:x86_64=amd64)
 TMP2 = $(TMP:aarch64=arm64)
 DEBARCH = $(TMP2:armv7l=armhf)
-VERSION = $(shell cat ../../src/meg4.c|grep meg4ver|head -1|cut -d '"' -f 2)
+VERSION = $(shell cat ../../src/meg4.h|grep MEG4_VERSION|cut -d '"' -f 2)
 
 ifeq ($(USE_EMCC)$(USE_C99),)
  CFLAGS += -ansi -pedantic
