@@ -94,7 +94,7 @@ void cpu_run(void)
        ((meg4.flg & 2) && meg4.mmio.kbdhead == meg4.mmio.kbdtail)       /* blocked for io */
        ) {
         /* if we are blocked for io and blinking cursor was requested as well */
-        if(meg4.flg & 18) meg4_getscsr(le32toh(meg4.mmio.tick) & 512);
+        if((meg4.flg & 18) == 18) meg4_getscsr(le32toh(meg4.mmio.tick) & 512);
         return;
     }
     meg4.flg &= ~4;
