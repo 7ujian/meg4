@@ -434,6 +434,8 @@ DSP 状态寄存器都是只读的，对于每个通道，它们如下所示：
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | 在当前行切换书签 |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | 转到上一个书签 |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | 转到下一个书签 |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | 转到上一个单词的开头 |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | 转到下一个单词的结尾 |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | 减少所选内容的缩进 |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | 增加所选内容的缩进 |
 | <kbd>Home</kbd> | 将光标移动到行首 |

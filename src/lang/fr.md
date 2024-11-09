@@ -459,6 +459,8 @@ Raccourcis [clavier] supplémentaires que vous pouvez également utiliser lors d
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | Activer/désactiver le signet sur la ligne actuelle |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Aller au signet précédent |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Aller au signet suivant |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | Aller au début du mot précédent |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | Aller à la fin du mot suivant |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | Diminuer l'indentation de la sélection |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | Augmenter l'indentation de la sélection |
 | <kbd>Accueil</kbd> | Déplacer le curseur au début de la ligne |

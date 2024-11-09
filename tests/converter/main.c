@@ -90,9 +90,31 @@ uint8_t meg4_palidx(uint8_t *rgba)
 }
 void sound_addwave(int wave) { (void)wave; }
 void code_init(void) { }
-int overlay_idx = 0;
+int overlay_idx = 0, isbinary = 0;
 
 int main_cfgsave(char *cfg, uint8_t *buf, int len) { (void)cfg; (void)buf; (void)len; return 1; }
+
+uint8_t* main_readfile(char *file, int *size)
+{
+    uint8_t *data = NULL;
+    FILE *f;
+
+    if(!file || !*file || !size) return NULL;
+    *size = 0;
+    f = fopen(file, "rb");
+    if(f) {
+        fseek(f, 0L, SEEK_END);
+        *size = (int)ftell(f);
+        fseek(f, 0L, SEEK_SET);
+        data = (uint8_t*)malloc(*size);
+        if(data) {
+            memset(data, 0, *size);
+            if((int)fread(data, 1, *size, f) != *size) { free(data); data = NULL; *size = 0; }
+        }
+        fclose(f);
+    }
+    return data;
+}
 
 int main_writefile(char *file, uint8_t *buf, int size)
 {
@@ -129,6 +151,7 @@ int main_import(char *name, uint8_t *buf, int len)
     uint32_t s;
     uint8_t *end = buf + len - 12, *floppy = NULL;
 
+    if(!buf) return 0;
     if(!memcmp(buf, "\x89PNG", 4) && ((buf[18] << 8) | buf[19]) == 210 && ((buf[22] << 8) | buf[23]) == 220) {
         for(buf += 8; buf < end; buf += s + 12) {
             s = ((buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]);
@@ -148,13 +171,20 @@ int main_import(char *name, uint8_t *buf, int len)
 /**
  * Initialize stuff because we haven't turn on the MEG-4
  */
-void main_init(void)
+void main_init(char *fn)
 {
+    char *v = MEG4_VERSION;
     int c, i, j, k, l, m, n, s;
     uint8_t *font, *ptr, *frg, *buf, *o;
 
     memset(&meg4, 0, sizeof(meg4));
+    meg4.mmio.fwver[0] = atoi(v); while(*v != '.') { v++; } v++;
+    meg4.mmio.fwver[1] = atoi(v); while(*v != '.') { v++; } v++;
+    meg4.mmio.fwver[2] = atoi(v);
     memcpy(meg4.mmio.palette, default_pal, sizeof(meg4.mmio.palette));
+    if((v = strrchr(fn, '/')) || (v = strrchr(fn, '\\'))) v++; else v = fn;
+    strncpy(meg4_title, v, sizeof(meg4_title) - 1);
+    if((v = strrchr(meg4_title, '.'))) *v = 0;
     /* just in case, if someone wants to import MIDI files */
     meg4_defwaves = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_sounds_mod, sizeof(binary_sounds_mod), 65536, &i, 1);
     /* uncompress and set default font */
@@ -204,26 +234,17 @@ void main_init(void)
  */
 int main(int argc, char **argv)
 {
-    FILE *f;
-    uint8_t *buf = NULL;
-    int len = 0;
+    uint8_t *buf;
+    int len;
 
     /* load input */
     if(argc < 1 || !argv[1]) {
         printf("MEG-4 Converter by bzt Copyright (C) 2023 GPLv3+\r\n\r\n");
-        printf("%s <somefile>\r\n", argv[0]);
+        printf("%s <somefile> [output.zip]\r\n", argv[0]);
         exit(1);
     }
-    f = fopen(argv[1], "rb");
-    if(f) {
-        fseek(f, 0, SEEK_END);
-        len = (int)ftell(f);
-        fseek(f, 0, SEEK_SET);
-        buf = malloc(len);
-        if(buf) fread(buf, 1, len, f); else len = 0;
-        fclose(f);
-    }
-    main_init();
+    buf = main_readfile(argv[1], &len);
+    main_init(argv[1]);
     printf("importing...\n");
 
     /* import */
@@ -237,7 +258,7 @@ int main(int argc, char **argv)
     printf("exporting...\n");
 
     /* export */
-    meg4_export(argv[2] ? argv[2] : "output.zip", 0);
+    meg4_export(argv[2] ? argv[2] : "output.zip", isbinary);
 
     /* free resources */
     free(meg4_defwaves);

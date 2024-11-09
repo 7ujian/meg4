@@ -455,6 +455,8 @@ Dodatkowe skróty [klawiatura], których możesz również użyć podczas edycji
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | Przełącz zakładkę w bieżącym wierszu |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Przejdź do poprzedniej zakładki |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Przejdź do następnej zakładki |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | Przejdź na początek poprzedniego słowa |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | Przejdź na koniec następnego słowa |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | Zmniejsz wcięcie zaznaczenia |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | Zwiększ wcięcie zaznaczenia |
 | <kbd>Home</kbd> | Przesuń kursor na początek wiersza |

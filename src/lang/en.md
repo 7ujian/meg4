@@ -456,6 +456,8 @@ Additional [keyboard] shortcuts you can use when editing the source:
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | Toggle bookmark on current line                                                      |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Go to previous bookmark                                                              |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Go to next bookmark                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | Go to the beginning of the previous word                                             |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | Go to the end of the next word                                                       |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | Decrease indentation of selection                                                    |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | Increase indentation of selection                                                    |
 | <kbd>Home</kbd>              | Move cursor to the beginning of the line                                             |

@@ -456,6 +456,8 @@ Atajos de [teclado] adicionales que también puede utilizar al editar el código
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | Activar o desactivar marcador en la línea actual |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Ir al marcador anterior |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Ir al siguiente marcador |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | Ir al principio de la palabra anterior |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | Ir al final de la siguiente palabra |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | Disminuir la sangría de la selección |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | Aumentar la sangría de la selección |
 | <kbd>Inicio</kbd> | Mover el cursor al principio de la línea |

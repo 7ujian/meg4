@@ -644,7 +644,7 @@ void code_free(void)
 int code_ctrl(void)
 {
     uint32_t key, j, k;
-    char *clipboard;
+    char *clipboard, ctrl = meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL);
     int i, n, clk = le16toh(meg4.mmio.ptrbtn) & (MEG4_BTN_L | MEG4_BTN_R), px = le16toh(meg4.mmio.ptrx), py = le16toh(meg4.mmio.ptry);
 
     if(last && !clk) {
@@ -741,7 +741,7 @@ book:               if(meg4.src_bm[0]) { modal = 6; modalclk = -1; }
                 } else
                 if(!memcmp(&key, "TgBM", 4)) { code_tglbmark(row); } else
                 if(!memcmp(&key, "Up", 3)) {
-                    if(meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL)) {
+                    if(ctrl) {
                         n = (int)(sizeof(meg4.src_bm)/sizeof(meg4.src_bm[0]));
                         for(i = 0; i + 1 < n && meg4.src_bm[i] && meg4.src_bm[i + 1] < (uint32_t)row; i++);
                         if(meg4.src_bm[i] && meg4.src_bm[i] < (uint32_t)row) code_goto(meg4.src_bm[i]); else {
@@ -751,15 +751,28 @@ book:               if(meg4.src_bm[0]) { modal = 6; modalclk = -1; }
                     } else { if(i) { sels = cursor; } code_up(); }
                 } else
                 if(!memcmp(&key, "Down", 4)) {
-                    if(meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL)) {
+                    if(ctrl) {
                         n = (int)(sizeof(meg4.src_bm)/sizeof(meg4.src_bm[0]));
                         for(i = 0; i < n && meg4.src_bm[i] && meg4.src_bm[i] <= (uint32_t)row; i++);
                         if(i < n && meg4.src_bm[i]) code_goto(meg4.src_bm[i]); else
                         if(meg4.src_bm[0]) code_goto(meg4.src_bm[0]);
                     } else { if(i) { sels = cursor; } code_down(); }
                 } else
-                if(!memcmp(&key, "Left", 4)) { if(i) { sels = cursor; } code_left(); } else
-                if(!memcmp(&key, "Rght", 4)) { if(i) { sels = cursor; } code_right(); } else
+                if(!memcmp(&key, "Left", 4)) {
+                    if(i) sels = cursor;
+                    if(ctrl) {
+                        if(cursor > 0 && (meg4.src[cursor - 1] == ' ' || meg4.src[cursor - 1] == '\n' || meg4.src[cursor - 1] == '\t')) cursor--;
+                        while(cursor > 0 && (meg4.src[cursor] == ' ' || meg4.src[cursor] == '\n' || meg4.src[cursor] == '\t')) cursor--;
+                        while(cursor > 0 && meg4.src[cursor - 1] != ' ' && meg4.src[cursor - 1] != '\n' && meg4.src[cursor - 1] != '\t') cursor--;
+                    } else code_left();
+                } else
+                if(!memcmp(&key, "Rght", 4)) {
+                    if(i) sels = cursor;
+                    if(ctrl) {
+                        while(cursor < meg4.src_len - 1 && (meg4.src[cursor] == ' ' || meg4.src[cursor] == '\n' || meg4.src[cursor] == '\t')) cursor++;
+                        while(cursor < meg4.src_len - 1 && meg4.src[cursor] != ' ' && meg4.src[cursor] != '\n' && meg4.src[cursor] != '\t') cursor++;
+                    } else code_right();
+                } else
                 if(!memcmp(&key, "Home", 4)) { if(i) { sels = cursor; } while(cursor > 1 && meg4.src[cursor - 1] != '\n') cursor--; } else
                 if(!memcmp(&key, "End", 4)) { if(i) { sels = cursor; } while(cursor < meg4.src_len - 1 && meg4.src[cursor] != '\n') cursor++; } else
                 if(!memcmp(&key, "PgUp", 4)) { if(i) { sels = cursor; } for(j = 0; j < 40; j++) code_up(); } else

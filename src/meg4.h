@@ -285,7 +285,7 @@ typedef struct {
     char *name;                             /* name of the function */
     char ret;                               /* return type (0 void, 1 int, 2 addr, 3 string, 4 float) */
     char narg;                              /* number of arguments */
-    char varg;                              /* index or first variadic parameter or 0 */
+    char varg;                              /* index of first variadic parameter or 0 */
     uint16_t amsk;                          /* address bitmask, which arguments are pointers */
     uint16_t smsk;                          /* string bitmask, which arguments are strings */
     uint16_t fmsk;                          /* float bitmask, which arguments are floats */

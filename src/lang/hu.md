@@ -454,6 +454,8 @@ A szokásos [billentyűzet] kombinációkon túl a forráskód szerkesztéskor e
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | Könyvjelző ki/bekapcsolása az aktuális soron                                  |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Előző könyvjelzőhöz ugrás                                                     |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Következő könyvjelzőhöz ugrás                                                 |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | Ugrás az előző szó elejére                                                    |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | Ugrás a következő szó végére                                                  |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | Behúzás csökkentése a kijelölt területen                                      |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | Behúzás növelése a kijelölt területen                                         |
 | <kbd>Home</kbd>              | Kurzor mozgatása a sor elejére                                                |

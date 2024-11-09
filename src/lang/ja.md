@@ -443,6 +443,8 @@ MEG-4 では、3 次元空間は右手の法則に従って処理されます。
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | 現在の行のブックマークを切り替え  |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | 前のブックマークに移動 |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | 次のブックマークに移動 |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | 前の単語の先頭へ移動 |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | 次の単語の末尾へ移動 |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | 選択範囲のインデントを減らす  |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | 選択範囲のインデントを増やす  |
 | <kbd>Home</kbd> | カーソルを行の先頭に移動 |

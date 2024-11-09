@@ -458,6 +458,8 @@ Weitere [Tastatur]-Tastenkombinationen, die Sie auch beim Bearbeiten der Quelle 
 | <kbd>Strg</kbd>+<kbd>B</kbd> | Lesezeichen in aktueller Zeile umschalten                                            |
 | <kbd>Strg</kbd>+<kbd>▴</kbd> | Zum vorherigen Lesezeichen gehen                                                     |
 | <kbd>Strg</kbd>+<kbd>▾</kbd> | Zum nächsten Lesezeichen gehen                                                       |
+| <kbd>Strg</kbd>+<kbd>◂</kbd> | Zum Anfang des vorherigen Wortes gehen                                               |
+| <kbd>Strg</kbd>+<kbd>▸</kbd> | Zum Ende des nächsten Wortes gehen                                                   |
 | <kbd>Strg</kbd>+<kbd>,</kbd> | Einzug der Auswahl verkleinern                                                       |
 | <kbd>Strg</kbd>+<kbd>.</kbd> | Einzug der Auswahl vergrößern                                                        |
 | <kbd>Pos1</kbd>              | Cursor an den Zeilenanfang bewegen                                                   |

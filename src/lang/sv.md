@@ -14,8 +14,8 @@ Alla värden är små endian, så den mindre siffran lagras på den mindre adres
 |  00008 |          8 | UTC unix tidsstämpel                                               |
 |  00010 |          2 | nuvarande lokalitet                                                |
 
-Prestandaräknaren visar tiden som inte användes när den sista bilden genererades. Om detta är noll eller
-negativt betyder det hur mycket din loop()-funktion har överskridit sin tillgängliga tidsram.
+Prestandaräknaren visar tiden som inte användes när den sista bilden genererades. Om detta är noll eller negativt betyder det hur
+mycket din loop()-funktion har överskridit sin tillgängliga tidsram.
 
 ## Pekare
 
@@ -58,8 +58,8 @@ Det finns några fördefinierade inbyggda markörer:
 |  0001C |         64 | tangentbordskö, 16 element, vardera 4 byte (se [popkey])           |
 |  0005C |         18 | tangentbordsknappar som trycks in av skanningskoder (se [getkey])  |
 
-De nycklar som öppnas från kön är representerade i UTF-8. Vissa ogiltiga UTF-8-sekvenser representerar speciella
-(ej utskrivbara) nycklar, till exempel:
+De nycklar som öppnas från kön är representerade i UTF-8. Vissa ogiltiga UTF-8-sekvenser representerar speciella (ej utskrivbara)
+nycklar, till exempel:
 
 | Nyckelkod | Beskrivning                                   |
 |---------|-------------------------------------------------|
@@ -224,7 +224,7 @@ Skanningskoderna är följande:
 | Offset | Storlek    | Beskrivning                                                        |
 |--------|-----------:|--------------------------------------------------------------------|
 |  0006E |          2 | gamepad joystick tröskel (standard till 8000)                      |
-|  00070 |          8 | primär gamepad - tangentbordsavläsningskodmappningar (se [keyboard]) |
+|  00070 |          8 | primär gamepad - tangentbordsavläsningskodmappningar (se [tangentbord]) |
 |  00078 |          4 | 4 gamepads knapp nedtryckt läge (se [getpad])                     |
 
 Spelplattans knappar är som följer:
@@ -316,8 +316,8 @@ Formatet för varannan vågform:
 |      7 |          1 | volym, 0 till 64                                                   |
 |      8 |      16376 | signerade 8-bitars monosampel                                      |
 
-Formatet på ljudeffekterna och musikspåren är desamma, den enda skillnaden är att musikspår har 4 toner per rad,
-en för varje kanal, och det finns 1024 rader; medan det för ljudeffekter bara finns en ton och 64 rader.
+Formatet på ljudeffekterna och musikspåren är desamma, den enda skillnaden är att musikspår har 4 toner per rad, en för varje
+kanal, och det finns 1024 rader; medan det för ljudeffekter bara finns en ton och 64 rader.
 
 | Offset | Storlek    | Beskrivning                                                        |
 |--------|-----------:|--------------------------------------------------------------------|
@@ -326,18 +326,17 @@ en för varje kanal, och det finns 1024 rader; medan det för ljudeffekter bara 
 |      2 |          1 | effekttyp, 0 till 255 (se [notera effekter])                       |
 |      3 |          1 | effektparameter                                                    |
 
-Räkningen av sedlar går till som följer: 0 betyder ingen not satt. Följt av 8 oktaver, var och en med 12 toner, så 1 är
-lika med C-0, 12 är B-0 (på den lägsta oktaven), 13 är C-1 (en oktav högre) och 14 är C#1 (C skarp, halvton högre). Till
-exempel skulle D-noten på 4:e oktaven vara 1 + 4\*12 + 2 = 51. B-7 är 96, den högsta tonen på den högsta oktaven. Du har
-också inbyggda definitioner, till exempel är C-1 `NOTE_C_1` och C#1 är `NOTE_Cs1`, om du inte vill räkna kan du använda
-dessa också i ditt program.
+Räkningen av sedlar går till som följer: 0 betyder ingen not satt. Följt av 8 oktaver, var och en med 12 toner, så 1 är lika med
+C-0, 12 är B-0 (på den lägsta oktaven), 13 är C-1 (en oktav högre) och 14 är C#1 (C skarp, halvton högre). Till exempel skulle
+D-noten på 4:e oktaven vara 1 + 4\*12 + 2 = 51. B-7 är 96, den högsta tonen på den högsta oktaven. Du har också inbyggda
+definitioner, till exempel är C-1 `NOTE_C_1` och C#1 är `NOTE_Cs1`, om du inte vill räkna kan du använda dessa också i ditt program.
 
 ## Notera effekter
 
 För enkelhetens skull använder MEG-4 samma koder som Amiga MOD-filen (på så sätt kommer du att se detsamma i den inbyggda
-redigeraren såväl som i en musikspårare från tredje part), men den stöder inte alla. Som tidigare nämnts representeras dessa
-koder av tre hexadecimala tal, den första är typen `t`, och de två sista parametern `xy` (eller `xx`). Typerna `E1` till `ED`
-är alla lagrade i typbyten, även om det ser ut som att en av deras nibble kan tillhöra parametern, men det är den inte.
+redigeraren såväl som i en musikspårare från tredje part), men den stöder inte alla. Som tidigare nämnts representeras dessa koder
+av tre hexadecimala tal, den första är typen `t`, och de två sista parametern `xy` (eller `xx`). Typerna `E1` till `ED` är alla lagrade i
+typbyten, även om det ser ut som att en av deras nibble kan tillhöra parametern, men det är den inte.
 
 
 | Effect | Code | Beskrivning                                                |
@@ -383,17 +382,17 @@ När det gäller BASIC följs detta av de faktiska DATA-posterna.
 
 Minnesadresser ovanför initialiserade data kan tilldelas och frigöras dynamiskt i ditt program via [malloc] och [free] samtal.
 
-Slutligen stacken, som är överst (med början från C0000 eller `MEM_LIMIT`) och växer *nedåt*. Ditt programs lokala variabler
-(som du deklarerade i en funktion) går här. Storleken på stacken ändras alltid beroende på vilken funktion som anropar vilken
-annan funktion i ditt program.
+Slutligen stacken, som är överst (med början från C0000 eller `MEM_LIMIT`) och växer *nedåt*. Ditt programs lokala variabler (som
+du deklarerade i en funktion) går här. Storleken på stacken ändras alltid beroende på vilken funktion som anropar vilken annan
+funktion i ditt program.
 
 Om toppen av den dynamiskt allokerade datan och botten av stapeln av någon slump skulle överlappa varandra, så ger MEG-4 ett
 felmeddelande "om att minnet är slut".
 
 ## Formatera sträng
 
-Vissa funktioner, [printf], [sprintf] och [trace] använder en formatsträng som kan innehålla specialtecken för att referera
-till argument och för att beskriva hur de ska visas. Dessa är:
+Vissa funktioner, [printf], [sprintf] och [trace] använder en formatsträng som kan innehålla specialtecken för att referera till argument
+och för att beskriva hur de ska visas. Dessa är:
 
 | Kod  | Beskrivning                                                |
 |------|------------------------------------------------------------|
@@ -410,9 +409,9 @@ till argument och för att beskriva hur de ska visas. Dessa är:
 | `\t` | Tab, fixera vertikal position innan du fortsätter          |
 | `\n` | Starta en ny rad                                           |
 
-Du kan lägga till utfyllnad genom att ange längden mellan `%` och koden. Om det börjar med `0`, kommer värdet att fyllas med
-nollor, annars med mellanslag. Till exempel `%4d` fyller värdet till höger med mellanslag och `%04x` med nollor. `f` accepterar
-ett tal efter en punkt, som talar om antalet siffror i bråkdelen (upp till 8), t.ex. `%.6f`.
+Du kan lägga till utfyllnad genom att ange längden mellan `%` och koden. Om det börjar med `0`, kommer värdet att fyllas med nollor,
+annars med mellanslag. Till exempel `%4d` fyller värdet till höger med mellanslag och `%04x` med nollor. `f` accepterar ett tal efter en
+punkt, som talar om antalet siffror i bråkdelen (upp till 8), t.ex. `%.6f`.
 
 ## 3D-utrymme
 
@@ -456,6 +455,8 @@ Ytterligare [tangentbord] genvägar du kan använda när du redigerar källan:
 | <kbd>Ctrl</kbd>+<kbd>B</kbd> | Växla bokmärke på aktuell linje                                                      |
 | <kbd>Ctrl</kbd>+<kbd>▴</kbd> | Gå till föregående bokmärke                                                          |
 | <kbd>Ctrl</kbd>+<kbd>▾</kbd> | Gå till nästa bokmärke                                                               |
+| <kbd>Ctrl</kbd>+<kbd>◂</kbd> | Gå till början av föregående ord                                                     |
+| <kbd>Ctrl</kbd>+<kbd>▸</kbd> | Gå till slutet av nästa ord                                                          |
 | <kbd>Ctrl</kbd>+<kbd>,</kbd> | Minska indrag av markering                                                           |
 | <kbd>Ctrl</kbd>+<kbd>.</kbd> | Öka indraget i urvalet                                                               |
 | <kbd>Home</kbd>              | Flytta markören till början av raden                                                 |
@@ -1507,15 +1508,15 @@ int getpad(int pad, int btn)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Gets the current state of a gamepad button.
+Hämtar det aktuella tillståndet för en gamepad-knapp.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| pad | gamepad index, 0 to 3 |
-| btn | one of the [gamepad] buttons, `BTN_` |
+| pad | gamepad-index, 0 till 3 |
+| btn | en av [gamepad]-knapparna, `BTN_` |
 </dd>
 <dt>Returvärde</dt><dd>
-Zero if not pressed, non-zero if pressed.
+Noll om den inte trycks ned, inte noll om den trycks ned.
 </dd>
 <dt>Se även</dt><dd>
 [prspad], [relpad], [getbtn], [getclk], [getkey]
@@ -1529,15 +1530,15 @@ int prspad(int pad, int btn)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns true if gamepad button was pressed since last call.
+Returnerar sant om gamepad-knappen trycktes in sedan senaste samtalet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| pad | gamepad index, 0 to 3 |
-| btn | one of the [gamepad] buttons, `BTN_` |
+| pad | gamepad-index, 0 till 3 |
+| btn | en av [gamepad]-knapparna, `BTN_` |
 </dd>
 <dt>Returvärde</dt><dd>
-Zero if not pressed, non-zero if pressed.
+Noll om den inte trycks ned, inte noll om den trycks ned.
 </dd>
 <dt>Se även</dt><dd>
 [relpad], [getpad], [getbtn], [getclk], [getkey]
@@ -1551,15 +1552,15 @@ int relpad(int pad, int btn)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns true if gamepad button was released since last call.
+Returnerar sant om gamepad-knappen släpptes sedan senaste samtalet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| pad | gamepad index, 0 to 3 |
-| btn | one of the [gamepad] buttons, `BTN_` |
+| pad | gamepad-index, 0 till 3 |
+| btn | en av [gamepad]-knapparna, `BTN_` |
 </dd>
 <dt>Returvärde</dt><dd>
-Zero if wasn't released, non-zero if released.
+Noll om den inte släpptes, icke-noll om den släpptes.
 </dd>
 <dt>Se även</dt><dd>
 [prspad], [getpad], [getbtn], [getclk], [getkey]
@@ -1573,14 +1574,14 @@ int getbtn(int btn)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Gets the mouse buttons state.
+Får musknapparnas tillstånd.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| btn | one of the [pointer] buttons, `BTN_` or `SCR_` |
+| btn | en av [pekare]-knapparna, `BTN_` eller `SCR_` |
 </dd>
 <dt>Returvärde</dt><dd>
-Zero if not pressed, non-zero if pressed.
+Noll om den inte trycks ned, inte noll om den trycks ned.
 </dd>
 <dt>Se även</dt><dd>
 [prspad], [relpad], [getpad], [getclk], [getkey]
@@ -1594,14 +1595,14 @@ int getclk(int btn)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Gets mouse button clicking.
+Får musknappsklickning.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| btn | one of the [pointer] buttons, `BTN_` |
+| btn | en av [pekare]-knapparna, `BTN_` |
 </dd>
 <dt>Returvärde</dt><dd>
-Zero if not clicked, non-zero if clicked.
+Noll om man inte klickar, inte noll om man klickar.
 </dd>
 <dt>Se även</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getkey]
@@ -1615,14 +1616,14 @@ int getkey(int sc)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Gets the current state of a key.
+Hämtar det aktuella tillståndet för en nyckel.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| sc | scancode, 1 to 144, see [keyboard] |
+| sc | skanningskod, 1 till 144, se [tangentbord] |
 </dd>
 <dt>Returvärde</dt><dd>
-Zero if not pressed, non-zero if pressed.
+Noll om den inte trycks ned, inte noll om den trycks ned.
 </dd>
 <dt>Se även</dt><dd>
 [prspad], [relpad], [getpad], [getbtn], [getclk]
@@ -1636,10 +1637,10 @@ uint32_t popkey(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Pop an UTF-8 key from the keyboard queue. See [keyboard], and for the blocking version [getc].
+Poppa en UTF-8-nyckel från tangentbordskön. Se [tangentbord] och för blockeringsversionen [getc].
 </dd>
 <dt>Returvärde</dt><dd>
-The UTF-8 representation of the key, or 0 if the queue was empty (no blocking).
+UTF-8-representationen av nyckeln, eller 0 om kön var tom (ingen blockering).
 </dd>
 <dt>Se även</dt><dd>
 [pendkey], [lenkey], [speckey], [getc]
@@ -1653,10 +1654,10 @@ int pendkey(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns true if there's a key pending in the queue (but leaves the key in the queue, does not pop it).
+Returnerar sant om det finns en väntande nyckel i kön (men lämnar nyckeln i kön, poppar den inte).
 </dd>
 <dt>Returvärde</dt><dd>
-Returns 1 if there are keys in the queue pending.
+Returnerar 1 om det finns nycklar i kön väntande.
 </dd>
 <dt>Se även</dt><dd>
 [popkey], [lenkey], [speckey]
@@ -1670,14 +1671,14 @@ int lenkey(uint32_t key)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the length of a UTF-8 key in bytes.
+Returnerar längden på en UTF-8-nyckel i byte.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| key | the key, popped from the queue |
+| key | nyckeln, ploppade ur kön |
 </dd>
 <dt>Returvärde</dt><dd>
-UTF-8 representation's length in bytes.
+UTF-8-representationens längd i byte.
 </dd>
 <dt>Se även</dt><dd>
 [popkey], [pendkey], [speckey]
@@ -1691,14 +1692,14 @@ int speckey(uint32_t key)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns true if key is a special key.
+Returnerar sant om nyckeln är en specialnyckel.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| key | the key, popped from the queue |
+| key | nyckeln, ploppade ur kön |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns 1 if it's a special key, and 0 if it's a printable one.
+Returnerar 1 om det är en specialnyckel och 0 om det är en utskrivbar.
 </dd>
 <dt>Se även</dt><dd>
 [popkey], [pendkey], [lenkey]
@@ -1714,10 +1715,11 @@ uint32_t rand(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Get random. Use `%` modulo to make it smaller, for example `1 + rand() % 6` returns random between 1 and 6, like a dice.
+Bli slumpmässig. Använd `%` modulo för att göra den mindre, till exempel returnerar `1 + rand() % 6` slumpmässigt
+mellan 1 och 6, som en tärning.
 </dd>
 <dt>Returvärde</dt><dd>
-A random number between 0 and 2^^32^^-1 (4294967295).
+Ett slumptal mellan 0 och 2^^32^^-1 (4294967295).
 </dd>
 <dt>Se även</dt><dd>
 [rnd]
@@ -1731,10 +1733,10 @@ float rnd(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Get random. Same as [rand], but returns a floating point number.
+Bli slumpmässig. Samma som [rand], men returnerar ett flyttal.
 </dd>
 <dt>Returvärde</dt><dd>
-A random number between 0.0 and 1.0.
+Ett slumptal mellan 0.0 och 1.0.
 </dd>
 <dt>Se även</dt><dd>
 [rand]
@@ -1748,14 +1750,14 @@ float float(int val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the floating point equivalent of an integer number.
+Returnerar flyttalsmotsvarigheten till ett heltal.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-The floating point of value.
+Värdets flytande punkt.
 </dd>
 <dt>Se även</dt><dd>
 [int]
@@ -1769,14 +1771,14 @@ int int(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the integer equivalent of a floating point number.
+Returnerar heltalsekvivalenten till ett flyttal.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-The integer of value.
+Heltalet för värde.
 </dd>
 <dt>Se även</dt><dd>
 [float]
@@ -1790,14 +1792,14 @@ float floor(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the largest integral number that's not greater than value.
+Returnerar det största heltal som inte är större än värdet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-The floor of value.
+Värdegolvet.
 </dd>
 <dt>Se även</dt><dd>
 [ceil]
@@ -1811,14 +1813,14 @@ float ceil(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the smallest integral number that's not less than value.
+Returnerar det minsta heltal som inte är mindre än värdet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-The ceiling of value.
+Värdets tak.
 </dd>
 <dt>Se även</dt><dd>
 [floor]
@@ -1832,14 +1834,14 @@ float sgn(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the sign of the value.
+Returnerar värdets tecken.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Either 1.0 or -1.0.
+Antingen 1.0 eller -1.0.
 </dd>
 <dt>Se även</dt><dd>
 [abs]
@@ -1853,14 +1855,14 @@ float abs(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the absolute of the value.
+Returnerar värdets absoluta värde.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Either value or -value, always positive.
+Antingen värde eller -värde, alltid positivt.
 </dd>
 <dt>Se även</dt><dd>
 [sgn]
@@ -1874,14 +1876,14 @@ float exp(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the exponential of the value, i.e. base of natural logarithms raised to power of the value.
+Returnerar värdets exponential, dvs basen av naturliga logaritmer upphöjda till värdets potens.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns e^^val^^.
+Returnerar e^^val^^.
 </dd>
 <dt>Se även</dt><dd>
 [log], [pow]
@@ -1895,14 +1897,14 @@ float log(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the natural logarithm of the value.
+Returnerar den naturliga logaritmen för värdet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns natural logarithm of value.
+Returnerar naturlig logaritm av värde.
 </dd>
 <dt>Se även</dt><dd>
 [exp]
@@ -1916,15 +1918,15 @@ float pow(float val, float exp)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the value raised to the power of exponent. This is a slow operation, try to avoid.
+Returnerar värdet upphöjt till exponentpotensen. Detta är en långsam operation, försök att undvika.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 | exp | exponent |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns val^^exp^^.
+Returnerar val^^exp^^.
 </dd>
 <dt>Se även</dt><dd>
 [exp], [sqrt], [rsqrt]
@@ -1938,14 +1940,14 @@ float sqrt(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the square root of the value. This is a slow operation, try to avoid.
+Returnerar kvadratroten av värdet. Detta är en långsam operation, försök att undvika.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Square root of the value.
+Kvadratroten av värdet.
 </dd>
 <dt>Se även</dt><dd>
 [pow], [rsqrt]
@@ -1959,14 +1961,14 @@ float rsqrt(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the reciprocal of the square root of the value (`1 / sqrt(val)`). Uses John Carmack's fast method.
+Returnerar den reciproka av kvadratroten av värdet (`1 / sqrt(val)`). Använder John Carmacks snabbmetod.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
+| val | värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Reciprocal of the square root of the value.
+Reciprok av kvadratroten av värdet.
 </dd>
 <dt>Se även</dt><dd>
 [pow], [sqrt]
@@ -1980,16 +1982,16 @@ float clamp(float val, float minv, float maxv)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Clamps a value between the limits.
+Klämmer ett värde mellan gränserna.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value |
-| minv | minimum value |
-| maxv | maximum value |
+| val | värde |
+| minv | lägsta värde |
+| maxv | högsta värde |
 </dd>
 <dt>Returvärde</dt><dd>
-Clamped value.
+Inspänt värde.
 </dd>
 <dt>Se även</dt><dd>
 [clampv2], [clampv3], [clampv4]
@@ -2003,13 +2005,13 @@ float lerp(float a, float b, float t)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Linear interpolates two numbers.
+Linjär interpolerar två tal.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | first float number |
-| b | second float number |
-| t | interpolation value between 0.0 and 1.0 |
+| a | första flytnummer |
+| b | andra flytnummer |
+| t | interpolationsvärde mellan 0.0 och 1.0 |
 </dd>
 <dt>Se även</dt><dd>
 [lerpv2], [lerpv3], [lerpv4], [lerpq], [slerpq]
@@ -2023,10 +2025,10 @@ float pi(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns π as a floating point number.
+Returnerar π som ett flyttal.
 </dd>
 <dt>Returvärde</dt><dd>
-The value 3.14159265358979323846.
+Värdet 3.14159265358979323846.
 </dd>
 </dl>
 <hr>
@@ -2037,14 +2039,14 @@ float cos(uint16_t deg)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns cosine.
+Returnerar cosinus.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| deg | degree, 0 to 359, 0 is up, 90 on the right |
+| deg | grad, 0 till 359, 0 är upp, 90 till höger |
 </dd>
 <dt>Returvärde</dt><dd>
-Cosine of the degree, between -1.0 to 1.0.
+Cosinus för graden, mellan -1.0 till 1.0.
 </dd>
 <dt>Se även</dt><dd>
 [sin], [tan], [acos], [asin], [atan], [atan2]
@@ -2058,14 +2060,14 @@ float sin(uint16_t deg)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns sine.
+Returnerar sinus.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| deg | degree, 0 to 359, 0 is up, 90 to the right |
+| deg | grad, 0 till 359, 0 är upp, 90 till höger |
 </dd>
 <dt>Returvärde</dt><dd>
-Sine of the degree, between -1.0 to 1.0.
+Gradens sinus, mellan -1.0 till 1.0.
 </dd>
 <dt>Se även</dt><dd>
 [cos], [tan], [acos], [asin], [atan], [atan2]
@@ -2079,14 +2081,14 @@ float tan(uint16_t deg)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns tangent.
+Returnerar tangent.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| deg | degree, 0 to 359, 0 is up, 90 to the right |
+| deg | grad, 0 till 359, 0 är upp, 90 till höger |
 </dd>
 <dt>Returvärde</dt><dd>
-Tangent of the degree, between -1.0 to 1.0.
+Tangent av graden, mellan -1.0 till 1.0.
 </dd>
 <dt>Se även</dt><dd>
 [cos], [sin], [acos], [asin], [atan], [atan2]
@@ -2100,14 +2102,14 @@ uint16_t acos(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns arcus cosine.
+Returnerar arcus cosinus.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value, -1.0 to 1.0 |
+| val | värde, -1.0 till 1.0 |
 </dd>
 <dt>Returvärde</dt><dd>
-Arcus cosine in degree, 0 to 359, 0 is up, 90 to the right.
+Arcus cosinus i grad, 0 till 359, 0 är upp, 90 till höger.
 </dd>
 <dt>Se även</dt><dd>
 [cos], [sin], [tan], [asin], [atan], [atan2]
@@ -2121,14 +2123,14 @@ uint16_t asin(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns arcus sine.
+Returnerar arcus sinus.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value, -1.0 to 1.0 |
+| val | värde, -1.0 till 1.0 |
 </dd>
 <dt>Returvärde</dt><dd>
-Arcus sine in degree, 0 to 359, 0 is up, 90 to the right.
+Arcus sinus i grad, 0 till 359, 0 är upp, 90 till höger.
 </dd>
 <dt>Se även</dt><dd>
 [cos], [sin], [tan], [acos], [atan], [atan2]
@@ -2142,14 +2144,14 @@ uint16_t atan(float val)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns arcus tangent.
+Returnerar arcus tangent.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| val | value, -1.0 to 1.0 |
+| val | värde, -1.0 till 1.0 |
 </dd>
 <dt>Returvärde</dt><dd>
-Arcus tangent in degree, 0 to 359, 0 is up, 90 to the right.
+Arcus tangent i grad, 0 till 359, 0 är uppåt, 90 åt höger.
 </dd>
 <dt>Se även</dt><dd>
 [cos], [sin], [tan], [acos], [asin], [atan2]
@@ -2163,15 +2165,15 @@ uint16_t atan2(float y, float x)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns arcus tangent for y/x, using the signs of y and x to determine the quadrant.
+Returnerar arcus tangens för y/x, med hjälp av tecknen för y och x för att bestämma kvadranten.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| y | Y coordinate |
-| x | X coordinate |
+| y | Y koordinat |
+| x | X koordinat |
 </dd>
 <dt>Returvärde</dt><dd>
-Arcus tangent in degree, 0 to 359, 0 is up, 90 to the right.
+Arcus tangent i grad, 0 till 359, 0 är uppåt, 90 åt höger.
 </dd>
 <dt>Se även</dt><dd>
 [cos], [sin], [tan], [acos], [asin]
@@ -2185,15 +2187,15 @@ float dotv2(addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates dot product of two vectors with two elements.
+Beräknar punktprodukt av två vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of two floats |
-| b | address of two floats |
+| a | adress för två flottörer |
+| b | adress för två flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Dot product of the vectors.
+Punktprodukt av vektorerna.
 </dd>
 <dt>Se även</dt><dd>
 [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2207,14 +2209,14 @@ float lenv2(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates the length of a vector with two elements. This is slow, try to avoid (see [normv2]).
+Beräknar längden på en vektor med två element. Detta är långsamt, försök att undvika (se [normv2]).
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of two floats |
+| a | adress för två flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Length of the vector.
+Längden på vektorn.
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2228,12 +2230,12 @@ void scalev2(addr_t a, float s)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Scales a vector with two elements.
+Skalar en vektor med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of two floats |
-| s | scaler value |
+| a | adress för två flottörer |
+| s | skalningsvärde |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2247,11 +2249,11 @@ void negv2(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Negates a vector with two elements.
+Negerar en vektor med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of two floats |
+| a | adress för två flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2265,13 +2267,13 @@ void addv2(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Adds together vectors with two elements.
+Lägger ihop vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of two floats |
-| a | address of two floats |
-| b | address of two floats |
+| dst | adress för två flottörer |
+| a | adress för två flottörer |
+| b | adress för två flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2285,13 +2287,13 @@ void subv2(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Subtracts vectors with two elements.
+Subtraherar vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of two floats |
-| a | address of two floats |
-| b | address of two floats |
+| dst | adress för två flottörer |
+| a | adress för två flottörer |
+| b | adress för två flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [mulv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2305,13 +2307,13 @@ void mulv2(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies vectors with two elements.
+Multiplicerar vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of two floats |
-| a | address of two floats |
-| b | address of two floats |
+| dst | adress för två flottörer |
+| a | adress för två flottörer |
+| b | adress för två flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [divv2], [clampv2], [lerpv2], [normv2]
@@ -2325,13 +2327,13 @@ void divv2(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Divides vectors with two elements.
+Delar vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of two floats |
-| a | address of two floats |
-| b | address of two floats |
+| dst | adress för två flottörer |
+| a | adress för två flottörer |
+| b | adress för två flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [clampv2], [lerpv2], [normv2]
@@ -2345,14 +2347,14 @@ void clampv2(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Clamps vectors with two elements.
+Klämmer vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of two floats |
-| v | address of two floats, input |
-| minv | address of two floats, minimum |
-| maxv | address of two floats, maximum |
+| dst | adress för två flottörer |
+| v | adress för två flottörer, indata |
+| minv | adress för två flottörer, minimum |
+| maxv | adress för två flottörer, maximum |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [lerpv2], [normv2]
@@ -2366,14 +2368,14 @@ void lerpv2(addr_t dst, addr_t a, addr_t b, float t)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Linear interpolates vectors with two elements.
+Linjär interpolerar vektorer med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of two floats |
-| a | address of two floats |
-| b | address of two floats |
-| t | interpolation value between 0.0 and 1.0 |
+| dst | adress för två flottörer |
+| a | adress för två flottörer |
+| b | adress för två flottörer |
+| t | interpolationsvärde mellan 0.0 och 1.0 |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [normv2]
@@ -2387,11 +2389,11 @@ void normv2(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Normalizes a vector with two elements.
+Normaliserar en vektor med två element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of two floats |
+| a | adress för två flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv2], [lenv2], [scalev2], [negv2], [addv2], [subv2], [mulv2], [divv2], [clampv2], [lerpv2]
@@ -2405,15 +2407,15 @@ float dotv3(addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates dot product of two vectors with three elements.
+Beräknar punktprodukt av två vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of three floats |
-| b | address of three floats |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Dot product of the vectors.
+Punktprodukt av vektorerna.
 </dd>
 <dt>Se även</dt><dd>
 [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2427,14 +2429,14 @@ float lenv3(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates the length of a vector with three elements. This is slow, try to avoid (see [normv3]).
+Beräknar längden på en vektor med tre element. Detta är långsamt, försök att undvika (se [normv3]).
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of three floats |
+| a | adress för tre flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Length of the vector.
+Längden på vektorn.
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2448,12 +2450,12 @@ void scalev3(addr_t a, float s)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Scales a vector with three elements.
+Skalar en vektor med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of three floats |
-| s | scaler value |
+| a | adress för tre flottörer |
+| s | skalningsvärde |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2467,11 +2469,11 @@ void negv3(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Negates a vector with three elements.
+Negerar en vektor med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of three floats |
+| a | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2485,13 +2487,13 @@ void addv3(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Adds together vectors with three elements.
+Lägger ihop vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| a | address of three floats |
-| b | address of three floats |
+| dst | adress för tre flottörer |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2505,13 +2507,13 @@ void subv3(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Subtracts vectors with three elements.
+Subtraherar vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| a | address of three floats |
-| b | address of three floats |
+| dst | adress för tre flottörer |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2525,13 +2527,13 @@ void mulv3(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies vectors with three elements.
+Multiplicerar vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| a | address of three floats |
-| b | address of three floats |
+| dst | adress för tre flottörer |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [divv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2545,13 +2547,13 @@ void divv3(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Divides vectors with three elements.
+Delar vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| a | address of three floats |
-| b | address of three floats |
+| dst | adress för tre flottörer |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [crossv3], [clampv3], [lerpv3], [normv3]
@@ -2565,13 +2567,13 @@ void crossv3(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates cross product of vectors with three elements.
+Beräknar korsprodukten av vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| a | address of three floats |
-| b | address of three floats |
+| dst | adress för tre flottörer |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [clampv3], [lerpv3], [normv3]
@@ -2585,14 +2587,14 @@ void clampv3(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Clamps vectors with three elements.
+Klämmer vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| v | address of three floats, input |
-| minv | address of three floats, minimum |
-| maxv | address of three floats, maximum |
+| dst | adress för tre flottörer |
+| v | adress för tre flottörer, indata |
+| minv | adress för tre flottörer, minimum |
+| maxv | adress för tre flottörer, maximum |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [lerpv3], [normv3]
@@ -2606,14 +2608,14 @@ void lerpv3(addr_t dst, addr_t a, addr_t b, float t)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Linear interpolates vectors with three elements.
+Linjär interpolerar vektorer med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| a | address of three floats |
-| b | address of three floats |
-| t | interpolation value between 0.0 and 1.0 |
+| dst | adress för tre flottörer |
+| a | adress för tre flottörer |
+| b | adress för tre flottörer |
+| t | interpolationsvärde mellan 0.0 och 1.0 |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [normv3]
@@ -2627,11 +2629,11 @@ void normv3(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Normalizes a vector with three elements.
+Normaliserar en vektor med tre element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of three floats |
+| a | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv3], [lenv3], [scalev3], [negv3], [addv3], [subv3], [mulv3], [divv3], [crossv3], [clampv3], [lerpv3]
@@ -2645,15 +2647,15 @@ float dotv4(addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates dot product of two vectors with four elements.
+Beräknar punktprodukt av två vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
-| b | address of four floats |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Dot product of the vectors.
+Punktprodukt av vektorerna.
 </dd>
 <dt>Se även</dt><dd>
 [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2667,14 +2669,14 @@ float lenv4(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates the length of a vector with four elements. This is slow, try to avoid (see [normv4]).
+Beräknar längden på en vektor med fyra element. Detta är långsamt, försök att undvika (se [normv4]).
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Length of the vector.
+Längden på vektorn.
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2688,12 +2690,12 @@ void scalev4(addr_t a, float s)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Scales a vector with four elements.
+Skalar en vektor med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
-| s | scaler value |
+| a | adress för fyra flottörer |
+| s | skalningsvärde |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2707,11 +2709,11 @@ void negv4(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Negates a vector with four elements.
+Negerar en vektor med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2725,13 +2727,13 @@ void addv4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Adds together vectors with four elements.
+Lägger ihop vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [negv4], [scalev4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2745,13 +2747,13 @@ void subv4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Subtracts vectors with four elements.
+Subtraherar vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [mulv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2765,13 +2767,13 @@ void mulv4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies vectors with four elements.
+Multiplicerar vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [divv4], [clampv4], [lerpv4], [normv4]
@@ -2785,13 +2787,13 @@ void divv4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Divides vectors with four elements.
+Delar vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [clampv4], [lerpv4], [normv4]
@@ -2805,14 +2807,14 @@ void clampv4(addr_t dst, addr_t v, addr_t minv, addr_t maxv)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Clamps vectors with four elements.
+Klämmer vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| v | address of four floats, input |
-| minv | address of four floats, minimum |
-| maxv | address of four floats, maximum |
+| dst | adress för fyra flottörer |
+| v | adress för fyra flottörer, indata |
+| minv | adress för fyra flottörer, minimum |
+| maxv | adress för fyra flottörer, maximum |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [lerpv4], [normv4]
@@ -2826,14 +2828,14 @@ void lerpv4(addr_t dst, addr_t a, addr_t b, float t)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Linear interpolates vectors with four elements.
+Linjär interpolerar vektorer med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
-| t | interpolation value between 0.0 and 1.0 |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
+| t | interpolationsvärde mellan 0.0 och 1.0 |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [normv4]
@@ -2847,11 +2849,11 @@ void normv4(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Normalizes a vector with four elements.
+Normaliserar en vektor med fyra element.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [dotv4], [lenv4], [scalev4], [negv4], [addv4], [subv4], [mulv4], [divv4], [clampv4], [lerpv4]
@@ -2865,11 +2867,11 @@ void idq(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Loads the identity quaternion.
+Laddar identitetskvartjon.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -2883,14 +2885,14 @@ void eulerq(addr_t dst, uint16_t pitch, uint16_t yaw, uint16_t roll)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Loads a quaternion using Euler angles.
+Laddar en kvartjon med Euler-vinklar.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| pitch | rotation around X axis in degrees, 0 to 359 |
-| yaw | rotation around Y axis in degrees, 0 to 359 |
-| roll | rotation around Z axis in degrees, 0 to 359 |
+| dst | adress för fyra flottörer |
+| pitch | rotation runt X-axeln i grader, 0 till 359 |
+| yaw | rotation runt Y-axeln i grader, 0 till 359 |
+| roll | rotation runt Z-axeln i grader, 0 till 359 |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -2904,15 +2906,15 @@ float dotq(addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates dot product of a quaternion.
+Beräknar punktprodukt av en kvartjon.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
-| b | address of four floats |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Dot product of the quaternion.
+Prickprodukt av quaternion.
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -2926,14 +2928,14 @@ float lenq(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates the length of a quaternion.
+Beräknar längden på en kvartjon.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-Length of the quaternion.
+Kvaternionens längd.
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -2947,12 +2949,12 @@ void scaleq(addr_t a, float s)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Scales a quaternion.
+Skalar en kvartjon.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
-| s | scaler value |
+| a | adress för fyra flottörer |
+| s | skalningsvärde |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -2966,11 +2968,11 @@ void negq(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Negates a quaternion.
+Negerar en kvartjon.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -2984,13 +2986,13 @@ void addq(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Adds together quaternions.
+Lägger samman kvaternioner.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [subq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -3004,13 +3006,13 @@ void subq(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Subtracts quaternions.
+Subtraherar kvaternioner.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [mulq], [rotq], [lerpq], [slerpq], [normq]
@@ -3024,13 +3026,13 @@ void mulq(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies quaternions.
+Multiplicerar kvaternioner.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [rotq], [lerpq], [slerpq], [normq]
@@ -3044,13 +3046,13 @@ void rotq(addr_t dst, addr_t q, addr_t v)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Rotates a vector with three elements by a quaternion.
+Roterar en vektor med tre element med en kvaternion.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| q | address of four floats |
-| v | address of three floats |
+| dst | adress för tre flottörer |
+| q | adress för fyra flottörer |
+| v | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [lerpq], [slerpq], [normq]
@@ -3064,14 +3066,14 @@ void lerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Linear interpolates two quaternions.
+Linjär interpolerar två kvaternioner.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
-| t | interpolation value between 0.0 and 1.0 |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
+| t | interpolationsvärde mellan 0.0 och 1.0 |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [slerpq], [normq]
@@ -3085,14 +3087,14 @@ void slerpq(addr_t dst, addr_t a, addr_t b, float t)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Spherical interpolates a quaternion.
+Sfärisk interpolerar en kvaternion.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| a | address of four floats |
-| b | address of four floats |
-| t | interpolation value between 0.0 and 1.0 |
+| dst | adress för fyra flottörer |
+| a | adress för fyra flottörer |
+| b | adress för fyra flottörer |
+| t | interpolationsvärde mellan 0.0 och 1.0 |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [normq]
@@ -3106,11 +3108,11 @@ void normq(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Normalizes a quaternion.
+Normaliserar en quaternion.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of four floats |
+| a | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idq], [eulerq], [dotq], [lenq], [scaleq], [negq], [addq], [subq], [mulq], [rotq], [lerpq], [slerpq]
@@ -3124,11 +3126,11 @@ void idm4(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Loads a 4 x 4 identity matrix.
+Laddar en 4 x 4 identitetsmatris.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of 16 floats |
+| a | adress för 16 flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
@@ -3142,14 +3144,14 @@ void trsm4(addr_t dst, addr_t t, addr_t r, addr_t s)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Creates a 4 x 4 matrix with translation, rotation and scaling.
+Skapar en 4 x 4 matris med translation, rotation och skalning.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of 16 floats, destination matrix |
-| t | address of three floats, translation vector |
-| r | address of four floats, rotation quaternion |
-| s | address of three floats, scaling vector |
+| dst | adress för 16 flottörer, destinationsmatris |
+| t | adress för tre flottörer, översättningsvektor |
+| r | adress för fyra flottörer, rotation kvaternion |
+| s | adress för tre flottörer, skalningsvektor |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
@@ -3163,14 +3165,14 @@ float detm4(addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the matrix's determinant.
+Returnerar matrisens determinant.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| a | address of 16 floats |
+| a | adress för 16 flottörer |
 </dd>
 <dt>Returvärde</dt><dd>
-The matrix's determinant.
+Matrisens determinant.
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
@@ -3184,13 +3186,13 @@ void addm4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Adds matrices together.
+Lägger ihop matriser.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of 16 floats |
-| a | address of 16 floats |
-| b | address of 16 floats |
+| dst | adress för 16 flottörer |
+| a | adress för 16 flottörer |
+| b | adress för 16 flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
@@ -3204,13 +3206,13 @@ void subm4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Subtracts matrices.
+Subtraherar matriser.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of 16 floats |
-| a | address of 16 floats |
-| b | address of 16 floats |
+| dst | adress för 16 flottörer |
+| a | adress för 16 flottörer |
+| b | adress för 16 flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [mulm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
@@ -3224,13 +3226,13 @@ void mulm4(addr_t dst, addr_t a, addr_t b)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies matrices.
+Multiplicerar matriser.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of 16 floats |
-| a | address of 16 floats |
-| b | address of 16 floats |
+| dst | adress för 16 flottörer |
+| a | adress för 16 flottörer |
+| b | adress för 16 flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4v3], [mulm4v4], [invm4], [trpm4]
@@ -3244,13 +3246,13 @@ void mulm4v3(addr_t dst, addr_t m, addr_t v)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies a vector with three elements by a matrix.
+Multiplicerar en vektor med tre element med en matris.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of three floats |
-| m | address of 16 floats |
-| v | address of three floats |
+| dst | adress för tre flottörer |
+| m | adress för 16 flottörer |
+| v | adress för tre flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v4], [invm4], [trpm4]
@@ -3264,13 +3266,13 @@ void mulm4v4(addr_t dst, addr_t m, addr_t v)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Multiplies a vector with four elements by a matrix.
+Multiplicerar en vektor med fyra element med en matris.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of four floats |
-| m | address of 16 floats |
-| v | address of four floats |
+| dst | adress för fyra flottörer |
+| m | adress för 16 flottörer |
+| v | adress för fyra flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [invm4], [trpm4]
@@ -3284,12 +3286,12 @@ void invm4(addr_t dst, addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Calculates inverse matrix.
+Beräknar invers matris.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of 16 floats |
-| a | address of 16 floats |
+| dst | adress för 16 flottörer |
+| a | adress för 16 flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [trpm4]
@@ -3303,12 +3305,12 @@ void trpm4(addr_t dst, addr_t a)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Transpose matrix.
+Transponera matris.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address of 16 floats |
-| a | address of 16 floats |
+| dst | adress för 16 flottörer |
+| a | adress för 16 flottörer |
 </dd>
 <dt>Se även</dt><dd>
 [idm4], [trsm4], [detm4], [addm4], [subm4], [mulm4], [mulm4v3], [mulm4v4], [invm4]
@@ -3325,20 +3327,20 @@ void trns(addr_t dst, addr_t src, uint8_t num,
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Translate a vertex cloud, aka. place a 3D model in [3D-utrymme].
+Översätt ett vertexmoln, aka. placera en 3D-modell i [3D-utrymme].
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | destination vertices array, 3 x 2 bytes each, X, Y, Z |
-| src | source vertices array, 3 x 2 bytes each, X, Y, Z |
-| num | number of vertex coordinate triplets in the array |
-| x | world X coordinate, -32767 to 32767 |
-| y | world Y coordinate, -32767 to 32767 |
-| z | world Z coordinate, -32767 to 32767 |
-| pitch | rotation around X axis in degrees, 0 to 359 |
-| yaw | rotation around Y axis in degrees, 0 to 359 |
-| roll | rotation around Z axis in degrees, 0 to 359 |
-| scale | scale, use 1.0 to keep original size |
+| dst | destinationspunktsarray, 3 x 2 byte vardera, X, Y, Z |
+| src | källvertices array, 3 x 2 byte vardera, X, Y, Z |
+| num | antal vertexkoordinattripletter i arrayen |
+| x | världens X-koordinat, -32767 till 32767 |
+| y | världens Y-koordinat, -32767 till 32767 |
+| z | världens Z-koordinat, -32767 till 32767 |
+| pitch | rotation runt X-axeln i grader, 0 till 359 |
+| yaw | rotation runt Y-axeln i grader, 0 till 359 |
+| roll | rotation runt Z-axeln i grader, 0 till 359 |
+| scale | skalning, använd 1.0 för att behålla originalstorleken |
 </dd>
 <dt>Se även</dt><dd>
 [mesh]
@@ -3354,14 +3356,14 @@ uint8_t inb(addr_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Read in one byte from memory.
+Läs i en byte från minnet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | address, 0x00000 to 0xBFFFF |
+| src | adress, 0x00000 till 0xBFFFF |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns the value at that address.
+Returnerar värdet på den adressen.
 </dd>
 </dl>
 <hr>
@@ -3372,14 +3374,14 @@ uint16_t inw(addr_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Read in a word (two bytes) from memory.
+Läs in ett ord (word, två byte) från minnet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | address, 0x00000 to 0xBFFFE |
+| src | adress, 0x00000 till 0xBFFFE |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns the value at that address.
+Returnerar värdet på den adressen.
 </dd>
 </dl>
 <hr>
@@ -3390,14 +3392,14 @@ uint32_t ini(addr_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Read in an integer (four bytes) from memory.
+Läs in ett heltal (int, fyra byte) från minnet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | address, 0x00000 to 0xBFFFC |
+| src | adress, 0x00000 till 0xBFFFC |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns the value at that address.
+Returnerar värdet på den adressen.
 </dd>
 </dl>
 <hr>
@@ -3408,12 +3410,12 @@ void outb(addr_t dst, uint8_t value)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Write out one byte to memory.
+Skriv ut en byte till minnet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address, 0x00000 to 0xBFFFF |
-| value | value to set, 0 to 255 |
+| dst | adress, 0x00000 till 0xBFFFF |
+| value | värde att ställa in, 0 till 255 |
 </dd>
 </dl>
 <hr>
@@ -3424,12 +3426,12 @@ void outw(addr_t dst, uint16_t value)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Write out a word (two bytes) to memory.
+Skriv ut ett ord (word, två byte) till minnet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address, 0x00000 to 0xBFFFE |
-| value | value to set, 0 to 65535 |
+| dst | adress, 0x00000 till 0xBFFFE |
+| value | värde att ställa in, 0 till 65535 |
 </dd>
 </dl>
 <hr>
@@ -3440,12 +3442,12 @@ void outi(addr_t dst, uint32_t value)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Write out an integer (four bytes) to memory.
+Skriv ut ett heltal (int, fyra byte) till minnet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | address, 0x00000 to 0xBFFFC |
-| value | value to set, 0 to 4294967295 |
+| dst | adress, 0x00000 till 0xBFFFC |
+| value | värde att ställa in, 0 till 4294967295 |
 </dd>
 </dl>
 <hr>
@@ -3456,16 +3458,16 @@ int memsave(uint8_t overlay, addr_t src, uint32_t size)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Saves memory area to overlay.
+Sparar minnesområde för överlagring.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| overlay | index of overlay to write to, 0 to 255 |
-| src | memory offset to save from, 0x00000 to 0xBFFFF |
-| size | number of bytes to save |
+| overlay | index för överlagring att skriva till, 0 till 255 |
+| src | minnesoffset att spara från, 0x00000 till 0xBFFFF |
+| size | antal byte att spara |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns 1 on success, 0 on error.
+Returnerar 1 vid framgång, 0 vid fel.
 </dd>
 <dt>Se även</dt><dd>
 [memload]
@@ -3479,16 +3481,16 @@ int memload(addr_t dst, uint8_t overlay, uint32_t maxsize)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Loads an overlay into the specified memory area.
+Laddar en överlagring i det angivna minnesområdet.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | memory offset to load to, 0x00000 to 0xBFFFF |
-| overlay | index of overlay to read from, 0 to 255 |
-| maxsize | maximum number of bytes to load |
+| dst | minnesoffset att ladda till, 0x00000 till 0xBFFFF |
+| overlay | index för överlagring att läsa från, 0 till 255 |
+| maxsize | maximalt antal byte att ladda |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns the number of bytes actually loaded.
+Returnerar antalet byte som faktiskt laddats.
 </dd>
 <dt>Se även</dt><dd>
 [memsave]
@@ -3502,13 +3504,13 @@ void memcpy(addr_t dst, addr_t src, uint32_t len)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Copy memory regions.
+Kopiera minnesområden.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | destination address, 0x00000 to 0xBFFFF |
-| src | source address, 0x00000 to 0xBFFFF |
-| len | number of bytes to copy |
+| dst | destinationsadress, 0x00000 till 0xBFFFF |
+| src | källadress, 0x00000 till 0xBFFFF |
+| len | antal byte att kopiera |
 </dd>
 </dl>
 <hr>
@@ -3519,13 +3521,13 @@ void memset(addr_t dst, uint8_t value, uint32_t len)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Set memory region to a given value.
+Ställ in minnesregionen till ett givet värde.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | destination address, 0x00000 to 0xBFFFF |
-| value | value to set, 0 to 255 |
-| len | number of bytes to set |
+| dst | destinationsadress, 0x00000 till 0xBFFFF |
+| value | värde att ställa in, 0 till 255 |
+| len | antal byte att ställa in |
 </dd>
 </dl>
 <hr>
@@ -3536,16 +3538,16 @@ int memcmp(addr_t addr0, addr_t addr1, uint32_t len)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Compare memory regions.
+Jämför minnesregioner.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| addr0 | first address, 0x00000 to 0xBFFFF |
-| addr1 | second address, 0x00000 to 0xBFFFF |
-| len | number of bytes to compare |
+| addr0 | första adressen, 0x00000 till 0xBFFFF |
+| addr1 | andra adress, 0x00000 till 0xBFFFF |
+| len | antal byte att jämföra |
 </dd>
 <dt>Returvärde</dt><dd>
-Returns difference, 0 if the two memory region matches.
+Returnerar skillnaden, 0 om de två minnesregionerna matchar.
 </dd>
 </dl>
 <hr>
@@ -3556,16 +3558,16 @@ int deflate(addr_t dst, addr_t src, uint32_t len)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Compress a buffer using RFC1950 deflate (zlib).
+Komprimera en buffert med RFC1950 deflate (zlib).
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | destination address, 0x30000 to 0xBFFFF |
-| src | source address, 0x30000 to 0xBFFFF |
-| len | number of bytes to compress |
+| dst | destinationsadress, 0x30000 till 0xBFFFF |
+| src | källadress, 0x30000 till 0xBFFFF |
+| len | antal byte att komprimera |
 </dd>
 <dt>Returvärde</dt><dd>
-0 or negative on error, otherwise the length of the compressed buffer and compressed data in dst.
+0 eller negativ vid fel, annars längden på den komprimerade bufferten och komprimerade data i dst.
 </dd>
 <dt>Se även</dt><dd>
 [inflate]
@@ -3579,16 +3581,16 @@ int inflate(addr_t dst, addr_t src, uint32_t len)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Uncompress a buffer with RFC1950 deflate (zlib) compressed data.
+Dekomprimera en buffert med RFC1950 deflate (zlib) komprimerad data.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| dst | destination address, 0x30000 to 0xBFFFF |
-| src | source address, 0x30000 to 0xBFFFF |
-| len | number of compressed bytes |
+| dst | destinationsadress, 0x30000 till 0xBFFFF |
+| src | källadress, 0x30000 till 0xBFFFF |
+| len | antal komprimerade byte |
 </dd>
 <dt>Returvärde</dt><dd>
-0 or negative on error, otherwise the length of the uncompressed buffer and uncompressed data in dst.
+0 eller negativ vid fel, annars längden på den okomprimerade bufferten och okomprimerade data i dst.
 </dd>
 <dt>Se även</dt><dd>
 [deflate]
@@ -3602,10 +3604,10 @@ float time(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the number of ticks since power on.
+Returnerar antalet bockar sedan strömmen slogs på.
 </dd>
 <dt>Returvärde</dt><dd>
-The elapsed time in milliseconds since power on.
+Den förflutna tiden i millisekunder sedan strömmen slogs på.
 </dd>
 <dt>Se även</dt><dd>
 [now]
@@ -3619,10 +3621,10 @@ uint32_t now(void)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns the UNIX timestamp. Check the byte at offset 0000C to see if it overflows.
+Returnerar UNIX-tidsstämpeln. Kontrollera byten vid offset 0000C för att se om den svämmar över.
 </dd>
 <dt>Returvärde</dt><dd>
-The elapsed time in seconds since 1 Jan 1970 midnight, Greenwich Mean Time.
+Den förflutna tiden i sekunder sedan midnatt den 1 januari 1970, Greenwich Mean Time.
 </dd>
 <dt>Se även</dt><dd>
 [time]
@@ -3636,11 +3638,11 @@ int atoi(str_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Converts an ASCII decimal string into an integer number.
+Konverterar en ASCII-decimalsträng till ett heltal.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | string address, 0x00000 to 0xBFFFF |
+| src | strängadress, 0x00000 till 0xBFFFF |
 </dd>
 <dt>Returvärde</dt><dd>
 The number value of the string.
@@ -3657,14 +3659,14 @@ str_t itoa(int value)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Converts an integer number into an ASCII decimal string.
+Konverterar ett heltal till en ASCII-decimalsträng.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| value | the value, -2147483648 to 2147483647 |
+| value | värdet, -2147483648 till 2147483647 |
 </dd>
 <dt>Returvärde</dt><dd>
-The converted string.
+Den konverterade strängen.
 </dd>
 <dt>Se även</dt><dd>
 [atoi], [str], [val]
@@ -3678,14 +3680,14 @@ float val(str_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Converts an ASCII decimal string into a floating point number.
+Konverterar en ASCII-decimalsträng till ett flyttal.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | string address, 0x00000 to 0xBFFFF |
+| src | strängadress, 0x00000 till 0xBFFFF |
 </dd>
 <dt>Returvärde</dt><dd>
-The number value of the string.
+Strängens talvärde.
 </dd>
 <dt>Se även</dt><dd>
 [itoa], [atoi], [str]
@@ -3699,14 +3701,14 @@ str_t str(float value)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Converts a floating point number into an ASCII decimal string.
+Konverterar ett flyttal till en ASCII-decimalsträng.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| value | the value |
+| value | värdet |
 </dd>
 <dt>Returvärde</dt><dd>
-The converted string.
+Den konverterade strängen.
 </dd>
 <dt>Se även</dt><dd>
 [atoi], [itoa], [val]
@@ -3720,7 +3722,7 @@ str_t sprintf(str_t fmt, ...)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Returns a zero terminated UTF-8 string created using format and arguments.
+Returnerar en noll avslutad UTF-8-sträng skapad med format och argument.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
@@ -3728,7 +3730,7 @@ Returns a zero terminated UTF-8 string created using format and arguments.
 | ... | valfria argument |
 </dd>
 <dt>Returvärde</dt><dd>
-Constructed string.
+Konstruerad sträng.
 </dd>
 </dl>
 <hr>
@@ -3739,14 +3741,14 @@ int strlen(str_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Return the number of bytes in a string (without the terminating zero).
+Returnera antalet byte i en sträng (utan den avslutande nollan).
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | string address, 0x00000 to 0xBFFFF |
+| src | strängadress, 0x00000 till 0xBFFFF |
 </dd>
 <dt>Returvärde</dt><dd>
-The number of bytes in the string.
+Antalet byte i strängen.
 </dd>
 <dt>Se även</dt><dd>
 [mblen]
@@ -3760,14 +3762,14 @@ int mblen(str_t src)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Return the number of UTF-8 multi-byte characters in a string (without the terminating zero).
+Returnera antalet UTF-8 multi-byte-tecken i en sträng (utan den avslutande nollan).
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| src | string address, 0x00000 to 0xBFFFF |
+| src | strängadress, 0x00000 till 0xBFFFF |
 </dd>
 <dt>Returvärde</dt><dd>
-The number of characters in the string.
+Antalet tecken i strängen.
 </dd>
 <dt>Se även</dt><dd>
 [strlen]
@@ -3781,14 +3783,14 @@ addr_t malloc(uint32_t size)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Allocates user memory dynamically.
+Tilldelar användarminne dynamiskt.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| size | number of bytes to allocate |
+| size | antal byte att tilldela |
 </dd>
 <dt>Returvärde</dt><dd>
-Address of the new allocated buffer or NULL on error.
+Adress till den nya tilldelade bufferten eller NULL vid fel.
 </dd>
 <dt>Se även</dt><dd>
 [realloc], [free]
@@ -3802,15 +3804,15 @@ addr_t realloc(addr_t addr, uint32_t size)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Resize a previously allocated buffer.
+Ändra storlek på en tidigare tilldelad buffert.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| addr | address of the allocated buffer |
-| size | number of bytes to resize to |
+| addr | adress för den tilldelade bufferten |
+| size | antal byte att ändra storlek till |
 </dd>
 <dt>Returvärde</dt><dd>
-Address of the new allocated buffer or NULL on error.
+Adress till den nya tilldelade bufferten eller NULL vid fel.
 </dd>
 <dt>Se även</dt><dd>
 [malloc], [free]
@@ -3824,14 +3826,14 @@ int free(addr_t addr)
 ```
 <dl>
 <dt>Beskrivning</dt><dd>
-Frees dynamically allocated user memory.
+Frigör dynamiskt allokerat användarminne.
 </dd>
 <dt>Parametrar</dt><dd>
 | Argument | Beskrivning |
-| addr | address of the allocated buffer |
+| addr | adress för den tilldelade bufferten |
 </dd>
 <dt>Returvärde</dt><dd>
-1 on success, 0 on error.
+1 på framgång, 0 på fel.
 </dd>
 <dt>Se även</dt><dd>
 [malloc], [realloc]

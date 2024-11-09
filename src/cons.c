@@ -25,11 +25,12 @@
 #include "meg4.h"
 #include "misc/emoji.h"
 
-#define HISTLEN 16
+#define HISTLEN 128
 
-static char hist[HISTLEN][256] = { 0 };
-static int numcache, cache[640], getspos, histpos;
-static uint16_t conx, cony;
+static char hist[HISTLEN][256] = { 0 }, *getsscr, *getscur, *getsbuf, *getsend;
+static int numcache, cache[640], histpos, doblink = 0;
+static uint16_t conx, cony, conw;
+static uint32_t conc;
 
 /**
  * Helper, convert UTF-8 to UNICODE codepoint
@@ -69,6 +70,7 @@ void meg4_putc(uint32_t c)
     if(c == '\t') { m = meg4.mmio.conx; meg4.mmio.conx = (meg4.mmio.conx + 32) & ~31; cache[numcache++] = meg4.mmio.conx - m; }
     if(meg4.mmio.conx + 8 > meg4.screen.w || numcache + 1 >= (int)sizeof(cache)) { meg4.mmio.conx = 0; meg4.mmio.cony += 8; meg4_conrst(); }
     if(meg4.mmio.cony + 8 > meg4.screen.h) { meg4.mmio.conx = meg4.mmio.cony = 0; meg4_conrst(); }
+    if(doblink) { x = bg; bg = fg; fg = x; }
     dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + meg4.mmio.conx;
     dy = (meg4.mmio.scry > 200 ? 0 : meg4.mmio.scry) + meg4.mmio.cony;
     dst = &meg4.vram[dy * p + dx];
@@ -91,14 +93,20 @@ void meg4_putc(uint32_t c)
     } else
     /* special characters: keyboard, gamepad and mouse */
     if(c == 0x2328 || c == 0x1F3AE || c == 0x1F5B1) {
-        meg4_blit(dst, dx, dy, dp, 8, 8, meg4_icons.buf, c == 0x2328 ? 32 : (c == 0x1F3AE ? 40 : 48), 64, meg4_icons.w * 4, 1);
+        for(y = 0; y < 8; y++, dst += p)
+            for(x = 0; x < 9; x++)
+                dst[x] = bg;
+        meg4_blit(meg4.vram, dx, dy, dp, 8, 8, meg4_icons.buf, c == 0x2328 ? 32 : (c == 0x1F3AE ? 40 : 48), 64, meg4_icons.w * 4, 1);
         cache[numcache++] = 9; meg4.mmio.conx += 9;
         return;
     } else
     /* emoji */
     if(c >= EMOJI_FIRST && c < EMOJI_LAST) {
         c -= EMOJI_FIRST; if(c >= (uint32_t)(sizeof(emoji)/sizeof(emoji[0])) || !emoji[c]) return;
-        meg4_blit(dst, dx, dy, dp, 8, 8, meg4_icons.buf, ((int)emoji[c] % 13) * 8, 64 + ((int)emoji[c] / 13) * 8, meg4_icons.w * 4, 1);
+        for(y = 0; y < 8; y++, dst += p)
+            for(x = 0; x < 9; x++)
+                dst[x] = bg;
+        meg4_blit(meg4.vram, dx, dy, dp, 8, 8, meg4_icons.buf, ((int)emoji[c] % 13) * 8, 64 + ((int)emoji[c] / 13) * 8, meg4_icons.w * 4, 1);
         cache[numcache++] = 9; meg4.mmio.conx += 9;
         return;
     } else
@@ -112,66 +120,15 @@ void meg4_putc(uint32_t c)
 }
 
 /**
- * Print the gets buffer to console
- */
-void meg4_getsprt(char *s)
-{
-    uint32_t c, *dst, bg = (0xff << 24) | meg4.mmio.palette[(int)meg4.mmio.conb];
-    int x, y, l, dx, dy, p = 640;
-    char *o = s;
-
-    /* clear the area */
-    dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + conx;
-    dy = (meg4.mmio.scry > 200 ? 0 : meg4.mmio.scry) + cony;
-    dst = &meg4.vram[dy * p + dx];
-    l = meg4.mmio.conx - conx + 1;
-    if(meg4.mmio.cony < cony) {
-        /* screen was scrolled, just clear the first line */
-        dx -= conx; dy -= cony; dst = &meg4.vram[dy * p + dx];
-        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
-            for(x = 0; x < p && dx + x < p; x++)
-                dst[x] = bg;
-    } else
-    if(meg4.mmio.cony == cony) {
-        /* one line */
-        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
-            for(x = 0; x < l && dx + x < p; x++)
-                dst[x] = bg;
-    } else {
-        /* more lines */
-        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
-            for(x = 0; dx + x < p; x++)
-                dst[x] = bg;
-        dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + meg4.mmio.conx; dy += 8;
-        dst = &meg4.vram[dy * p];
-        for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
-            for(x = 0; x < dx && x < p; x++)
-                dst[x] = bg;
-    }
-    /* reset to starting point and print new string filling up cache from the beginning */
-    meg4.mmio.conx = conx; meg4.mmio.cony = cony; meg4_conrst();
-    while(*s && (uintptr_t)s - (uintptr_t)o < 256) {
-        s = meg4_utf8(s, &c);
-        if(!c) break;
-        meg4_putc(c);
-    }
-}
-
-/**
  * Draw the cursor
  */
 void meg4_getscsr(int blink)
 {
-    uint32_t *dst, bg = (0xff << 24) | meg4.mmio.palette[(int)(blink ? meg4.mmio.conf : meg4.mmio.conb)];
-    int x, y, dx, dy, p = 640;
-
-    /* clear the area */
-    dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + meg4.mmio.conx;
-    dy = (meg4.mmio.scry > 200 ? 0 : meg4.mmio.scry) + meg4.mmio.cony;
-    dst = &meg4.vram[dy * p + dx];
-    for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
-        for(x = 0; x < 6 && dx + x < p; x++)
-            dst[x] = bg;
+    uint16_t ox = meg4.mmio.conx;
+    doblink = blink;
+    meg4_putc(conc ? conc : ' ');
+    meg4.mmio.conx = ox;
+    doblink = 0;
 }
 
 /**
@@ -231,58 +188,142 @@ uint32_t meg4_api_getc(void)
  */
 str_t meg4_api_gets(void)
 {
-    uint32_t key;
-    int l;
+    uint32_t key, *dst, bg = (0xff << 24) | meg4.mmio.palette[(int)meg4.mmio.conb];
+    uint16_t cx;
+    char *s, *c, *cb, ctrl = meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL);
+    int x, y, l, dx, dy, p = 640;
 
+    /* --- init --- */
     if(!(meg4.flg & 2)) {
         meg4.flg |= 16;
-        histpos = -1; conx = meg4.mmio.conx; cony = meg4.mmio.cony;
-        getspos = sizeof(meg4.data) - 256; memset(meg4.data + getspos, 0, 256); meg4_conrst();
+        histpos = -1;
+        getsbuf = getsscr = getscur = getsend = (char*)meg4.data + sizeof(meg4.data) - 256;
+        memset(getsbuf, 0, 256); meg4_conrst();
+        conx = meg4.mmio.conx;
+        cony = le16toh(meg4.mmio.cropx0); if(conx < cony) conx = cony;
+        cony = le16toh(meg4.mmio.cropx1); conw = (cony < meg4.screen.w ? cony : meg4.screen.w) - conx;
+        cony = meg4.mmio.cony;
     }
+    conc = 0;
+    /* --- controller --- */
     meg4.flg &= ~2;
     key = meg4_api_popkey();
-    if(!key) { meg4.flg |= 2; return 0; }
-    meg4_getscsr(0);
+    meg4.flg |= 2;
+    if(!key) return 0;
     l = meg4_api_lenkey(key);
-    if(!memcmp(&key, "Up", l)) {
-        if(histpos < HISTLEN - 1 && hist[histpos + 1][0]) {
-            getspos = sizeof(meg4.data) - 256;
-            memcpy(meg4.data + getspos, hist[++histpos], 256);
-            meg4_getsprt((char*)meg4.data + getspos);
-            getspos += strlen((char*)meg4.data + getspos);
-        }
-        meg4.flg |= 2;
-    } else
-    if(!memcmp(&key, "Down", l)) {
-        getspos = sizeof(meg4.data) - 256;
-        if(histpos > 0) memcpy(meg4.data + getspos, hist[--histpos], 256);
-        else memset(meg4.data + getspos, 0, 256);
-        meg4_getsprt((char*)meg4.data + getspos);
-        getspos += strlen((char*)meg4.data + getspos);
-        meg4.flg |= 2;
-    } else
     if(key == le32toh('\n')) {
+        meg4_getscsr(0);
+        meg4.mmio.conx = 0; meg4.mmio.cony += 8; meg4_conrst(); if(meg4.mmio.cony + 8 > meg4.screen.h) meg4.mmio.cony = 0;
         if(strcmp(hist[0], (char*)meg4.data + sizeof(meg4.data) - 256)) {
             memmove(hist[1], hist[0], (HISTLEN - 1) * 256);
             memcpy(hist[0], meg4.data + sizeof(meg4.data) - 256, 256);
         }
         histpos = -1;
-        meg4.flg &= ~16;
+        meg4.flg &= ~18;
         return (str_t)(MEG4_MEM_LIMIT - 256);
     } else
-    if(getspos + l < (int)sizeof(meg4.data) - 1) {
-        meg4_api_putc(htole32(key));
-        meg4.flg |= 2;
-        if(key == le32toh(8)) {
-            if(getspos > (int)sizeof(meg4.data) - 256) {
-                do { meg4.data[getspos] = 0; getspos--; } while(getspos > (int)sizeof(meg4.data) - 256 && (meg4.data[getspos] & 0xC0) == 0x80);
-            }
-            meg4.data[getspos] = 0;
-        } else {
-            memcpy(meg4.data + getspos, &key, l);
-            getspos += l;
+    if(!memcmp(&key, "Up", 3)) {
+        if(histpos < HISTLEN - 1 && hist[histpos + 1][0]) {
+            memcpy(getsbuf, hist[++histpos], 256);
+            getscur = getsend = getsbuf + strlen(getsbuf); getsscr = getsbuf;
         }
+    } else
+    if(!memcmp(&key, "Down", 4)) {
+        if(histpos > 0) memcpy(getsbuf, hist[--histpos], 256);
+        else memset(getsbuf, 0, 256);
+        getscur = getsend = getsbuf + strlen(getsbuf); getsscr = getsbuf;
+    } else
+    if(!memcmp(&key, "Left", 4)) {
+        if(ctrl) {
+            if(getscur > getsbuf && getscur[-1] == ' ') getscur--;
+            while(getscur > getsbuf && *getscur == ' ') getscur--;
+            while(getscur > getsbuf && getscur[-1] != ' ') getscur--;
+        } else
+            if(getscur > getsbuf)
+                do { getscur--; } while(getscur > getsbuf && (*getscur & 0xC0) == 0x80);
+    } else
+    if(!memcmp(&key, "Rght", 4)) {
+        if(ctrl) {
+            while(getscur < getsend && *getscur == ' ') getscur++;
+            while(getscur < getsend && *getscur != ' ') getscur++;
+        } else
+            if(getscur < getsend)
+                do { getscur++; } while(getscur < getsend && (*getscur & 0xC0) == 0x80);
+    } else
+    if(!memcmp(&key, "Home", 4)) { getscur = getsbuf; } else
+    if(!memcmp(&key, "End", 4)) { getscur = getsend; } else
+    if(!memcmp(&key, "Del", 4)) {
+        if(getscur < getsend) {
+            s = getscur;
+            do { s++; } while(s < getsend && (*s & 0xC0) == 0x80);
+            for(l = 0; s + l <= getsend; l++) getscur[l] = s[l];
+            getsend -= (uintptr_t)s - (uintptr_t)getscur;
+            getsscr = getsbuf;
+        }
+    } else
+    if(key == le32toh(8)) {
+        if(getscur > getsbuf) {
+            s = getscur;
+            do { getscur--; } while(getscur > getsbuf && (*getscur & 0xC0) == 0x80);
+            for(l = 0; s + l <= getsend; l++) getscur[l] = s[l];
+            getsend -= (uintptr_t)s - (uintptr_t)getscur;
+            getsscr = getsbuf;
+        }
+    } else
+    if(!memcmp(&key, "Pst", 4)) {
+        if((cb = main_getclipboard())) {
+            /* we can't just insert the whole string, we need to do it character by character */
+            for(c = cb; *c; c += l) {
+                l = 1;
+                if((*c & 128) != 0) {
+                    if(!(*c & 32)) l += 1; else
+                    if(!(*c & 16)) l += 2; else
+                    if(!(*c & 8)) l += 3;
+                    else break;
+                }
+                if(*c >= ' ' && (uintptr_t)getsend - (uintptr_t)getsbuf + l < 255) {
+                    for(s = getsend; s >= getscur; s--) s[l] = s[0];
+                    memcpy(getscur, c, l);
+                    getscur += l;
+                    getsend += l;
+                }
+            }
+            *getsend = 0;
+            free(cb);
+        }
+    } else
+    if(!meg4_api_speckey(key) && (uintptr_t)getsend - (uintptr_t)getsbuf + l < 255) {
+        for(s = getsend; s >= getscur; s--) s[l] = s[0];
+        memcpy(getscur, &key, l);
+        getscur += l;
+        getsend += l;
+        *getsend = 0;
     }
+    /* --- view --- */
+    /* scroll text in input box */
+    if(getscur < getsscr) getsscr = getscur;
+    do {
+        if((uint16_t)meg4_width(meg4_font, 1, getsscr, getscur) < conw - 8) break;
+        do { getsscr++; } while(getsscr < getsend && (*getsscr & 0xC0) == 0x80);
+    } while(1);
+    meg4.mmio.conx = cx = conx; meg4.mmio.cony = cony;
+    /* clear the area */
+    dx = (meg4.mmio.scrx > 320 ? 0 : meg4.mmio.scrx) + meg4.mmio.conx;
+    dy = (meg4.mmio.scry > 200 ? 0 : meg4.mmio.scry) + meg4.mmio.cony;
+    dst = &meg4.vram[dy * p + dx];
+    l = conw - meg4.mmio.conx + 1;
+    for(y = 0; y < 8 && dy + y < 400; y++, dst += p)
+        for(x = 0; x < l && dx + x < p; x++)
+            dst[x] = bg;
+    /* display string, save the cursor's position and character (needed by meg4_getscsr() later) */
+    for(s = getsscr; *s && s < getsend; ) {
+        c = s; s = meg4_utf8(s, &key);
+        if(c == getscur) { cx = meg4.mmio.conx; conc = key; }
+        if(!key || meg4.mmio.conx + 8 >= conx + conw) break;
+        numcache = 0;
+        meg4_putc(key);
+    }
+    if(conc) meg4.mmio.conx = cx;
     return 0;
 }
 
