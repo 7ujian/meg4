@@ -444,6 +444,15 @@ DSP 状态寄存器都是只读的，对于每个通道，它们如下所示：
 | <kbd>PgDown</kbd> | 将光标向下移动 42 行（一页） |
 | <kbd>F1</kbd> | 如果光标位于 API 的参数列表中，则转到函数的内置帮助页面 |
 
+无论平台的键盘布局如何，编程所需的所有字符（以及更多）始终都可以访问：
+
+| 左 <kbd>Alt</kbd> + |
+|---------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 另请参阅菜单以了解备选输入法及其键盘快捷键。
 
 # 控制台

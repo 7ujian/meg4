@@ -469,6 +469,16 @@ Raccourcis [clavier] supplémentaires que vous pouvez également utiliser lors d
 | <kbd>PgDown</kbd> | Déplacer le curseur de 42 lignes (une page) vers le bas |
 | <kbd>F1</kbd> | Si le curseur se trouve dans la liste d'arguments d'une API, accédez à la page d'aide intégrée de la fonction |
 
+Quelle que soit la disposition du clavier de la plateforme, tous les caractères nécessaires à la programmation (et bien d'autres)
+sont toujours accessibles:
+
+| Gauche <kbd>Alt</kbd> + |
+|-------------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 Voir également le menu pour les méthodes de saisie alternatives et leurs raccourcis clavier.
 
 # Console

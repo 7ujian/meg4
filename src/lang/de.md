@@ -468,6 +468,15 @@ Weitere [Tastatur]-Tastenkombinationen, die Sie auch beim Bearbeiten der Quelle 
 | <kbd>Bild ab</kbd>           | Cursor 42 Zeilen (eine Seite) nach unten bewegen                                     |
 | <kbd>F1</kbd>                | Wenn sich der Cursor in der Argumentliste einer API befindet, gehe zur Hilfeseite der Funktion |
 
+Unabhängig vom Tastaturlayout der Plattform sind alle für die Programmierung erforderlichen Zeichen (und mehr) immer zugänglich:
+
+| Linke <kbd>Alt</kbd>-Taste + |
+|------------------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 Siehe auch das Menü für alternative Eingabemethoden und deren Tastaturkürzel.
 
 # Konsole

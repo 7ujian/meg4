@@ -390,8 +390,6 @@ void meg4_clrkey(int sc)
     /* an empty AltGr press and release (no combination with other keys) acts as a Compose key */
     if(sc == MEG4_KEY_RALT && meg4_emptyaltgr)
         meg4_pushkey("\002");
-    /* for some reason under Win, AltGr is sent not alone, but together with left control... */
-    if(sc != MEG4_KEY_LCTRL) meg4_emptyaltgr = 0;
 }
 
 /**
@@ -404,17 +402,46 @@ void meg4_setkey(int sc)
     meg4_emptyaltgr = 0;
     if(sc < 0 || sc >= MEG4_NUM_KEY) return;
     if(!(meg4.mmio.kbdkeys[sc >> 3] & (1 << (sc & 7)))) {
+        if(meg4_api_getkey(MEG4_KEY_RALT)) { meg4_clrkey(MEG4_KEY_LCTRL); meg4_clrkey(MEG4_KEY_RCTRL); meg4_emptyaltgr = 1; } else
         if(meg4_api_getkey(MEG4_KEY_LALT)) {
             switch(sc) {
+                case MEG4_KEY_7: meg4_pushkey("!"); break;          /* U+00021 exclamation mark */
+                case MEG4_KEY_P: meg4_pushkey("\""); break;         /* U+00022 quotation mark */
                 case MEG4_KEY_H: meg4_pushkey("#"); break;          /* U+00023 hashmark */
                 case MEG4_KEY_S: meg4_pushkey("$"); break;          /* U+00024 dollar */
+                case MEG4_KEY_B: meg4_pushkey("%"); break;          /* U+00025 percent */
                 case MEG4_KEY_A: meg4_pushkey("&"); break;          /* U+00026 ampersand */
+                case MEG4_KEY_APOSTROPHE: meg4_pushkey("\'"); break;/* U+00027 apostrophe */
+                case MEG4_KEY_1: meg4_pushkey("("); break;          /* U+00028 opening paren */
+                case MEG4_KEY_2: meg4_pushkey(")"); break;          /* U+00029 closing paren */
+                case MEG4_KEY_M: meg4_pushkey("*"); break;          /* U+0002A asterisk */
+                case MEG4_KEY_N: meg4_pushkey("+"); break;          /* U+0002B plus */
+                case MEG4_KEY_COMMA: meg4_pushkey(","); break;      /* U+0002C comma */
+                case MEG4_KEY_MINUS: meg4_pushkey("-"); break;      /* U+0002D minus */
+                case MEG4_KEY_PERIOD: meg4_pushkey("."); break;     /* U+0002E full stop */
+                case MEG4_KEY_SLASH: meg4_pushkey("/"); break;      /* U+0002F slash */
+                case MEG4_KEY_Z: meg4_pushkey(":"); break;          /* U+0003A colon */
+                case MEG4_KEY_SEMICOLON: meg4_pushkey(";"); break;  /* U+0003B semicolon */
+                case MEG4_KEY_5: meg4_pushkey("<"); break;          /* U+0003C less than */
+                case MEG4_KEY_EQUAL: meg4_pushkey("="); break;      /* U+0003D equal */
+                case MEG4_KEY_6: meg4_pushkey(">"); break;          /* U+0003E greater than */
+                case MEG4_KEY_X: meg4_pushkey("?"); break;          /* U+0003F question mark */
+                case MEG4_KEY_D: meg4_pushkey("@"); break;          /* U+00040 at sign */
+                case MEG4_KEY_LBRACKET: meg4_pushkey("["); break;   /* U+0005B opening bracket */
+                case MEG4_KEY_BACKSLASH: meg4_pushkey("\\"); break; /* U+0005C slash */
+                case MEG4_KEY_RBRACKET: meg4_pushkey("]"); break;   /* U+0005D closing bracket */
+                case MEG4_KEY_8: meg4_pushkey("^"); break;          /* U+0005E caret */
+                case MEG4_KEY_9: meg4_pushkey("_"); break;          /* U+0005F underscore */
+                case MEG4_KEY_0: meg4_pushkey("`"); break;          /* U+00060 grave */
+                case MEG4_KEY_3: meg4_pushkey("{"); break;          /* U+0007B opening curly */
+                case MEG4_KEY_F: meg4_pushkey("|"); break;          /* U+0007C vertical bar */
+                case MEG4_KEY_4: meg4_pushkey("}"); break;          /* U+0007D closing curly */
+                case MEG4_KEY_T: meg4_pushkey("~"); break;          /* U+0007E tilde */
                 case MEG4_KEY_L: meg4_pushkey("£"); break;          /* U+000A3 pound */
                 case MEG4_KEY_Y: meg4_pushkey("¥"); break;          /* U+000A5 yen */
                 case MEG4_KEY_E: meg4_pushkey("€"); break;          /* U+020AC euro */
                 case MEG4_KEY_R: meg4_pushkey("₹"); break;          /* U+020B9 rupee */
-                case MEG4_KEY_B: meg4_pushkey("₿"); break;          /* U+020BF bitcoin */
-                case MEG4_KEY_N: meg4_pushkey("元"); break;          /* U+05143 yuan */
+                case MEG4_KEY_V: meg4_pushkey("元"); break;          /* U+05143 yuan */
                 case MEG4_KEY_U: meg4_pushkey("\001"); break;       /* unicode input mode */
                 case MEG4_KEY_SPACE: meg4_pushkey("\002"); break;   /* compose */
                 case MEG4_KEY_I: meg4_pushkey("\003"); break;       /* icon input (emoji) */
@@ -422,13 +449,6 @@ void meg4_setkey(int sc)
                 case MEG4_KEY_J: meg4_pushkey("\005"); break;       /* hiragana input */
                 case MEG4_KEY_C: meg4_pushkey("\006"); break;       /* cyrillic input */
                 case MEG4_KEY_G: meg4_pushkey("\007"); break;       /* greek input */
-#ifndef NOEDITORS
-                /* fallback function keys, Alt + 1..0 */
-                case MEG4_KEY_1: case MEG4_KEY_2: case MEG4_KEY_3: case MEG4_KEY_4: case MEG4_KEY_5:
-                case MEG4_KEY_6: case MEG4_KEY_7: case MEG4_KEY_8: case MEG4_KEY_9: case MEG4_KEY_0:
-                    sc = sc - MEG4_KEY_1 + MEG4_KEY_F1;
-                    goto normal;
-#endif
             }
         } else
         if(meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL)) {
@@ -471,9 +491,6 @@ void meg4_setkey(int sc)
                 return;
             }
         } else {
-#ifndef NOEDITORS
-normal:
-#endif
             switch(sc) {
                 case MEG4_KEY_INT1:
                 case MEG4_KEY_LSUPER:

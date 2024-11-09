@@ -309,6 +309,7 @@ void main_loop(void) {
             case SDL_KEYDOWN:
                 switch(event.key.keysym.sym) {
                     case SDLK_LALT: case SDLK_LCTRL: main_alt = 1; break;
+                    case SDLK_RALT: main_alt = 0; break;
                     case SDLK_RETURN:
                         if(main_alt) {
                             main_fullscreen();

@@ -289,6 +289,7 @@ static void event(const sapp_event* ev)
         case SAPP_EVENTTYPE_KEY_DOWN:
             switch(ev->key_code) {
                 case SAPP_KEYCODE_LEFT_ALT: case SAPP_KEYCODE_LEFT_CONTROL: main_alt = 1; break;
+                case SAPP_KEYCODE_RIGHT_ALT: main_alt = 0; break;
                 case SAPP_KEYCODE_ENTER:
                     if(main_alt) {
                         main_fullscreen();

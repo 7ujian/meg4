@@ -135,6 +135,7 @@ void main_key(GLFWwindow *window, int key, int scancode, int action, int mods)
     if(key == GLFW_KEY_UNKNOWN && scancode >= 119 && scancode <= 151) key = scancode;
     if(action == GLFW_PRESS) {
         if(key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_LEFT_ALT) main_alt = 1;
+        if(key == GLFW_KEY_RIGHT_ALT) main_alt = 0;
         if(main_alt)
             switch(key) {
                 case GLFW_KEY_ENTER: main_fullscreen(); return;

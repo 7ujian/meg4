@@ -421,7 +421,7 @@ void meg4_switchmode(int mode)
     if(mode == -1) mode = oldmode;
     if(mode == MEG4_MODE_GAME && !meg4.src_len) mode = MEG4_MODE_LOAD;
     /* clear keyboard queue */
-    meg4.mmio.kbdhead = meg4.mmio.kbdtail = meg4.mmio.kbdkeys[0] = 0;
+    meg4.mmio.kbdhead = meg4.mmio.kbdtail = meg4.mmio.kbdkeys[0] = meg4.kbdmode = 0;
     textinp_free();
     if(mode < 0 || mode >= MEG4_NUM_MODE || mode == meg4.mode) return;
     /* free old mode's resources */

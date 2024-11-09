@@ -453,6 +453,15 @@ MEG-4 では、3 次元空間は右手の法則に従って処理されます。
 | <kbd>PgDown</kbd> | カーソルを 42 行 (1 ページ) 下に移動します  |
 | <kbd>F1</kbd> | カーソルが API の引数リスト内にある場合は、関数の組み込みヘルプ ページに移動します  |
 
+プラットフォームのキーボードレイアウトに関係なく、プログラミングに必要なすべての文字 (およびその他) にいつでもアクセスできます:
+
+| 左 <kbd>Alt</kbd> + |
+|---------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 代替入力方法とそのキーボード ショートカットについては、メニューも参照してください。
 
 # コンソール

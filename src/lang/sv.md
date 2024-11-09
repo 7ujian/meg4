@@ -465,6 +465,15 @@ Ytterligare [tangentbord] genvägar du kan använda när du redigerar källan:
 | <kbd>PgDown</kbd>            | Flytta markören 42 rader (en sida) nedåt                                             |
 | <kbd>F1</kbd>                | Om markören finns i ett API:s argumentlista, gå till funktionens inbyggda hjälpsida  |
 
+Oavsett plattformens tangentbordslayout kan alla tecken som krävs för programmering (och några till) alltid nås:
+
+| Vänster <kbd>Alt</kbd> + |
+|-----///------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 Se även menyn för alternativa inmatningsmetoder och deras kortkommandon.
 
 # Konsolen

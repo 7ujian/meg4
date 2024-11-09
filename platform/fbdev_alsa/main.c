@@ -886,7 +886,7 @@ noaudio:
                                     if(ev[i].value == 1) {
                                         /* key press */
                                         if(ev[i].code == KEY_LEFTCTRL || ev[i].code == KEY_LEFTALT) main_alt = 1;
-                                        if(ev[i].code == KEY_LEFTMETA || ev[i].code == KEY_RIGHTMETA || ev[i].code == KEY_RIGHTALT) main_meta = 1;
+                                        if(ev[i].code == KEY_LEFTMETA || ev[i].code == KEY_RIGHTMETA || ev[i].code == KEY_RIGHTALT) { main_meta = 1; main_alt = 0; }
                                         if(ev[i].code == KEY_LEFTSHIFT || ev[i].code == KEY_RIGHTSHIFT) main_sh = 1;
                                         if(ev[i].code == KEY_CAPSLOCK) main_caps = 1;
                                         emptyalt = ev[i].code == KEY_LEFTALT;
@@ -922,11 +922,11 @@ noaudio:
                                             case KEY_INSERT: meg4_pushkey("Ins"); break;
                                             case KEY_DELETE: meg4_pushkey("Del"); break;
                                             default:
-                                                if(ev[i].code < sizeof(main_kbdlayout[0])/(sizeof(main_kbdlayout[0][0])*4)) {
+                                                if(main_alt && s[0] == 'q' && !s[1]) main_exit = 1;
+                                                if(!main_alt && ev[i].code < sizeof(main_kbdlayout[0])/(sizeof(main_kbdlayout[0][0])*4)) {
                                                     memset(s, 0, sizeof(s));
                                                     strncpy(s, main_kbdlayout[main_kbd][(ev[i].code << 2) | (main_meta << 1) | (main_caps ^ main_sh)], 4);
                                                     if(s[0]) meg4_pushkey(s);
-                                                    if(main_alt && s[0] == 'q' && !s[1]) main_exit = 1;
                                                 }
                                             break;
                                         }

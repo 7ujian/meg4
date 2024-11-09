@@ -17,7 +17,11 @@ horizontal) handled as if your mouse had up / down or left / right buttons.
 
 <h2 ui_kbd>Keyboard</h2>
 
-For convenience, it has several shortcuts and multiple input methods.
+For convenience, it has several shortcuts and multiple input methods. All characters required for programming can be accessed with
+an <kbd>Alt</kbd> combination, regardless what keyboard layout the platform is using:
+
+<imgc ../img/keyboard.png><fig>Left <kbd>Alt</kbd> combinations</fig>
+
 
 | Key Combination              | Description                                                                                  |
 |------------------------------|----------------------------------------------------------------------------------------------|
@@ -26,19 +30,10 @@ For convenience, it has several shortcuts and multiple input methods.
 | <kbd>Alt</kbd>+<kbd>U</kbd>  | In case your keyboard lacks the <kbd>GUI</kbd> key, UNICODE input mode too.                  |
 | <kbd>Alt</kbd>+<kbd>Space</kbd> | Fallback Compose, for keyboards without the <kbd>AltGr</kbd> key.                         |
 | <kbd>Alt</kbd>+<kbd>I</kbd>  | Enter icon (emoticons) input mode.                                                           |
-| <kbd>Alt</kbd>+<kbd>K</kbd>  | Enter Katakana input mode.                                                                   |
-| <kbd>Alt</kbd>+<kbd>J</kbd>  | Enter Hiragana input mode.                                                                   |
-| <kbd>Alt</kbd>+<kbd>C</kbd>  | Enter Cyrillic input mode.                                                                   |
 | <kbd>Alt</kbd>+<kbd>G</kbd>  | Enter Greek input mode.                                                                      |
-| <kbd>Alt</kbd>+<kbd>A</kbd>  | For keyboards without such key, works as a `&` key (ampersand).                              |
-| <kbd>Alt</kbd>+<kbd>H</kbd>  | For keyboards without such key, works as a `#` key (hashmark).                               |
-| <kbd>Alt</kbd>+<kbd>S</kbd>  | For keyboards without such key, works as a `$` key (dollar).                                 |
-| <kbd>Alt</kbd>+<kbd>L</kbd>  | For keyboards without such key, works as a `£` key (pound).                                  |
-| <kbd>Alt</kbd>+<kbd>E</kbd>  | For keyboards without such key, works as a `€` key (euro).                                   |
-| <kbd>Alt</kbd>+<kbd>R</kbd>  | For keyboards without such key, works as a `₹` key (rupee).                                  |
-| <kbd>Alt</kbd>+<kbd>Y</kbd>  | For keyboards without such key, works as a `¥` key (yen).                                    |
-| <kbd>Alt</kbd>+<kbd>N</kbd>  | For keyboards without such key, works as a `元` key (yuan).                                   |
-| <kbd>Alt</kbd>+<kbd>B</kbd>  | For keyboards without such key, works as a `₿` key (bitcoin).                                |
+| <kbd>Alt</kbd>+<kbd>J</kbd>  | Enter Hiragana input mode.                                                                   |
+| <kbd>Alt</kbd>+<kbd>K</kbd>  | Enter Katakana input mode.                                                                   |
+| <kbd>Alt</kbd>+<kbd>C</kbd>  | Enter Cyrillic input mode.                                                                   |
 | <kbd>Ctrl</kbd>+<kbd>S</kbd> | Save floppy.                                                                                 |
 | <kbd>Ctrl</kbd>+<kbd>L</kbd> | Load floppy.                                                                                 |
 | <kbd>Ctrl</kbd>+<kbd>R</kbd> | Run your program.                                                                            |

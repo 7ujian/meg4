@@ -395,6 +395,7 @@ int main(int argc, char **argv)
             case ALLEGRO_EVENT_KEY_DOWN:
                 switch(event.keyboard.keycode) {
                     case ALLEGRO_KEY_ALT: case ALLEGRO_KEY_LCTRL: main_alt = 1; break;
+                    case ALLEGRO_KEY_ALTGR: main_alt = 0; break;
                     case ALLEGRO_KEY_ENTER: if(main_alt) main_fullscreen(); else meg4_pushkey("\n\0\0"); break;
                     case ALLEGRO_KEY_Q: if(main_alt) { running = 0; } break;
                     case ALLEGRO_KEY_ESCAPE: if(main_alt) { running = 0; } else meg4_pushkey("\x1b\0\0"); break;

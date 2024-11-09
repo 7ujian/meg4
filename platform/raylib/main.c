@@ -355,7 +355,7 @@ int main(int argc, char **argv)
         mousePosition = GetMouseWheelMoveV();
         meg4_setscr(mousePosition.y > 0.0, mousePosition.y < 0.0, mousePosition.x > 0.0, mousePosition.x < 0.0);
         /* keyboard events */
-        main_alt = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_LEFT_ALT);
+        main_alt = (IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_LEFT_ALT)) && !IsKeyDown(KEY_RIGHT_ALT);
         if(IsKeyPressed(KEY_ESCAPE)) meg4_pushkey("\x1b\0\0");
         for(i = 0; i < (int)(sizeof(main_keymap)/sizeof(main_keymap[0])); i++)
             if(main_keymap[i]) {

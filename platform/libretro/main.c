@@ -504,6 +504,7 @@ RETRO_API void retro_run(void)
                 /*printf("keypress i %d\n",i);*/
                 switch(i) {
                     case RETROK_LALT: case RETROK_LCTRL: main_alt = 1; break;
+                    case RETROK_RALT: main_alt = 0; break;
                     case RETROK_RETURN:
                         if(main_alt) main_fullscreen();
                         else meg4_pushkey("\n\0\0");

@@ -466,6 +466,16 @@ Atajos de [teclado] adicionales que también puede utilizar al editar el código
 | <kbd>AvPág</kbd> | Mueve el cursor 42 líneas (una página) hacia abajo |
 | <kbd>F1</kbd> | Si el cursor está en la lista de argumentos de una API, entonces ve a la página de ayuda integrada de la función |
 
+Independientemente de la distribución del teclado de la plataforma, siempre se puede acceder a todos los caracteres necesarios para
+la programación (y algunos más):
+
+| Tecla <kbd>Alt</kbd> izquierda + |
+|----------------------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 Consulta también el menú para conocer los métodos de entrada alternativos y sus atajos de teclado.
 
 # Consola

@@ -464,6 +464,15 @@ A szokásos [billentyűzet] kombinációkon túl a forráskód szerkesztéskor e
 | <kbd>PgDown</kbd>            | Kurzor mozgatása 42 sorral (egy oldallal) lejjebb                             |
 | <kbd>F1</kbd>                | Ha a kurzor egy API paraméterlistáján áll, akkor az a funkció súgójára visz   |
 
+A platform billentyűzetkiosztásától függetlenül, minden programozáshoz szükséges karakter (és még pár) mindig elérhető:
+
+| Bal <kbd>Alt</kbd> + |
+|-----------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 Lásd még a menüben a további alternatív beviteli módokat és azok gyorsbillentyűit.
 
 # Konzol

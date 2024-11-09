@@ -17,7 +17,10 @@ ha van, vízszintes támogatott), úgy van kezelve, mintha fel / le vagy balra /
 
 <h2 ui_kbd>Billentyűzet</h2>
 
-A kényelmed érdekében számos gyorsbillentyűvel és beviteli metódussal szolgál.
+A kényelem érdekében számos gyorsbillentyűvel és beviteli metódussal rendelkezik. A programozáshoz szükséges összes karakter
+elérhető egy <kbd>Alt</kbd> kombinációval, függetlenül attól, hogy a platform milyen billentyűzetkiosztással rendelkezik:
+
+<imgc ../img/keyboard.png><fig>Bal <kbd>Alt</kbd> kombinációk</fig>
 
 | Billentyűkombináció          | Leírás                                                                                       |
 |------------------------------|----------------------------------------------------------------------------------------------|
@@ -26,19 +29,10 @@ A kényelmed érdekében számos gyorsbillentyűvel és beviteli metódussal szo
 | <kbd>Alt</kbd>+<kbd>U</kbd>  | Ha a billentyűzeteden nem lenne <kbd>GUI</kbd> gomb, ez is UNICODE kódpont beviteli mód.     |
 | <kbd>Alt</kbd>+<kbd>Space</kbd> | Kompozit vésztartalék, az <kbd>AltGr</kbd> gomb nélküli billentyűzetehez.                 |
 | <kbd>Alt</kbd>+<kbd>I</kbd>  | Ikon (emoji) beviteli mód.                                                                   |
-| <kbd>Alt</kbd>+<kbd>K</kbd>  | Katakana beviteli mód.                                                                       |
-| <kbd>Alt</kbd>+<kbd>J</kbd>  | Hiragana beviteli mód.                                                                       |
-| <kbd>Alt</kbd>+<kbd>C</kbd>  | Cirill beviteli mód.                                                                         |
 | <kbd>Alt</kbd>+<kbd>G</kbd>  | Görög beviteli mód.                                                                          |
-| <kbd>Alt</kbd>+<kbd>A</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `&` (ampersand).                                   |
-| <kbd>Alt</kbd>+<kbd>H</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `#` (hashmark).                                    |
-| <kbd>Alt</kbd>+<kbd>S</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `$` (dollar).                                      |
-| <kbd>Alt</kbd>+<kbd>L</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `£` (pound).                                       |
-| <kbd>Alt</kbd>+<kbd>E</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `€` (euro).                                        |
-| <kbd>Alt</kbd>+<kbd>R</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `₹` (rupee).                                       |
-| <kbd>Alt</kbd>+<kbd>Y</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `¥` (yen).                                         |
-| <kbd>Alt</kbd>+<kbd>N</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `元` (yuan).                                        |
-| <kbd>Alt</kbd>+<kbd>B</kbd>  | Ha nem lenne a billentyűzeten ilyen gomb, `₿` (bitcoin).                                     |
+| <kbd>Alt</kbd>+<kbd>J</kbd>  | Hiragana beviteli mód.                                                                       |
+| <kbd>Alt</kbd>+<kbd>K</kbd>  | Katakana beviteli mód.                                                                       |
+| <kbd>Alt</kbd>+<kbd>C</kbd>  | Cirill beviteli mód.                                                                         |
 | <kbd>Ctrl</kbd>+<kbd>S</kbd> | Flopi mentése.                                                                               |
 | <kbd>Ctrl</kbd>+<kbd>L</kbd> | Flopi betöltése.                                                                             |
 | <kbd>Ctrl</kbd>+<kbd>R</kbd> | Programod futtatása.                                                                         |

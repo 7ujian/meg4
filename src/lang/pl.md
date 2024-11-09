@@ -465,6 +465,15 @@ Dodatkowe skróty [klawiatura], których możesz również użyć podczas edycji
 | <kbd>PgDown</kbd> | Przesuń kursor o 42 wiersze (jedną stronę) w dół |
 | <kbd>F1</kbd> | Jeśli kursor znajduje się na liście argumentów API, przejdź do wbudowanej strony pomocy funkcji |
 
+Niezależnie od układu klawiatury platformy, wszystkie znaki wymagane do programowania (i kilka innych) są zawsze dostępne:
+
+| Lewy <kbd>Alt</kbd> + |
+|-----------------------|
+| <kbd> </kbd> <kbd>(</kbd> <kbd>)</kbd> <kbd>{</kbd> <kbd>}</kbd> <kbd>〈</kbd> <kbd>〉</kbd> <kbd>!</kbd> <kbd>^</kbd> <kbd>_</kbd> <kbd>-</kbd> <kbd>=</kbd> |
+| <kbd>⇥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>€</kbd> <kbd>₹</kbd> <kbd>~</kbd> <kbd>¥</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>°</kbd> <kbd>"</kbd> <kbd>\[</kbd> <kbd>\]</kbd> |
+| <kbd>↨</kbd> <kbd>&</kbd> <kbd>$</kbd> <kbd>@</kbd> <kbd>¦</kbd> <kbd> </kbd> <kbd>#</kbd> <kbd> </kbd> <kbd> </kbd> <kbd>£</kbd> <kbd>;</kbd> <kbd>'</kbd> <kbd>\\</kbd> |
+| <kbd>⇮</kbd> <kbd>:</kbd> <kbd>?</kbd> <kbd> </kbd> <kbd>元</kbd> <kbd>%</kbd> <kbd>+</kbd> <kbd>✶</kbd> <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> |
+
 Zobacz także menu, aby poznać alternatywne metody wprowadzania danych i ich skróty klawiaturowe.
 
 # Konsola
