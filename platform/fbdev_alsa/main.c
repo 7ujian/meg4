@@ -815,7 +815,7 @@ noaudio:
         main_quit();
         return 1;
     }
-    win_f = (win_w % 320) || (win_h % 200);
+    win_f = 1;
 
     /* turn on the emulator */
     meg4_poweron(lng);
@@ -902,14 +902,14 @@ noaudio:
                                             case KEY_F8: meg4_pushkey("F8\0"); break;
                                             case KEY_F9: meg4_pushkey("F9\0"); break;
                                             case KEY_F10: meg4_pushkey("F10"); break;
-                                            case KEY_F11: meg4_pushkey("F11"); break;
+                                            case KEY_F11: main_fullscreen(); break;
                                             case KEY_F12: meg4_pushkey("F12"); break;
                                             case KEY_PRINT: meg4_pushkey("PSc"); break;
                                             case KEY_SCROLLLOCK: meg4_pushkey("SLk"); break;
                                             case KEY_NUMLOCK: meg4_pushkey("NLk"); break;
                                             case KEY_BACKSPACE: meg4_pushkey("\b\0\0"); break;
                                             case KEY_TAB: meg4_pushkey("\t\0\0"); break;
-                                            case KEY_ENTER: case KEY_KPENTER: meg4_pushkey("\n\0\0"); break;
+                                            case KEY_ENTER: case KEY_KPENTER: if(main_alt) main_fullscreen(); else meg4_pushkey("\n\0\0"); break;
                                             case KEY_CAPSLOCK: meg4_pushkey("CLk"); break;
                                             case KEY_UP: meg4_pushkey("Up\0"); break;
                                             case KEY_DOWN: meg4_pushkey("Down"); break;

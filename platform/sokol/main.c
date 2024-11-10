@@ -310,7 +310,7 @@ static void event(const sapp_event* ev)
                 case SAPP_KEYCODE_F8: meg4_pushkey("F8\0"); break;
                 case SAPP_KEYCODE_F9: meg4_pushkey("F9\0"); break;
                 case SAPP_KEYCODE_F10: meg4_pushkey("F10"); break;
-                case SAPP_KEYCODE_F11: meg4_pushkey("F11"); break;
+                case SAPP_KEYCODE_F11: main_fullscreen(); break;
                 case SAPP_KEYCODE_F12: meg4_pushkey("F12"); break;
                 case SAPP_KEYCODE_PRINT_SCREEN: meg4_pushkey("PSc"); break;
                 case SAPP_KEYCODE_SCROLL_LOCK: meg4_pushkey("SLk"); break;

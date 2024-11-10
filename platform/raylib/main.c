@@ -377,7 +377,7 @@ int main(int argc, char **argv)
                         case KEY_F8: meg4_pushkey("F8\0"); break;
                         case KEY_F9: meg4_pushkey("F9\0"); break;
                         case KEY_F10: meg4_pushkey("F10"); break;
-                        case KEY_F11: meg4_pushkey("F11"); break;
+                        case KEY_F11: main_fullscreen(); break;
                         case KEY_F12: meg4_pushkey("F12"); break;
                         case KEY_PRINT_SCREEN: meg4_pushkey("PSc"); break;
                         case KEY_SCROLL_LOCK: meg4_pushkey("SLk"); break;

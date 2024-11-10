@@ -123,12 +123,12 @@ int menu_ctrl(void)
     if(menu_scroll + menu_scrhgt > menu_scrmax) menu_scroll = menu_scrmax - menu_scrhgt;
     if(menu_scroll < 0) menu_scroll = 0;
     if(meg4.mode != MEG4_MODE_MAP && meg4.mmio.ptrbtn & MEG4_SCR_U) {
-        menu_scroll -= 4; if(menu_scroll < 0) menu_scroll = 0;
+        menu_scroll -= 16; if(menu_scroll < 0) menu_scroll = 0;
         meg4.mmio.ptrbtn &= ~(MEG4_SCR_U | MEG4_SCR_D | MEG4_SCR_L | MEG4_SCR_R);
         return 1;
     } else
     if(meg4.mode != MEG4_MODE_MAP && meg4.mmio.ptrbtn & MEG4_SCR_D) {
-        menu_scroll += 4; if(menu_scroll > menu_scrmax - menu_scrhgt) menu_scroll = menu_scrmax - menu_scrhgt;
+        menu_scroll += 16; if(menu_scroll > menu_scrmax - menu_scrhgt) menu_scroll = menu_scrmax - menu_scrhgt;
         if(menu_scroll < 0) menu_scroll = 0;
         meg4.mmio.ptrbtn &= ~(MEG4_SCR_U | MEG4_SCR_D | MEG4_SCR_L | MEG4_SCR_R);
         return 1;

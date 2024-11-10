@@ -523,7 +523,7 @@ RETRO_API void retro_run(void)
                     case RETROK_F8: meg4_pushkey("F8\0"); break;
                     case RETROK_F9: meg4_pushkey("F9\0"); break;
                     case RETROK_F10: meg4_pushkey("F10"); break;
-                    case RETROK_F11: meg4_pushkey("F11"); break;
+                    case RETROK_F11: main_fullscreen(); break;
                     case RETROK_F12: meg4_pushkey("F12"); break;
                     case RETROK_PRINT: meg4_pushkey("PSc"); break;
                     case RETROK_SCROLLOCK: meg4_pushkey("SLk"); break;

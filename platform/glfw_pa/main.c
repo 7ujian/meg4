@@ -154,7 +154,7 @@ void main_key(GLFWwindow *window, int key, int scancode, int action, int mods)
             case GLFW_KEY_F8: meg4_pushkey("F8\0"); break;
             case GLFW_KEY_F9: meg4_pushkey("F9\0"); break;
             case GLFW_KEY_F10: meg4_pushkey("F10"); break;
-            case GLFW_KEY_F11: meg4_pushkey("F11"); break;
+            case GLFW_KEY_F11: main_fullscreen(); break;
             case GLFW_KEY_F12: meg4_pushkey("F12"); break;
             case GLFW_KEY_PRINT_SCREEN: meg4_pushkey("PSc"); break;
             case GLFW_KEY_SCROLL_LOCK: meg4_pushkey("SLk"); break;

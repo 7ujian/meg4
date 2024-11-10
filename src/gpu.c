@@ -757,6 +757,7 @@ void meg4_redraw(uint32_t *dst, int dw, int dh, int dp)
                 meg4_spr(dst, dp, le16toh(meg4.mmio.ptrx) - MEG4_PTR_HOTSPOT_X, le16toh(meg4.mmio.ptry) - MEG4_PTR_HOTSPOT_Y, i, 1, 0);
         }
     }
+    if(h < dh) { j = (w + 1) << 2; memset(dst + h * p, 0, j < dp ? j : dp); }
     meg4.mmio.cropx0 = x0; meg4.mmio.cropx1 = x1; meg4.mmio.cropy0 = y0; meg4.mmio.cropy1 = y1;
 #ifndef NOEDITORS
     /* take a screenshot */

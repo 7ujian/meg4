@@ -410,7 +410,7 @@ int main(int argc, char **argv)
                     case ALLEGRO_KEY_F8: meg4_pushkey("F8\0"); break;
                     case ALLEGRO_KEY_F9: meg4_pushkey("F9\0"); break;
                     case ALLEGRO_KEY_F10: meg4_pushkey("F10"); break;
-                    case ALLEGRO_KEY_F11: meg4_pushkey("F11"); break;
+                    case ALLEGRO_KEY_F11: main_fullscreen(); break;
                     case ALLEGRO_KEY_F12: meg4_pushkey("F12"); break;
                     case ALLEGRO_KEY_PRINTSCREEN: meg4_pushkey("PSc"); break;
                     case ALLEGRO_KEY_SCROLLLOCK: meg4_pushkey("SLk"); break;

@@ -336,7 +336,7 @@ void main_loop(void) {
                     case SDLK_F8: meg4_pushkey("F8\0"); break;
                     case SDLK_F9: meg4_pushkey("F9\0"); break;
                     case SDLK_F10: meg4_pushkey("F10"); break;
-                    case SDLK_F11: meg4_pushkey("F11"); break;
+                    case SDLK_F11: main_fullscreen(); break;
                     case SDLK_F12: meg4_pushkey("F12"); break;
                     case SDLK_PRINTSCREEN: meg4_pushkey("PSc"); break;
                     case SDLK_SCROLLLOCK: meg4_pushkey("SLk"); break;
