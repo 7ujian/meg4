@@ -729,8 +729,16 @@ isroom:     if(i > 0 && i < 255) {
 
         /* text position (from top, in pixels) */
         if(!memcmp(buf, "\"textpos\"", 9)) {
-            buf = json_skip(buf + 9, end, ',', 0);
-            game[0].textpos = atoi((char*)buf);
+            buf = json_skip(buf + 9, end, '[', 0);
+            if(*buf == '[') {
+                buf = json_skip(buf + 1, end, ',', 0);
+                game[0].textpos = atoi((char*)buf);
+                /* AdvGame 2.0 supports array of numbers with more coordinates, we just use the first */
+                for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
+            } else {
+                game[0].textpos = atoi((char*)buf);
+                while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
+            }
         } else
 
         /* custom ui code (two elements string array with C code) */
