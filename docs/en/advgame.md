@@ -161,6 +161,11 @@ All of these instructions can be expanded with exactly one of these suffixes:
 - `has N`: only do if noun N is in the inventory
 - `not N`: only do if noun N is not in the inventory
 
+A special case when `(V)` is 250 or above, these use the navigation drirections: 250 (or `north`), 251 (or `west`), 252 (or `east`),
+253 (or `south`), 254 (or `up`), 255 (or `down`). For example to check if the room is passable to the North, that's `if north != 0`.
+These state indeces are storing the inventory's bitmask, which must be accessed using the `has` and `not` conditions, so there's no
+conflict.
+
 Jumping to room 0 will wait for a keypress, then resets the game and instead of 0, jumps to the given starting room (this needs
 an explicit `jmp` command as number 0 cannot be used as destination room number).
 

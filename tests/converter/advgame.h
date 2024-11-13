@@ -56,35 +56,33 @@ typedef struct {
 } __attribute__((packed)) ag_room_t;
 extern char c_assert2[sizeof(ag_room_t) <= 8192 ? 1 : -1];
 
-/* directions */
-static char *dirs[6] = { "north", "west", "east", "south", "up", "down" };
-
 /* script opcodes */
-enum { ARG_NONE, ARG_IF, ARG_CND, ARG_VAR, ARG_NUM, ARG_MUS, ARG_SFX, ARG_SCR, ARG_MSG, ARG_ROOM, ARG_NOUN };
-typedef struct { char *op; int len, arg[7]; } ag_ops_t;
+enum { ARG_NONE, ARG_IF, ARG_CND, ARG_VAR, ARG_NUM, ARG_MUS, ARG_SFX, ARG_SCR, ARG_MSG, ARG_ROOM, ARG_NOUN, ARG_IMG, ARG_CRD };
+typedef struct { char *op; int len, arg[16]; } ag_ops_t;
 static ag_ops_t ops[] = {
- /*  0 */ { "end",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  1 */ { "and",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  2 */ { "or",    2, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  3 */ { "bgm",   3, { ARG_MUS,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /*  4 */ { "sfx",   3, { ARG_SFX,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /*  5 */ { "jmp",   3, { ARG_ROOM, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /*  6 */ { "jmpv",  4, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /*  7 */ { "call",  4, { ARG_SCR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /*  8 */ { "callv", 5, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /*  9 */ { "give",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 10 */ { "take",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 11 */ { "say",   3, { ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 12 */ { "sayv",  4, { ARG_VAR,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 13 */ { "sayc",  4, { ARG_MSG,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 14 */ { "add",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 15 */ { "addv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 16 */ { "sub",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 17 */ { "subv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 18 */ { "set",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 19 */ { "rnd",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 20 */ { "mov",   3, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE } },
- /* 21 */ { "img",   3, { ARG_NUM,  ARG_NUM,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM  } }
+ /*  0 */ { "end",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  1 */ { "and",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  2 */ { "or",    2, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  3 */ { "bgm",   3, { ARG_MUS,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  4 */ { "sfx",   3, { ARG_SFX,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  5 */ { "jmp",   3, { ARG_ROOM, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  6 */ { "jmpv",  4, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  7 */ { "call",  4, { ARG_SCR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  8 */ { "callv", 5, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /*  9 */ { "give",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /* 10 */ { "take",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /* 11 */ { "say",   3, { ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
+ /* 12 */ { "sayv",  4, { ARG_VAR,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 13 */ { "sayc",  4, { ARG_MSG,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 14 */ { "add",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 15 */ { "addv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 16 */ { "sub",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 17 */ { "subv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 18 */ { "set",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 19 */ { "rnd",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 20 */ { "mov",   3, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
+ /* 21 */ { "img",   3, { ARG_IMG,  ARG_NUM,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE  } },
+          { 0 }
 };
 static char *cnds[] = { "=", "!=", "<=", "<", ">" };
 
@@ -110,11 +108,11 @@ static char *program = "#!c\n\n"
 "    op = *c++;\n"
 "    switch(op & 7) {\n"
 "       case 0: cnd = 1; break;\n"
-"       case 1: arg1 = *c++; arg2 = *c++; cnd = state[arg1] == arg2; break;\n"
-"       case 2: arg1 = *c++; arg2 = *c++; cnd = state[arg1] != arg2; break;\n"
-"       case 3: arg1 = *c++; arg2 = *c++; cnd = state[arg1] <= arg2; break;\n"
-"       case 4: arg1 = *c++; arg2 = *c++; cnd = state[arg1] < arg2; break;\n"
-"       case 5: arg1 = *c++; arg2 = *c++; cnd = state[arg1] > arg2; break;\n"
+"       case 1: arg1 = *c++; arg2 = *c++; cnd = (arg1 >= 250 ? dir[arg1 - 250] : state[arg1]) == arg2; break;\n"
+"       case 2: arg1 = *c++; arg2 = *c++; cnd = (arg1 >= 250 ? dir[arg1 - 250] : state[arg1]) != arg2; break;\n"
+"       case 3: arg1 = *c++; arg2 = *c++; cnd = (arg1 >= 250 ? dir[arg1 - 250] : state[arg1]) <= arg2; break;\n"
+"       case 4: arg1 = *c++; arg2 = *c++; cnd = (arg1 >= 250 ? dir[arg1 - 250] : state[arg1]) < arg2; break;\n"
+"       case 5: arg1 = *c++; arg2 = *c++; cnd = (arg1 >= 250 ? dir[arg1 - 250] : state[arg1]) > arg2; break;\n"
 "       case 6: arg1 = *c++; cnd = state[255 - (arg1 >> 3)] & (1 << (arg1 & 7)); break;\n"
 "       case 7: arg1 = *c++; cnd = !(state[255 - (arg1 >> 3)] & (1 << (arg1 & 7))); break;\n"
 "    }\n"
@@ -131,9 +129,9 @@ static char *program = "#!c\n\n"
 "      case  8: arg1 = *c++; if(cnd && state[arg1] < 63) parse_ops(&logic[77 + state[arg1] * 64]); break;\n"
 "      case  9: arg1 = *c++; if(cnd) state[255 - (arg1 >> 3)] |= (1 << (arg1 & 7)); break;\n"
 "      case 10: arg1 = *c++; if(cnd) state[255 - (arg1 >> 3)] &= ~(1 << (arg1 & 7)); break;\n"
-"      case 11: arg1 = *c++; if(cnd && arg1 < 32) { say2 = say; say = arg1 + 4 + say3; } break;\n"
-"      case 12: arg1 = *c++; arg2 = *c++; arg2 += state[arg1]; if(cnd && arg2 < 32) { say2 = say; say = arg2 + 4 + say3; } break;\n"
-"      case 13: arg1 = *c++; arg2 = *c++; if(arg1 < 32 && arg2 < 32) { say2 = say; say = (cnd ? arg2 : arg1) + 4 + say3; } break;\n"
+"      case 11: arg1 = *c++; if(cnd && arg1 && arg1 < 33) { say2 = say; say = arg1 + 3 + say3; } break;\n"
+"      case 12: arg1 = *c++; arg2 = *c++; arg2 += state[arg1]; if(cnd && arg2 && arg2 < 33) { say2 = say; say = arg2 + 3 + say3; } break;\n"
+"      case 13: arg1 = *c++; arg2 = *c++; if(arg1 && arg1 < 33 && arg2 && arg2 < 33) { say2 = say; say = (cnd ? arg2 : arg1) + 3 + say3; } break;\n"
 "      case 14: arg1 = *c++; arg2 = *c++; if(cnd) state[arg1] = state[arg1] + arg2 < 255 ? state[arg1] + arg2 : 255; break;\n"
 "      case 15: arg1 = *c++; arg2 = *c++; if(cnd) state[arg1] = state[arg1] + state[arg2] < 255 ? state[arg1] + state[arg2] : 255; break;\n"
 "      case 16: arg1 = *c++; arg2 = *c++; if(cnd) state[arg1] = state[arg1] > arg2 ? state[arg1] - arg2 : 0; break;\n"
@@ -198,7 +196,7 @@ static char *program = "#!c\n\n"
 "  /* built-in navigation verbs (might fall-through into room script case) */\n"
 "  if(v >= 3 && v <= 8) {\n"
 "    if(n1) { say = 2; return; } else v -= 3;\n"
-"    if(dir[v] == 255) { v += 128; n1 = n2 = 0; }\n"
+"    if(dir[v] == 255) { v += 250; n1 = n2 = 0; }\n"
 "    else { if(!dir[v]) say = 1; else load_room(dir[v]); return; }\n"
 "  }\n"
 "  /* built-in save, load game and list inventory verbs */\n"
@@ -310,10 +308,37 @@ uint8_t *json_iscomment(uint8_t *src, uint8_t *end)
 /**
  * Helper to skip characters
  */
-uint8_t *json_skip(uint8_t *src, uint8_t *end, uint8_t delim1, uint8_t delim2)
+uint8_t *json_skip(uint8_t *src, uint8_t *end, char *skip, char *stop)
 {
-    for(;src < end && *src != delim1 && *src != delim2 && *src != '}' && !(*src >= '0' && *src <= '9'); src++)
+    for(;src < end && ((skip && strchr(skip, (char)*src)) || (stop && !strchr(stop, (char)*src))); src++)
         src = json_iscomment(src, end);
+    return src;
+}
+
+/**
+ * Helper to skip an array
+ */
+uint8_t *json_array(uint8_t *src, uint8_t *end)
+{
+    int k = 0;
+
+    for(k = 0; src < end && *src != '}'; src++) {
+        src = json_iscomment(src, end);
+        if(*src == '[') k++;
+        if(*src == ']') { k--; if(k < 1) { src++; break; } }
+    }
+    return src;
+}
+
+/**
+ * Helper to get numbers
+ */
+uint8_t *json_num(uint8_t *src, uint8_t *end, int *out)
+{
+    for(;src < end && *src <= '0' && *src >= '9'; src++)
+        src = json_iscomment(src, end);
+    *out = atoi((char*)src);
+    for(;src < end && *src >= '0' && *src <= '9'; src++);
     return src;
 }
 
@@ -325,7 +350,7 @@ uint8_t *json_unescape(char *dst, uint8_t *src, uint8_t *end, int len)
     int l;
 
     memset(dst, 0, len); len--;
-    src = json_skip(src, end, '\"', ']');
+    src = json_skip(src, end, NULL, "\"]");
     if(*src == '\"') {
         for(l = 0, src++; *src && *src != '\"'; src++) {
             if(*src == '\n') line++;
@@ -418,26 +443,31 @@ char *json_line(uint8_t *str, char sep)
  */
 uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, int l, int nt)
 {
-    static char *err[] = { "argument", "condition", "music", "sound effect", "script", "variable", "value", "message", "room", "noun" };
-    uint8_t op[8];
+    static char *err[] = { "argument", "condition", "music", "sound effect", "script", "variable", "value", "message", "room",
+        "noun", "image", "coordinate" }, *dirs[] = { "north", "west", "east", "south", "up", "down" };
+    char in[128];
+    uint8_t op[32];
     int i, j, k, m, o, p, e, t, h, c, r;
+
+    if(n == -1) sprintf(in, "%s interface", l ? "room" : "intro"); else
+    if(!n) sprintf(in, "common logic"); else sprintf(in, "script %u in room %u", n, l);
 
     for(i = 0; src < end && *src != ']' && *src != '}' && i < len - 1; src++) {
         for(; src < end && strchr(":[\",\r\n /", *src); src++) src = json_iscomment(src, end);
         if(src == end || *src == ']' || *src == '}') break;
-        for(k = 0; k < (int)(sizeof(ops)/sizeof(ops[0])); k++) {
+        for(k = 0; ops[k].len; k++) {
             /* if instruction mnemonic found */
             if(!memcmp(src, ops[k].op, ops[k].len) && (src[ops[k].len] == '\"' || src[ops[k].len] <= ' ')) {
                 j = t = 1; e = h = r = c = 0; op[0] = k << 3; src += ops[k].len;
                 /* iterate on arguments (k: opcode, t: total length, j: next argument's position) */
-                for(m = 0; m < 7 && ops[k].arg[m] && !e; m++, t++) {
+                for(m = 0; m < 16 && ops[k].arg[m] && !e; m++, t++) {
                     while(src < end && (*src == ' ' || *src == '(' || *src == ')')) src++;
                     if(strchr("\",\r\n]}", *src)) { if(ops[k].arg[m] != ARG_IF) { e = 1; } break; }
                     switch(ops[k].arg[m]) {
                         case ARG_IF:
-                            if(!memcmp(src, "has ", 4)) { t--; op[4] = op[3]; op[3] = op[2]; op[2] = op[1]; op[0] |= 6; j = h = 1; src += 3; m += 2; } else
-                            if(!memcmp(src, "not ", 4)) { t--; op[4] = op[3]; op[3] = op[2]; op[2] = op[1]; op[0] |= 7; j = h = 1; src += 3; m += 2; } else
-                            if(!memcmp(src, "if ", 3)) { t--; op[5] = op[3]; op[4] = op[2]; op[3] = op[1]; j = 1; src += 2; c = 1; } else e = 2;
+                            if(!memcmp(src, "has ", 4)) { t--; memmove(&op[2], &op[1], 30); op[0] |= 6; j = h = 1; src += 3; m += 2; } else
+                            if(!memcmp(src, "not ", 4)) { t--; memmove(&op[2], &op[1], 30); op[0] |= 7; j = h = 1; src += 3; m += 2; } else
+                            if(!memcmp(src, "if ", 3)) { t--; memmove(&op[3], &op[1], 29); j = 1; src += 2; c = 1; } else e = 2;
                         break;
                         case ARG_CND:
                             for(o = 0; o < (int)(sizeof(cnds)/sizeof(cnds[0])); o++) {
@@ -448,87 +478,108 @@ uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, 
                             else { t--; op[0] |= o + 1; }
                         break;
                         case ARG_VAR:
-                            if(*src >= '0' && *src <= '9') {
-                                o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            } else
-                                for(o = 0; o < 256; o++)
+                            if(*src >= '0' && *src <= '9') src = json_num(src, end, &o);
+                            else {
+                                for(e = 6, o = 0; o < 250; o++)
                                     if((p = varslen[o]) && !memcmp(src, vars[o], p) && (src[p] == '\"' || src[p] == ' ' || src[p] == ')')) {
-                                        src += p; break;
+                                        src += p; e = 0; break;
                                     }
+                                if(c && o == 250)
+                                    for(; o < 256; o++)
+                                        if((p = strlen(dirs[o - 250])) && !memcmp(src, dirs[o - 250], p) && (src[p] == '\"' || src[p] == ' ' || src[p] == ')')) {
+                                            src += p; e = 0; break;
+                                        }
+                            }
                             /* variable in a condition can be 0 (current room), and then number that follows can be a room alias */
-                            if((!o && !c) || o > 255) e = 6; else { op[j++] = o; if(!o && !c) r = 1; else if(o > numvar) numvar = o; }
+                            if(e || o < 0 || (!o && !c) || o > 255) e = 6; else { op[j++] = o; if(!o && !c) r = 1; else if(o > numvar) numvar = o; }
                         break;
                         case ARG_NUM:
-                            if(*src >= '0' && *src <= '9') {
-                                o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            } else
+                            if(*src >= '0' && *src <= '9') src = json_num(src, end, &o); else
                             if(h) {
-                                for(o = 0; o < NUMNOUN; o++)
-                                    if((p = nounslen[o]) && !memcmp(src, nouns[o], p) && src[p] == '\"') { src += p; o++; break; }
-                                if(!o || o >= NUMNOUN) e = 10;
+                                for(e = 10, o = 0; o < NUMNOUN; o++)
+                                    if((p = nounslen[o]) && !memcmp(src, nouns[o], p) && src[p] == '\"') { src += p; o++; e = 0; break; }
+                                if(o < 1 || o >= NUMNOUN) e = 10;
                             } else
                             if(r) {
-                                for(o = 0; o < 255; o++)
-                                    if((p = roomslen[o]) && !memcmp(src, rooms[o], p) && src[p] == '\"') { src += p; break; }
-                                if(o > 254) e = 9; else roomref[o] = 1;
+                                for(e = 9, o = 0; o < 254; o++)
+                                    if((p = roomslen[o]) && !memcmp(src, rooms[o], p) && src[p] == '\"') { src += p; o++; e = 0; break; }
+                                if(e || o < 1 || o > 254 || (o && !(meg4.ovls[o].data))) e = 9; else roomref[o] = 1;
                             } else
                             if(!memcmp(src, "false", 5)) { o = 0; src += 5; } else
                             if(!memcmp(src, "true", 4)) { o = 1; src += 4; }
-                            if(o > 255) e = 7; else op[j++] = o;
+                            if(o < 0 || o > 255) e = 7; else op[j++] = o;
                         break;
                         case ARG_MUS:
-                            o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            if(o > 7) e = 3; else op[j++] = o;
+                            src = json_num(src, end, &o);
+                            if(o < 0 || o > 7) e = 3; else op[j++] = o;
                         break;
                         case ARG_SFX:
-                            o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            if(o > 63) e = 4; else op[j++] = o;
+                            src = json_num(src, end, &o);
+                            if(o < 0 || o > 63) e = 4; else op[j++] = o;
                         break;
                         case ARG_SCR:
-                            o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            if(!o || o > 63) e = 5; else op[j++] = o - 1;
+                            src = json_num(src, end, &o);
+                            if(o < 1 || o > 63) e = 5; else op[j++] = o - 1;
                         break;
                         case ARG_MSG:
-                            o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            if(!o || o > NUMMSG || o > nt) e = 8; else op[j++] = o - 1;
+                            src = json_num(src, end, &o);
+                            if(o < 1 || o > NUMMSG || o > nt) e = 8; else op[j++] = o;
                         break;
                         case ARG_ROOM:
-                            if(*src >= '0' && *src <= '9') {
-                                o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            } else {
-                                for(o = 0; o < 255; o++)
+                            if(*src >= '0' && *src <= '9') src = json_num(src, end, &o); else
+                                for(e = 9, o = 0; o < 254; o++)
                                     if((p = roomslen[o]) && !memcmp(src, rooms[o], p) && (src[p] == '\"' || src[p] == ' ')) {
-                                        src += p; break;
+                                        src += p; o++; e = 0; break;
                                     }
-                            }
-                            if(o > 254 || (o && !meg4.ovls[o].data)) e = 9; else { op[j++] = o; roomref[o] = 1; }
+                            if(e || o < 0 || o > 254 || (o && !(meg4.ovls[o].data))) e = 9; else { op[j++] = o; roomref[o] = 1; }
                         break;
                         case ARG_NOUN:
-                            if(*src >= '0' && *src <= '9') {
-                                o = atoi((char*)src); while(src < end && *src >= '0' && *src <= '9') src++;
-                            } else
-                                for(o = 0; o < NUMNOUN; o++)
+                            if(*src >= '0' && *src <= '9') src = json_num(src, end, &o); else
+                                for(e = 10, o = 0; o < NUMNOUN; o++)
                                     if((p = nounslen[o]) && !memcmp(src, nouns[o], p) && (src[p] == '\"' || src[p] == ' ' || src[p] == ')')) {
-                                        src += p; o++; break;
+                                        src += p; o++; e = 0; break;
                                     }
-                            if(!o || o >= NUMNOUN) e = 10; else op[j++] = o;
+                            if(o < 1 || o > NUMNOUN) e = 10; else op[j++] = o;
+                        break;
+                        case ARG_IMG:
+                            src = json_num(src, end, &o);
+                            if(o < 0 || o > 15) e = 11; else op[j++] = o;
+                        break;
+                        case ARG_CRD:
+                            src = json_num(src, end, &o);
+                            if(o < 0 || o > 1023) { e = 7; break; }
+                            if(!strchr(" \"+-", *src)) { e = 12; break; }
+                            op[j++] = o / 4;
+                            if(*src == '+' || *src == '-') {
+                                p = *src == '-' ? -1 : 1;
+                                src = json_num(src + 1, end, &o); o *= p;
+                                if(!o || o < -127 || o > 127 || *src != '*') { e = 12; break; }
+                                op[j++] = o; src++;
+                                if(*src >= '0' && *src <= '9') src = json_num(src, end, &o);
+                                else if(!memcmp(src, "lang", 4) && (src[4] == '\"' || src[4] == ' ')) { o = 255; src += 4; } else
+                                    for(e = 6, o = 0; o < 250; o++)
+                                        if((p = varslen[o]) && !memcmp(src, vars[o], p) && (src[p] == '\"' || src[p] == ' ')) {
+                                            src += p; e = 0; break;
+                                        }
+                                if(e || o < 0 || o > 255) e = 6; else { op[j++] = o; if(o < 255 && o > numvar) numvar = o; }
+                            } else { op[j++] = 0; op[j++] = 0; }
                         break;
                     }
                 }
                 /* report error (if any) */
-                if(e) fprintf(stderr, "converter: line %u: bad %s in script %u in room %u: %s %s \"%s\"\r\n", line, ops[k].op,
-                    n, l, e == 1 ? "missing" : (e == 7 ? "out of bounds" : "no such"), err[e - 1], json_line(src, ' ')); else
+                if(e) fprintf(stderr, "converter: line %u: bad %s in %s: %s %s \"%s\"\r\n", line, ops[k].op, in,
+                    e == 1 ? "missing" : (e == 7 ? "out of bounds" : "no such"), err[e - 1], json_line(src, ' ')); else
                 /* otherwise add the generated binary opcode to the script */
-                if(i + t < len - 1) { if(k != 21) { memcpy(dst + i, op, t); i += t; numinst += t; } }
-                else fprintf(stderr, "converter: line %u: not enough buffer for '%s' in script %u in room %u\r\n", line, ops[k].op, n, l);
+                if(i + t < len - 1) { if(k < 21) { memcpy(dst + i, op, t); i += t; numinst += t; } }
+                else fprintf(stderr, "converter: line %u: not enough buffer for '%s' in %s\r\n", line, ops[k].op, in);
                 /* skip to the next mnemonic (needed if there was a problem with parsing the arguments or if there's a comment) */
                 for(; src < end && !strchr("\",\r\n)]}", *src); src++) src = json_iscomment(src, end);
                 break;
             }
         }
         /* if mnemonic wasn't recognized */
-        if(k >= (int)(sizeof(ops)/sizeof(ops[0])))
-            fprintf(stderr, "converter: line %u: unknown instruction \"%s\" in script %u in room %u\r\n", line, json_line(src, 0), n, l);
+        if(!ops[k].len)
+            fprintf(stderr, "converter: line %u: unknown instruction \"%s\" in %s\r\n", line, json_line(src, 0), in);
     }
     return src;
 }
@@ -541,24 +592,24 @@ int main_advgame(char *fn, uint8_t *buf, int len)
     ag_conf_t *game = (ag_conf_t*)meg4.mmio.sprites;
     ag_room_t *room;
     ag_cmds_t *cmds;
-    char tmpverb[NUMVERB + 9][8][16];   /* save, load, list, navigation and verbs */
+    char tmpverb[NUMVERB + 10][8][16];  /* save, load, list, navigation and verbs */
     char tmpnoun[NUMNOUN][16];          /* nouns */
     char tmpmsg[NUMMSG][256];           /* room messages */
-    char tmp[4096], str[1024], *verbs[NUMVERB] = { 0 }, *comment = NULL, custom[2][4096] = { "", "" };
-    uint8_t *end = buf + len, *img, *s, *e, *iend, verbref[NUMVERB + 9] = { 0 };
-    int i, j, k, l, m, n, p, flen, size, verbslen[NUMVERB] = { 0 }, numnoun = 0, numcmd = 0, numtxt = 0, nt = 0;
+    char tmp[4096], str[1024], *verbs[256] = { 0 }, *comment = NULL, custom[2][4096] = { "", "" };
+    uint8_t *end = buf + len, *img, *s, *e, *iend, verbref[256] = { 0 };
+    int i, j, k, l, m, n, p, flen, size, verbslen[256] = { 0 }, numnoun = 0, numcmd = 0, numtxt = 0, nt = 0;
     char *keywords1[] = { "sprites", "music", "sounds", "setup", "rooms", "verbs", "nouns", "vars", "status", "colors", "textpos",
-        "custom" };
-    char *keywords2[] = { "lang", "answers", "save", "load", "list", "north", "west", "east", "south", "up", "down", "nouns",
-        "image", "logic" };
+        "custom", "interface" };
+    char *keywords2[] = { "logic", "save", "load", "list", "north", "west", "east", "south", "up", "down", "lang", "answers",
+        "nouns", "image" };
 
-    line = 1; vars[0] = "room";
-    verbref[0] = verbref[1] = verbref[2] = verbref[3] = verbref[4] = verbref[5] = verbref[6] = verbref[7] = verbref[8] = 1;
+    line = 1; vars[0] = "room"; verbref[0] = 3;
+    for(i = 0; i < 10; i++) { verbs[i] = keywords2[i]; verbslen[i] = strlen(verbs[i]); }
 
     /* check arguments */
     if(!fn || !buf || len < 13) return 0;
     /* skip optional leading comment (will be copied to program.c as might have copyright info) and check magic */
-    if(buf[0] == '/' && buf[1] == '*') { comment= (char*)buf; buf = json_skip(buf, end, '\"', 0); }
+    if(buf[0] == '/' && buf[1] == '*') { comment= (char*)buf; buf = json_skip(buf, end, NULL, "\""); }
     if(memcmp(buf, "\"AdvGame\"", 9)) return 0;
 
     /* get path from JSON file's name (all paths must be relative to this) */
@@ -611,7 +662,7 @@ roomerr:                    rooms[i] = NULL;
 
         /* room definition with a number */
         if(s[0] == '\"' && s[1] >= '0' && s[1] <= '9') {
-            s++; i = atoi((char*)s); for(;s < end && *s >= '0' && *s <= '9'; s++);
+            s = json_num(s + 1, end, &i);
 isroom:     if(i > 0 && i < 255) {
                 if(meg4.ovls[i].data) fprintf(stderr, "converter: line %u: duplicate room %u\r\n", l, i);
                 meg4.ovls[i].size = 32768;
@@ -689,17 +740,26 @@ isroom:     if(i > 0 && i < 255) {
                     } else fprintf(stderr, "converter: line %u: unable to load '%s'\r\n", line, tmp);
                 }
             }
-            for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-            if(*buf != ']' && i >= j) { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, j); }
+            buf = json_skip(buf, end, " \r\n", NULL);
+            if(*buf != ']' && i >= j) { buf = json_skip(buf, end, NULL, "]"); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, j); }
+        } else
+
+        /* font */
+        if(!memcmp(buf, "\"font\"", 6)) {
+            buf = json_unescape(tmp + flen, buf, end, 256);
+            if((img = main_readfile(tmp, &size))) {
+                if(!meg4_import(tmp + flen, img, size, 0)) fprintf(stderr, "converter: line %u: unable to import '%s'\r\n", line, tmp);
+                free(img);
+            } else fprintf(stderr, "converter: line %u: unable to load '%s'\r\n", line, tmp);
         } else
 
         /* setup key, contains the initial game state, up to 256 elements byte array */
         if(!memcmp(buf, "\"setup\"", 7)) {
             for(buf += 7, i = j = 0; buf < end && *buf != ']'; i++) {
-                buf = json_skip(buf, end, ']', '}');
+                buf = json_skip(buf, end, NULL, "0123456789]}");
                 if(*buf < '0' || *buf > '9') break;
-                if(i < 256) game[0].setup[i] = atoi((char*)buf); else j = 1;
-                while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
+                buf = json_num(buf, end, &n);
+                if(i < 256) game[0].setup[i] = n; else j = 1;
             }
             if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 256);
             roomref[(int)game[0].setup[0]] = 1;
@@ -708,10 +768,10 @@ isroom:     if(i > 0 && i < 255) {
         /* status bar, which game state variables to display */
         if(!memcmp(buf, "\"status\"", 8)) {
             for(buf += 8, i = j = 0; buf < end && *buf != ']'; i++) {
-                buf = json_skip(buf, end, ']', '}');
+                buf = json_skip(buf, end, NULL, "0123456789]}");
                 if(*buf < '0' || *buf > '9') break;
-                if(i < 2) game[0].status[i] = atoi((char*)buf); else j = 1;
-                while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
+                buf = json_num(buf, end, &n);
+                if(i < 2) game[0].status[i] = n; else j = 1;
             }
             if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 2);
         } else
@@ -719,60 +779,60 @@ isroom:     if(i > 0 && i < 255) {
         /* colors key, 5 elements colors (palette indeces) */
         if(!memcmp(buf, "\"colors\"", 8)) {
             for(buf += 8, i = j = 0; buf < end && *buf != ']'; i++) {
-                buf = json_skip(buf, end, ']', '}');
+                buf = json_skip(buf, end, NULL, "0123456789]}");
                 if(*buf < '0' || *buf > '9') break;
-                if(i < 5) game[0].colors[i] = atoi((char*)buf); else j = 1;
-                while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
+                buf = json_num(buf, end, &n);
+                if(i < 5) game[0].colors[i] = n; else j = 1;
             }
             if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 5);
         } else
 
         /* text position (from top, in pixels) */
         if(!memcmp(buf, "\"textpos\"", 9)) {
-            buf = json_skip(buf + 9, end, '[', 0);
+            buf = json_skip(buf + 9, end, NULL, "0123456789[");
             if(*buf == '[') {
-                buf = json_skip(buf + 1, end, ',', 0);
-                game[0].textpos = atoi((char*)buf);
+                buf = json_skip(buf, end, NULL, "0123456789]}");
+                buf = json_num(buf, end, &n);
+                game[0].textpos = n;
                 /* AdvGame 2.0 supports array of numbers with more coordinates, we just use the first */
-                for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
+                buf = json_array(buf, end);
             } else {
-                game[0].textpos = atoi((char*)buf);
-                while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
+                buf = json_num(buf, end, &n);
+                game[0].textpos = n;
             }
         } else
 
         /* custom ui code (two elements string array with C code) */
         if(!memcmp(buf, "\"custom\"", 8)) {
-            buf = json_skip(buf + 8, end, '[', ']');
+            buf = json_skip(buf + 8, end, NULL, "[]");
             if(*buf == '[')
                 for(buf++, i = 0; buf < end && *buf != ']' && *buf != '}' && i < 2; i++) {
-                    for(;buf < end && *buf != '[' && *buf != ']' && *buf != '}' && *buf != '\"'; buf++)
-                        buf = json_iscomment(buf, end);
-                    if(*buf == '[') {
-                        /* AdvGame 2.0 supports array of arrays of strings with custom ui mnemonics, we just skip these here */
-                        for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
-                    } else
+                    buf = json_skip(buf, end, NULL, "[]}\"");
                     if(*buf == '\"') {
                         /* just an array of strings with C code */
                         buf = json_unescape(custom[i], buf, end, sizeof(custom[0]));
                     } else break;
                 }
-            for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-            if(*buf != ']' && i >= 2) { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 2); }
+            buf = json_skip(buf, end, " \r\n", NULL);
+            if(*buf != ']' && i >= 2) { buf = json_array(buf, end); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 2); }
         } else
 
-        /* rooms (JSON-only aliases) */
+        /* custom ui interface (AdvGame 2.0 only, we just skip it here) */
+        if(!memcmp(buf, "\"interface\"", 11)) {
+            buf = json_array(buf + 11, end);
+        } else
+
+        /* rooms (JSON-only aliases, we have already parsed these, so now just skip) */
         if(!memcmp(buf, "\"rooms\"", 7)) {
-            /* we have already parsed these, so now just skip */
-            for(buf += 7; buf < end && *buf != ']'; buf++) if(*buf == '\n') line++;
+            buf = json_skip(buf + 7, end, NULL, "]");
         } else
 
         /* verbs (JSON-only aliases) */
         if(!memcmp(buf, "\"verbs\"", 7)) {
-            for(buf += 7, i = j = 0; buf < end && *buf != ']'; i++) {
-                buf = json_skip(buf, end, ']', '\"');
+            for(buf += 7, i = 10, j = 0; buf < end && *buf != ']'; i++) {
+                buf = json_skip(buf, end, NULL, "]\"");
                 if(*buf != '\"') break; else buf++;
-                if(i < NUMVERB) {
+                if(i < NUMVERB + 10) {
                     verbs[i] = (char*)buf;
                     if(!memcmp(s, "verb", 4) && (s[4] == '\"' || (s[4] >= '0' && s[4] <= '9'))) goto verberr;
                     if(!memcmp(s, "text", 4) && (s[4] == '\"' || (s[4] >= '0' && s[4] <= '9'))) goto verberr;
@@ -782,7 +842,7 @@ verberr:                    verbs[i] = NULL;
                             fprintf(stderr, "converter: line %u: keyword '%s' cannot be a verb alias\r\n", l, keywords2[m]);
                         }
                 } else j = 1;
-                for(; buf < end && *buf != ']' && *buf != '\"'; buf++) buf = json_iscomment(buf, end);
+                buf = json_skip(buf, end, NULL, "]\"");
                 if(verbs[i]) verbslen[i] = (uintptr_t)buf - (uintptr_t)verbs[i];
                 *buf++ = 0;
             }
@@ -792,10 +852,10 @@ verberr:                    verbs[i] = NULL;
         /* nouns (JSON-only aliases) */
         if(!memcmp(buf, "\"nouns\"", 7)) {
             for(buf += 7, i = j = 0; buf < end && *buf != ']'; i++) {
-                buf = json_skip(buf, end, ']', '\"');
+                buf = json_skip(buf, end, NULL, "]\"");
                 if(*buf != '\"') break; else buf++;
                 if(i < NUMNOUN) nouns[i] = (char*)buf; else j = 1;
-                for(; buf < end && *buf != ']' && *buf != '\"'; buf++) buf = json_iscomment(buf, end);
+                buf = json_skip(buf, end, NULL, "]\"");
                 if(nouns[i]) nounslen[i] = (uintptr_t)buf - (uintptr_t)nouns[i];
                 *buf++ = 0;
             }
@@ -805,17 +865,17 @@ verberr:                    verbs[i] = NULL;
         /* variables (JSON-only aliases) */
         if(!memcmp(buf, "\"vars\"", 6)) {
             for(buf += 6, i = j = 0; buf < end && *buf != ']'; i++) {
-                buf = json_skip(buf, end, ']', '\"');
+                buf = json_skip(buf, end, NULL, "]\"");
                 if(*buf != '\"') break; else buf++;
-                if(i < 256) vars[i] = (char*)buf; else j = 1;
-                for(; buf < end && *buf != ']' && *buf != '\"'; buf++) buf = json_iscomment(buf, end);
+                if(i < 250) vars[i] = (char*)buf; else j = 1;
+                buf = json_skip(buf, end, NULL, "]\"");
                 if(vars[i]) varslen[i] = (uintptr_t)buf - (uintptr_t)vars[i];
                 *buf++ = 0;
             }
-            if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 256);
+            if(j) fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 250);
         } else
 
-        /* common game logic for all rooms */
+        /* common game logic for all commands */
         if(!memcmp(buf, "\"logic\"", 7)) {
             buf = json_opcodes(game[0].logic, buf + 7, end, 72, 0, 0, 0);
         } else
@@ -827,80 +887,63 @@ verberr:                    verbs[i] = NULL;
                 fprintf(stderr, "converter: line %u: skipping \"config%u\"\r\n",line,l);
                 continue;
             }
-            buf = json_skip(buf + 8, end, '{', '}');
             memset(tmpverb, 0, sizeof(tmpverb));
             memset(tmpnoun, 0, sizeof(tmpnoun));
+            buf = json_skip(buf + 8, end, NULL, "{}");
             for(buf++; buf < end && *buf != '}'; buf++) {
                 buf = json_iscomment(buf, end);
                 /* config properties */
                 if(!memcmp(buf, "\"lang\"", 6)) {
-                    buf = json_skip(buf + 6, end, '\"', 0);
+                    buf = json_skip(buf + 6, end, NULL, "\"");
                     if(*buf == '\"') { game[l].lang[0] = buf[1]; game[l].lang[1] = buf[2]; buf += 3; }
                 } else
                 if(!memcmp(buf, "\"text\"", 6)) { numtxt++; buf = json_unescape(game[l].text, buf + 6, end, sizeof(game[0].text)); } else
                 if(!memcmp(buf, "\"answers\"", 9)) {
                     for(buf += 9, i = 0; buf < end && *buf != ']' && *buf != '}' && i < 4; i++)
                         buf = json_unescape(game[l].answ[i], buf, end, sizeof(game[0].answ[0]));
-                    for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-                    if(*buf != ']' && i >= 4) { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 4); }
+                    buf = json_skip(buf, end, " \r\n", NULL);
+                    if(*buf != ']' && i >= 4) { buf = json_skip(buf, end, NULL, "]"); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 4); }
                 } else
-                if(!memcmp(buf, "\"save\"", 6))  { buf += 6; j = 0; goto readverb; } else
-                if(!memcmp(buf, "\"load\"", 6))  { buf += 6; j = 1; goto readverb; } else
-                if(!memcmp(buf, "\"list\"", 6))  { buf += 6; j = 2; goto readverb; } else
-                if(!memcmp(buf, "\"north\"", 7)) { buf += 7; j = 3; goto readverb; } else
-                if(!memcmp(buf, "\"west\"", 6))  { buf += 6; j = 4; goto readverb; } else
-                if(!memcmp(buf, "\"east\"", 6))  { buf += 6; j = 5; goto readverb; } else
-                if(!memcmp(buf, "\"south\"", 7)) { buf += 7; j = 6; goto readverb; } else
-                if(!memcmp(buf, "\"up\"", 4))    { buf += 4; j = 7; goto readverb; } else
-                if(!memcmp(buf, "\"down\"", 6))  { buf += 6; j = 8; goto readverb; } else
                 if(!memcmp(buf, "\"nouns\"", 7)) {
-                    buf = json_skip(buf + 7, end, '[', '\"');
+                    buf = json_skip(buf + 7, end, NULL, "[\"");
                     if(*buf == '[') buf++;
                     for(i = 0; buf < end && *buf != ']' && *buf != '}' && i < NUMNOUN; i++) {
-                        for(;buf < end && *buf != '[' && *buf != ']' && *buf != '}' && *buf != '\"'; buf++)
-                            buf = json_iscomment(buf, end);
+                        buf = json_skip(buf, end, NULL, "[]}\"");
                         if(*buf == '[') {
                             /* AdvGame 2.0 supports array of arrays of strings for noun synonims, we just use the first string */
                             buf = json_unescape(tmpnoun[i], buf + 1, end, sizeof(tmpnoun[0]));
-                            for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
+                            buf = json_array(buf, end);
                         } else
                         if(*buf == '\"') {
                             /* just an array of strings */
                             buf = json_unescape(tmpnoun[i], buf, end, sizeof(tmpnoun[0]));
                         } else break;
                     }
-                    for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-                    if(*buf != ']' && i >= NUMNOUN) {
-                        for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
-                        fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, NUMNOUN);
-                    }
+                    buf = json_skip(buf, end, " \r\n", NULL);
+                    if(*buf != ']' && i >= NUMNOUN) { buf = json_array(buf, end); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, NUMNOUN); }
                     if(!l) numnoun = i; else if(i != numnoun) fprintf(stderr, "converter: line %u: different number of nouns in \"config0\" and \"config1\"\r\n", line);
                 } else
                 if(!memcmp(buf, "\"verb", 5)) {
                     buf += 5; j = atoi((char*)buf);
                     while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
-                    buf = json_skip(buf, end, '[', 0);
-                    if(j >= 1 && j < NUMVERB + 9) {
-                        j += 8;
-readverb:               for(verbref[j] = 1, i = 0; buf < end && *buf != ']' && *buf != '}' && i < 8; i++)
+                    buf = json_skip(buf, end, NULL, "[");
+                    if(j >= 1 && j < NUMVERB + 10) {
+readverb:               for(verbref[j] = j < 4 ? 3 : 1, i = 0; buf < end && *buf != ']' && *buf != '}' && i < 8; i++)
                             buf = json_unescape(tmpverb[j][i], buf, end, sizeof(tmpverb[0][0]));
-                        for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-                        if(*buf != ']' && i >= 8) {
-                            for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
-                            fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 8);
-                        }
-                    } else { buf = json_skip(buf, end, ']', 0); fprintf(stderr, "converter: line %u: bad verb %u\r\n", line, j); }
+                        buf = json_skip(buf, end, " \r\n", NULL);
+                        if(*buf != ']' && i >= 8) { buf = json_array(buf, end); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, 8); }
+                    } else { buf = json_skip(buf, end, NULL, "]"); fprintf(stderr, "converter: line %u: bad verb %u\r\n", line, j); }
                 } else
                 if(*buf == '\"') {
-                    for(buf++, i = 0; i < NUMVERB; i++)
-                        if((j = verbslen[i]) && !memcmp(buf, verbs[i], j) && buf[j] == '\"') { buf += j + 1; j = i + 9; goto readverb; }
+                    for(buf++, j = 1; j < NUMVERB + 10; j++)
+                        if((i = verbslen[j]) && !memcmp(buf, verbs[j], i) && buf[i] == '\"') { buf += i + 1; goto readverb; }
                     fprintf(stderr, "converter: line %u: unknown verb \"%s\" in \"config%u\"\r\n", line, json_line(buf, 0), l);
                 }
             }
             /* serialize verbs and nouns */
             for(m = i = 0; i < NUMVERB + 9; i++)
                 for(j = 0; j < 8 && m < (int)sizeof(game[0].verb); j++, m += k + 1)
-                    if((k = strlen(tmpverb[i][j])) && m + k < (int)sizeof(game[0].verb)) memcpy(game[l].verb + m, tmpverb[i][j], k);
+                    if((k = strlen(tmpverb[i + 1][j])) && m + k < (int)sizeof(game[0].verb)) memcpy(game[l].verb + m, tmpverb[i + 1][j], k);
             if(m >= (int)sizeof(game[0].verb)) fprintf(stderr, "converter: line %u: too many verbs in \"config%u\"\r\n", line, l);
             for(m = i = 0; i < NUMNOUN && m < (int)sizeof(game[0].noun); i++, m += k + 1)
                 if((k = strlen(tmpnoun[i])) && m + k < (int)sizeof(game[0].noun)) memcpy(game[l].noun + m, tmpnoun[i], k);
@@ -922,17 +965,16 @@ readroom:   if(l > 0 && l < 255 && meg4.ovls[l].data) {
                 memset(meg4.ovls[l].data, 0, 32768);
                 room = (ag_room_t*)meg4.ovls[l].data;
                 /* room properties */
-                buf = json_skip(buf, end, '{', 0);
+                buf = json_skip(buf, end, NULL, "{");
                 for(n = 1; buf < end && *buf != '}'; buf++) {
                     buf = json_iscomment(buf, end);
                     /* room image */
                     if(!memcmp(buf, "\"image\"", 7)) {
-                        buf = json_skip(buf + 7, end, '[', '\"');
+                        buf = json_skip(buf + 7, end, NULL, "[\"");
                         if(*buf == '[') {
                             /* AdvGame 2.0 supports arrays of strings for images, we just use the first string */
                             buf = json_unescape(tmp + flen, buf + 1, end, 256);
-                            buf = json_skip(buf, end, ']', 0);
-                            if(*buf == ']') buf++;
+                            buf = json_array(buf, end);
                         } else
                         if(*buf == '\"') {
                             /* just one string */
@@ -962,16 +1004,13 @@ readroom:   if(l > 0 && l < 255 && meg4.ovls[l].data) {
                             continue;
                         }
                         memset(tmpmsg, 0, sizeof(tmpmsg));
-                        buf = json_skip(buf + 6, end, '[', ']');
+                        buf = json_skip(buf + 6, end, NULL, "[]");
                         for(i = 0; buf < end && *buf != ']' && *buf != '}' && i < NUMMSG; i++, numtxt++) {
                             buf = json_unescape(str, buf, end, sizeof(str));
                             json_wrap(tmpmsg[i], str, 256);
                         }
-                        for(;buf < end && (*buf == ' ' || *buf == '\r' || *buf == '\n'); buf++) if(*buf == '\n') line++;
-                        if(*buf != ']' && i >= NUMMSG) {
-                            for(buf++; buf < end && buf[-1] != ']'; buf++) buf = json_iscomment(buf, end);
-                            fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, NUMMSG);
-                        }
+                        buf = json_skip(buf, end, " \r\n", NULL);
+                        if(*buf != ']' && i >= NUMMSG) { buf = json_array(buf, end); fprintf(stderr, "converter: line %u: more than %u elements in array\r\n", line, NUMMSG); }
                         if(!j) nt = i; else if(i != nt) fprintf(stderr, "converter: line %u: different number of texts in \"text0\" and \"text1\"\r\n", line);
                         /* serialize room messages */
                         for(m = i = 0, k = 1; i < NUMMSG && m < 2048 && k > 0; i++, m += k + 1)
@@ -980,127 +1019,92 @@ readroom:   if(l > 0 && l < 255 && meg4.ovls[l].data) {
                     } else
 
                     /* room verbs */
-                    if(!memcmp(buf, "\"save\"", 6) || !memcmp(buf, "\"load\"", 6) || !memcmp(buf, "\"list\"", 6)) {
-                        fprintf(stderr, "converter: line %u: keyword \"%s\" not allowed here\r\n", line, json_line(buf + 1, 0));
-                    } else
-                    if(!memcmp(buf, "\"north\"", 7)) { buf += 7; j = 0; goto readdir; } else
-                    if(!memcmp(buf, "\"west\"", 6))  { buf += 6; j = 1; goto readdir; } else
-                    if(!memcmp(buf, "\"east\"", 6))  { buf += 6; j = 2; goto readdir; } else
-                    if(!memcmp(buf, "\"south\"", 7)) { buf += 7; j = 3; goto readdir; } else
-                    if(!memcmp(buf, "\"up\"", 4))    { buf += 4; j = 4; goto readdir; } else
-                    if(!memcmp(buf, "\"down\"", 6))  {
-                        buf += 6; j = 5;
-readdir:                buf = json_skip(buf, end, '[', '\"');
-                        if(*buf == '[') {   /* script given for this direction */
-                            if(n >= 63) {
-                                fprintf(stderr, "converter: line %u: too many scripts in room %u\r\n", line, l);
-                                i = 0;
-                            } else {
-                                cmds = &room->cmds[n++];
-                                cmds->verb = 0x80 | j;
-                                buf = json_opcodes(cmds->op, buf, end, 61, n, l, nt);
-                                i = 255;
-                            }
-                        } else
-                        if(*buf == '\"') {  /* room alias given */
-                            for(buf++, i = 0; i < 254; i++)
-                                if((k = roomslen[i]) && !memcmp(buf, rooms[i], k) && buf[k] == '\"') { buf += k + 1; i++; break; }
-                            if(i >= 254 || (i && !meg4.ovls[i].data)) {
-                                fprintf(stderr, "converter: line %u: invalid %s room alias \"%s\" in room %u\r\n", line, dirs[j], json_line(buf, ' '), l);
-                                i = 0;
-                            }
-                        } else {            /* room number given */
-                            i = atoi((char*)buf); while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
-                            if(i >= 255 || (i && !meg4.ovls[i].data)) {
-                                fprintf(stderr, "converter: line %u: invalid %s direction to %u in room %u\r\n", line, dirs[j], i, l);
-                                i = 0;
-                            }
-                        }
-                        if(i && i < 255) roomref[i] = 1;
-                        room->dir[j] = i;
-                        verbref[3 + j] |= 2;
-                        numcmd++;
-                    } else
-                    if(!memcmp(buf, "\"logic\"", 7)) { buf += 7; j = 0; goto readops; } else
                     if(!memcmp(buf, "\"verb", 5)) {
-                        buf += 5; j = atoi((char*)buf);
-                        while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
-                        if(j) j += 8;
-readops:                if(j >= 0 && j < NUMVERB + 9) {
+                        buf = json_num(buf + 5, end, &j);
+readops:                if(j > 0 && j < 4) {
+                            fprintf(stderr, "converter: line %u: keyword \"%s\" not allowed here\r\n", line, verbs[j]);
+                            buf = json_array(buf, end);
+                        } else
+                        if(!j || (j > 3 && j < NUMVERB + 10)) {
                             cmds = NULL;
                             if(!j) cmds = &room->cmds[0]; else {
-                                if(n >= 63)
+                                if(n >= 63) {
                                     fprintf(stderr, "converter: line %u: too many scripts in room %u\r\n", line, l);
-                                else {
+                                    buf = json_array(buf, end);
+                                    continue;
+                                } else
                                     cmds = &room->cmds[n++];
-                                    cmds->verb = j;
+                            }
+                            if(cmds) {
+                                /* got verb */
+                                cmds->verb = j ? j - 1 : 0;
+                                /* get noun arguments */
+                                if(*buf == ' ') {
+                                    buf++;
+                                    if(*buf >= '0' && *buf <= '9') { buf = json_num(buf, end, &i); cmds->noun1 = i; } else {
+                                        for(i = 0; i < NUMNOUN; i++)
+                                            if((k = nounslen[i]) && !memcmp(buf, nouns[i], k) && (buf[k] == '\"' || buf[k] == ' ')) {
+                                                buf += k; cmds->noun1 = i + 1; break;
+                                            }
+                                        if(i >= NUMNOUN) {
+                                            fprintf(stderr, "converter: line %u: unknown noun \"%s\" for verb %u in room %u\r\n", line, json_line(buf, ' '), j, l);
+                                            buf = json_skip(buf, end, NULL, " \"");
+                                        }
+                                    }
                                     if(*buf == ' ') {
                                         buf++;
-                                        if(*buf >= '0' && *buf <= '9') {
-                                            cmds->noun1 = atoi((char*)buf);
-                                            while(buf < end && *buf >= '0' && *buf <= '9') buf++;
-                                        } else {
+                                        if(*buf >= '0' && *buf <= '9') { buf = json_num(buf, end, &i); cmds->noun2 = i; } else {
                                             for(i = 0; i < NUMNOUN; i++)
                                                 if((k = nounslen[i]) && !memcmp(buf, nouns[i], k) && (buf[k] == '\"' || buf[k] == ' ')) {
-                                                    buf += k; cmds->noun1 = i + 1; break;
+                                                    buf += k; cmds->noun2 = i + 1; break;
                                                 }
                                             if(i >= NUMNOUN) {
-                                                fprintf(stderr, "converter: line %u: unknown noun \"%s\" for verb %u in room %u\r\n", line, json_line(buf, ' '), j, l);
-                                                buf = json_skip(buf, end, ' ', '\"');
-                                            }
-                                        }
-                                        if(*buf == ' ') {
-                                            buf++;
-                                            if(*buf >= '0' && *buf <= '9') {
-                                                cmds->noun2 = atoi((char*)buf);
-                                                while(buf < end && *buf >= '0' && *buf <= '9') buf++;
-                                            } else {
-                                                for(i = 0; i < NUMNOUN; i++)
-                                                    if((k = nounslen[i]) && !memcmp(buf, nouns[i], k) && (buf[k] == '\"' || buf[k] == ' ')) {
-                                                        buf += k; cmds->noun2 = i + 1; break;
-                                                    }
-                                                if(i >= NUMNOUN) {
-                                                    fprintf(stderr, "converter: line %u: unknown noun \"%s\" for verb %u in room %u\r\n", line, json_line(buf, ':'), j, l);
-                                                    buf = json_skip(buf, end, ':', '\"');
-                                                }
+                                                fprintf(stderr, "converter: line %u: unknown noun \"%s\" for verb %u in room %u\r\n", line, json_line(buf, ':'), j, l);
+                                                buf = json_skip(buf, end, NULL, ":\"");
                                             }
                                         }
                                     }
-                                    for(i = 0; i < n - 1; i++)
-                                        if(room->cmds[i].verb == cmds->verb &&
-                                          room->cmds[i].noun1 == cmds->noun1 && room->cmds[i].noun2 == cmds->noun2) {
-                                            fprintf(stderr, "converter: line %u: duplicate script 'verb%u %u %u' in room %u\r\n",
-                                                line, cmds->verb, cmds->noun1, cmds->noun2, l);
-                                            break;
-                                        }
                                 }
-                            }
-                            if(cmds) {
+                                for(i = 0; i < (j ? n - 1 : 0); i++)
+                                    if(room->cmds[i].verb == cmds->verb &&
+                                      room->cmds[i].noun1 == cmds->noun1 && room->cmds[i].noun2 == cmds->noun2) {
+                                        fprintf(stderr, "converter: line %u: duplicate script 'verb%u %u %u' in room %u\r\n",
+                                            line, cmds->verb, cmds->noun1, cmds->noun2, l);
+                                        cmds = &room->cmds[i];
+                                        n--;
+                                        break;
+                                    }
+                                /* get script */
                                 if(*buf == '\"') buf++;
-                                buf = json_skip(buf, end, '[', '\"');
+                                buf = json_skip(buf, end, NULL, "0123456789[\"");
                                 if(*buf == '[') {   /* script given for this verb */
                                     buf = json_opcodes(cmds->op, buf, end, 61, j ? n - 1 : 0, l, nt);
+                                    /* direction verb, top 7 verbs are reserved for scripted navigation (250 = north, 251 = west...) */
+                                    if(j > 3 && j < 10) { cmds->verb = 246 + j; room->dir[j - 4] = 255; }
                                 } else
                                 if(*buf == '\"') {  /* room alias given */
                                     for(buf++, i = 0; i < 254; i++)
                                         if((k = roomslen[i]) && !memcmp(buf, rooms[i], k) && buf[k] == '\"') { buf += k + 1; i++; break; }
-                                    if(i >= 254 || (i && !meg4.ovls[i].data)) {
-                                        fprintf(stderr, "converter: line %u: invalid jump to room alias \"%s\" in room %u\r\n", line, json_line(buf, 0), l);
-                                    } else { cmds->op[0] = 5 << 3; cmds->op[1] = i; roomref[i] = 1; }
+                                    if(i > 254 || (i && !meg4.ovls[i].data))
+                                        fprintf(stderr, "advcomp: line %u: invalid jump to room alias \"%s\" in room %u\r\n", line, json_line(buf, 0), l);
+                                    else if(j > 3 && j < 10) { room->dir[j - 4] = i; n--; memset(cmds, 0, 4); }
+                                    else { cmds->op[0] = 5 << 3; cmds->op[1] = i; }
                                 } else {            /* room number given */
-                                    i = atoi((char*)buf); while(buf < end && (*buf >= '0' && *buf <= '9')) buf++;
-                                    if(i >= 255 || (i && !meg4.ovls[i].data))
-                                        fprintf(stderr, "converter: line %u: invalid jump to %u in room %u\r\n", line, i, l);
-                                    else { cmds->op[0] = 5 << 3; cmds->op[1] = i; roomref[i] = 1; }
+                                    buf = json_num(buf, end, &i);
+                                    if(i > 254 || (i && !meg4.ovls[i].data))
+                                        fprintf(stderr, "advcomp: line %u: invalid jump to %u in room %u\r\n", line, i, l);
+                                    else if(j > 3 && j < 10) { room->dir[j - 4] = i; n--; memset(cmds, 0, 4); }
+                                    else { cmds->op[0] = 5 << 3; cmds->op[1] = i; }
                                 }
+                                if(i < 255) roomref[i] = 1;
                                 verbref[j] |= 2;
                                 numcmd++;
                             }
                         } else fprintf(stderr, "converter: line %u: invalid verb %u in room %u\r\n", line, j, l);
                     } else
                     if(*buf == '\"') {
-                        for(buf++, i = 0; i < NUMVERB; i++)
-                            if((j = verbslen[i]) && !memcmp(buf, verbs[i], j) && (buf[j] == '\"' || buf[j] == ' ')) { buf += j; j = i + 9; goto readops; }
+                        for(buf++, j = 0; j < NUMVERB + 10; j++)
+                            if((i = verbslen[j]) && !memcmp(buf, verbs[j], i) && (buf[i] == '\"' || buf[i] == ' ')) { buf += i; goto readops; }
                         fprintf(stderr, "converter: line %u: unknown verb \"%s\" in room %u\r\n", line, json_line(buf, 0), l);
                     }
                 }
@@ -1109,13 +1113,13 @@ readops:                if(j >= 0 && j < NUMVERB + 9) {
     }
 
     /* check verb references */
-    for(i = 0; i < NUMVERB && verbref[i + 9] != 1; i++);
-    if(i < NUMVERB) {
+    for(i = 10; i < NUMVERB + 10 && verbref[i] != 1; i++);
+    if(i < NUMVERB + 10) {
         fprintf(stderr, "converter: defined but unused verb(s):");
-        for(i = 0; i < NUMVERB; i++) if(verbref[i + 9] == 1) fprintf(stderr, " %u", i);
+        for(i = 0; i < NUMVERB + 10; i++) if(verbref[i] == 1) fprintf(stderr, " %u", i);
         fprintf(stderr, "\r\n");
     }
-    for(i = k = l = 0; i < NUMVERB + 9; l += !!verbref[i], k += !!(verbref[i] == 2), i++);
+    for(i = k = l = 0; i < NUMVERB + 10; l += !!verbref[i], k += !!(verbref[i] == 2), i++);
     if(k > 0) {
         fprintf(stderr, "converter: undefined but used verb(s):");
         for(i = 0; i < NUMVERB + 9; i++) if(verbref[i] == 2) fprintf(stderr, " %u", i);

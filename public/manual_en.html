@@ -5489,6 +5489,10 @@ a "Game over" room here, which has only a <samp>jmp 0</samp> reset in its logic,
 <li><samp>if (V) &gt; N</samp>: only do if variable V greater than N</li>
 <li><samp>has N</samp>: only do if noun N is in the inventory</li>
 <li><samp>not N</samp>: only do if noun N is not in the inventory</li></ul>
+<p>A special case when <samp>(V)</samp> is 250 or above, these use the navigation drirections: 250 (or <samp>north</samp>), 251 (or <samp>west</samp>), 252 (or <samp>east</samp>),
+253 (or <samp>south</samp>), 254 (or <samp>up</samp>), 255 (or <samp>down</samp>). For example to check if the room is passable to the North, that's <samp>if north != 0</samp>.
+These state indeces are storing the inventory's bitmask, which must be accessed using the <samp>has</samp> and <samp>not</samp> conditions, so there's no
+conflict.</p>
 <p>Jumping to room 0 will wait for a keypress, then resets the game and instead of 0, jumps to the given starting room (this needs
 an explicit <samp>jmp</samp> command as number 0 cannot be used as destination room number).</p>
 <p>Normally to connect rooms one would specify a room number (or "rooms" alias), but this allows passing from one room to another

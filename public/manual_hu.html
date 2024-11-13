@@ -5527,6 +5527,10 @@ lehet kiiratni.</p>
 <li><samp>if (V) &gt; N</samp>: csak ha a V változó értéke nagyobb, mint N</li>
 <li><samp>has N</samp>: csak ha az N főnév a leltárban van</li>
 <li><samp>not N</samp>: csak ha az N főnév nincs a leltárban</li></ul>
+<p>Különleges eset, ha a <samp>(V)</samp> 250 vagy nagyobb, ilyenkor az adott navigációs irányt használja: 250 (vagy <samp>north</samp>, észak), 251 (vagy
+<samp>west</samp>, nyugat), 252 (vagy <samp>east</samp>, kelet), 253 (vagy <samp>south</samp>, dél), 254 (vagy <samp>up</samp>, fel), 255 (vagy <samp>down</samp>, le). Ha például azt a
+feltételt szeretnénk, hogy északra járható-e a szoba, az <samp>if north != 0</samp>. Ezek az állapotindexek a leltár bitmaszkját tárolják,
+amit a <samp>has</samp> illetve <samp>not</samp> feltételekkel kell elérni, így nincs ütközés.</p>
 <p>A 0-ás szobára ugrás vár egy billentyűleütésre, majd újraindítja a játékot és a 0-ás helyett a megadott induló szobára ugrik (ez
 csak kifejezetten <samp>jmp</samp> utasításnak adható meg, mert a 0 szám nem használható, mint cél szobaszám).</p>
 <p>Alapesetben egy szobaösszeköttetéshez szobaszámot (vagy "rooms" aliaszt) adunk meg, de ez feltétel nélkül átengedi a játékost az
@@ -5539,7 +5543,7 @@ szkriptelt navigációra van szükség.</p>
   &quot;north&quot;: [ &quot;jmp 12 if (7) = 1&quot;, &quot;say 1&quot; ]
 }
 </pre></div>
-<p>Ilyenkor a <samp>north</samp> mezőben szám helyett egy sztringtömben a <samp>jmp 12 if (7) = 1</samp> utasítást adunk meg. Ez csak abban az esetben
+<p>Ilyenkor a <samp>north</samp> mezőben szám helyett egy sztringtömben a <samp>jmp 12 if (7) = 1</samp> utasítást adjuk meg. Ez csak abban az esetben
 ugrik a 12-es szobába, ha a 7-es állapot értéke 1, egyébként marad a 11-esben. Ilyenkor mondhatjuk azt is, hogy "Az ajtó zárva"
 a <samp>say 1</samp> utasítással (ha korábban a 12-es szobára ugrottunk, akkor ez már nem hajtódik végre). A szobaszám helyett használható
 "rooms" aliasz, az állapot index (változó) helyén pedig "vars" aliasz, például <samp>jmp padlás if kulcs = 1</samp>. Bonyolultabb összefüggés

@@ -162,6 +162,11 @@ Ezek az utasítások mind elláthatók a következő utótagok egyikével:
 - `has N`: csak ha az N főnév a leltárban van
 - `not N`: csak ha az N főnév nincs a leltárban
 
+Különleges eset, ha a `(V)` 250 vagy nagyobb, ilyenkor az adott navigációs irányt használja: 250 (vagy `north`, észak), 251 (vagy
+`west`, nyugat), 252 (vagy `east`, kelet), 253 (vagy `south`, dél), 254 (vagy `up`, fel), 255 (vagy `down`, le). Ha például azt a
+feltételt szeretnénk, hogy északra járható-e a szoba, az `if north != 0`. Ezek az állapotindexek a leltár bitmaszkját tárolják,
+amit a `has` illetve `not` feltételekkel kell elérni, így nincs ütközés.
+
 A 0-ás szobára ugrás vár egy billentyűleütésre, majd újraindítja a játékot és a 0-ás helyett a megadott induló szobára ugrik (ez
 csak kifejezetten `jmp` utasításnak adható meg, mert a 0 szám nem használható, mint cél szobaszám).
 
@@ -177,7 +182,7 @@ szkriptelt navigációra van szükség.
 }
 ```
 
-Ilyenkor a `north` mezőben szám helyett egy sztringtömben a `jmp 12 if (7) = 1` utasítást adunk meg. Ez csak abban az esetben
+Ilyenkor a `north` mezőben szám helyett egy sztringtömben a `jmp 12 if (7) = 1` utasítást adjuk meg. Ez csak abban az esetben
 ugrik a 12-es szobába, ha a 7-es állapot értéke 1, egyébként marad a 11-esben. Ilyenkor mondhatjuk azt is, hogy "Az ajtó zárva"
 a `say 1` utasítással (ha korábban a 12-es szobára ugrottunk, akkor ez már nem hajtódik végre). A szobaszám helyett használható
 "rooms" aliasz, az állapot index (változó) helyén pedig "vars" aliasz, például `jmp padlás if kulcs = 1`. Bonyolultabb összefüggés
