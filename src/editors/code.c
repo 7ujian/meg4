@@ -612,6 +612,7 @@ void code_init(void)
     memset(func, 0, sizeof(func));
     lastc = 0;
     if(errline) meg4.mmio.ptrspr = MEG4_PTR_ERR;
+    main_osk_show();
 }
 
 /**
@@ -620,6 +621,7 @@ void code_init(void)
 void code_free(void)
 {
     int i;
+    main_osk_hide();
     if(hist) {
         for(i = 0; i < numhist; i++) {
             if(hist[i].oldbuf) free(hist[i].oldbuf);

@@ -203,6 +203,7 @@ str_t meg4_api_gets(void)
         cony = le16toh(meg4.mmio.cropx0); if(conx < cony) conx = cony;
         cony = le16toh(meg4.mmio.cropx1); conw = (cony < meg4.screen.w ? cony : meg4.screen.w) - conx;
         cony = meg4.mmio.cony;
+        main_osk_show();
     }
     conc = 0;
     /* --- controller --- */
@@ -212,6 +213,7 @@ str_t meg4_api_gets(void)
     if(!key) return 0;
     l = meg4_api_lenkey(key);
     if(key == le32toh('\n')) {
+        main_osk_hide();
         meg4_getscsr(0);
         meg4.mmio.conx = 0; meg4.mmio.cony += 8; meg4_conrst(); if(meg4.mmio.cony + 8 > meg4.screen.h) meg4.mmio.cony = 0;
         if(strcmp(hist[0], (char*)meg4.data + sizeof(meg4.data) - 256)) {

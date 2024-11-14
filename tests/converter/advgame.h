@@ -57,31 +57,38 @@ typedef struct {
 extern char c_assert2[sizeof(ag_room_t) <= 8192 ? 1 : -1];
 
 /* script opcodes */
-enum { ARG_NONE, ARG_IF, ARG_CND, ARG_VAR, ARG_NUM, ARG_MUS, ARG_SFX, ARG_SCR, ARG_MSG, ARG_ROOM, ARG_NOUN, ARG_IMG, ARG_CRD };
+enum { ARG_NONE, ARG_IF, ARG_CND, ARG_VAR, ARG_NUM, ARG_MUS, ARG_SFX, ARG_SCR, ARG_MSG, ARG_ROOM, ARG_VERB, ARG_NOUN,
+    ARG_IMG, ARG_CRD, ARG_MCRD };
 typedef struct { char *op; int len, arg[16]; } ag_ops_t;
 static ag_ops_t ops[] = {
- /*  0 */ { "end",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  1 */ { "and",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  2 */ { "or",    2, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  3 */ { "bgm",   3, { ARG_MUS,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  4 */ { "sfx",   3, { ARG_SFX,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  5 */ { "jmp",   3, { ARG_ROOM, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  6 */ { "jmpv",  4, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  7 */ { "call",  4, { ARG_SCR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  8 */ { "callv", 5, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /*  9 */ { "give",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /* 10 */ { "take",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /* 11 */ { "say",   3, { ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE, ARG_NONE } },
- /* 12 */ { "sayv",  4, { ARG_VAR,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 13 */ { "sayc",  4, { ARG_MSG,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 14 */ { "add",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 15 */ { "addv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 16 */ { "sub",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 17 */ { "subv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 18 */ { "set",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 19 */ { "rnd",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 20 */ { "mov",   3, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE, ARG_NONE } },
- /* 21 */ { "img",   3, { ARG_IMG,  ARG_NUM,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  ARG_NONE  } },
+ /*  0 */ { "end",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  1 */ { "and",   3, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  2 */ { "or",    2, { ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  3 */ { "bgm",   3, { ARG_MUS,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  4 */ { "sfx",   3, { ARG_SFX,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  5 */ { "jmp",   3, { ARG_ROOM, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  6 */ { "jmpv",  4, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  7 */ { "call",  4, { ARG_SCR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  8 */ { "callv", 5, { ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /*  9 */ { "give",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 10 */ { "take",  4, { ARG_NOUN, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 11 */ { "say",   3, { ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 12 */ { "sayv",  4, { ARG_VAR,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 13 */ { "sayc",  4, { ARG_MSG,  ARG_MSG,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 14 */ { "add",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 15 */ { "addv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 16 */ { "sub",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 17 */ { "subv",  4, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 18 */ { "set",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 19 */ { "rnd",   3, { ARG_VAR,  ARG_NUM,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 20 */ { "mov",   3, { ARG_VAR,  ARG_VAR,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 21 */ { "img",   3, { ARG_IMG,  ARG_CRD,  ARG_CRD,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 22 */ { "frect", 5, { ARG_NUM,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 23 */ { "text",  4, { ARG_MSG,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 24 */ { "verb",  4, { ARG_VERB, ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 25 */ { "noun",  4, { ARG_NOUN, ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 26 */ { "spr",   3, { ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_CRD,  ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
+ /* 27 */ { "sprm",  3, { ARG_MCRD, ARG_MCRD, ARG_MCRD, ARG_MCRD, ARG_MCRD, ARG_MCRD, ARG_IF,   ARG_VAR,  ARG_CND,  ARG_NUM,  0 } },
           { 0 }
 };
 static char *cnds[] = { "=", "!=", "<=", "<", ">" };
@@ -93,7 +100,7 @@ static char *program = "#!c\n\n"
 " * Copyright (c) bzt 2024 CC-0\n"
 " */\n%s\n"
 "/* variables */\n"
-"uint8_t lang, state[256], stat[2], colors[5], textpos, logic[4104], dir[8], cmd[4096], com[1024], say, say2, say3, rst;\n"
+"uint8_t lang, state[256], init[256], stat[2], colors[5], textpos, logic[4104], dir[8], cmd[4096], say, say2, say3, rst;\n"
 "char ans[256], verb[1536], noun[1536], msg[4096], inp[256];\n"
 "uint16_t midx[64];\n\n"
 "/* customize your UI here */\n"
@@ -119,6 +126,7 @@ static char *program = "#!c\n\n"
 "    if(p == 1) cnd = cnd && l; else if(p == 2) cnd = cnd || l;\n"
 "    p = l = 0;\n"
 "    switch(op >> 3) {\n"
+"      case  0: if(cnd) return; break;\n"
 "      case  1: p = 1; l = cnd; break;\n"
 "      case  2: p = 2; l = cnd; break;\n"
 "      case  3: arg1 = *c++; if(cnd && arg1 < 8) music(arg1, 0, 128); break;\n"
@@ -140,8 +148,10 @@ static char *program = "#!c\n\n"
 "      case 19: arg1 = *c++; arg2 = *c++; if(cnd) state[arg1] = rand() %% arg2; break;\n"
 "      case 20: arg1 = *c++; arg2 = *c++; if(cnd) state[arg1] = state[arg2]; break;\n"
 "      case 21: c += 3; break;\n"
+"      case 22: case 23: case 24: case 25: c += 5; break;\n"
+"      case 26: c += 6; break;\n"
+"      case 27: c += 18; break;\n"
 "    }\n"
-"    if(!(op >> 3) && cnd) break;\n"
 "  }\n"
 "}\n"
 "\n"
@@ -149,17 +159,18 @@ static char *program = "#!c\n\n"
 "void load_room(int r)\n"
 "{\n"
 "  int i, m, l;\n"
-"  if(state[0] == r || r == 255) return;\n"
-"  if(!r) { inp[0] = 0; rst = 1; return; }\n"
-"  state[0] = r;\n"
-"  memload(0x10000, r, 32768);\n"
-"  memcpy(&msg, 0x10000 + lang * 2048, 2048);\n"
-"  memcpy(&dir, 0x11000, 6);\n"
-"  memcpy(&cmd, 0x11006, 4096);\n"
-"  memset(&midx, 0, 64);\n"
-"  for(m = i = 0, l = 1; i < 32 && m < 2048 && l > 0; i++, m += l + 1) { midx[i] = m; l = strlen(&msg[m]); }\n"
-"  inp[0] = 0; say = 255; say2 = say3 = 0;\n"
-"  parse_ops(&cmd[3]);\n"
+"  if(r < 1 || r > 254) { inp[0] = 0; rst = 1; return; }\n"
+"  if(state[0] != r) {\n"
+"    state[0] = r;\n"
+"    memload(0x10000, r, 32768);\n"
+"    memcpy(&msg, 0x10000 + lang * 2048, 2048);\n"
+"    memcpy(&dir, 0x11000, 6);\n"
+"    memcpy(&cmd, 0x11006, 4096);\n"
+"    memset(&midx, 0, 64);\n"
+"    for(m = i = 0, l = 1; i < 32 && m < 2048 && l > 0; i++, m += l + 1) { midx[i] = m; l = strlen(&msg[m]); }\n"
+"    inp[0] = 0; say = 255; say2 = say3 = 0;\n"
+"    parse_ops(&cmd[3]);\n"
+"  }\n"
 "  cls(colors[2]);\n"
 "  spr(32, 2, 128, 32, textpos > 96 ? 12 : textpos/8, 0, 0);\n"
 "  if(stat[0]) printf(\" %%3u\", state[stat[0]]);\n"
@@ -175,14 +186,14 @@ static char *program = "#!c\n\n"
 "  if(!s || !*s) { say = 255; return; }\n"
 "  memcpy(&inp, s, 256);\n"
 "  /* detect verb and noun(s) */\n"
-"  v = 255; n1 = n2 = 0;\n"
+"  v = n1 = n2 = 0;\n"
 "  for(i = n = 0; i < 255 && inp[i] && !n2;) {\n"
 "    while(i < 255 && inp[i] == ' ') i++;\n"
-"    if(v == 255)\n"
-"      for(m = j = 0; j < 40; j++)\n"
+"    if(!v)\n"
+"      for(m = j = 0; j < 42; j++)\n"
 "        for(k = 0; k < 8 && m < 1536; k++, m += l + 1) {\n"
 "          l = strlen(&verb[m]);\n"
-"          if(l > n && (mblen(&verb[m]) > 2 || !inp[i + l] || inp[i + l] == ' ') && !memcmp(&inp[i], &verb[m], l)) { v = j; n = l; }\n"
+"          if(l > n && (mblen(&verb[m]) > 2 || !inp[i + l] || inp[i + l] == ' ') && !memcmp(&inp[i], &verb[m], l)) { v = j + 1; n = l; }\n"
 "        }\n"
 "    for(m = j = 0, l = 1; j < 255 && m < 1536 && l; j++, m += l + 1) {\n"
 "      l = strlen(&noun[m]);\n"
@@ -194,17 +205,17 @@ static char *program = "#!c\n\n"
 "  if(rst) return;\n"
 "  say = say2 = say3 = 0;\n"
 "  /* built-in navigation verbs (might fall-through into room script case) */\n"
-"  if(v >= 3 && v <= 8) {\n"
-"    if(n1) { say = 2; return; } else v -= 3;\n"
+"  if(v >= 4 && v <= 9) {\n"
+"    if(n1) { say = 2; return; } else v -= 4;\n"
 "    if(dir[v] == 255) { v += 250; n1 = n2 = 0; }\n"
 "    else { if(!dir[v]) say = 1; else load_room(dir[v]); return; }\n"
 "  }\n"
 "  /* built-in save, load game and list inventory verbs */\n"
-"  if(v == 0) { say = memsave(255, &state, 256) ? 3 : 2; } else\n"
-"  if(v == 1) { say = 2; memload(&state, 255, 256); v = state[0] ? state[0] : 1; state[0] = 255; load_room(v); } else\n"
-"  if(v == 2) { say = 254; } else\n"
+"  if(v == 1) { say = memsave(255, &state, 256) ? 3 : 2; } else\n"
+"  if(v == 2) { say = 2; memload(&state, 255, 256); v = state[0] ? state[0] : 1; state[0] = 255; load_room(v); return; } else\n"
+"  if(v == 3) { say = 254; } else\n"
 "  /* look for a script for this verb and noun(s) */\n"
-"  if(v != 255) {\n"
+"  if(v) {\n"
 "    /* room specific */\n"
 "    for(say = 2, i = 64; i < 63*64; i += 64)\n"
 "      if(cmd[i] == v && ((cmd[i + 1] == n1 && cmd[i + 2] == n2) || (cmd[i + 1] == n2 && cmd[i + 2] == n1))) {\n"
@@ -221,13 +232,10 @@ static char *program = "#!c\n\n"
 "/* wait for a keypress and force jump to the first room */\n"
 "void reset_game()\n"
 "{\n"
-"  uint8_t r;\n"
 "  getc();\n"
-"  memload(0x10000, 0, 32768);\n"
-"  memcpy(&state, 0x10EB0, 256);\n"
-"  r = state[0] ? state[0] : 1;\n"
+"  memcpy(&state, &init, 256);\n"
 "  state[0] = 255; rst = 0;\n"
-"  load_room(r);\n"
+"  load_room(init[0] ? init[0] : 1);\n"
 "}\n"
 "\n"
 "/* load game configuration and display intro screen */\n"
@@ -235,21 +243,23 @@ static char *program = "#!c\n\n"
 "{\n"
 "  int i, m, l;\n"
 "  outw(0x14, PTR_NONE);\n"
+"  memload(0x10000, 0, 32768);\n"
+"  lang = inb(0x11000) && (inb(16) != inb(0x10000) || inb(17) != inb(0x10001)) ? 1 : 0;\n"
+"  memcpy(&init, 0x10EB0, 256);\n"
+"  memcpy(&stat, 0x10FB0, 2);\n"
+"  memcpy(&colors, 0x10FB2, 5);\n"
+"  memcpy(&textpos, 0x10FB7, 1);\n"
+"  memcpy(&logic, 0x10FB8, 72);\n"
+"  memcpy(&msg, 0x10002 + lang * 4096, 430);\n"
+"  memcpy(&ans, 0x101B0 + lang * 4096, 256);\n"
+"  memcpy(&verb, 0x102B0 + lang * 4096, 1536);\n"
+"  memcpy(&noun, 0x108B0 + lang * 4096, 1536);\n"
 "  memload(0x10000, 1, 32768);\n"
 "  memcpy(&logic[72], 0x11046, 4032);\n"
 "  memcpy(&msg[2048], 0x10000 + lang * 2048, 2048);\n"
 "  memset(&midx[32], 0, 64);\n"
 "  for(m = 2048, i = 32, l = 1; i < 64 && m < 4096 && l > 0; i++, m += l + 1) { midx[i] = m; l = strlen(&msg[m]); }\n"
 "  memload(0x10000, 0, 32768);\n"
-"  lang = inb(0x11000) && (inb(16) != inb(0x10000) || inb(17) != inb(0x10001)) ? 1 : 0;\n"
-"  memcpy(&stat, 0x10FB0, 2);\n"
-"  memcpy(&colors, 0x10FB2, 5);\n"
-"  memcpy(&textpos, 0x10FB7, 1);\n"
-"  memcpy(&logic, 0x10FB8, 72);\n"
-"  memcpy(&msg, 0x10002 + lang * 4096, 750);\n"
-"  memcpy(&ans, 0x101B0 + lang * 4096, 256);\n"
-"  memcpy(&verb, 0x102B0 + lang * 4096, 1536);\n"
-"  memcpy(&noun, 0x108B0 + lang * 4096, 1536);\n"
 "  cls(colors[0]);\n"
 "  spr(32, 2, 128, 32, textpos > 96 ? 12 : textpos/8, 0, 0);\n"
 "  custom_intro();\n"
@@ -289,8 +299,8 @@ static char *program = "#!c\n\n"
 
 /* global variables needed for compiling the JSON */
 extern int isbinary;
-int line, varslen[256] = { 0 }, roomslen[254] = { 0 }, nounslen[NUMNOUN] = { 0 }, numinst = 0, numvar = 0;
-char *vars[256] = { 0 }, *rooms[254] = { 0 }, roomref[256] = { 0 }, *nouns[NUMNOUN] = { 0 };
+int line, varslen[256] = { 0 }, roomslen[254] = { 0 }, nounslen[NUMNOUN] = { 0 }, verbslen[256] = { 0 }, numinst = 0, numvar = 0;
+char *vars[256] = { 0 }, *rooms[254] = { 0 }, roomref[256] = { 0 }, *nouns[NUMNOUN] = { 0 }, *verbs[256] = { 0 }, verbref[256] = { 0 };
 
 /**
  * Helper to skip comments
@@ -444,7 +454,7 @@ char *json_line(uint8_t *str, char sep)
 uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, int l, int nt)
 {
     static char *err[] = { "argument", "condition", "music", "sound effect", "script", "variable", "value", "message", "room",
-        "noun", "image", "coordinate" }, *dirs[] = { "north", "west", "east", "south", "up", "down" };
+        "verb", "noun", "image", "coordinate" }, *dirs[] = { "north", "west", "east", "south", "up", "down" };
     char in[128];
     uint8_t op[32];
     int i, j, k, m, o, p, e, t, h, c, r;
@@ -453,7 +463,7 @@ uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, 
     if(!n) sprintf(in, "common logic"); else sprintf(in, "script %u in room %u", n, l);
 
     for(i = 0; src < end && *src != ']' && *src != '}' && i < len - 1; src++) {
-        for(; src < end && strchr(":[\",\r\n /", *src); src++) src = json_iscomment(src, end);
+        src = json_skip(src, end, ":[\",\r\n /", NULL);
         if(src == end || *src == ']' || *src == '}') break;
         for(k = 0; ops[k].len; k++) {
             /* if instruction mnemonic found */
@@ -533,47 +543,65 @@ uint8_t *json_opcodes(uint8_t *dst, uint8_t *src, uint8_t *end, int len, int n, 
                                     }
                             if(e || o < 0 || o > 254 || (o && !(meg4.ovls[o].data))) e = 9; else { op[j++] = o; roomref[o] = 1; }
                         break;
+                        case ARG_VERB:
+                            if(*src >= '0' && *src <= '9') src = json_num(src, end, &o); else
+                                for(e = 10, o = 1; o < NUMVERB + 10; o++)
+                                    if((p = verbslen[o]) && !memcmp(src, verbs[o], p) && (src[p] == '\"' || src[p] == ' ' || src[p] == ')')) {
+                                        src += p; e = 0; break;
+                                    }
+                            if(e || o < 1 || o > NUMVERB + 10) e = 10; else op[j++] = o - 1;
+                        break;
                         case ARG_NOUN:
                             if(*src >= '0' && *src <= '9') src = json_num(src, end, &o); else
-                                for(e = 10, o = 0; o < NUMNOUN; o++)
+                                for(e = 11, o = 0; o < NUMNOUN; o++)
                                     if((p = nounslen[o]) && !memcmp(src, nouns[o], p) && (src[p] == '\"' || src[p] == ' ' || src[p] == ')')) {
                                         src += p; o++; e = 0; break;
                                     }
-                            if(o < 1 || o > NUMNOUN) e = 10; else op[j++] = o;
+                            if(o < 1 || o > NUMNOUN) e = 11; else op[j++] = o;
                         break;
                         case ARG_IMG:
                             src = json_num(src, end, &o);
-                            if(o < 0 || o > 15) e = 11; else op[j++] = o;
+                            if(o < 0 || o > 15) e = 12; else op[j++] = o;
                         break;
                         case ARG_CRD:
+                        case ARG_MCRD:
                             src = json_num(src, end, &o);
-                            if(o < 0 || o > 1023) { e = 7; break; }
-                            if(!strchr(" \"+-", *src)) { e = 12; break; }
-                            op[j++] = o / 4;
-                            if(*src == '+' || *src == '-') {
-                                p = *src == '-' ? -1 : 1;
-                                src = json_num(src + 1, end, &o); o *= p;
-                                if(!o || o < -127 || o > 127 || *src != '*') { e = 12; break; }
-                                op[j++] = o; src++;
-                                if(*src >= '0' && *src <= '9') src = json_num(src, end, &o);
-                                else if(!memcmp(src, "lang", 4) && (src[4] == '\"' || src[4] == ' ')) { o = 255; src += 4; } else
-                                    for(e = 6, o = 0; o < 250; o++)
-                                        if((p = varslen[o]) && !memcmp(src, vars[o], p) && (src[p] == '\"' || src[p] == ' ')) {
-                                            src += p; e = 0; break;
-                                        }
-                                if(e || o < 0 || o > 255) e = 6; else { op[j++] = o; if(o < 255 && o > numvar) numvar = o; }
-                            } else { op[j++] = 0; op[j++] = 0; }
+                            if(o < 0 || o > 2047) { e = 7; break; }
+                            op[j++] = o >> 3;
+                            if(ops[k].arg[m] == ARG_MCRD) {
+                                if(!strchr(" \"+-", *src)) { e = 13; break; }
+                                if(*src == '+' || *src == '-') {
+                                    p = *src == '-' ? -1 : 1;
+                                    src = json_num(src + 1, end, &o); o *= p;
+                                    if(!o || o < -127 || o > 127 || *src != '*') { e = 13; break; }
+                                    op[j++] = o; src++;
+                                    if(*src >= '0' && *src <= '9') src = json_num(src, end, &o);
+                                    else if(!memcmp(src, "lang", 4) && (src[4] == '\"' || src[4] == ' ')) { o = 255; src += 4; } else
+                                        for(e = 6, o = 0; o < 250; o++)
+                                            if((p = varslen[o]) && !memcmp(src, vars[o], p) && (src[p] == '\"' || src[p] == ' ')) {
+                                                src += p; e = 0; break;
+                                            }
+                                    if(e || o < 0 || o > 255) e = 6; else { op[j++] = o; if(o < 255 && o > numvar) numvar = o; }
+                                } else { op[j++] = 0; op[j++] = 0; }
+                            }
                         break;
                     }
                 }
                 /* report error (if any) */
                 if(e) fprintf(stderr, "converter: line %u: bad %s in %s: %s %s \"%s\"\r\n", line, ops[k].op, in,
                     e == 1 ? "missing" : (e == 7 ? "out of bounds" : "no such"), err[e - 1], json_line(src, ' ')); else
+                if(n == -1 && k > 4 && k < 22) fprintf(stderr, "converter: line %u: instruction %s not allowed in %s\r\n",
+                    line, ops[k].op, in); else
+                if(i + t >= len - 1) fprintf(stderr, "converter: line %u: not enough buffer for instruction %s in %s\r\n", line,
+                    ops[k].op, in);
                 /* otherwise add the generated binary opcode to the script */
-                if(i + t < len - 1) { if(k < 21) { memcpy(dst + i, op, t); i += t; numinst += t; } }
-                else fprintf(stderr, "converter: line %u: not enough buffer for '%s' in %s\r\n", line, ops[k].op, in);
+                else {
+                    if(!op[0]) { src = json_skip(src, end, NULL, "]}"); break; }
+                    /* silently ignore AdvGame 2.0 instructions */
+                    if(k < 21) { memcpy(dst + i, op, t); i += t; numinst += t; }
+                }
                 /* skip to the next mnemonic (needed if there was a problem with parsing the arguments or if there's a comment) */
-                for(; src < end && !strchr("\",\r\n)]}", *src); src++) src = json_iscomment(src, end);
+                src = json_skip(src, end, NULL, "\",]}");
                 break;
             }
         }
@@ -596,8 +624,8 @@ int main_advgame(char *fn, uint8_t *buf, int len)
     char tmpnoun[NUMNOUN][16];          /* nouns */
     char tmpmsg[NUMMSG][256];           /* room messages */
     char tmp[4096], str[1024], *verbs[256] = { 0 }, *comment = NULL, custom[2][4096] = { "", "" };
-    uint8_t *end = buf + len, *img, *s, *e, *iend, verbref[256] = { 0 };
-    int i, j, k, l, m, n, p, flen, size, verbslen[256] = { 0 }, numnoun = 0, numcmd = 0, numtxt = 0, nt = 0;
+    uint8_t *end = buf + len, *img, *s, *e, *iend;
+    int i, j, k, l, m, n, p, flen, size, numnoun = 0, numcmd = 0, numtxt = 0, nt = 0;
     char *keywords1[] = { "sprites", "music", "sounds", "setup", "rooms", "verbs", "nouns", "vars", "status", "colors", "textpos",
         "custom", "interface" };
     char *keywords2[] = { "logic", "save", "load", "list", "north", "west", "east", "south", "up", "down", "lang", "answers",
@@ -628,7 +656,7 @@ int main_advgame(char *fn, uint8_t *buf, int len)
         if(*s == '}') {
             if(p > 0) fprintf(stderr, "converter: line %u: unclosed [\r\n", l);
             if(p < 0) fprintf(stderr, "converter: line %u: no opening for ]\r\n", l);
-            k--; p = 0;
+            k--; if(p) return 0;
         }
         if(p && *s == '\"') for(s++; s < end && (*s != '\"' || s[-1] == '\\'); s++) if(*s == '\n') l++;
         if(k != 1 || p) continue;
@@ -676,6 +704,7 @@ isroom:     if(i > 0 && i < 255) {
     if(k < 0) fprintf(stderr, "converter: line %u: no opening for }\r\n", l);
     if(p > 0) fprintf(stderr, "converter: line %u: unclosed [\r\n", l);
     if(p < 0) fprintf(stderr, "converter: line %u: no opening for ]\r\n", l);
+    if(k || p) return 0;
 
     /* parse JSON */
     for(buf += 9; buf < end; buf++) {
@@ -689,7 +718,7 @@ isroom:     if(i > 0 && i < 255) {
             if((img = main_readfile(tmp, &size))) {
                 if(!memcmp(img, "\x89PNG", 4)) {
                     i = ((img[18] << 8) | img[19]); j = ((img[22] << 8) | img[23]);
-                    if(i == 256 && j == 256) {
+                    if(i == 256 && j > 32 && j <= 2048) {
                         for(s = img + 8, iend = img + size, k = l = 1; s < iend - 12 && k > 0; s += k + 12) {
                             k = ((s[0] << 24) | (s[1] << 16) | (s[2] << 8) | s[3]);
                             /* indexed png, also load the palette */
@@ -715,7 +744,8 @@ isroom:     if(i > 0 && i < 255) {
                             if((s = (uint8_t*)stbi_load_from_memory(img, size, &i, &j, &k, 4))) {
                                 memcpy(meg4.mmio.palette, default_pal, sizeof(meg4.mmio.palette));
                                 memset(meg4.mmio.sprites, 0, sizeof(meg4.mmio.sprites));
-                                for(j = k = 0, e = s; j < 256; j++)
+                                if(j > 256) j = 256;
+                                for(p = k = 0, e = s; p < j; p++)
                                     for(i = 0; i < 256; i++, k++, e += 4)
                                         meg4.mmio.sprites[k] = meg4_palidx(e);
                                 free(s);
@@ -1037,7 +1067,7 @@ readops:                if(j > 0 && j < 4) {
                             }
                             if(cmds) {
                                 /* got verb */
-                                cmds->verb = j ? j - 1 : 0;
+                                cmds->verb = j;
                                 /* get noun arguments */
                                 if(*buf == ' ') {
                                     buf++;
@@ -1068,7 +1098,7 @@ readops:                if(j > 0 && j < 4) {
                                 for(i = 0; i < (j ? n - 1 : 0); i++)
                                     if(room->cmds[i].verb == cmds->verb &&
                                       room->cmds[i].noun1 == cmds->noun1 && room->cmds[i].noun2 == cmds->noun2) {
-                                        fprintf(stderr, "converter: line %u: duplicate script 'verb%u %u %u' in room %u\r\n",
+                                        fprintf(stderr, "converter: line %u: duplicate script \"verb%u %u %u\" in room %u\r\n",
                                             line, cmds->verb, cmds->noun1, cmds->noun2, l);
                                         cmds = &room->cmds[i];
                                         n--;
@@ -1119,15 +1149,15 @@ readops:                if(j > 0 && j < 4) {
         for(i = 0; i < NUMVERB + 10; i++) if(verbref[i] == 1) fprintf(stderr, " %u", i);
         fprintf(stderr, "\r\n");
     }
-    for(i = k = l = 0; i < NUMVERB + 10; l += !!verbref[i], k += !!(verbref[i] == 2), i++);
+    for(i = 1, k = l = 0; i < NUMVERB + 10; l += !!verbref[i], k += !!(verbref[i] == 2), i++);
     if(k > 0) {
         fprintf(stderr, "converter: undefined but used verb(s):");
-        for(i = 0; i < NUMVERB + 9; i++) if(verbref[i] == 2) fprintf(stderr, " %u", i);
+        for(i = 1; i < NUMVERB + 10; i++) if(verbref[i] == 2) fprintf(stderr, " %u", i);
         fprintf(stderr, "\r\n");
     }
 
     /* check room references */
-    for(i = 1, j = 1; i < 255; j += !!meg4.ovls[i].data, i++)
+    for(i = 1, j = 0; i < 255; j += !!meg4.ovls[i].data, i++)
         if(!roomref[i] && meg4.ovls[i].data) {
             fprintf(stderr, "converter: unreferenced room(s):");
             for(i = 1; i < 255; i++) if(!roomref[i] && meg4.ovls[i].data) fprintf(stderr, " %u", i);
