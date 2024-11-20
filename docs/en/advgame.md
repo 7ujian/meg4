@@ -1,10 +1,11 @@
 Adventure Game
 ==============
 
-The [converter](https://gitlab.com/bztsrc/meg4/blob/main/tests/converter) can parse **AdvGame JSON** source files and convert those
-into MEG-4 Adventure Games. These are classic textual games (also known as Interactive Fiction) where the player enters sentences
+The [advcomp](https://gitlab.com/bztsrc/meg4_advgame) compiler can parse **AdvGame JSON** source files and convert those into
+MEG-4 Adventure Games. These are classic textual games (also known as Interactive Fiction) where the player enters sentences
 in order to progress in the game. Each sentence is then parsed into a verb and noun(s), and looked up. If a script is found for
-that verb and noun(s) combination, then it is executed.
+that verb and noun(s) combination, then it is executed. (The `advcomp` tool can also generate point'n'click adventure games from
+the very same JSON files which are playable using `advgame`, but not by MEG-4.)
 
 Limitations:
 
@@ -38,7 +39,7 @@ The source file must have an `"AdvGame"` JSON structure at the top which is also
 - `verbs`: array of strings, aliases to `verb1`, `verb2`, `verb3` etc. (only used in the JSON)
 - `nouns`: array of strings, aliases to nouns (only used in the JSON)
 - `colors`: array of 5 numbers, intro and room background and text, and prompt color
-- `textpos`: number, text position from top in pixels
+- `pos`: number, text position from top in pixels
 - `custom`: array of strings, additional C code to display user interface (first intro code, second room code)
 - `logic`: array of strings, common game logic script executed before each and every command
 - `config0`: structure, main game configuration

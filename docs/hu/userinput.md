@@ -25,7 +25,7 @@ elérhető egy <kbd>Alt</kbd> kombinációval, függetlenül attól, hogy a plat
 | Billentyűkombináció          | Leírás                                                                                       |
 |------------------------------|----------------------------------------------------------------------------------------------|
 | <kbd>GUI</kbd>               | Vagy Super, néha <imgt ../img/gui.png> logó van rajta. UNICODE kódpont beviteli mód.         |
-| <kbd>AltGr</kbd>             | A szóköztől jobbra lévő Alt billentyű, Kompozit beviteli mód.                                |
+| <kbd>AltGr</kbd>             | A jobb Alt billentyű, Kompozit beviteli mód üresen nyomva.                                   |
 | <kbd>Alt</kbd>+<kbd>U</kbd>  | Ha a billentyűzeteden nem lenne <kbd>GUI</kbd> gomb, ez is UNICODE kódpont beviteli mód.     |
 | <kbd>Alt</kbd>+<kbd>Space</kbd> | Kompozit vésztartalék, az <kbd>AltGr</kbd> gomb nélküli billentyűzetehez.                 |
 | <kbd>Alt</kbd>+<kbd>I</kbd>  | Ikon (emoji) beviteli mód.                                                                   |

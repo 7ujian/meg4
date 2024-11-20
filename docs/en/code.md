@@ -9,7 +9,7 @@ using structograms, and your program's machine code can be seen in the [debugger
 <imgc ../img/codescr.png><fig>Code Editor</fig>
 
 Here the entire area (<ui2>1</ui2>) is one big input field for the source code. At the bottom (<ui2>2</ui2>), you can see the
-status bar, with the current's row and coloumn, the UNICODE codepoint of the character under the cursor, and if you're standing
+status bar, with the current row and coloumn, the UNICODE codepoint of the character under the cursor, and if you're standing
 in an API's argument list, a quick help on that API function's parameters (suitable for all programming languages).
 
 Programming Language

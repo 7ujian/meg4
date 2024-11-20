@@ -892,12 +892,12 @@ uint8_t meg4_palidx(uint8_t *rgba)
 
     for(i = 0; i < 256 && dm > 0; i++) {
         b = (uint8_t*)&meg4.mmio.palette[i];
-        if(rgba[0] == b[0] && rgba[1] == b[1] && rgba[2] == b[2]) return i;
+        if(rgba[0] == b[0] && rgba[1] == b[1] && rgba[2] == b[2] && rgba[3] == b[3]) return i;
         db = rgba[2] > b[2] ? rgba[2] - b[2] : b[2] - rgba[2];
         dg = rgba[1] > b[1] ? rgba[1] - b[1] : b[1] - rgba[1];
         dr = rgba[0] > b[0] ? rgba[0] - b[0] : b[0] - rgba[0];
         d = ((dr*dr) << 1) + (db*db) + ((dg*dg) << 2);
-        if(d < dm) { dm = d; ret = i; }
+        if(d < dm && b[3]) { dm = d; ret = i; }
     }
     return ret;
 }

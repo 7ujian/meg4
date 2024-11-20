@@ -476,7 +476,8 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
     if(!memcmp(buf, "\x89PNG", 4)) {
         i = ((buf[18] << 8) | buf[19]); j = ((buf[22] << 8) | buf[23]);
         if(i == 256 && j == 256) {
-            for(s = buf + 8, k = 1; s < end - 12 && k > 0; s += k + 12) {
+            /* we also came here as a last resort, but first we must check for map and cartridges with specific dimensions */
+loadanyway: for(s = buf + 8, k = 1; s < end - 12 && k > 0; s += k + 12) {
                 k = ((s[0] << 24) | (s[1] << 16) | (s[2] << 8) | s[3]);
                 /* could be a tic-80 cartridge */
                 if(!memcmp(s + 4, "caRt", 4)) { e = s + 8; goto ticbin; }
@@ -491,11 +492,12 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
                         for(i = 0, e += 8; i < k; i++, e++)
                             *((uint8_t*)&meg4.mmio.palette[i] + 3) = e[0];
                     }
-                    s = (uint8_t*)stbi_load_from_memory(buf, len, &i, &j, &k, 1);
+                    s = (uint8_t*)stbi_load_from_memory(buf, len, &w, &h, &k, 1);
                     if(s) {
-                        i *= j; if(i > (int)sizeof(meg4.mmio.sprites)) i = sizeof(meg4.mmio.sprites);
                         main_log(1, "sprites (png) detected");
-                        memcpy(meg4.mmio.sprites, s, i);
+                        /* copy to the top left corner up to 256 x 256 pixels, no matter what dimensions the image has */
+                        for(j = k = 0, e = s; j < 256 && j < h; j++, k += 256, e += w)
+                            memcpy(meg4.mmio.sprites + k, e, w > 256 ? 256 : w);
                         free(s);
                     } else ret = 0;
                     if(!lvl) meg4_switchmode(MEG4_MODE_SPRITE);
@@ -503,14 +505,15 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
                 }
             }
             /* no palette chunk, this must be a truecolor image */
-            s = (uint8_t*)stbi_load_from_memory(buf, len, &i, &j, &k, 4);
+            s = (uint8_t*)stbi_load_from_memory(buf, len, &w, &h, &k, 4);
             if(s) {
                 memcpy(meg4.mmio.palette, default_pal, sizeof(meg4.mmio.palette));
                 memset(meg4.mmio.sprites, 0, sizeof(meg4.mmio.sprites));
                 main_log(1, "sprites (truecolor png) detected");
-                for(j = k = 0, e = s; j < 256; j++)
-                    for(i = 0; i < 256; i++, k++, e += 4)
-                        meg4.mmio.sprites[k] = meg4_palidx(e);
+                /* copy to the top left corner up to 256 x 256 pixels, no matter what dimensions the image has */
+                for(j = k = 0, e = s; j < 256 && j < h; j++, k += 256, e += w * 4)
+                    for(i = 0; i < 256 && i < w; i++)
+                        meg4.mmio.sprites[k + i] = meg4_palidx(e + i * 4);
                 free(s);
             } else ret = 0;
             if(!lvl) meg4_switchmode(MEG4_MODE_SPRITE);
@@ -534,7 +537,7 @@ int meg4_import(char *name, uint8_t *buf, int len, int lvl)
             if(!lvl) meg4_switchmode(MEG4_MODE_MAP);
             goto end;
         } else
-        /* otherwise probably a foreign cartridge */
+        /* otherwise could be a foreign cartridge */
         if((buf[25] == 2 || buf[25] == 6) && ((i == 160 && j == 205) || (i == 256 && j == 256))) {
             e = (uint8_t*)malloc(i * j);
             if(e) {
@@ -571,7 +574,9 @@ ticbin:                         main_log(1, "tic-80 (png) detected");
                 }
                 free(e);
             }
-        }
+        } else
+            /* try to load anyway. We need these roundabouts because tic cartridges have the same dimensions as our sprites */
+            goto loadanyway;
         goto end;
     }
 

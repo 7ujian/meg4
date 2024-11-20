@@ -24,9 +24,7 @@
 #define _POSIX_C_SOURCE 199309L    /* needed for timespec and nanosleep() */
 #include <stdio.h>
 #include "../../src/meg4.h"
-#include "../../src/misc/emoji.h"
 #include "editors.h"
-#include "advgame.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STBI_WRITE_ONLY_PNG
@@ -90,7 +88,7 @@ uint8_t meg4_palidx(uint8_t *rgba)
 }
 void sound_addwave(int wave) { (void)wave; }
 void code_init(void) { }
-int overlay_idx = 0, isbinary = 0;
+int overlay_idx = 0;
 
 int main_cfgsave(char *cfg, uint8_t *buf, int len) { (void)cfg; (void)buf; (void)len; return 1; }
 
@@ -174,8 +172,7 @@ int main_import(char *name, uint8_t *buf, int len)
 void main_init(char *fn)
 {
     char *v = MEG4_VERSION;
-    int c, i, j, k, l, m, n, s;
-    uint8_t *font, *ptr, *frg, *buf, *o;
+    int i;
 
     memset(&meg4, 0, sizeof(meg4));
     meg4.mmio.fwver[0] = atoi(v); while(*v != '.') { v++; } v++;
@@ -187,46 +184,6 @@ void main_init(char *fn)
     if((v = strrchr(meg4_title, '.'))) *v = 0;
     /* just in case, if someone wants to import MIDI files */
     meg4_defwaves = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char *)binary_sounds_mod, sizeof(binary_sounds_mod), 65536, &i, 1);
-    /* uncompress and set default font */
-    meg4_font = (uint8_t*)malloc(9 * 65536);
-    if(meg4_font) {
-        memset(meg4_font, 0, 9 * 65536);
-        ptr = (uint8_t*)binary_default_sfn + 3;
-        i = *ptr++; ptr += 6; if(i & 4) { k = *ptr++; k += (*ptr++ << 8); ptr += k; } if(i & 8) { while(*ptr++ != 0); }
-        if(i & 16) { while(*ptr++ != 0); } j = sizeof(binary_default_sfn) - (size_t)(ptr - binary_default_sfn);
-        font = (uint8_t*)stbi_zlib_decode_malloc_guesssize_headerflag((const char*)ptr, j, 65536, &s, 0);
-        if(font) {
-            for(buf = font + le32toh(*((uint32_t*)(font + 16))), c = 0; c < 0x010000 && buf < font + s; c++) {
-                if(buf[0] == 0xFF) { c += 65535; buf++; } else
-                if((buf[0] & 0xC0) == 0xC0) { j = (((buf[0] & 0x3F) << 8) | buf[1]); c += j; buf += 2; } else
-                if((buf[0] & 0xC0) == 0x80) { j = (buf[0] & 0x3F); c += j; buf++; } else {
-                    ptr = buf + 6; o = meg4_font + c * 8;
-                    for(i = n = 0; i < buf[1]; i++, ptr += buf[0] & 0x40 ? 6 : 5) {
-                        if(ptr[0] == 255 && ptr[1] == 255) continue;
-                        frg = font + (buf[0] & 0x40 ? ((ptr[5] << 24) | (ptr[4] << 16) | (ptr[3] << 8) | ptr[2]) :
-                            ((ptr[4] << 16) | (ptr[3] << 8) | ptr[2]));
-                        if((frg[0] & 0xE0) != 0x80) continue;
-                        o += (int)(ptr[1] - n); n = ptr[1]; k = ((frg[0] & 0x0F) + 1) << 3; j = frg[1] + 1; frg += 2;
-                        for(m = 1; j; j--, n++, o++)
-                            for(l = 0; l < k; l++, m <<= 1) {
-                                if(m > 0x80) { frg++; m = 1; }
-                                if(*frg & m) *o |= m;
-                            }
-                    }
-                    buf += 6 + buf[1] * (buf[0] & 0x40 ? 6 : 5);
-                }
-            }
-            free(font);
-        }
-        memcpy(meg4.font, meg4_font, 8 * 65536);
-        meg4_recalcfont(0, 0xffff);
-        memcpy(meg4_font + 8 * 65536, meg4.font + 8 * 65536, 65536);
-        /* clear control codes */
-        memset(meg4.font, 0, 8 * 32);
-        memset(meg4.font + 8 * 65536, 0, 32);
-        memset(meg4.font + 8 * 128, 0, 8 * 32);
-        memset(meg4.font + 8 * 65536 + 128, 0, 32);
-    }
 }
 
 /**
@@ -248,8 +205,8 @@ int main(int argc, char **argv)
     printf("importing...\n");
 
     /* import */
-    if(!main_advgame(argv[1], buf, len) && !main_import(argv[1], buf, len)) {
-        free(buf); free(meg4_defwaves); free(meg4_font);
+    if(!main_import(argv[1], buf, len)) {
+        free(buf); free(meg4_defwaves);
         printf("unable to load file\n");
         exit(1);
     }
@@ -258,10 +215,9 @@ int main(int argc, char **argv)
     printf("exporting...\n");
 
     /* export */
-    meg4_export(argv[2] ? argv[2] : "output.zip", isbinary);
+    meg4_export(argv[2] ? argv[2] : "output.zip", 0);
 
     /* free resources */
     free(meg4_defwaves);
-    free(meg4_font);
     return 0;
 }

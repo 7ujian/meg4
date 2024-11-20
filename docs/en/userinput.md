@@ -26,7 +26,7 @@ an <kbd>Alt</kbd> combination, regardless what keyboard layout the platform is u
 | Key Combination              | Description                                                                                  |
 |------------------------------|----------------------------------------------------------------------------------------------|
 | <kbd>GUI</kbd>               | Or Super, sometimes has a <imgt ../img/gui.png> logo on it. UNICODE codepoint input mode.    |
-| <kbd>AltGr</kbd>             | The Alt key right to the space key, activates Compose mode.                                  |
+| <kbd>AltGr</kbd>             | The right Alt key, activates Compose mode when pressed alone.                                |
 | <kbd>Alt</kbd>+<kbd>U</kbd>  | In case your keyboard lacks the <kbd>GUI</kbd> key, UNICODE input mode too.                  |
 | <kbd>Alt</kbd>+<kbd>Space</kbd> | Fallback Compose, for keyboards without the <kbd>AltGr</kbd> key.                         |
 | <kbd>Alt</kbd>+<kbd>I</kbd>  | Enter icon (emoticons) input mode.                                                           |
@@ -67,7 +67,7 @@ describe will be added as if your keyboard had that key. For example the sequenc
 NOTE: Only the Basic Multilingual Plane (`U+00000` to `U+0FFFF`) supported, with some exceptions for the emoticons range starting
 at `U+1F600`. Other codepoints will be simply skipped.
 
-This mode automatically quits after the characterer is entered.
+This mode automatically quits after the character is entered.
 
 ### Compose Mode
 
@@ -76,7 +76,7 @@ In compose mode you can add acute, umlaut, tilde etc. to the characters. For exa
 <kbd>c</kbd>, <kbd>,</kbd> will add `ç`, etc. You can use <kbd>Shift</kbd> in combination with the letter to get the uppercase
 variants.
 
-This mode automatically quits after the characterer is entered.
+This mode automatically quits after the character is entered.
 
 ### Icon Mode
 
@@ -85,7 +85,7 @@ In icon mode you can add special icon characters, representing the emulator's in
 `Ⓐ` button) as well as emoji icons (like <kbd>Alt</kbd>+<kbd>I</kbd>, <kbd>;</kbd>, <kbd>)</kbd> will add the character `😉`,
 or <kbd>Alt</kbd>+<kbd>I</kbd>, <kbd><</kbd>, <kbd>3</kbd> will produce `❤`).
 
-This mode automatically quits after the characterer is entered.
+This mode automatically quits after the character is entered.
 
 ### Katakana and Hiragana Modes
 
@@ -97,14 +97,14 @@ as three sounds, and therefore will add the three characters `ナニヵ`. Also, 
 You can use <kbd>Shift</kbd> in combination with the first letter to get the uppercase variants, for example
 <kbd>Alt</kbd>+<kbd>K</kbd>, <kbd>Shift</kbd>+<kbd>s</kbd>, <kbd>u</kbd> will produce `ス` and not `ㇲ`.
 
-This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
+This mode remains active after the character is entered, press <kbd>Esc</kbd> to return to normal input mode.
 
 ### Cyrillic Mode
 
 It is based on KOI8-RU, but some letters are mapped to number and symbol keys. For example <kbd>Alt</kbd>+<kbd>C</kbd>,
 <kbd>Shift</kbd>+<kbd>l</kbd>, <kbd>e</kbd>, <kbd>n</kbd>, <kbd>i</kbd>, <kbd>n</kbd> will produce the characters `Ленин`.
 
-This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
+This mode remains active after the character is entered, press <kbd>Esc</kbd> to return to normal input mode.
 
 ### Greek Mode
 
@@ -112,6 +112,6 @@ Tries to be phonetically correct, but there's no one-to-one mapping with the Lat
 <kbd>Alt</kbd>+<kbd>G</kbd>, <kbd>Shift</kbd>+<kbd>p</kbd>, <kbd>l</kbd>, <kbd>a</kbd>, <kbd>t</kbd>, <kbd>o</kbd> <kbd>n</kbd>,
 will produce the characters `Πλατων`.
 
-This mode remains active after the characterer is entered, press <kbd>Esc</kbd> to return to normal input mode.
+This mode remains active after the character is entered, press <kbd>Esc</kbd> to return to normal input mode.
 
 NOTE: This feature is implemented using data tables, new combinations can be added to `src/inp.c` any time without coding skills.

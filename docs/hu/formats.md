@@ -23,9 +23,10 @@ való mentéshez válaszd a <imgt ../img/menu.png> > `ZIP Export` menüpontot. A
 MEG-4 Flopi Meghajtóra.
 
 HINT: Az egyik teszt eszköz, a [converter](https://gitlab.com/bztsrc/meg4/blob/main/tests/converter) használható flopilemezek
-zip-é konvertálására.
+zip-é konvertálására. Az [advcomp](https://gitlab.com/bztsrc/meg4_advgame) fordító pedig [kalandjáték] JSON fájlokat tud játszható
+zip projektfájlokká konvertálni.
 
-A benne lévő fájlok:
+A projektfájlban lévő fájlok:
 
 ### metainfo.txt
 
@@ -71,8 +72,8 @@ natív [SplineFontDB](https://fontforge.org/docs/techref/sfdformat.html) (.sfd, 
 
 Az általad létrehozott [hangeffektek], Amiga MOD formátumban. Lásd a zenesávokat alább. A zene nevének `MEG-4 SFX`-nek kell lennie.
 
-Mind a 31 hullámminta ebben a fájlban tárolódik, a patternekből viszont csak az első, és abból is csak egy csatorna használt
-(64 hangjegy összesen).
+Mind a 31 hullámminta ebben a fájlban tárolódik, a patternekből viszont csak az első használt, és abból is csak egy csatorna (64
+hangjegy összesen, a 64 hangeffektnek egy-egy).
 
 ### musicXX.mod
 

@@ -13,10 +13,7 @@ because this is the popular RPG Maker's sprite layout.
 WARN: Always check the licensing terms when you use assets downloaded from the internet. Do not use the asset if you're
 unsure about its terms of use.
 
-The downloaded image can't be imported as-is. You'll have to change the image's dimensions to 256 x 256 pixels. Do not use resize,
-rather in GIMP select `Image` > `Canvas size...`, and in the popup window set width and height to 256. This way the spritesheet's
-size will be kept intact, just padded with transparent pixels. Start `meg4` and drag'n'drop this 256 x 256 image on the window to
-import.
+Start `meg4` and drag'n'drop this downloaded PNG image on the window to import.
 
 <imgc ../img/tut_walk1.png><fig>The imported sprite sheet</fig>
 

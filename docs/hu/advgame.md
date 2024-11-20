@@ -1,10 +1,11 @@
 Kalandjáték
 ===========
 
-A [converter](https://gitlab.com/bztsrc/meg4/blob/main/tests/converter) eszköz képes **AdvGame JSON** forrásfájlokat MEG-4
-Kalandjátékokká konvertálni. Ezek klasszikus szöveges játékok (hívják őket Interaktív Fikciónak is), ahol a játékos mondatokat
-gépel be a játékban történő haladáshoz. Ezeket a mondatokat aztán igére és főnev(ek)re bontja, amikre keres. Ha talál szkriptet
-az aktuális ige és főnév kombinációhoz, akkor azt lefuttatja.
+Az [advcomp](https://gitlab.com/bztsrc/meg4_advgame) fordítóval lehet **AdvGame JSON** forrásfájlokat MEG-4 Kalandjátékokká
+konvertálni. Ezek klasszikus szöveges játékok (hívják őket Interaktív Fikciónak is), ahol a játékos mondatokat gépel be a játékban
+történő haladáshoz. Ezeket a mondatokat aztán igére és főnev(ek)re bontja, amikre keres. Ha talál szkriptet az aktuális ige és
+főnév kombinációhoz, akkor azt lefuttatja. (Az `advcomp` fordító képes még point'n'click kalandjátékokat is fordítani pontosan
+ugyanazokból a JSON fájlokból, amik aztán játszhatók az `advgame` programmal, de a MEG-4 alatt nem.)
 
 Korlátok:
 
@@ -38,7 +39,7 @@ A forrásfájl legfelső szintjén lennie kell egy `"AdvGame"` JSON struktúrán
 - `verbs`: sztringtömb, a `verb1`, `verb2`, `verb3` stb. aliaszai (csak a JSON-ben használt)
 - `nouns`: sztringtömb, a főnevek aliaszai (csak a JSON-ben használt)
 - `colors`: 5 elemű számtömb, intró háttér- és betű-, szoba háttér- és betű-, valamint promptszín
-- `textpos`: szám, szöveg pozíciója pixelekben a képernyő tetejétől számítva
+- `pos`: szám, szöveg pozíciója pixelekben a képernyő tetejétől számítva
 - `custom`: sztringtömb, plusz kusztom C kód a felhasználói felület megjelenítésére (első az intróé, a második a szobák kódja)
 - `logic`: sztringtömb, általános játék logika szkript, ami mindig minden parancs előtt lefut
 - `config0`: struktúra, fő játékkonfiguráció

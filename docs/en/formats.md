@@ -22,9 +22,10 @@ formats so that you can use your favourite editor or tool to modify them. You ca
 <imgt ../img/menu.png> > `Export ZIP` menu option. To load, you can simply drag'n'drop such zip files into the MEG-4 Floppy Drive.
 
 HINT: One of the test tools, the [converter](https://gitlab.com/bztsrc/meg4/blob/main/tests/converter) can be used to convert
-floppies into zip archives.
+floppies into zip archives. And the [advcomp](https://gitlab.com/bztsrc/meg4_advgame) compiler can convert [adventure game] JSON
+files into playable zip project files.
 
-Files in the archive:
+Files in the project archive:
 
 ### metainfo.txt
 
@@ -59,7 +60,7 @@ required 320 x 200 pixels. The palette in these images aren't used, except the s
 ### font.bdf
 
 The font, created with the [font editor], in a format that can be edited by many tools, like xmbdfed or gbdfed. Obviously I'd
-recommend my [SFNEdit](https://gitlab.com/bztsrc/scalable-font2#font-editor) instead, and [FontForge](https://fontforge.org) works prefectly
+recommend my [SFNEdit](https://gitlab.com/bztsrc/scalable-font2#font-editor) instead, and [FontForge](https://fontforge.org) works perfectly
 too. On import, besides of [X11 Bitmap Distribution Format](https://www.x.org/docs/BDF/bdf.pdf) (.bdf),
 [PC Screen Font 2](https://www.win.tue.nl/~aeb/linux/kbd/font-formats-1.html) (.psfu, .psf2),
 [Scalable Screen Font](https://gitlab.com/bztsrc/scalable-font2/blob/master/docs/sfn_format.md) (.sfn) and FontForge's native
@@ -69,7 +70,8 @@ too. On import, besides of [X11 Bitmap Distribution Format](https://www.x.org/do
 
 The [sound effects] you created in the editor in Amiga MOD format. See music below. The song must be named `MEG-4 SFX`.
 
-All 31 waveforms are stored in this file, and only the first pattern used, and only one channel (64 notes in total).
+All 31 waveforms are stored in this file, as for the note patterns only the first pattern used, and only one channel (64 notes
+in total, one for each sound effect).
 
 ### musicXX.mod
 

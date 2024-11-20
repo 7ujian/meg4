@@ -24,7 +24,7 @@ This is a mandatory single chunk and it always must be the very first.
 |      0 |     1 | Magic 0, `MEG4_CHUNK_META`                             |
 |      1 |     3 | 136                                                    |
 |      4 |     3 | The MEG-4 Firmware's version that saved this floppy    |
-|      8 |     1 | must be zero                                           |
+|      7 |     1 | must be zero                                           |
 |      8 |    64 | Zero terminated, UTF-8 program title                   |
 |     72 |    64 | Zero terminated, UTF-8 author                          |
 

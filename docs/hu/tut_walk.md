@@ -13,10 +13,7 @@ a neten, mivel ez a népszerű RPG Maker szprájtlap elrendezése.
 WARN: Mindig ellenőrizd az internetről letöltött kellékek licenszfeltételeit. Ne használd a kelléket, ha nem vagy teljesen
 biztos a felhasználás feltételeiben.
 
-A letöltött képet nem fogod tudni egy-az-egyben beimportálni. Előbb a kép dimenzióját 256 x 256 pixelesre kell állítani. Ne
-használd az átméretezést, helyette a GIMP-ben válaszd az `Image` > `Canvas size...` menüpontot, majd a felugró ablakban a
-szélesség magassághoz írd be a 256-ot. Így a szprájtlap mérete marad az, ami volt, csak ki lesz egészítve átlátszó pixelekkel.
-Indítsd el a `meg4`-et, és húzd rá az ablakára ezt a 256 x 256 pixeles képet az importáláshoz.
+Indítsd el a `meg4`-et, és húzd rá az ablakára a letöltött PNG képet az importáláshoz.
 
 <imgc ../img/tut_walk1.png><fig>A beimportált szprájtlap</fig>
 
