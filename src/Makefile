@@ -29,7 +29,7 @@ CFLAGS += -Wall -Wextra -Wno-pragmas -Wno-long-long -ansi -pedantic -ffunction-s
 ifeq ($(NOEDITORS),)
  ESRCS = $(wildcard editors/*.c)
  EDITORS = $(ESRCS:.c=.o)
- ASSETS += misc/floppy.png misc/editors.png misc/sounds.mod misc/theme.gpl misc/hl.json misc/memmap.md $(wildcard lang/*.md)
+ ASSETS += misc/floppy.png misc/editors.png misc/sounds.mod misc/theme.gpl misc/hl.json misc/advgame.c misc/memmap.md $(wildcard lang/*.md)
 ifeq ($(DEBUG),)
  CFLAGS += -O3
 else

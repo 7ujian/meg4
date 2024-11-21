@@ -4,8 +4,11 @@ Kalandjáték
 Az [advcomp](https://gitlab.com/bztsrc/meg4_advgame) fordítóval lehet **AdvGame JSON** forrásfájlokat MEG-4 Kalandjátékokká
 konvertálni. Ezek klasszikus szöveges játékok (hívják őket Interaktív Fikciónak is), ahol a játékos mondatokat gépel be a játékban
 történő haladáshoz. Ezeket a mondatokat aztán igére és főnev(ek)re bontja, amikre keres. Ha talál szkriptet az aktuális ige és
-főnév kombinációhoz, akkor azt lefuttatja. (Az `advcomp` fordító képes még point'n'click kalandjátékokat is fordítani pontosan
-ugyanazokból a JSON fájlokból, amik aztán játszhatók az `advgame` programmal, de a MEG-4 alatt nem.)
+főnév kombinációhoz, akkor azt lefuttatja.
+
+NOTE: Az `advcomp` fordító képes kattintós felületű kalandjátékokat is fordítani pontosan ugyanazokból a JSON fájlokból. Habár a MEG-4
+be tudja tölteni ezeket is, de közben sima szöveges kalandjátékká konvertálja őket, a point'n'click játékmód csak az `advgame`
+programmal elérhető.
 
 Korlátok:
 
@@ -211,7 +214,7 @@ A kiírás is jöhet változóból, például ha a halál okát a 9-es állapotb
 ```
 
 Itt a `say` előbb kiírja az 1-es szöveget, majd a `sayv` veszi a 9-es állapot értékét, hozzáad 2-őt, és az annyadik szöveget írja
-ki a 2-es és 4-es szövegek közül.
+ki a 2-es és 4-es közötti szövegek közül.
 
 Ugyancsak hasznos a feltételes szövegkiírás, ami a kondíciótól függően vagy egy hamis, vagy egy igaz szöveget ír ki. Például:
 

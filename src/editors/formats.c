@@ -24,11 +24,13 @@
 #include <stdio.h>
 #include "editors.h"
 #include "../stb_image_write.h"
+#include "../misc/emoji.h"
 #include "zip.h"
 #include "fmt_mod.h"
 #include "fmt_mid.h"
 #include "fmt_tic80.h"
 #include "fmt_pico8.h"
+#include "fmt_advg.h"
 
 #ifndef MEG4_PRO
 /* have some dummy implementation, because importer needs them */
@@ -889,6 +891,13 @@ readuints:                  for(i = j = 0; j < h; data++) {
             main_log(1, "music track %u (mod) detected", i);
             if((ret = format_mod(i, buf, len)) && !lvl) meg4_switchmode(MEG4_MODE_MUSIC);
         }
+        goto end;
+    }
+
+    /* MEG-4 AdvGame 2.0 */
+    if(len > 64 && !memcmp(buf, "ADVG", 4)) {
+        main_log(1, "advgame detected");
+        if((ret = format_advg(buf, len)) && !lvl) { meg4_switchmode(MEG4_MODE_CODE); code_init(); }
         goto end;
     }
 

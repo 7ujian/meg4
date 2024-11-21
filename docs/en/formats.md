@@ -124,6 +124,9 @@ file. Here the first line must be "GPIO Layout", the second line is the name of 
 the rest is a list of physical pin - GPIO register offset mappings (where -1 means the pin is not assigned to the GPIO chip, eg.
 voltage or ground pins). For an example, see [src/misc/gpio.txt](https://gitlab.com/bztsrc/meg4/blob/main/src/misc/gpio.txt).
 
+It is also possible to import AdvGame 2.0 [Adventure Game] archives, although point'n'click games will be reduced to textual
+games.
+
 Furthermore, you can import PICO-8 cartridges (both in *.p8* and *.p8.png* formats) and TIC-80 cartridges (both in *.tic* and
 *.tic.png* formats), however you'll have to adjust the imported source code, because their memory layouts and API calls are
 different to MEG-4's. But at least you'll get their assets properly. The TIC-80 project format isn't supported because those

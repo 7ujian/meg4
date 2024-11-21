@@ -433,6 +433,12 @@ int main(int argc, char **argv)
                 if(!buff2) { fprintf(stderr, "bin2h: memory allocation error\r\n"); exit(2); }
                 free(buff); buff = buff2; size = i;
             } else
+            if(!strcmp(p, "advgame_c")) {
+                buff[size++] = 0;
+                buff2 = stbi_zlib_compress(buff, size, &i, 9);
+                if(!buff2) { fprintf(stderr, "bin2h: memory allocation error\r\n"); exit(2); }
+                free(buff); buff = buff2; size = i;
+            } else
             if(!memcmp(p, "meg4_", 5) || !strcmp(p, "meg4")) {
                 if(!p[4] || p[5] == 'w' || p[5] == 'e') {
                     for(i = 0; i < size - 8 && memcmp(buff + i, "MEG4GAME", 8); i++);

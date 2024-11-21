@@ -126,6 +126,9 @@ fájlból. Ennél az első sornak "GPIO Layout"-nak kell lennie, a második sor 
 pedig egy fizikai tüske - GPIO regiszter offszet összerendelés lista (ahol a -1 jelenti azt, hogy a tüskéhez nincs GPIO regiszter,
 például táp vagy földelés). Példának lásd [src/misc/gpio.txt](https://gitlab.com/bztsrc/meg4/blob/main/src/misc/gpio.txt).
 
+Lehetséges még AdvGame 2.0 [Kalandjáték] fájlokat is importálni, habár a kattintós felületű játékok szöveges kalandjátékká lesznek
+redukálva.
+
 Továbbá betölthetők PICO-8 kertridzsek (mindkét *.p8* és *.p8.png* formátumban) valamint TIC-80 kertridzsek (mindkét *.tic* és
 *.tic.png* formátumban) is, de a beimportált forráskódot kézzel kell majd szerkesztened, mivel a címkiosztásuk és a függvényeik
 eltérnek a MEG-4-étől. De legalább a többi kelléked meglesz. A TIC-80 projektfurmátuma nem támogatott, mivel az ilyen fájlok

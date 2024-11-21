@@ -1,11 +1,13 @@
 Adventure Game
 ==============
 
-The [advcomp](https://gitlab.com/bztsrc/meg4_advgame) compiler can parse **AdvGame JSON** source files and convert those into
+The [advcomp](https://gitlab.com/bztsrc/meg4_advgame) compiler can parse **AdvGame JSON** source files and can convert those into
 MEG-4 Adventure Games. These are classic textual games (also known as Interactive Fiction) where the player enters sentences
 in order to progress in the game. Each sentence is then parsed into a verb and noun(s), and looked up. If a script is found for
-that verb and noun(s) combination, then it is executed. (The `advcomp` tool can also generate point'n'click adventure games from
-the very same JSON files which are playable using `advgame`, but not by MEG-4.)
+that verb and noun(s) combination, then it is executed.
+
+NOTE: The `advcomp` tool can also generate point'n'click adventure games from the very same JSON files. Although MEG-4 can import
+these too, but converts them into textual games, the point'n'click gameplay mode is only available with the `advgame` interpreter.
 
 Limitations:
 

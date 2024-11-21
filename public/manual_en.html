@@ -539,6 +539,8 @@ visually using <a href="https://www.gimp.org" target="new">GIMP</a> or <a href="
 file. Here the first line must be "GPIO Layout", the second line is the name of the board, the third line is the device file, and
 the rest is a list of physical pin - GPIO register offset mappings (where -1 means the pin is not assigned to the GPIO chip, eg.
 voltage or ground pins). For an example, see <a href="https://gitlab.com/bztsrc/meg4/blob/main/src/misc/gpio.txt" target="new">src/misc/gpio.txt</a>.</p>
+<p>It is also possible to import AdvGame 2.0 <a href="#adventure_game" onclick="c('adventure_game')">Adventure Game</a> archives, although point'n'click games will be reduced to textual
+games.</p>
 <p>Furthermore, you can import PICO-8 cartridges (both in <i>.p8</i> and <i>.p8.png</i> formats) and TIC-80 cartridges (both in <i>.tic</i> and
 <i>.tic.png</i> formats), however you'll have to adjust the imported source code, because their memory layouts and API calls are
 different to MEG-4's. But at least you'll get their assets properly. The TIC-80 project format isn't supported because those
@@ -5363,11 +5365,12 @@ at the first free slot).</p>
 <p>Once you have the file, just drag'n'drop it into the MEG-4 window and you're done.</p><br style="clear:both;"><label class="btn prev" accesskey="p" for="_cannon" title="Cannon">Previous</label><label class="btn next" accesskey="n" for="_adventure_game" title="Adventure Game">Next</label></div>
 <div class="page" rel="adventure_game"><div><ul class="breadcrumbs"><li><label class="home" for="_" title="Home"></label>&nbsp;»</li><li>&nbsp;Tutorials&nbsp;»</li><li>&nbsp;Adventure Game</li></ul><hr></div>
 <h1 id="adventure_game">Adventure Game<a href="#adventure_game"></a></h1>
-<p>The <a href="https://gitlab.com/bztsrc/meg4_advgame" target="new">advcomp</a> compiler can parse <b>AdvGame JSON</b> source files and convert those into
+<p>The <a href="https://gitlab.com/bztsrc/meg4_advgame" target="new">advcomp</a> compiler can parse <b>AdvGame JSON</b> source files and can convert those into
 MEG-4 Adventure Games. These are classic textual games (also known as Interactive Fiction) where the player enters sentences
 in order to progress in the game. Each sentence is then parsed into a verb and noun(s), and looked up. If a script is found for
-that verb and noun(s) combination, then it is executed. (The <samp>advcomp</samp> tool can also generate point'n'click adventure games from
-the very same JSON files which are playable using <samp>advgame</samp>, but not by MEG-4.)</p>
+that verb and noun(s) combination, then it is executed.</p>
+<div class="info"><p><span>Note</span></p><p> The <samp>advcomp</samp> tool can also generate point'n'click adventure games from the very same JSON files. Although MEG-4 can import
+these too, but converts them into textual games, the point'n'click gameplay mode is only available with the <samp>advgame</samp> interpreter.</p></div>
 <p>Limitations:</p>
 <ul><li>verbs: 32 different actions, each 15 bytes, up to 8 synonyms (max. 1536 bytes in total)</li>
 <li>nouns: 255 different objects, each 15 bytes (max. 1536 bytes in total)</li>

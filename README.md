@@ -62,8 +62,8 @@ there's also a project format, which is an archive file containing the console's
 [file formats](docs/en/formats.md), usable by many third party tools (one of the test cases, the [converter](tests/converter)
 can convert PNG floppies into this project archive format from command line).
 
-Otherwise lots of other formats are supported, among others Tiled maps, MIDI music, PICO-8 and TIC-80 cartridges, etc. Just
-drag'n'drop these files to the MEG-4 screen to import.
+Otherwise lots of other formats are supported, among others Tiled maps, MIDI music, PICO-8 and TIC-80 cartridges,
+[MEG-4 Adventure Games](https://bztsrc.gitlab.io/meg4_advgame), etc. Just drag'n'drop these files to the MEG-4 screen to import.
 
 License
 -------

@@ -543,6 +543,8 @@ szerkeszthetők még vizuálisan a <a href="https://www.gimp.org" target="new">G
 fájlból. Ennél az első sornak "GPIO Layout"-nak kell lennie, a második sor a board neve, a harmadik sor az eszközfájl, a többi
 pedig egy fizikai tüske - GPIO regiszter offszet összerendelés lista (ahol a -1 jelenti azt, hogy a tüskéhez nincs GPIO regiszter,
 például táp vagy földelés). Példának lásd <a href="https://gitlab.com/bztsrc/meg4/blob/main/src/misc/gpio.txt" target="new">src/misc/gpio.txt</a>.</p>
+<p>Lehetséges még AdvGame 2.0 <a href="#kalandjatek" onclick="c('kalandjatek')">Kalandjáték</a> fájlokat is importálni, habár a kattintós felületű játékok szöveges kalandjátékká lesznek
+redukálva.</p>
 <p>Továbbá betölthetők PICO-8 kertridzsek (mindkét <i>.p8</i> és <i>.p8.png</i> formátumban) valamint TIC-80 kertridzsek (mindkét <i>.tic</i> és
 <i>.tic.png</i> formátumban) is, de a beimportált forráskódot kézzel kell majd szerkesztened, mivel a címkiosztásuk és a függvényeik
 eltérnek a MEG-4-étől. De legalább a többi kelléked meglesz. A TIC-80 projektfurmátuma nem támogatott, mivel az ilyen fájlok
@@ -5402,8 +5404,10 @@ az opciólistát "Other..."-re, hogy a tényleges mező szerkeszthetővé váljo
 <p>Az <a href="https://gitlab.com/bztsrc/meg4_advgame" target="new">advcomp</a> fordítóval lehet <b>AdvGame JSON</b> forrásfájlokat MEG-4 Kalandjátékokká
 konvertálni. Ezek klasszikus szöveges játékok (hívják őket Interaktív Fikciónak is), ahol a játékos mondatokat gépel be a játékban
 történő haladáshoz. Ezeket a mondatokat aztán igére és főnev(ek)re bontja, amikre keres. Ha talál szkriptet az aktuális ige és
-főnév kombinációhoz, akkor azt lefuttatja. (Az <samp>advcomp</samp> fordító képes még point'n'click kalandjátékokat is fordítani pontosan
-ugyanazokból a JSON fájlokból, amik aztán játszhatók az <samp>advgame</samp> programmal, de a MEG-4 alatt nem.)</p>
+főnév kombinációhoz, akkor azt lefuttatja.</p>
+<div class="info"><p><span>MEGJEGYZÉS</span></p><p> Az <samp>advcomp</samp> fordító képes kattintós felületű kalandjátékokat is fordítani pontosan ugyanazokból a JSON fájlokból. Habár a MEG-4
+be tudja tölteni ezeket is, de közben sima szöveges kalandjátékká konvertálja őket, a point'n'click játékmód csak az <samp>advgame</samp>
+programmal elérhető.</p></div>
 <p>Korlátok:</p>
 <ul><li>igék: 32 különböző akció, egyenként 15 bájt, 8 szinonímával (max. 1536 bájt összesen)</li>
 <li>főnevek: 255 különböző tárgy, egyenként 15 bájt (max. 1536 bájt összesen)</li>
@@ -5565,7 +5569,7 @@ lehessen átmenni, és csak ha lámpája is van a játékosnak, az <samp>[ &quot
 &quot;logic&quot;: [ &quot;say 1&quot;, &quot;sayv (9) 2&quot; ]
 </pre></div>
 <p>Itt a <samp>say</samp> előbb kiírja az 1-es szöveget, majd a <samp>sayv</samp> veszi a 9-es állapot értékét, hozzáad 2-őt, és az annyadik szöveget írja
-ki a 2-es és 4-es szövegek közül.</p>
+ki a 2-es és 4-es közötti szövegek közül.</p>
 <p>Ugyancsak hasznos a feltételes szövegkiírás, ami a kondíciótól függően vagy egy hamis, vagy egy igaz szöveget ír ki. Például:</p>
 <div class="pre"><pre>
 &quot;text0&quot;: [

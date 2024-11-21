@@ -15,7 +15,7 @@ dsp.o: ../../src/dsp.c
 	gcc $(CFLAGS) ../../src/dsp.c -c -o dsp.o
 
 main.o: main.c
-	gcc $(CFLAGS) -Wno-overlength-strings main.c -c -o main.o
+	gcc $(CFLAGS) main.c -c -o main.o
 
 converter: main.o formats.o zip.o dsp.o
 	gcc main.o formats.o zip.o dsp.o ../../src/data.o -o converter -lm
