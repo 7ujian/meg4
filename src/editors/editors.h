@@ -29,6 +29,10 @@
 #include "../lang.h"
 #include "../stb_image.h"
 
+#if DEBUG
+#include <stdio.h>             /* for printf in code_error */
+#endif
+
 #define LABEL_COLOR 0xff4d1f09 /* deliberately not in theme, because has to match floppy image */
 /* color entries in theme GIMP palette */
 enum { THEME_BG, THEME_FG, THEME_D, THEME_L, THEME_MENU_BG, THEME_MENU_FG, THEME_MENU_D, THEME_MENU_L, THEME_ACTIVE_D,
@@ -164,8 +168,11 @@ void visual_menu(uint32_t *dst, int dw, int dh, int dp);
 void visual_view(void);
 
 /* code.c */
+#if DEBUG
+#define code_error(a,b) do{printf("(compiler %s:%u) ",__FILE__,__LINE__);code_seterr(a,b);}while(0)
+#else
 #define code_error(a,b) code_seterr(a,b)
-/*#define code_error(a,b) do{printf("(compiler %s:%u) ",__FILE__,__LINE__);code_seterr(a,b);}while(0)*/
+#endif
 void code_setpos(int line, uint32_t pos);
 void code_seterr(uint32_t pos, const char *msg);
 void code_init(void);

@@ -133,8 +133,8 @@ static int gettype(compiler_t *comp, int *s, int *p, int t)
     int i = 0;
 
     *p = T_SCALAR;
-    if(t == T_STR) { *p = T_PTR; t = T_I8; }     /* str_t  -> char* */
-    if(t == T_ADDR) { *p = T_PTR; t = T_VOID; }    /* addr_t -> void* */
+    if(t == T_STR) { *p = T_PTR; t = T_I8; }    /* str_t  -> char* */
+    if(t == T_ADDR) { *p = T_PTR; t = T_VOID; } /* addr_t -> void* */
     while(comp->tok[*s].type == HL_O && meg4.src[comp->tok[*s].pos] == '*') {
         if(i >= N_DIM) { code_error(comp->tok[*s].pos, lang[ERR_TOOCLX]); return 0; }
         *p = T_PTR + i; (*s)++;
@@ -207,7 +207,7 @@ static int getinit(compiler_t *comp, int s, int id, int len, int lvl, int offs)
             memcpy(meg4.data + offs, &i, comp->id[id].s);
             s++;
         } else
-        if(lvl == maxlvl) {
+        if(lvl == maxlvl || (lvl + 1 == maxlvl && tok[s].type == HL_N)) {
             if(tok[s].type == HL_C) {
                 /* character constant */
                 i = tok[s].id;

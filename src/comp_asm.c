@@ -74,13 +74,15 @@ int comp_asm(compiler_t *comp)
                         break;
                     }
                 if(i >= comp->nid && (i = comp_addid(comp, &tok[s], T(T_LABEL, T_I32))) < 0) return 0;
-                comp->id[i].o = meg4.dp;
+                comp->id[i].o = meg4.dp + MEG4_MEM_USER;
+                comp_ddbg(comp, s, i);
             } else {
                 /* code section labels */
                 if(!comp_addlbl(comp, s)) return 0;
             }
             s += 2; if(s >= e) continue;
         }
+        if(s >= comp->ntok) break;
 
         /********** data segment **********/
         if(tok[s].type == HL_T) {
@@ -88,6 +90,7 @@ int comp_asm(compiler_t *comp)
             if(tok[s].id == ASM_DATA || tok[s].id == ASM_CODE) {
                 if(e != s + 1) { code_error(tok[s].pos + 5, lang[ERR_SYNTAX]); return 0; }
                 comp->cf = tok[s].id == ASM_DATA ? -2 : 0;
+                s++;
                 continue;
             } else
             if(comp->cf == -2) {
@@ -158,6 +161,7 @@ doeval:                         if(!comp_eval(comp, s, s + 1, &i)) return 0;
 
         /********** code segment **********/
         if(tok[s].type == HL_K && comp->cf >= 0) {
+            comp_cdbg(comp, s);
             /* check number of arguments */
             if((s + 1 != e && (tok[s].id < BC_SCALL || tok[s].id >= BC_PUSHI) && tok[s].id != BC_LDB && tok[s].id != BC_LDW) ||
                (tok[s].id == BC_SW && s + 5 >= e) ||

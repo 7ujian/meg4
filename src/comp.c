@@ -1203,6 +1203,7 @@ int cpu_compile(void)
     switch(meg4.code_type) {
         case 0: ret = comp_c(&comp); break;
         case 1: ret = comp_bas(&comp); break;
+        case 15: ret = comp_asm(&comp); break;
     }
     /* link program */
     if(ret) {

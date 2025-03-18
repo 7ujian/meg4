@@ -204,7 +204,7 @@ void code_delete(uint32_t start, uint32_t end)
  */
 void code_insert(char *str, uint32_t len)
 {
-    uint32_t i;
+    uint32_t i, re = 0;
 
     if(!str || !*str) return;
     if(!meg4.src || meg4.src_len < 1) allocsize = cursor = 0;
@@ -212,6 +212,7 @@ void code_insert(char *str, uint32_t len)
     for(i = 0; i < len; i++)
         if(str[i] == '\r') { memmove(str + i, str + i + 1, len - i); i--; len--; }
     if(sels != -1U && sele != -1U && sels != sele) {
+        if(sels < 3 || sele < 3) re = 1;
         code_delete(sels < sele ? sels : sele, sels < sele ? sele : sels);
         if(hist) {
             hist[curhist].newsize = len;
@@ -228,7 +229,7 @@ void code_insert(char *str, uint32_t len)
     }
     memmove(meg4.src + cursor + len, meg4.src + cursor, meg4.src_len - cursor);
     /* handle if all code is selected and the pasted string also starts with the same language shebang */
-    if((!cursor || !sels) && len >= meg4.src_len && !memcmp(meg4.src, str, meg4.src_len)) {
+    if((!cursor || re) && len >= meg4.src_len && !memcmp(meg4.src, str, meg4.src_len)) {
         str += meg4.src_len; len -= meg4.src_len;
     }
     if(len < 1) return;
@@ -246,7 +247,7 @@ void code_insert(char *str, uint32_t len)
         for(numnl = 1, i = 0; i < meg4.src_len; i++) if(meg4.src[i] == '\n') numnl++;
     }
     /* if it was the first line that was edited, refresh rules too */
-    if(row < 2) {
+    if(row < 2 || !cursor || re) {
         if(tok) free(tok);
         rules = hl_find(meg4.src + 2); tok = NULL; alloctok = numtok = 0;
         notc = memcmp(meg4.src, "#!c", 3) || meg4.src[3] != '\n';
@@ -433,15 +434,15 @@ void code_getfunc(void)
     hlp = lhlp = -1;
     if(!meg4.src || meg4.src_len < 1) return;
     for(i = 0; i + 1 < numtok && (uint32_t)(tok[i] >> 4) < cursor; i++);
-    /* with Assembly there's no conventional function call, instead name prefixed by an SCALL keyword */
-    if(meg4.src_len > 5 && !memcmp(meg4.src, "#!asm", 5)) {
-        if((tok[i] & 15) == HL_V) i++;
-        if(i > 3 && (tok[i - 1] & 15) == HL_V && (tok[i - 2] & 15) == HL_D && (tok[i - 3] & 15) == HL_K &&
-          !casecmp(meg4.src + (tok[i - 3] >> 4), "scall", 5))
-            hlp = help_find(meg4.src + (tok[i - 1] >> 4), (tok[i] >> 4) - (tok[i - 1] >> 4), 1);
-        return;
-    }
     if(i > 0 && i < numtok) {
+        /* with Assembly there's no conventional function call, instead name prefixed by an SCALL keyword */
+        if(meg4.src_len > 5 && !memcmp(meg4.src, "#!asm", 5)) {
+            if((tok[i] & 15) == HL_V) i++;
+            if(i > 3 && (tok[i - 1] & 15) == HL_V && (tok[i - 2] & 15) == HL_D && (tok[i - 3] & 15) == HL_K &&
+              !casecmp(meg4.src + (tok[i - 3] >> 4), "scall", 5))
+                hlp = help_find(meg4.src + (tok[i - 1] >> 4), (tok[i] >> 4) - (tok[i - 1] >> 4), 1);
+            return;
+        }
         if(meg4.src[tok[i] >> 4] == ')') i--;
         for(p = 1; i > 0 && p > 0; i--) {
             if(meg4.src[tok[i] >> 4] == '(') p--; else

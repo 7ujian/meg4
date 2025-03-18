@@ -19,7 +19,7 @@ uint32_t tömb[10];
 void setup()
 {
   /* lokális változók */
-  int lokálisvagyok = 123;
+  int lokálisvagyok;
 }
 
 /* Minden képkockánál lefuttatandó dolgok, 60 FPS */

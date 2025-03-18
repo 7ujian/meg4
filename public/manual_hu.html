@@ -1124,7 +1124,7 @@ címszó alatt találsz.</p><br style="clear:both;"><label class="btn prev" acce
 <span class="hl_t">void</span> <span class="hl_f">setup</span>()
 {
   <span class="hl_c">/* lokális változók */</span>
-  <span class="hl_t">int</span> <span class="hl_v">lokálisvagyok</span> <span class="hl_o">=</span> <span class="hl_n">123</span>;
+  <span class="hl_t">int</span> <span class="hl_v">lokálisvagyok</span>;
 }
 
 <span class="hl_c">/* Minden képkockánál lefuttatandó dolgok, 60 FPS */</span>
@@ -1650,7 +1650,7 @@ egy különleges eset, mert azoknál ez a kulcsszó elhagyható, és az API egy-
 <h1 id="assembly">Assembly<a href="#assembly"></a></h1>
 <p>Ha ezt a nyelvet választod, akkor kezd a programodat az <samp>#!asm</samp> sorral.</p>
 <h2 id="ex_asm">Példa program<a href="#ex_asm"></a></h2>
-<div class="pre"><pre class="lineno">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br></pre><code><span class="hl_c">#!asm</span>
+<div class="pre"><pre class="lineno">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br></pre><code><span class="hl_c">#!asm</span>
 
     <span class="hl_t">.data</span>
 <span class="hl_c">/* globális változók */</span>
@@ -1666,6 +1666,8 @@ egy különleges eset, mert azoknál ez a kulcsszó elhagyható, és az API egy-
 <span class="hl_v">setup</span>:
   <span class="hl_c">/* lokális változó (igazából nem, csak helyet foglalunk a veremben) */</span>
   <span class="hl_k">sp</span> <span class="hl_n">-4</span>
+  <span class="hl_c">/* felszabadítjuk */</span>
+  <span class="hl_k">sp</span> <span class="hl_n">4</span>
   <span class="hl_k">ret</span>
 
 <span class="hl_c">/* Minden képkockánál lefuttatandó dolgok, 60 FPS */</span>

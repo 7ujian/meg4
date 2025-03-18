@@ -178,7 +178,18 @@ void main_win(int w, int h, int f)
 void main_fullscreen(void)
 {
     win_f ^= 1;
-    SDL_SetWindowFullscreen(window, win_f ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+    /* workaround an annoying bug in newer SDL releases */
+    if(win_f) {
+        SDL_SetWindowSize(window, main_w, main_h);
+        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    } else {
+        SDL_SetWindowFullscreen(window, 0);
+        /* we'll loose the previous window size because of this, but if we don't set it, RenderCopy will fail later... */
+        win_w = main_w; win_h = 320 * main_w / 200;
+        if(win_h > main_h) { win_h = main_h; win_w = 320 * main_h / 200; }
+        win_w = (win_w / 320) * 320; win_h = (win_h / 200) * 200;
+        SDL_SetWindowSize(window, win_w, win_h);
+    }
 }
 
 /**
@@ -209,7 +220,7 @@ void main_loop(void) {
 #else
 #define exit_loop() do{ main_ret = 0; return; }while(0)
 #endif
-    int i, p;
+    int i, p, w, h;
     void *data;
 #ifndef NOEDITORS
     char *fn;
@@ -231,6 +242,8 @@ void main_loop(void) {
     }
     meg4_redraw((uint32_t*)data, 640, 400, p);
     if(data) SDL_UnlockTexture(screen);
+    /* workaround a bug in newer SDL, it does not set window size correctly */
+    if(win_f) { w = main_w; h = main_h; } else { w = win_w; h = win_h; }
     src.x = src.y = 0; src.w = meg4.screen.w; src.h = meg4.screen.h;
     if(src.w && src.h) {
         if(!win_f && nearest) {
@@ -247,7 +260,7 @@ void main_loop(void) {
             dst.w = 320 * i; dst.h = 200 * i;
         } else {
 #if SDL_VERSION_ATLEAST(2,0,12)
-            SDL_SetTextureScaleMode(screen, nearest || (!((win_f ? main_w : win_w) % 320) && !((win_f ? main_h : win_h) % 200)) ?
+            SDL_SetTextureScaleMode(screen, nearest || (!(w % 320) && !(w % 200)) ?
 #if SDL_VERSION_ATLEAST(3,0,0)
                 SDL_SCALEMODE_NEAREST : SDL_SCALEMODE_LINEAR
 #else
@@ -255,11 +268,11 @@ void main_loop(void) {
 #endif
             );
 #endif
-            dst.w = win_w; dst.h = src.h * win_w / src.w;
-            if(dst.h > win_h) { dst.h = win_h; dst.w = src.w * win_h / src.h; }
+            dst.w = w; dst.h = src.h * w / src.w;
+            if(dst.h > h) { dst.h = h; dst.w = src.w * h / src.h; }
         }
     } else dst.w = dst.h = 0;
-    dst.x = (win_w - dst.w) / 2; dst.y = (win_h - dst.h) / 2;
+    dst.x = (w - dst.w) / 2; dst.y = (h - dst.h) / 2;
     if(main_draw) {
         if(screen) SDL_RenderCopy(renderer, screen, &src, &dst);
         SDL_RenderPresent(renderer);

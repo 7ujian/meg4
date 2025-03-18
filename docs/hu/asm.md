@@ -22,6 +22,8 @@ fmt:        db "a számláló %d, balshift %d\n"
 setup:
   /* lokális változó (igazából nem, csak helyet foglalunk a veremben) */
   sp -4
+  /* felszabadítjuk */
+  sp 4
   ret
 
 /* Minden képkockánál lefuttatandó dolgok, 60 FPS */

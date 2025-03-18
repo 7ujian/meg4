@@ -19,7 +19,7 @@ uint32_t anarray[10];
 void setup()
 {
   /* local variables */
-  int iamlocal = 123;
+  int iamlocal;
 }
 
 /* Things to run for every frame, at 60 FPS */

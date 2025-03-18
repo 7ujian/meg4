@@ -22,6 +22,8 @@ fmt:        db "a counter %d, left shift %d\n"
 setup:
   /* local variables (not really, just reserve space on the stack) */
   sp -4
+  /* free it */
+  sp 4
   ret
 
 /* Things to run for every frame, at 60 FPS */
