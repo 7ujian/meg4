@@ -12,7 +12,7 @@ tag.addEventListener("change", function() {
     inp = document.getElementById("meg4_upload");
     if(inp.files.length>0) {
         var reader = new FileReader();
-        reader.onloadend = function() { meg4_execute(inp.files[0].toString(), new Uint8Array(reader.result)); };
+        reader.onloadend = function() { meg4_execute(inp.files[0].name.toString(), new Uint8Array(reader.result)); };
         reader.readAsArrayBuffer(inp.files[0]);
     }
 });
