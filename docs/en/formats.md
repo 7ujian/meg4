@@ -29,7 +29,7 @@ Files in the project archive:
 
 ### metainfo.txt
 
-A plain text file with the MEG-4 firmware version and the program's title.
+A plain text file with the MEG-4 firmware version and the program's title, along with other meta data.
 
 ### program.X
 

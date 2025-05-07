@@ -30,7 +30,7 @@ A projektfájlban lévő fájlok:
 
 ### metainfo.txt
 
-Sima szöveges fájl, a MEG-4 Förmver verziójával és a programod nevével.
+Sima szöveges fájl, a MEG-4 Förmver verziójával és a programod nevével, meg egyéb metaadatokkal.
 
 ### program.X
 

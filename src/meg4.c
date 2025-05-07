@@ -514,7 +514,7 @@ void meg4_run(void)
 #else
     clock_gettime(CLOCK_MONOTONIC, &now);
     meg4.mmio.now = htole64((uint64_t)now.tv_sec);
-    meg4.mmio.tick = htole32(((now.tv_sec - started.tv_sec) * 1000 + (now.tv_nsec - started.tv_nsec) / 1000000));
+    meg4.mmio.tick = htole32(((now.tv_sec - started.tv_sec) * 1000 + (now.tv_nsec - started.tv_nsec) / 1000000000000));
 #endif
     /* calculate how many msecs were unspent in the last frame, make sure not to overflow */
     i = 1000/60 - (le32toh(meg4.mmio.tick) - meg4_lasttick); meg4.mmio.perf = i < -127 ? -127 : i;

@@ -106,7 +106,7 @@ static void bitmap(uint32_t unicode, int l, int t, int w, int h, uint8_t *bitmap
  */
 void meg4_export(char *name, int binary)
 {
-    char tmp[256];
+    char tmp[256 + sizeof(meg4.wangcfg) * 4 + sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0]) * 10], *str;
     uint32_t pal[256], color;
     uint8_t *zip, *out, *end, *s, *d;
     int i, j, k, l, m, o, r, g, b, len = 0;
@@ -115,7 +115,13 @@ void meg4_export(char *name, int binary)
     zip_open();
 
     /* meta info */
-    sprintf(tmp, "MEG-4 Firmware v%u.%u.%u\r\n%s\r\n", meg4.mmio.fwver[0], meg4.mmio.fwver[1], meg4.mmio.fwver[2], meg4_title);
+    str = tmp + sprintf(tmp, "MEG-4 Firmware v%u.%u.%u\r\n%s\r\n", meg4.mmio.fwver[0], meg4.mmio.fwver[1], meg4.mmio.fwver[2], meg4_title);
+    for(i = 0; i < (int)(sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0])); i++)
+        if(!meg4_isbyte(meg4.wangcfg[i], 0, sizeof(meg4.wangcfg[0]))) {
+            str += sprintf(str, "wang%u:", i);
+            for(j = 0; j < (int)sizeof(meg4.wangcfg[0]); j++) str += sprintf(str, " %u", meg4.wangcfg[i][j]);
+            str += sprintf(str, "\r\n");
+        }
     zip_add("metainfo.txt", (uint8_t*)tmp, strlen(tmp));
 
     /* source. Unfortunately we have to convert newlines for dummy Windows tools and users */
@@ -584,9 +590,29 @@ ticbin:                         main_log(1, "tic-80 (png) detected");
 
     /* meta info */
     if(len > 25 && !memcmp(buf, "MEG-4 Firmware", 14)) {
-        for(s = e = buf + 0x17; e < end && e < s + sizeof(meg4_title) - 1 && *e && *e != '\r' && *e != '\n'; e++);
+        for(s = e = buf + 0x17, i = 0; e < end && *e && *e != '\r' && *e != '\n'; e++, i++);
         memset(meg4_title, 0, sizeof(meg4_title));
-        memcpy(meg4_title, s, e - s);
+        memcpy(meg4_title, s, i < (int)sizeof(meg4_title) - 1 ? i : (int)sizeof(meg4_title) - 1);
+        for(s = e; s < end && *s; s = e) {
+            /* parse further lines */
+            while(s < end && *s && (*s == '\r' || *s == '\n')) s++;
+            if(s >= end || !*s) break;
+            for(e = s; e < end && *e && *e != '\r' && *e != '\n'; e++);
+            /* does this line contain a wang configuration? */
+            if(!memcmp(s, "wang", 4)) {
+                s += 4; i = atoi((char*)s); while(s < e && *s >= '0' && *s <= '9') { s++; } if(s < e && *s == ':') s++;
+                if(i < (int)(sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0]))) {
+                    memset(meg4.wangcfg[i], 0, sizeof(meg4.wangcfg[0]));
+                    /* get parameters from line */
+                    for(j = 0; j < (int)sizeof(meg4.wangcfg[0]) && s < e && *s; j++) {
+                        while(s < e && *s == ' ') s++;
+                        if(s >= e || *s < '0' || *s > '9') break;
+                        meg4.wangcfg[i][j] = (uint8_t)atoi((char*)s);
+                        while(s < e && *s >= '0' && *s <= '9') s++;
+                    }
+                }
+            }
+        }
         goto end;
     }
 

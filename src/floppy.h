@@ -406,7 +406,7 @@ uint8_t *meg4_serialize(int *len, int type)
     /* wang config */
     if(!type)
         for(i = 0; i < (int)(sizeof(meg4.wangcfg)/sizeof(meg4.wangcfg[0])); i++)
-            if(!meg4_isbyte(&meg4.wangcfg, 0, sizeof(meg4.wangcfg[0]))) {
+            if(!meg4_isbyte(meg4.wangcfg[i], 0, sizeof(meg4.wangcfg[0]))) {
                 hdr = htole32(((5 + sizeof(meg4.wangcfg[0])) << 8) | MEG4_CHUNK_WANGCFG);
                 memcpy(ptr, &hdr, 4); ptr += 4; *ptr++ = i;
                 memcpy(ptr, meg4.wangcfg[i], sizeof(meg4.wangcfg[0])); ptr += sizeof(meg4.wangcfg[0]);
