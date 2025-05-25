@@ -78,6 +78,9 @@ and it can also *export standalone WebAssembly, Windows and Linux* executables w
 editors. These look like genuine games, no-one can tell they were created with MEG-4 (assuming your game doesn't crash because the
 error screen would tell).
 
+To get a MEG-4 PRO license, open a confidential issue on gitlab and ask for a license file. Provide your preferred unique
+developer / studio name along with the request (up to 63 bytes, this will be stored in the license file and on the floppies).
+
 Contributors
 ------------
 

@@ -21,3 +21,6 @@ MEG-4 Licensz
 
 A **MEG-4 PRO** Fantasy Konzol zárt kereskedelmi licenszű. A GPL-es változat funkcionalitásán túl képes a programodat önálló Web,
 Windows és Linux alkalmazásként exportálni.
+
+Egy ilyen kereskedelmi licenszért nyitni kell egy bizalmas [gitlab](https://gitlab.com/bztsrc/meg4/-/issues) jegyet, és abban kell
+kérni. Meg kell adni a kívánt egyedi fejlesztő / stúdió nevet hozzá (63 bájtig, ez bekerül a licenszbe és a flopikba is).

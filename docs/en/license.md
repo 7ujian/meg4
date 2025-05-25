@@ -21,3 +21,7 @@ MEG-4 License
 
 The **MEG-4 PRO** Fantasy Console's license is commercial and proprietary. It offers plus functionality over the GPL'd version, it
 can export your program into a standalone Web, Windows or Linux application.
+
+To get such license, open a confidential issue on [gitlab](https://gitlab.com/bztsrc/meg4/-/issues) and ask for a license file.
+Provide your preferred unique developer / studio name along with the request (up to 63 bytes, this will be stored in the license
+file and on the floppies).
