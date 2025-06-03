@@ -30,6 +30,7 @@ platform/baremetal/simpleboot
 platform/baremetal/*.tar.xz
 platform/allegro/allegro*
 src/editors/pro.*
+src/misc/license/*
 data.c
 data.h
 stamp-h1
