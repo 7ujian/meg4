@@ -17,7 +17,7 @@ Menj a [repó](https://gitlab.com/bztsrc/meg4/tree/binaries)ba és töltsd le az
 1. [meg4-i686-win-sdl.zip](https://gitlab.com/bztsrc/meg4/raw/binaries/meg4-i686-win-sdl.zip) letöltése
 2. csomagold ki a `C:\Program Files` mappába és kész!
 
-Egy egy hordozható futtatható, semmilyen hagyományos telepítési eljárást nem igényel.
+Ez egy hordozható futtatható, semmilyen hagyományos telepítési eljárást nem igényel.
 
 ### Linux
 
