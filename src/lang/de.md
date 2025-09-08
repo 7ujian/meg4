@@ -3851,3 +3851,120 @@ Gibt dynamisch zugewiesenen Benutzerspeicher frei.
 [malloc], [realloc]
 </dd>
 </dl>
+
+# Verbindung
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>Beschreibung</dt><dd>
+Startet die Überwachung von Client-Verbindungen und hostet ein LAN-Spiel. Blockiert nicht. [net_conn] meldet, wenn die Verbindung
+hergestellt ist.
+</dd>
+<dt>Argumente</dt><dd>
+| Argument | Beschreibung |
+| num | Maximale Spieleranzahl, bis zu 16 |
+</dd>
+<dt>Rückgabewert</dt><dd>
+1 bei Erfolg, 0 bei Fehler, -1 wenn nicht unterstützt. Mit WebAssembly wird immer -1 zurückgegeben.
+</dd>
+<dt>Siehe auch</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>Beschreibung</dt><dd>
+Zeigt an, dass der Spieler dem LAN-Spiel beitreten möchte. Blockiert nicht. [net_conn] meldet, wenn die Verbindung hergestellt ist.
+</dd>
+<dt>Rückgabewert</dt><dd>
+1 bei Erfolg, 0 bei Fehler, -1 wenn nicht unterstützt. Mit WebAssembly wird immer -1 zurückgegeben.
+</dd>
+<dt>Siehe auch</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>Beschreibung</dt><dd>
+Verbindungsstatus zurückgeben.
+</dd>
+<dt>Rückgabewert</dt><dd>
+Gibt 0 zurück, wenn noch keine Verbindung hergestellt wurde, 1, wenn ausstehend, und 2, wenn hergestellt.
+</dd>
+<dt>Siehe auch</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>Beschreibung</dt><dd>
+Beendet die Verbindung.
+</dd>
+<dt>Siehe auch</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>Beschreibung</dt><dd>
+Empfangt eine Nachricht von einem Peer.
+</dd>
+<dt>Argumente</dt><dd>
+| Argument | Beschreibung |
+| peer | Adresse den Absender-Peer-ID, 0x30000 bis 0xBFFFC |
+| msg | Adresse eines 1024 Byte großen Puffers, 0x30000 bis 0xBFFFF |
+</dd>
+<dt>Rückgabewert</dt><dd>
+Länge der Nachricht und der Nachricht in `msg`. 0 bedeutet getrennt, `peer` ist -1, wenn keine Nachricht vorhanden ist.
+</dd>
+<dt>Siehe auch</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>Beschreibung</dt><dd>
+Sendet eine Nachricht an einen Peer oder an alle verbundenen Peers, wenn `peer` -1 ist.
+</dd>
+<dt>Argumente</dt><dd>
+| Argument | Beschreibung |
+| peer | Ziel-Peer-ID oder -1, um die Nachricht an alle verbundenen Peers zu senden. |
+| msg | Nachricht, Adresse eines maximal 1024 Byte großen Puffers, 0x30000 bis 0xBFFFF |
+| len | Länge der Nachricht, 1 bis 1024 |
+</dd>
+<dt>Rückgabewert</dt><dd>
+1 bei Erfolg, 0 bei Fehler.
+</dd>
+<dt>Siehe auch</dt><dd>
+[net_recv]
+</dd>
+</dl>

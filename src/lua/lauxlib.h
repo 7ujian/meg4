@@ -231,9 +231,8 @@ LUALIB_API char *(luaL_buffinitsize) (lua_State *L, luaL_Buffer *B, size_t sz);
 ** ===================================================================
 */
 
-void main_log(int lvl, const char* fmt, ...);
-
 /* print an error message */
+void main_log(int lvl, const char* fmt, ...);
 #define lua_writestringerror(s,p) (main_log(1, (s), (p)))
 
 /* }================================================================== */

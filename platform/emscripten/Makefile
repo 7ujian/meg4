@@ -40,7 +40,7 @@ include ../common.mk
 meg4.js:
 	@make --no-print-directory -C ../sdl clean
 	CC=emcc USE_EMCC=1 make -C ../sdl all DEBUG=$(DEBUG) NOEDITORS=$(NOEDITORS)
-	emcc -s USE_SDL=2 -s EXIT_RUNTIME=1 -s ALLOW_MEMORY_GROWTH=1 -s WASM_BIGINT -s EXPORTED_FUNCTIONS='["_main"$(FUNC),"_malloc","_free"]' -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap"]' $(LINK) --pre-js=pre.js \
+	emcc -s USE_SDL=2 -s EXIT_RUNTIME=1 -s ALLOW_MEMORY_GROWTH=1 -s WASM_BIGINT -s EXPORTED_FUNCTIONS='["_main"$(FUNC),"_malloc","_free"]' -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap","HEAPU8"]' $(LINK) --pre-js=pre.js \
 	../sdl/*.o ../../src/*.o $(EDS) $(LUAO) -o meg4.js
 	@make --no-print-directory -C ../sdl clean
 ifeq ($(NOEDITORS),)

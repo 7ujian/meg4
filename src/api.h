@@ -7,13 +7,13 @@
  *
  */
 
-#define MEG4_NUM_API 165
+#define MEG4_NUM_API 171
 #define MEG4_NUM_BDEF 260
 #ifndef API_IMPL
-extern meg4_api_t meg4_api[166];
+extern meg4_api_t meg4_api[172];
 extern bdef_t meg4_bdefs[261];
 #else
-meg4_api_t meg4_api[166] = {
+meg4_api_t meg4_api[172] = {
     { "putc", 0, 1, 0, 0x0, 0x0, 0x0, 0x1 },
     { "printf", 0, 2, 2, 0x1, 0x1, 0x0, 0x0 },
     { "getc", 1, 0, 0, 0x0, 0x0, 0x0, 0x0 },
@@ -179,6 +179,12 @@ meg4_api_t meg4_api[166] = {
     { "malloc", 2, 1, 0, 0x0, 0x0, 0x0, 0x1 },
     { "realloc", 2, 2, 0, 0x1, 0x0, 0x0, 0x2 },
     { "free", 1, 1, 0, 0x1, 0x0, 0x0, 0x0 },
+    { "net_host", 1, 1, 0, 0x0, 0x0, 0x0, 0x0 },
+    { "net_join", 1, 0, 0, 0x0, 0x0, 0x0, 0x0 },
+    { "net_conn", 1, 0, 0, 0x0, 0x0, 0x0, 0x0 },
+    { "net_close", 0, 0, 0, 0x0, 0x0, 0x0, 0x0 },
+    { "net_recv", 1, 2, 0, 0x3, 0x0, 0x0, 0x0 },
+    { "net_send", 1, 3, 0, 0x2, 0x0, 0x0, 0x0 },
     { NULL, 0, 0, 0, 0, 0, 0, 0 }
 };
 #endif
@@ -620,4 +626,10 @@ bdef_t meg4_bdefs[261] = {
     case 161:  val = meg4_api_mblen((str_t)cpu_topi(0)); break; \
     case 162:  val = meg4_api_malloc((uint32_t)cpu_topi(0)); break; \
     case 163:  val = meg4_api_realloc((addr_t)cpu_topi(0),(uint32_t)cpu_topi(4)); break; \
-    case 164:  val = meg4_api_free((addr_t)cpu_topi(0)); break; 
+    case 164:  val = meg4_api_free((addr_t)cpu_topi(0)); break; \
+    case 165:  val = meg4_api_net_host((int)cpu_topi(0)); break; \
+    case 166:  val = meg4_api_net_join(); break; \
+    case 167:  val = meg4_api_net_conn(); break; \
+    case 168: meg4_api_net_close(); break; \
+    case 169:  val = meg4_api_net_recv((addr_t)cpu_topi(0),(addr_t)cpu_topi(4)); break; \
+    case 170:  val = meg4_api_net_send((int)cpu_topi(0),(addr_t)cpu_topi(4),(int)cpu_topi(8)); break; 

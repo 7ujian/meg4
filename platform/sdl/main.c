@@ -430,12 +430,12 @@ void main_loop(void) {
             case SDL_CONTROLLERAXISMOTION:
                 for(i = 0; i < 4 && controllerid[i] != (int)event.caxis.which; i++);
                 if(i < 4) {
-                    if(event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTY) {
+                    if(event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX) {
                         meg4_clrpad(i, MEG4_BTN_L | MEG4_BTN_R);
                         if(event.caxis.value < -le16toh(meg4.mmio.padtres)) meg4_setpad(i, MEG4_BTN_L);
                         if(event.caxis.value >  le16toh(meg4.mmio.padtres)) meg4_setpad(i, MEG4_BTN_R);
                     }
-                    if(event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTX || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTX) {
+                    if(event.caxis.axis == SDL_CONTROLLER_AXIS_LEFTY || event.caxis.axis == SDL_CONTROLLER_AXIS_RIGHTY) {
                         meg4_clrpad(i, MEG4_BTN_U | MEG4_BTN_D);
                         if(event.caxis.value < -le16toh(meg4.mmio.padtres)) meg4_setpad(i, MEG4_BTN_U);
                         if(event.caxis.value >  le16toh(meg4.mmio.padtres)) meg4_setpad(i, MEG4_BTN_D);

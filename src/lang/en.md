@@ -3848,3 +3848,119 @@ Frees dynamically allocated user memory.
 [malloc], [realloc]
 </dd>
 </dl>
+
+# Networking
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>Description</dt><dd>
+Start listening for client connections, hosting a LAN game. Does not block, [net_conn] reports when the connection is established.
+</dd>
+<dt>Parameters</dt><dd>
+| Argument | Description |
+| num | maximum number of players, up to 16 |
+</dd>
+<dt>Return Value</dt><dd>
+1 on success, 0 on error, -1 if not supported. With WebAssembly always returns -1.
+</dd>
+<dt>See Also</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>Description</dt><dd>
+Indicate that player wants to join the LAN game. Does not block, [net_conn] reports when the connection is established.
+</dd>
+<dt>Return Value</dt><dd>
+1 on success, 0 on error, -1 if not supported. With WebAssembly always returns -1.
+</dd>
+<dt>See Also</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>Description</dt><dd>
+Return connection status.
+</dd>
+<dt>Return Value</dt><dd>
+Retuns 0 if no connection started yet, 1 when pending, and 2 if established.
+</dd>
+<dt>See Also</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>Description</dt><dd>
+Closes the connection.
+</dd>
+<dt>See Also</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>Description</dt><dd>
+Receives a message from a peer.
+</dd>
+<dt>Parameters</dt><dd>
+| Argument | Description |
+| peer | sender peer id address, 0x30000 to 0xBFFFC |
+| msg | a 1024 bytes big buffer's address, 0x30000 to 0xBFFFF |
+</dd>
+<dt>Return Value</dt><dd>
+Length of the message and the message in `msg`, 0 means disconnected, `peer` is -1 if there was no message.
+</dd>
+<dt>See Also</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>Description</dt><dd>
+Sends a message to a peer or to all connected peers if `peer` is -1.
+</dd>
+<dt>Parameters</dt><dd>
+| Argument | Description |
+| peer | target peer id, or -1 to send it to all connected peers |
+| msg | message, address of at most 1024 bytes big buffer, 0x30000 to 0xBFFFF |
+| len | length of the message, 1 to 1024 |
+</dd>
+<dt>Return Value</dt><dd>
+1 on success, 0 on error.
+</dd>
+<dt>See Also</dt><dd>
+[net_recv]
+</dd>
+</dl>

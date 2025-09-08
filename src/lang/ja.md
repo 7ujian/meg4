@@ -3835,3 +3835,119 @@ int free(addr_t addr)
 [malloc], [realloc]
 </dd>
 </dl>
+
+# ネットワーク
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>説明</dt><dd>
+LANゲームをホストし、クライアント接続の待機を開始します。ブロックは行わず、[net_conn] は接続確立時にレポートします。
+</dd>
+<dt>パラメータ</dt><dd>
+| 引数 | 説明 |
+| num | プレイヤーの最大数は16です  |
+</dd>
+<dt>戻り値</dt><dd>
+成功の場合は1、エラーの場合は0、サポートされていない場合は-1。WebAssemblyでは常に-1を返します。
+</dd>
+<dt>関連項目</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>説明</dt><dd>
+プレイヤーがLANゲームへの参加を希望していることを示します。ブロックは行わず、[net_conn] は接続確立時にレポートします。
+</dd>
+<dt>戻り値</dt><dd>
+成功の場合は1、エラーの場合は0、サポートされていない場合は-1。WebAssemblyでは常に-1を返します。
+</dd>
+<dt>関連項目</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>説明</dt><dd>
+接続ステータスを返します。
+</dd>
+<dt>戻り値</dt><dd>
+まだ接続が開始されていない場合は0、保留中の場合は1、確立されている場合は2を返します。
+</dd>
+<dt>関連項目</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>説明</dt><dd>
+接続を閉じます。
+</dd>
+<dt>関連項目</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>説明</dt><dd>
+ピアからメッセージを受信します。
+</dd>
+<dt>パラメータ</dt><dd>
+| 引数 | 説明 |
+| peer | 送信側ピアIDアドレス、0x30000 ～ 0xBFFFC |
+| msg | 1024バイトのバッファアドレス、0x30000 ～ 0xBFFFF |
+</dd>
+<dt>戻り値</dt><dd>
+メッセージの長さと`msg`内のメッセージ。0は切断を意味します。メッセージがなかった場合、`peer`は-1になります。
+</dd>
+<dt>関連項目</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>説明</dt><dd>
+ピアにメッセージを送信します。`peer`が-1の場合は、接続されているすべてのピアにメッセージを送信します。
+</dd>
+<dt>パラメータ</dt><dd>
+| 引数 | 説明 |
+| peer | 送信先ピアID、または接続されているすべてのピアに送信する場合は-1です。 |
+| msg | メッセージ、最大1024バイトのバッファアドレス、0x30000 ～ 0xBFFFF |
+| len | メッセージの長さ、1 ～ 1024 |
+</dd>
+<dt>戻り値</dt><dd>
+成功の場合は 1、エラーの場合は 0。
+</dd>
+<dt>関連項目</dt><dd>
+[net_recv]
+</dd>
+</dl>

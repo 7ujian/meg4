@@ -31,4 +31,6 @@ peripheral for which they provide access, and they are collected into api.h by b
 
 - mem.c - memory management unit: functions to access MMIO, overlay API, memcpy, strcmp, things like that (ROM code).
 
+- net.c - network card: functions to create a LAN game.
+
 - editors/ - optional built-in applications (rest of ROM code, everything except the compiler and the API).

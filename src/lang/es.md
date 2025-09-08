@@ -3850,3 +3850,119 @@ Libera la memoria de usuario asignada dinámicamente.
 [malloc], [realloc]
 </dd>
 </dl>
+
+# Redes
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>Descripción</dt><dd>
+Inicia la escucha de conexiones de clientes y aloja una partida LAN. No se bloquea; [net_conn] informa cuando se establece la conexión.
+</dd>
+<dt>Parámetros</dt><dd>
+| Argumento | Descripción |
+| num | número máximo de jugadores, hasta 16 |
+</dd>
+<dt>Valor de retorno</dt><dd>
+1 si es correcto, 0 si es un error, -1 si no es compatible. Con WebAssembly, siempre devuelve -1.
+</dd>
+<dt>Ver también</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>Descripción</dt><dd>
+Indica que el jugador desea unirse a la partida LAN. No se bloquea; [net_conn] informa cuando se establece la conexión.
+</dd>
+<dt>Valor de retorno</dt><dd>
+1 si es correcto, 0 si es un error, -1 si no es compatible. Con WebAssembly, siempre devuelve -1.
+</dd>
+<dt>Ver también</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>Descripción</dt><dd>
+Devuelve el estado de la conexión.
+</dd>
+<dt>Valor de retorno</dt><dd>
+Devuelve 0 si aún no se ha iniciado la conexión, 1 si está pendiente y 2 si está establecida.
+</dd>
+<dt>Ver también</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>Descripción</dt><dd>
+Cierra la conexión.
+</dd>
+<dt>Ver también</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>Descripción</dt><dd>
+Recibe un mensaje de un par.
+</dd>
+<dt>Parámetros</dt><dd>
+| Argumento | Descripción |
+| peer | dirección del ID del par del remitente, 0x30000 a 0xBFFFC |
+| msg | dirección de un búfer de 1024 bytes, 0x30000 a 0xBFFFF |
+</dd>
+<dt>Valor de retorno</dt><dd>
+Longitud del mensaje y del mensaje en `msg`, 0 significa desconectado; `peer` es -1 si no hay mensaje.
+</dd>
+<dt>Ver también</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>Descripción</dt><dd>
+Envía un mensaje a un par o a todos los pares conectados si `peer` es -1.
+</dd>
+<dt>Parámetros</dt><dd>
+| Argumento | Descripción |
+| peer | ID del par de destino, -1 para enviarlo a todos los pares conectados |
+| msg | mensaje, dirección de un búfer de 1024 bytes (máximo), 0x30000 a 0xBFFFF |
+| len | longitud del mensaje, 1 a 1024 |
+</dd>
+<dt>Valor de retorno</dt><dd>
+1 en caso de éxito; 0 en caso de error.
+</dd>
+<dt>Ver también</dt><dd>
+[net_recv]
+</dd>
+</dl>

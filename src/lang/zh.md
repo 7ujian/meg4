@@ -3826,3 +3826,119 @@ int free(addr_t addr)
 [malloc], [realloc]
 </dd>
 </dl>
+
+# 网络
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>描述</dt><dd>
+开始监听客户端连接，并发起 LAN 游戏。不阻塞，[net_conn] 会在连接建立时报告。
+</dd>
+<dt>参数</dt><dd>
+| 争论t | 描述 |
+| num | 最大玩家数量，最多 16 人 |
+</dd>
+<dt>返回值</dt><dd>
+成功时返回 1，错误时返回 0，不支持时返回 -1。使用 WebAssembly 时始终返回 -1。
+</dd>
+<dt>另见</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>描述</dt><dd>
+指示玩家想要加入 LAN 游戏。不阻塞，[net_conn] 会在连接建立时报告。
+</dd>
+<dt>返回值</dt><dd>
+成功时返回 1，错误时返回 0，不支持时返回 -1。使用 WebAssembly 时始终返回 -1。
+</dd>
+<dt>另见</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>描述</dt><dd>
+返回连接状态。
+</dd>
+<dt>返回值</dt><dd>
+如果尚未建立连接，则返回 0；如果连接处于挂起状态，则返回 1；如果连接已建立，则返回 2。
+</dd>
+<dt>另见</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>描述</dt><dd>
+关闭连接。
+</dd>
+<dt>另见</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>描述</dt><dd>
+接收来自对等方的消息。
+</dd>
+<dt>参数</dt><dd>
+| 争论t | 描述 |
+| peer | 发送方对等体 ID 地址，范围为 0x30000 至 0xBFFFC |
+| msg | 一个 1024 字节的大缓冲区地址，范围为 0x30000 至 0xBFFFF |
+</dd>
+<dt>返回值</dt><dd>
+消息长度以及 `msg` 中的消息内容，0 表示已断开连接，`peer` 为 -1 表示无消息。
+</dd>
+<dt>另见</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>描述</dt><dd>
+向一个对等体发送消息，如果 `peer` 为 -1，则向所有已连接的对等体发送消息。
+</dd>
+<dt>参数</dt><dd>
+| 争论t | 描述 |
+| peer | 目标对等体 ID，如果为 -1，则向所有已连接的对等体发送消息。 |
+| msg | 消息，一个最大 1024 字节的大缓冲区地址，范围为 0x30000 至 0xBFFFF |
+| len | 消息长度，范围为 1 至 1024 |
+</dd>
+<dt>返回值</dt><dd>
+1表示成功，0表示错误。
+</dd>
+<dt>另见</dt><dd>
+[net_recv]
+</dd>
+</dl>

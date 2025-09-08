@@ -196,6 +196,7 @@ static void meg4_free(void)
         if(meg4.ovls[i].data) free(meg4.ovls[i].data);
     dsp_free();
     cpu_free();
+    net_free();
     memset(&meg4, 0, sizeof(meg4_t));
 }
 
@@ -458,6 +459,7 @@ void meg4_switchmode(int mode)
         menu_scroll = menu_scrmax = 0;
         memset(&meg4.dalt, 0, sizeof(meg4.dalt));
         dsp = &meg4.dalt;
+        net_free();
     } else {
         if(meg4_defwaves) { free(meg4_defwaves); meg4_defwaves = NULL; }
         if(meg4_edicons.buf) { free(meg4_edicons.buf); memset(&meg4_edicons, 0, sizeof(meg4_edicons)); }
@@ -514,7 +516,7 @@ void meg4_run(void)
 #else
     clock_gettime(CLOCK_MONOTONIC, &now);
     meg4.mmio.now = htole64((uint64_t)now.tv_sec);
-    meg4.mmio.tick = htole32(((now.tv_sec - started.tv_sec) * 1000 + (now.tv_nsec - started.tv_nsec) / 1000000000000));
+    meg4.mmio.tick = htole32(((now.tv_sec - started.tv_sec) * 1000 + (now.tv_nsec - started.tv_nsec) / 1000000));
 #endif
     /* calculate how many msecs were unspent in the last frame, make sure not to overflow */
     i = 1000/60 - (le32toh(meg4.mmio.tick) - meg4_lasttick); meg4.mmio.perf = i < -127 ? -127 : i;
@@ -555,6 +557,7 @@ void meg4_run(void)
     } else
 #endif
     {
+        net_loop();
         cpu_run();
     }
     meg4_lasttick = le32toh(meg4.mmio.tick);

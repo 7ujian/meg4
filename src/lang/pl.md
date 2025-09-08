@@ -3848,3 +3848,119 @@ Zwalnia dynamicznie przydzieloną pamięć użytkownika.
 [malloc], [realloc]
 </dd>
 </dl>
+
+# Sieć
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>Opis</dt><dd>
+Rozpocznij nasłuchiwanie połączeń klientów, hostując grę LAN. Nie blokuje, [net_conn] raportuje po nawiązaniu połączenia.
+</dd>
+<dt>Parametry</dt><dd>
+| Argument | Opis |
+| num | maksymalna liczba graczy, do 16 |
+</dd>
+<dt>Wartość zwracana</dt><dd>
+1 w przypadku powodzenia, 0 w przypadku błędu, -1 jeśli nieobsługiwane. W przypadku WebAssembly zawsze zwracana jest wartość -1.
+</dd>
+<dt>Zobacz także</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>Opis</dt><dd>
+Wskazuje, że gracz chce dołączyć do gry LAN. Nie blokuje, [net_conn] raportuje po nawiązaniu połączenia.
+</dd>
+<dt>Wartość zwracana</dt><dd>
+1 w przypadku powodzenia, 0 w przypadku błędu, -1 jeśli nieobsługiwane. W przypadku WebAssembly zawsze zwracana jest wartość -1.
+</dd>
+<dt>Zobacz także</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>Opis</dt><dd>
+Zwróć status połączenia.
+</dd>
+<dt>Wartość zwracana</dt><dd>
+Zwraca 0, jeśli połączenie nie zostało jeszcze nawiązane, 1 w przypadku oczekiwania i 2, jeśli zostało nawiązane.
+</dd>
+<dt>Zobacz także</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>Opis</dt><dd>
+Zamyka połączenie.
+</dd>
+<dt>Zobacz także</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>Opis</dt><dd>
+Otrzymuje komunikat od partnera.
+</dd>
+<dt>Parametry</dt><dd>
+| Argument | Opis |
+| peer | adres identyfikatora nadawcy, od 0x30000 do 0xBFFFC |
+| msg | adres bufora dużego o pojemności 1024 bajtów, od 0x30000 do 0xBFFFF |
+</dd>
+<dt>Wartość zwracana</dt><dd>
+Długość wiadomości i komunikat w `msg`, 0 oznacza rozłączony, `peer` to -1, jeśli nie było wiadomości.
+</dd>
+<dt>Zobacz także</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>Opis</dt><dd>
+Wysyła wiadomość do peera lub do wszystkich połączonych peerów, jeśli `peer` to -1.
+</dd>
+<dt>Parametry</dt><dd>
+| Argument | Opis |
+| peer | identyfikator docelowego peera lub -1, aby wysłać go do wszystkich połączonych peerów |
+| msg | komunikat, adres bufora dużego o pojemności maksymalnie 1024 bajtów, od 0x30000 do 0xBFFFF |
+| len | długość wiadomości, od 1 do 1024 |
+</dd>
+<dt>Wartość zwracana</dt><dd>
+1 w przypadku powodzenia, 0 w przypadku błędu.
+</dd>
+<dt>Zobacz także</dt><dd>
+[net_recv]
+</dd>
+</dl>

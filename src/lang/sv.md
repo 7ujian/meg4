@@ -3848,3 +3848,119 @@ Frigör dynamiskt allokerat användarminne.
 [malloc], [realloc]
 </dd>
 </dl>
+
+# Nätverk
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>Beskrivning</dt><dd>
+Börja lyssna efter klientanslutningar, värd för ett LAN-spel. Blockerar inte, [net_conn] rapporterar när anslutningen är upprättad.
+</dd>
+<dt>Parametrar</dt><dd>
+| Argument | Beskrivning |
+| num | max antal spelare, upp till 16 |
+</dd>
+<dt>Returvärde</dt><dd>
+1 vid lyckat resultat, 0 vid fel, -1 om det inte stöds. Med WebAssembly returneras alltid -1.
+</dd>
+<dt>Se även</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>Beskrivning</dt><dd>
+Indikerar att spelaren vill gå med i LAN-spelet. Blockerar inte, [net_conn] rapporterar när anslutningen är upprättad.
+</dd>
+<dt>Returvärde</dt><dd>
+1 vid lyckat resultat, 0 vid fel, -1 om det inte stöds. Med WebAssembly returneras alltid -1.
+</dd>
+<dt>Se även</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>Beskrivning</dt><dd>
+Returnerar anslutningsstatus.
+</dd>
+<dt>Returvärde</dt><dd>
+Returnerar 0 om ingen anslutning har startats ännu, 1 vid väntande anslutning och 2 om upprättad.
+</dd>
+<dt>Se även</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>Beskrivning</dt><dd>
+Stänger anslutningen.
+</dd>
+<dt>Se även</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>Beskrivning</dt><dd>
+Tar emot ett meddelande från en peer.
+</dd>
+<dt>Parametrar</dt><dd>
+| Argument | Beskrivning |
+| peer | avsändarens peer-ID, adress, 0x30000 till 0xBFFFC |
+| msg | en 1024 byte stor buffertadress, 0x30000 till 0xBFFFF |
+</dd>
+<dt>Returvärde</dt><dd>
+Längd på meddelandet och meddelandet i `msg`, 0 betyder frånkopplad, `peer` är -1 om det inte fanns något meddelande.
+</dd>
+<dt>Se även</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>Beskrivning</dt><dd>
+Skickar ett meddelande till en peer eller till alla anslutna peers om `peer` är -1.
+</dd>
+<dt>Parametrar</dt><dd>
+| Argument | Beskrivning |
+| peer | målpeer-ID, eller -1 för att skicka det till alla anslutna peers |
+| msg | meddelande, adress för högst 1024 byte stor buffert, 0x30000 till 0xBFFFF |
+| len | längd på meddelandet, 1 till 1024 |
+</dd>
+<dt>Returvärde</dt><dd>
+1 på framgång, 0 på fel.
+</dd>
+<dt>Se även</dt><dd>
+[net_recv]
+</dd>
+</dl>

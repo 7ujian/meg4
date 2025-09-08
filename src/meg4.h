@@ -663,6 +663,16 @@ void meg4_api_map(int16_t x, int16_t y, uint16_t mx, uint16_t my, uint16_t mw, u
 void meg4_api_maze(uint16_t mx, uint16_t my, uint16_t mw, uint16_t mh, uint8_t scale,
     uint16_t sky, uint16_t grd, uint16_t door, uint16_t wall, uint16_t obj, uint8_t numnpc, addr_t npc);
 
+/* net.c - networking */
+void net_free(void);
+void net_loop(void);
+int  meg4_api_net_host(int num);
+int  meg4_api_net_join(void);
+int  meg4_api_net_conn(void);
+void meg4_api_net_close(void);
+int  meg4_api_net_recv(addr_t peer, addr_t msg);
+int  meg4_api_net_send(int peer, addr_t msg, int len);
+
 #ifdef  __cplusplus
 }
 #endif

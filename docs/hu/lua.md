@@ -37,7 +37,7 @@ A többi nyelvvel ellentétben ez nem szerves része a MEG-4-nek, hanem egy kül
 tökéletesen integrálva (például nincs debuggolója és a hibaüzenetek sincsenek lefordítva). Maga a futtató a többi nyelvhez képest
 iszonyat lassú, de működik, használható.
 
-A beágyazott verzió a **Lua 5.4.7**, több módosítással. A biztonság érdekében a nyelvből kikerült a konkurencia, valamint a
+A beágyazott verzió a **Lua 5.4.8**, több módosítással. A biztonság érdekében a nyelvből kikerült a konkurencia, valamint a
 dinamikus modulkezelés, fájlelérés, csővezetékek, parancsfuttatás. A `coroutine`, `io` és `os` függvénycsomagok és a függvényeik
 nincsenek (de a nyelv eszköztára és a baselib összes többi része továbbra is elérhető). A hiányzó táblák helyett azonban bekerült
 a MEG-4 API, ami ugyanúgy használható, mint a többi nyelvnél (pár apró, lényegtelen eltéréssel a jobb integráció kedvéért).

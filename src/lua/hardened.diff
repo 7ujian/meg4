@@ -21,7 +21,8 @@ diff a/lauxlib.c lua/lauxlib.c
 < }
 < 
 < 
-288,303d266
+287,303d265
+< 
 < LUALIB_API int luaL_execresult (lua_State *L, int stat) {
 <   if (stat != 0 && errno != 0)  /* error with an 'errno'? */
 <     return luaL_fileresult(L, 0, NULL);
@@ -38,7 +39,7 @@ diff a/lauxlib.c lua/lauxlib.c
 <   }
 < }
 < 
-711,825d673
+711,825d672
 < 
 < typedef struct LoadF {
 <   int n;  /* number of pre-read characters */
@@ -184,7 +185,7 @@ diff a/lauxlib.h lua/lauxlib.h
 <   lua_CFunction closef;  /* to close stream (NULL for closed streams) */
 < } luaL_Stream;
 < 
-258,266c234
+258,267d233
 < /* print a string */
 < #if !defined(lua_writestring)
 < #define lua_writestring(s,l)   fwrite((s), sizeof(char), (l), stdout)
@@ -194,14 +195,14 @@ diff a/lauxlib.h lua/lauxlib.h
 < #if !defined(lua_writeline)
 < #define lua_writeline()        (lua_writestring("\n", 1), fflush(stdout))
 < #endif
----
-> void main_log(int lvl, const char* fmt, ...);
-269,272c237
+< 
+269,272c235,236
 < #if !defined(lua_writestringerror)
 < #define lua_writestringerror(s,p) \
 <         (fprintf(stderr, (s), (p)), fflush(stderr))
 < #endif
 ---
+> void main_log(int lvl, const char* fmt, ...);
 > #define lua_writestringerror(s,p) (main_log(1, (s), (p)))
 diff a/lbaselib.c lua/lbaselib.c
 24,39d23
@@ -316,13 +317,14 @@ diff a/lualib.h lua/lualib.h
 < #define LUA_OSLIBNAME	"os"
 < LUAMOD_API int (luaopen_os) (lua_State *L);
 < 
-40,45d30
+40,46d30
 < 
 < #define LUA_DBLIBNAME	"debug"
 < LUAMOD_API int (luaopen_debug) (lua_State *L);
 < 
 < #define LUA_LOADLIBNAME	"package"
 < LUAMOD_API int (luaopen_package) (lua_State *L);
+< 
 diff a/Makefile lua/Makefile
 7c7
 < PLAT= guess

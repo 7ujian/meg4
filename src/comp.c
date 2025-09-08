@@ -1163,6 +1163,8 @@ int cpu_compile(void)
     int ret = 0, i, j, k;
     int types[] = { T(T_FUNC,T_VOID), T(T_FUNC,T_I32), T(T_FUNCP,T_U8), T(T_FUNCP,T_I8), T(T_FUNC,T_FLOAT) };
 
+    meg4.mmio.ptrspr = MEG4_PTR_NORM;
+    net_free();
     dsp_reset();
     cpu_init();
     cpu_getlang();

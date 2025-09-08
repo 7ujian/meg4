@@ -971,7 +971,7 @@ void code_view(void)
     }
     /* in case the last line does not end in a newline */
     if((str == meg4.src + cursor) && !modal) {
-        if(!menu_active && (le16toh(meg4.mmio.tick) & 512))
+        if(!menu_active && (le32toh(meg4.mmio.tick) & 512))
             meg4_box(meg4.valt, 632, 378, 2560, dx + 18, dy, 5, 8, cr, cr, cr, 0, 0, 0, 0, 0);
         col = cl; row = n; cx = dx;
     }

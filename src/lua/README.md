@@ -1,7 +1,7 @@
 This is a stripped down and security hardened Lua. **DO NOT** use the stock Lua repo. I repeat **DO NOT** use the stock Lua repo,
 that's full of security holes.
 
-The original source was downloaded from [lua-5.4.7.tar.gz](https://www.lua.org/ftp/lua-5.4.7.tar.gz).
+The original source was downloaded from [lua-5.4.8.tar.gz](https://www.lua.org/ftp/lua-5.4.8.tar.gz).
 
 If you have to update Lua, then keep THIS luaconf.h (otherwise make sure it is using snprintf and NOT sprintf, and that the stack
 is reasonably limited), delete lua.c, luac.c lcorolib.c, ldblib.c, liolib.c, loadlib.c, loslib.c; remove *all* file operations (like

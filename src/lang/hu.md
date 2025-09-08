@@ -3846,3 +3846,119 @@ Felszabadítja a dinamikusan lefoglalt memóriát.
 [malloc], [realloc]
 </dd>
 </dl>
+
+# Hálózat
+
+## net_host
+
+```c
+int net_host(int num)
+```
+<dl>
+<dt>Leírás</dt><dd>
+Elkezd bejövő kapcsolatokat figyelni, LAN játék hosztolása. Nem blokkol, a [net_conn] jelzi, amikor létrejött a kapcsolat.
+</dd>
+<dt>Paraméterek</dt><dd>
+| Paraméter | Leírás |
+| num | maximális játékosok száma, legfeljebb 16 |
+</dd>
+<dt>Visszatérési érték</dt><dd>
+1 ha sikeres volt, egyébként 0, -1 ha nem támogatott. WebAssemblyre fordítva mindig -1-et ad vissza.
+</dd>
+<dt>Lásd még</dt><dd>
+[net_join], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_join
+
+```c
+int net_join(void)
+```
+<dl>
+<dt>Leírás</dt><dd>
+Jelzi, hogy a játékos csatlakozni szeretne a LAN játékhoz. Nem blokkol, a [net_conn] jelzi, amikor létrejött a kapcsolat.
+</dd>
+<dt>Visszatérési érték</dt><dd>
+1 ha sikeres volt, egyébként 0, -1 ha nem támogatott. WebAssemblyre fordítva mindig -1-et ad vissza.
+</dd>
+<dt>Lásd még</dt><dd>
+[net_host], [net_conn], [net_close]
+</dd>
+</dl>
+<hr>
+## net_conn
+
+```c
+int net_conn(void)
+```
+<dl>
+<dt>Leírás</dt><dd>
+Visszaadja a kapcsolat állapotát.
+</dd>
+<dt>Visszatérési érték</dt><dd>
+Ha még nem kezdeményeztek, akkor 0, 1 ha folyamatban van, 2 ha létrejött a kapcsolat.
+</dd>
+<dt>Lásd még</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_close
+
+```c
+void net_close(void)
+```
+<dl>
+<dt>Leírás</dt><dd>
+Lezárja a kapcsolatot.
+</dd>
+<dt>Lásd még</dt><dd>
+[net_host], [net_join]
+</dd>
+</dl>
+<hr>
+## net_recv
+
+```c
+int net_recv(addr_t peer, addr_t msg)
+```
+<dl>
+<dt>Leírás</dt><dd>
+Üzenetet fogad egy másik féltől.
+</dd>
+<dt>Paraméterek</dt><dd>
+| Paraméter | Leírás |
+| peer | a küldő fél azonosítójának címe, 0x30000-tól 0xBFFFC-ig |
+| msg | egy 1024 bájtos buffer címe, 0x30000-tól 0xBFFFF-ig |
+</dd>
+<dt>Visszatérési érték</dt><dd>
+Az üzenet hossza bájtokban és az üzenet `msg`-ben, vagy 0 ha kilépett, `peer` -1 nem volt üzenet.
+</dd>
+<dt>Lásd még</dt><dd>
+[net_send]
+</dd>
+</dl>
+<hr>
+## net_send
+
+```c
+int net_send(int peer, addr_t msg, int len)
+```
+<dl>
+<dt>Leírás</dt><dd>
+Üzenetet küld egy másik félnek, vagy minden kapcsolódott félnek ha a `peer` -1.
+</dd>
+<dt>Paraméterek</dt><dd>
+| Paraméter | Leírás |
+| peer | a címzett fél azonosítója, vagy -1 minden csatlakozott félnek elküldi |
+| msg | üzenetet tartalmazó, legfeljebb 1024 bájtos buffer címe, 0x30000-tól 0xBFFFF-ig |
+| len | az üzenet hossza, 1-től 1024-ig |
+</dd>
+<dt>Visszatérési érték</dt><dd>
+1 ha sikeres volt, egyébként 0.
+</dd>
+<dt>Lásd még</dt><dd>
+[net_recv]
+</dd>
+</dl>
