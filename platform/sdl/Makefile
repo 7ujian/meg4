@@ -103,8 +103,7 @@ ifeq ($(wildcard SDL2/configure),)
 endif
 ifeq ($(wildcard SDL2/Makefile),)
 	@#dbus call in SDL2/src/core/linux/SDL_dbus.c:140 is leaking pretty badly. We don't need dbus anyway
-	@#can't compile SDL2 with the latest wayland, the wl tools are buggy. Remove --disable-video-wayland once wl gets fixed
-	@cd SDL2 && ./configure --disable-shared --enable-static --disable-dbus --disable-video-wayland
+	@cd SDL2 && ./configure --disable-shared --enable-static --disable-dbus
 endif
 	@make --no-print-directory -s -C SDL2 all
 endif

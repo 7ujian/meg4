@@ -301,7 +301,7 @@ void menu_view(uint32_t *dst, int dw, int dh, int dp)
             }
             else if(a) { c = theme[THEME_ACTIVE_BG]; s = 0; }
             else { c = theme[THEME_MENU_FG]; s = 0; }
-            meg4_blit(dst, 4, y, dp, 8, 8, meg4_edicons.buf, 48 + ((i - MENU_ABOUT) << 3), 40, meg4_edicons.w * 4, 1);
+            meg4_blit(dst, 4, y, dp, 8, 8, meg4_edicons.buf, 48 + ((i - MENU_ABOUT) << 3), i == MENU_HELP ? 56 : 40, meg4_edicons.w * 4, 1);
             meg4_text(dst, 14, y, dp, c, s, 1, meg4_font, lang[i]);
             switch(i) {
                 case MENU_RUN:     shortcut_view(dst, menu_width + 4, y, dp, 0); break;
