@@ -1443,7 +1443,7 @@ static __inline__ void meg4_setpixel(uint16_t x, uint16_t y, uint8_t r, uint8_t 
 /**
  * Fill a scanline
  */
-static __inline__ void meg4_fill(uint16_t x0, uint16_t x1, uint16_t y, uint8_t *c)
+static __inline__ void meg4_fill(int16_t x0, int16_t x1, uint16_t y, uint8_t *c)
 {
     uint8_t *d;
     int i, x, xs, xe, r, g, b;
