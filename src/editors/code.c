@@ -408,6 +408,7 @@ uint32_t code_pos(int x, int y)
             dx += (meg4_font[8 * 65536 + c] >> 4) - (meg4_font[8 * 65536 + c] & 0xf) + 2;
         }
     }
+    if(dy > y && str > meg4.src && str[-1] == '\n') str--;
     return (uint32_t)(str - meg4.src);
 }
 
@@ -683,15 +684,17 @@ int code_ctrl(void)
     } else
     if(!last && clk) {
         /* editor area click */
-        if(px >= 18 && px < 632 && py >= 12 && py < 378) {
-            cursor = lastc = sels = code_pos(px - 18 - MEG4_PTR_HOTSPOT_X, py - 12); sele = -1U;
+        if(px >= 18 && px < 632 && py >= 12 && py < 391) {
+            cursor = sels = code_pos(px - 18 - MEG4_PTR_HOTSPOT_X, py - 12); sele = lastc = -1U;
             code_getfunc();
         }
     } else
     if(last && clk) {
         /* editor area pointer move with click */
-        if(px >= 18 && px < 632 && py >= 12 && py < 378) {
-            sele = code_pos(px - 18 - MEG4_PTR_HOTSPOT_X, py - 12);
+        if(px >= 18 && px < 632) {
+            if(sele != -1U && py < 12 && (le32toh(meg4.mmio.tick) & 512)) menu_scroll--; else
+            if(sele != -1U && py >= 391 && (le32toh(meg4.mmio.tick) & 512)) menu_scroll++; else
+            if(py >= 12 && py < 391) sele = code_pos(px - 18 - MEG4_PTR_HOTSPOT_X, py - 12);
         }
     } else
     if(!last && !clk) {
@@ -873,7 +876,7 @@ void code_view(void)
         }
         i = (row - 1) * 9;
         if(!menu_scroll) menu_scroll = i - 180;
-        if(menu_scroll + 360 < i) menu_scroll = i - 360;
+        if(menu_scroll + 378 < i) menu_scroll = i - 378;
         if(menu_scroll > i) menu_scroll = i;
     }
     menu_scrhgt = 378; menu_scrmax = numnl * 9;
@@ -984,7 +987,7 @@ void code_view(void)
     /* mouse cursor */
     if(meg4.mmio.ptrspr != MEG4_PTR_ERR && !modal && !textinp_buf)
         meg4.mmio.ptrspr = le16toh(meg4.mmio.ptrx) >= 16 && le16toh(meg4.mmio.ptrx) < 632 && le16toh(meg4.mmio.ptry) >= 12 &&
-            le16toh(meg4.mmio.ptry) < (dy + 21 < 378 ? dy + 21 : 378) ? MEG4_PTR_TEXT : MEG4_PTR_NORM;
+            le16toh(meg4.mmio.ptry) < (dy + 21 < 391 ? dy + 21 : 391) ? MEG4_PTR_TEXT : MEG4_PTR_NORM;
     /* status bar */
     meg4.mmio.cropx0 = 0; meg4.mmio.cropx1 = htole16(632); meg4.mmio.cropy1 = htole16(388);
     if(errmsg[0]) {
