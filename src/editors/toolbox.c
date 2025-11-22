@@ -31,6 +31,11 @@ static uint8_t *tb = NULL, *tc = NULL, *hist = NULL;
 /* for font recalculation */
 extern int idx, modified;
 
+/* helper for flood fill and fuzzy selection */
+typedef struct { short int x, y; } fillseg_t;
+#define FILLPUSH(X, Y) if(sp < se) {sp->x = X; sp->y = Y; sp++;}
+#define FILLPOP(X, Y) {sp--; X = sp->x; Y = sp->y;}
+
 /* notes, must match MEG4_NOTE_x enums */
 static char *tbnotes[] = { "...",
     "C-0", "C#0", "D-0", "D#0", "E-0", "F-0", "F#0", "G-0", "G#0", "A-0", "A#0", "B-0",
@@ -188,35 +193,45 @@ void toolbox_paint(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, u
 /**
  * Flood fill continous area at given position using a brush. With SHIFT+click, use random elements from the brush
  */
-void _toolbox_fill(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe)
-{
-    int i, j, w, h, offs = (y + sy) * tp + sx + x, offs2 = (y + sy + th) * tp + sx + x;
-    uint8_t orig;
-
-    if(!tb || tp < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh)
-        return;
-    if((!ts && tb[offs] == idxs) || (tc && ts > 0 && (tc[offs2] & 0x81) != 1)) return;
-    orig = tb[offs]; if(tc) tc[offs2] |= 0x80;
-    if(idxs == idxe) {
-        tb[offs] = idxs;
-    } else {
-        if(idxe < idxs) idxe = idxs;
-        i = idxs & 31; j = idxe & 31; w = j - i + 1; i = idxs >> 5; j = idxe >> 5; h = j - i + 1;
-        if(meg4_api_getkey(MEG4_KEY_LSHIFT) || meg4_api_getkey(MEG4_KEY_RSHIFT)) { i = rand(); j = rand(); }
-        else { i = x; j = y; }
-        tb[offs] = idxs + ((j % h) << 5) + (i % w);
-    }
-    if(x > 0 && ((!ts && tb[offs - 1] == orig) || (tc && ts > 0 && (tc[offs2 - 1] & 1)))) _toolbox_fill(sx, sy, sw, sh, x - 1, y, idxs, idxe);
-    if(x < sw && ((!ts && tb[offs + 1] == orig) || (tc && ts > 0 && (tc[offs2 + 1] & 1)))) _toolbox_fill(sx, sy, sw, sh, x + 1, y, idxs, idxe);
-    if(y > 0 && ((!ts && tb[offs - tp] == orig) || (tc && ts > 0 && (tc[offs2 - tp] & 1)))) _toolbox_fill(sx, sy, sw, sh, x, y - 1, idxs, idxe);
-    if(y < sh && ((!ts && tb[offs + tp] == orig) || (tc && ts > 0 && (tc[offs2 + tp] & 1)))) _toolbox_fill(sx, sy, sw, sh, x, y + 1, idxs, idxe);
-}
+#define FILLNEED(X, Y) (X >= 0 && X < sw && Y >= 0 && Y < sh && \
+  (!tc || !(tc[(Y + sy + th) * tp + sx + X] & 0x80)) && \
+  ((!ts && tb[(Y + sy) * tp + sx + X] == orig) || (tc && ts > 0 && (tc[(Y + sy + th) * tp + sx + X] & 1))))
 void toolbox_fill(int sx, int sy, int sw, int sh, int x, int y, uint8_t idxs, uint8_t idxe)
 {
-    int i;
-    if(!tb || tp < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh)
+    fillseg_t *sp, *st, *se;
+    uint8_t orig;
+    int i, j, w, h;
+
+    if(!tb || tp < 1 || th < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh ||
+      !(sp = st = (fillseg_t*)malloc(tp * th * sizeof(fillseg_t))))
         return;
-    _toolbox_fill(sx, sy, sw, sh, x, y, idxs, idxe);
+    se = st + tp * th;
+    orig = tb[(y + sy) * tp + sx + x];
+    FILLPUSH(x, y);
+    while(sp > st) {
+        FILLPOP(x, y);
+        if(FILLNEED(x, y)) {
+            /* set cell */
+            if(idxs == idxe) {
+                tb[(y + sy) * tp + sx + x] = idxs;
+            } else {
+                if(idxe < idxs) idxe = idxs;
+                i = idxs & 31; j = idxe & 31; w = j - i + 1; i = idxs >> 5; j = idxe >> 5; h = j - i + 1;
+                if(meg4_api_getkey(MEG4_KEY_LSHIFT) || meg4_api_getkey(MEG4_KEY_RSHIFT)) { i = rand(); j = rand(); }
+                else { i = x; j = y; }
+                tb[(y + sy) * tp + sx + x] = idxs + ((j % h) << 5) + (i % w);
+            }
+            /* mark as visited */
+            if(tc) tc[(y + sy + th) * tp + sx + x] |= 0x80;
+            /* check neighbours */
+            if(FILLNEED(x - 1, y)) FILLPUSH(x - 1, y);
+            if(FILLNEED(x + 1, y)) FILLPUSH(x + 1, y);
+            if(FILLNEED(x, y - 1)) FILLPUSH(x, y - 1);
+            if(FILLNEED(x, y + 1)) FILLPUSH(x, y + 1);
+        }
+    }
+    free(st);
+    /* clear visited flags */
     if(tc) for(i = 0; i < tp * th; i++) tc[tp * th + i] &= 0x7F;
     toolbox_histadd();
 }
@@ -263,6 +278,7 @@ void toolbox_selinv(int sx, int sy, int sw, int sh)
 void toolbox_selrect(int sx, int sy, int sw, int sh, int x, int y, int w, int h)
 {
     int i, j;
+    uint8_t v = meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL) ? 0 : 1;
 
     /* make sure we clear the selection as the clipboard, no matter the parameters */
     if(tc && !meg4_api_getkey(MEG4_KEY_LCTRL) && !meg4_api_getkey(MEG4_KEY_RCTRL) &&
@@ -274,34 +290,46 @@ void toolbox_selrect(int sx, int sy, int sw, int sh, int x, int y, int w, int h)
     if(w > 0 && h > 0)
         for(j = 0; j < h; j++)
             for(i = 0; i < w; i++)
-                tc[(sy + y + j + th) * tp + sx + x + i] =
-                    meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL) ? 0 : 1;
+                tc[(sy + y + j + th) * tp + sx + x + i] = v;
     toolbox_bounds();
 }
 
 /**
  * Fuzzy selection
  */
-void _toolbox_fuzzy(int sx, int sy, int sw, int sh, int x, int y, uint8_t idx)
-{
-    int offs = (y + sy) * tp + sx + x;
-
-    if(x < 0 || y < 0 || x >= sw || y >= sh || tb[offs] != idx || (tc[th * tp + offs] & 0x80)) return;
-    tc[th * tp + offs] = 0x80 | (meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL) ? 0 : 1);
-    if(x > 0 && tb[offs - 1] == idx) _toolbox_fuzzy(sx, sy, sw, sh, x - 1, y, idx);
-    if(x < sw && tb[offs + 1] == idx) _toolbox_fuzzy(sx, sy, sw, sh, x + 1, y, idx);
-    if(y > 0 && tb[offs - tp] == idx) _toolbox_fuzzy(sx, sy, sw, sh, x, y - 1, idx);
-    if(y < sh && tb[offs + tp] == idx) _toolbox_fuzzy(sx, sy, sw, sh, x, y + 1, idx);
-}
+#define FUZZNEED(X, Y) (X >= 0 && X < sw && Y >= 0 && Y < sh && \
+  !(tc[(Y + sy + th) * tp + sx + X] & 0x80) && \
+  tb[(Y + sy) * tp + sx + X] == orig)
 void toolbox_selfuzzy(int sx, int sy, int sw, int sh, int x, int y)
 {
-    if(!tb || !tc || tp < 1 || th < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh)
+    fillseg_t *sp, *st, *se;
+    uint8_t orig, v = 0x80 | (meg4_api_getkey(MEG4_KEY_LCTRL) || meg4_api_getkey(MEG4_KEY_RCTRL) ? 0 : 1);
+
+    if(!tb || !tc || tp < 1 || th < 1 || sx < 0 || sx + sw > tp || sy < 0 || sy + sh > th || x < 0 || y < 0 || x >= sw || y >= sh ||
+      !(sp = st = (fillseg_t*)malloc(tp * th * sizeof(fillseg_t))))
         return;
     if(!meg4_api_getkey(MEG4_KEY_LCTRL) && !meg4_api_getkey(MEG4_KEY_RCTRL) &&
         !meg4_api_getkey(MEG4_KEY_LSHIFT) && !meg4_api_getkey(MEG4_KEY_RSHIFT)) {
         memset(tc, 0, tp * th * 2);
+        tsx = tsy = tsw = tsh = tcw = tch = ts = 0;
     }
-    _toolbox_fuzzy(sx, sy, sw, sh, x, y, tb[(y + sy) * tp + sx + x]);
+    se = st + tp * th;
+    orig = tb[(y + sy) * tp + sx + x];
+    FILLPUSH(x, y);
+    while(sp > st) {
+        FILLPOP(x, y);
+        if(FUZZNEED(x, y)) {
+            /* mark as visited, plus selected or deselected */
+            tc[(y + sy + th) * tp + sx + x] = v;
+            /* check neighbours */
+            if(FUZZNEED(x - 1, y)) FILLPUSH(x - 1, y);
+            if(FUZZNEED(x + 1, y)) FILLPUSH(x + 1, y);
+            if(FUZZNEED(x, y - 1)) FILLPUSH(x, y - 1);
+            if(FUZZNEED(x, y + 1)) FILLPUSH(x, y + 1);
+        }
+    }
+    free(st);
+    /* this also clears visited flags */
     toolbox_bounds();
 }
 
