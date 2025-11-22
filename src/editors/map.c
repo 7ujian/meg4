@@ -57,6 +57,7 @@ void map_zoomout(int x, int y)
 void map_init(void)
 {
     mapsel = meg4.mmio.mapsel;
+    inpaste = 0;
     toolbox_init(meg4.mmio.map, 320, 200);
 }
 

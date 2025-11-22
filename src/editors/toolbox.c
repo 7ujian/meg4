@@ -692,7 +692,8 @@ void toolbox_histredo(void)
 void toolbox_init(uint8_t *buf, int w, int h)
 {
     llx = lly = lsx = lsy = lex = ley = -1;
-    tp = w; th = h; curhist = numhist = ts = 0; tb = buf;
+    tp = w; th = h; curhist = numhist = 0; tb = buf;
+    tsx = tsy = tsw = tsh = tcw = tch = ts = 0;
     tc = (uint8_t*)realloc(tc, tp * th * 2);
     if(tc) memset(tc, 0, tp * th * 2);
     if(tb) toolbox_histadd();
