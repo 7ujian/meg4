@@ -16,6 +16,6 @@ Materials used creating MEG-4
 - [TMX format](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/)
 - [BDF format](https://www.x.org/docs/BDF/bdf.pdf)
 - [MOD format](https://www.aes.id.au/modformat.html)
-- [MIDI format](https://www.cs.cmu.edu/~music/cmsip/readings/Standard-MIDI-file-format-updated.pdf)
+- [MIDI format](https://midimusic.github.io/tech/midispec.html)
 - [PICO-8 format](https://pico-8.fandom.com/wiki/P8FileFormat)
 - [TIC-80 format](https://github.com/nesbox/TIC-80/wiki/.tic-File-Format)

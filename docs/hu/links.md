@@ -16,6 +16,6 @@ A MEG-4 megalkotásához felhasznált anyagok
 - [TMX formátum](https://doc.mapeditor.org/en/stable/reference/tmx-map-format/)
 - [BDF formátum](https://www.x.org/docs/BDF/bdf.pdf)
 - [MOD formátum](https://www.aes.id.au/modformat.html)
-- [MIDI formátum](https://www.cs.cmu.edu/~music/cmsip/readings/Standard-MIDI-file-format-updated.pdf)
+- [MIDI formátum](https://midimusic.github.io/tech/midispec.html)
 - [PICO-8 formátum](https://pico-8.fandom.com/wiki/P8FileFormat)
 - [TIC-80 formátum](https://github.com/nesbox/TIC-80/wiki/.tic-File-Format)
