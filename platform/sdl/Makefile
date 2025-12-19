@@ -95,23 +95,27 @@ endif
 EXTRA += data.o
 
 include ../common.mk
+CFLAGS := $(filter-out -ansi,$(CFLAGS))
 
 ifneq ("$(wildcard SDL2/*)","")
 SDL2/build/.libs/libSDL2.a:
 ifeq ($(wildcard SDL2/configure),)
 	@cd SDL2 && ./autogen.sh
 endif
-ifeq ($(wildcard SDL2/Makefile),)
-	@#dbus call in SDL2/src/core/linux/SDL_dbus.c:140 is leaking pretty badly. We don't need dbus anyway
-	@cd SDL2 && ./configure --disable-shared --enable-static --disable-dbus
+ifeq ($(wildcard SDL2/build/Makefile),)
+	@echo "Configuring SDL2 (Out-of-Tree)..."
+	@cd SDL2 && mkdir -p build && cd build && ../configure --disable-shared --enable-static --disable-dbus
 endif
-	@make --no-print-directory -s -C SDL2 all
+	@echo "Building SDL2..."
+	@make --no-print-directory -s -C SDL2/build all
 endif
 
 ifneq ("$(wildcard SDL3/*)","")
 SDL3/build/libSDL3.a:
 ifeq ($(wildcard SDL3/build/Makefile),)
-	@cd SDL3 && mkdir build && cd build && cmake -S .. -B ../build && cmake . -DCMAKE_BUILD_TYPE=Release -DSDL_SHARED=false -DSDL_STATIC=true -DSDL_DBUS=false -DSDL_IBUS=false
+	@cd SDL3 && mkdir -p build && cd build && cmake -G "MinGW Makefiles" -S .. -B . \
+	-DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
+	-DCMAKE_BUILD_TYPE=Release -DSDL_SHARED=false -DSDL_STATIC=true -DSDL_DBUS=false -DSDL_IBUS=false
 endif
 	@make --no-print-directory -s -C SDL3/build all
 endif

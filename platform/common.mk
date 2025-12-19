@@ -31,8 +31,8 @@ OBJS = $(SRCS:.c=.o)
 PREFIX ?= usr/
 INSTDIR=$(DESTDIR:/=)/$(PREFIX:/=)
 ARCH = $(shell uname -m)
-TMP = $(ARCH:x86_64=amd64)
-TMP2 = $(TMP:aarch64=arm64)
+BUILD_ARCH = $(ARCH:x86_64=amd64)      # 修改变量名
+TMP2 = $(BUILD_ARCH:aarch64=arm64)     # 这里也要改，引用上面的新名字
 DEBARCH = $(TMP2:armv7l=armhf)
 VERSION = $(shell cat ../../src/meg4.h|grep MEG4_VERSION|cut -d '"' -f 2)
 

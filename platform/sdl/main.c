@@ -20,7 +20,7 @@
  * @brief SDL "platform" for the MEG-4
  *
  */
-
+#include <direct.h>
 #include "meg4.h"
 #define SDL_ENABLE_OLD_NAMES
 #include <SDL.h>
@@ -34,7 +34,7 @@
 #include <SDL_main.h>
 #define SDL_ENABLE 1
 #define SDL_DISABLE 0
-#define SDL_WINDOW_FULLSCREEN_DESKTOP 1
+#define SDL_WINDOW_FULLSCREEN_DESKTOP 0
 #define cdevice jdevice
 #define caxis jaxis
 #define cbutton button
@@ -742,6 +742,7 @@ int main(int argc, char **argv)
     main_keymap[SDL_SCANCODE_RSHIFT] = MEG4_KEY_RSHIFT;
     main_keymap[SDL_SCANCODE_RALT] = MEG4_KEY_RALT;
     main_keymap[SDL_SCANCODE_RGUI] = MEG4_KEY_RSUPER;
+    SDL_setenv("SDL_AUDIODRIVER", "directsound", 1);
     /* initialize screen and other SDL stuff */
     if(SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER|SDL_INIT_EVENTS|SDL_INIT_GAMECONTROLLER)) {
         main_log(0, "unable to initialize SDL");
